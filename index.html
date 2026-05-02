@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GIDIGBA STUDIOS · Your Vision, Recreated</title>
+  <meta name="description" content="AI-powered photo recreation studio. Send a selfie, describe your dream look, get stunning photos in 4 hours.">
   <!-- Social Share & PWA -->
   <meta property="og:title" content="GIDIGBA STUDIOS">
   <meta property="og:description" content="No studio. No stress. Just stunning photos.">
@@ -11,14 +12,14 @@
   <meta property="og:url" content="https://gidigba.vercel.app">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="data:application/manifest+json,{name:'GIDIGBA STUDIOS',short_name:'GIDIGBA',theme_color:'#C0F500',background_color:'#0A0A0A',display:'standalone',scope:'/',start_url:'/',icons:[{src:'https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg',sizes:'192x192',type:'image/jpeg'}]}">
+  <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#C0F500">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="toast" id="toast"></div>
+<div class="toast glass" id="toast"></div>
 <a href="https://wa.me/233534317611" class="float-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <!-- HOME SCREEN -->
@@ -37,13 +38,13 @@
       <div class="stats"><div class="stat-item"><span class="stat-num">4h</span><div class="stat-label">Delivery</div></div><div class="stat-item"><span class="stat-num">95%</span><div class="stat-label">Identity Match</div></div></div>
     </section>
     <div class="pathway-grid">
-      <div class="path-card" onclick="startPhotoshoot()">
+      <div class="path-card glass" onclick="startPhotoshoot()">
         <div class="path-title">📸 Start Photoshoot</div>
         <div class="path-sub">Full scene recreation · Outfit, hair, makeup, background</div>
         <div class="examples"><span class="example-tag">Birthday</span><span class="example-tag">Maternity</span><span class="example-tag">Traditional</span><span class="example-tag">Couple</span><span class="example-tag">Anniversary</span></div>
         <button class="btn" style="width:100%;" onclick="event.stopPropagation();startPhotoshoot()">Choose Package →</button>
       </div>
-      <div class="path-card" onclick="startCustom()">
+      <div class="path-card glass" onclick="startCustom()">
         <div class="path-title">✨ Custom Edit</div>
         <div class="path-sub">Specific changes only · Pay for what you need</div>
         <div class="examples"><span class="example-tag">Change Outfit</span><span class="example-tag">Change Hair</span><span class="example-tag">Apply Makeup</span><span class="example-tag">Background</span><span class="example-tag">Retouch</span></div>
@@ -53,8 +54,8 @@
     <section class="section">
       <h2>Work Samples</h2>
       <div class="work-grid">
-        <div class="work-card"><div class="work-badge">MODEL 1 · ORIGINAL</div><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
-        <div class="work-card"><div class="work-badge">MODEL 2 · ORIGINAL</div><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
+        <div class="work-card"><div class="work-badge">MODEL 1 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/ycKRckGN/image-24.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
+        <div class="work-card"><div class="work-badge">MODEL 2 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
       </div>
     </section>
     <!-- Client Feedback Slideshow (updated images) -->
@@ -146,6 +147,10 @@
   </div>
 </div>
 
+<div class="install-bar glass" id="installBar">
+  <span>📸 Install our app for instant access</span>
+  <button id="installBtn">Install</button>
+</div>
 <script src="script.js"></script>
 </body>
 </html>

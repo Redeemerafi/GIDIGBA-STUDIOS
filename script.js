@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+
+function isOnline() {
+  return navigator.onLine;
+}
+
 // ---------- DATA ----------
 const PACKAGES = [
   { name:'SILVER', price:55, outfits:1, type:'individual', features:['3 Photos','1 Outfit','Basic editing'] },
@@ -44,7 +54,7 @@ window.setPkgType = function(type) {
 function renderPackages() {
   const filtered = PACKAGES.filter(p => p.type === currentPkgType);
   document.getElementById('packageContainer').innerHTML = filtered.map(p => `
-    <div class="pkg-card ${selectedPackage?.name===p.name?'selected':''}" onclick="selectPackage('${p.name}')">
+    <div class="pkg-card glass ${selectedPackage?.name===p.name?'selected':''}" onclick="selectPackage('${p.name}')">
       <div class="pkg-name">${p.name}</div><div class="pkg-price">GH₵ ${p.price}</div>
       <ul class="pkg-features">${p.features.map(f=>`<li><i class="fas fa-check"></i> ${f}</li>`).join('')}</ul>
       ${selectedPackage?.name===p.name ? '<div style="color:var(--lemon); margin-top:10px;">✓ SELECTED</div>' : ''}
@@ -122,7 +132,32 @@ window.goToReview = function() {
   }
   let details=''; if(isPhotoshoot){ details=`<h3>${selectedPackage.name} - GH₵ ${selectedPackage.price}</h3><p><strong>Hairstyle:</strong> ${document.getElementById('hairstyle1')?.value||'Not specified'}</p><p><strong>Makeup:</strong> ${makeupEnabled.person1?'Light':'None'}</p>`; for(let i=1; i<=outfitCount; i++) details+=`<p><strong>Outfit ${i}:</strong> ${document.getElementById(`outfitDesc1_${i}`)?.value||'Image provided'}</p>`; if(selectedPackage.name.includes('PLATINUM')) details+=`<p><strong>Background:</strong> ${document.getElementById('vision')?.value||'Not specified'}</p>`; if(isCouple){ details+=`<hr><h4>Partner</h4><p><strong>Hairstyle:</strong> ${document.getElementById('hairstyle2')?.value||'Not specified'}</p><p><strong>Makeup:</strong> ${makeupEnabled.person2?'Light':'None'}</p>`; for(let i=1; i<=outfitCount; i++) details+=`<p><strong>Outfit ${i}:</strong> ${document.getElementById(`outfitDesc2_${i}`)?.value||'Image provided'}</p>`; } } else { const total=selectedServices.reduce((s,i)=>s+SERVICES[i].price,0); details=`<h3>Custom Edit - GH₵ ${total}</h3><p><strong>Services:</strong> ${selectedServices.map(i=>SERVICES[i].name).join(', ')}</p>`; if(document.getElementById('hairstyle1')?.value) details+=`<p><strong>Hairstyle:</strong> ${document.getElementById('hairstyle1').value}</p>`; if(makeupEnabled.person1) details+=`<p><strong>Makeup:</strong> Light</p>`; if(document.getElementById('vision')?.value) details+=`<p><strong>Background:</strong> ${document.getElementById('vision').value}</p>`; if(document.getElementById('instructions')?.value) details+=`<p><strong>Instructions:</strong> ${document.getElementById('instructions').value}</p>`; } document.getElementById('reviewDetails').innerHTML=details; showScreen('review'); };
 
-async function submitOrder(){ const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.innerHTML='<span class="spin"></span> Uploading...'; const KEY='dbc0dad2f83bf9f24d8abad5e0afd3d1', urls={}; try{ for(let[k,f] of Object.entries(uploadedFiles)){ const fd=new FormData(); fd.append('image',f); const res=await fetch(`https://api.imgbb.com/1/upload?key=${KEY}`,{method:'POST',body:fd}); const data=await res.json(); if(!data.success) throw new Error('Upload failed'); urls[k]=data.data.url; } let msg=`Hello GIDIGBA STUDIOS!%0A%0A`; if(orderType==='photoshoot'){ msg+=`📦 ${selectedPackage.name} (GH₵ ${selectedPackage.price})%0A💇 Hairstyle: ${document.getElementById('hairstyle1')?.value||'N/A'}%0A💄 Makeup: ${makeupEnabled.person1?'Light':'None'}%0A`; for(let i=1;i<=selectedPackage.outfits;i++) msg+=`👗 Outfit ${i}: ${document.getElementById(`outfitDesc1_${i}`)?.value||'Image provided'}%0A`; if(selectedPackage.name.includes('PLATINUM')) msg+=`🌆 Background: ${document.getElementById('vision')?.value||'N/A'}%0A`; msg+=`%0A📸 Selfie: ${urls.selfieInput}%0A📸 Full Body: ${urls.fullInput}%0A`; if(selectedPackage.type==='couple'){ msg+=`%0A👤 Partner:%0A💇 Hairstyle: ${document.getElementById('hairstyle2')?.value||'N/A'}%0A💄 Makeup: ${makeupEnabled.person2?'Light':'None'}%0A`; for(let i=1;i<=selectedPackage.outfits;i++) msg+=`👗 Outfit ${i}: ${document.getElementById(`outfitDesc2_${i}`)?.value||'Image provided'}%0A`; msg+=`📸 Partner Selfie: ${urls.partnerSelfieInput}%0A📸 Partner Full Body: ${urls.partnerFullInput}%0A`; } for(let p=1; p<=(selectedPackage.type==='couple'?2:1); p++) for(let i=1;i<=selectedPackage.outfits;i++) if(urls[`outfitInput${p}_${i}`]) msg+=`👗 Outfit ${i} image (person ${p}): ${urls[`outfitInput${p}_${i}`]}%0A`; } else { const total=selectedServices.reduce((s,i)=>s+SERVICES[i].price,0); msg+=`✨ Custom Edit (GH₵ ${total})%0AServices: ${selectedServices.map(i=>SERVICES[i].name).join(', ')}%0A%0A📸 Image: ${urls.selfieInput}%0A`; if(urls['outfitInput1_1']) msg+=`👗 Outfit image: ${urls['outfitInput1_1']}%0A`; if(document.getElementById('hairstyle1')?.value) msg+=`💇 Hairstyle: ${document.getElementById('hairstyle1').value}%0A`; if(makeupEnabled.person1) msg+=`💄 Makeup: Light%0A`; if(document.getElementById('vision')?.value) msg+=`🌆 Background: ${document.getElementById('vision').value}%0A`; if(document.getElementById('instructions')?.value) msg+=`📝 Instructions: ${document.getElementById('instructions').value}%0A`; } msg+=`%0A✅ I've reviewed and will complete payment.`; window.open(`https://wa.me/233534317611?text=${msg}`,'_blank'); showToast('Order sent!',true); }catch(e){ showToast('Upload failed',false); } finally{ btn.disabled=false; btn.innerHTML='<i class="fab fa-whatsapp"></i> Send via WhatsApp'; } }
+function saveDraftOrder() {
+  const draft = {
+    type: orderType,
+    pkg: selectedPackage ? selectedPackage.name : null,
+    services: selectedServices,
+    text: {
+      hairstyle1: document.getElementById('hairstyle1')?.value,
+      hairstyle2: document.getElementById('hairstyle2')?.value,
+      vision: document.getElementById('vision')?.value,
+      instructions: document.getElementById('instructions')?.value
+    },
+    makeup: makeupEnabled
+  };
+  // Save base64 previews (will not survive reload perfectly, but good enough for draft)
+  const previews = document.querySelectorAll('img[id^="preview_"]');
+  draft.images = {};
+  previews.forEach(img => {
+    const key = img.id.replace('preview_', '');
+    if (img.src && !img.src.startsWith('data:,')) {
+      draft.images[key] = img.src;
+    }
+  });
+  localStorage.setItem('pendingOrder', JSON.stringify(draft));
+}
+
+async function submitOrder(){ if (!isOnline()) { saveDraftOrder(); showToast('Order saved. We\'ll send it when you\'re back online.', true); return; } const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.innerHTML='<span class="spin"></span> Uploading...'; const KEY='dbc0dad2f83bf9f24d8abad5e0afd3d1', urls={}; try{ for(let[k,f] of Object.entries(uploadedFiles)){ const fd=new FormData(); fd.append('image',f); const res=await fetch(`https://api.imgbb.com/1/upload?key=${KEY}`,{method:'POST',body:fd}); const data=await res.json(); if(!data.success) throw new Error('Upload failed'); urls[k]=data.data.url; } let msg=`Hello GIDIGBA STUDIOS!%0A%0A`; if(orderType==='photoshoot'){ msg+=`📦 ${selectedPackage.name} (GH₵ ${selectedPackage.price})%0A💇 Hairstyle: ${document.getElementById('hairstyle1')?.value||'N/A'}%0A💄 Makeup: ${makeupEnabled.person1?'Light':'None'}%0A`; for(let i=1;i<=selectedPackage.outfits;i++) msg+=`👗 Outfit ${i}: ${document.getElementById(`outfitDesc1_${i}`)?.value||'Image provided'}%0A`; if(selectedPackage.name.includes('PLATINUM')) msg+=`🌆 Background: ${document.getElementById('vision')?.value||'N/A'}%0A`; msg+=`%0A📸 Selfie: ${urls.selfieInput}%0A📸 Full Body: ${urls.fullInput}%0A`; if(selectedPackage.type==='couple'){ msg+=`%0A👤 Partner:%0A💇 Hairstyle: ${document.getElementById('hairstyle2')?.value||'N/A'}%0A💄 Makeup: ${makeupEnabled.person2?'Light':'None'}%0A`; for(let i=1;i<=selectedPackage.outfits;i++) msg+=`👗 Outfit ${i}: ${document.getElementById(`outfitDesc2_${i}`)?.value||'Image provided'}%0A`; msg+=`📸 Partner Selfie: ${urls.partnerSelfieInput}%0A📸 Partner Full Body: ${urls.partnerFullInput}%0A`; } for(let p=1; p<=(selectedPackage.type==='couple'?2:1); p++) for(let i=1;i<=selectedPackage.outfits;i++) if(urls[`outfitInput${p}_${i}`]) msg+=`👗 Outfit ${i} image (person ${p}): ${urls[`outfitInput${p}_${i}`]}%0A`; } else { const total=selectedServices.reduce((s,i)=>s+SERVICES[i].price,0); msg+=`✨ Custom Edit (GH₵ ${total})%0AServices: ${selectedServices.map(i=>SERVICES[i].name).join(', ')}%0A%0A📸 Image: ${urls.selfieInput}%0A`; if(urls['outfitInput1_1']) msg+=`👗 Outfit image: ${urls['outfitInput1_1']}%0A`; if(document.getElementById('hairstyle1')?.value) msg+=`💇 Hairstyle: ${document.getElementById('hairstyle1').value}%0A`; if(makeupEnabled.person1) msg+=`💄 Makeup: Light%0A`; if(document.getElementById('vision')?.value) msg+=`🌆 Background: ${document.getElementById('vision').value}%0A`; if(document.getElementById('instructions')?.value) msg+=`📝 Instructions: ${document.getElementById('instructions').value}%0A`; } msg+=`%0A✅ I've reviewed and will complete payment.`; window.open(`https://wa.me/233534317611?text=${msg}`,'_blank'); showToast('Order sent!',true); }catch(e){ showToast('Upload failed',false); } finally{ btn.disabled=false; btn.innerHTML='<i class="fab fa-whatsapp"></i> Send via WhatsApp'; } }
 function showToast(m,g=true){ const t=document.getElementById('toast'); t.textContent=m; t.style.background=g?'#C0F500':'#ff4444'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
 // Feedback Carousel
@@ -152,4 +187,36 @@ window.onload = function() {
   if (selectedPackage) document.getElementById('continuePkgBtn').disabled = false;
   setPkgType(currentPkgType);
   initFeedbackCarousel();
+
+  if (localStorage.getItem('pendingOrder')) {
+    showToast('You have a pending order. Complete it when ready.', true);
+  }
 };
+
+window.addEventListener('online', () => {
+  if (localStorage.getItem('pendingOrder')) {
+    showToast('You are back online! Tap to send your pending order.', true);
+  }
+});
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBar').classList.add('show');
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      document.getElementById('installBar').classList.remove('show');
+    }
+    deferredPrompt = null;
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBar').classList.remove('show');
+});
