@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GIDIGBA STUDIOS · Your Vision, Recreated</title>
-  <meta name="description" content="AI-powered photo recreation studio. Send a selfie, describe your dream look, get stunning photos in 4 hours.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIDIGBA CREATIVES · Business Creative • Branding • Video • Motion</title>
+  <meta name="description" content="We turn businesses, products and ideas into powerful visual content. Branding, graphic design, product visuals, video, motion & AI production — under Radikal Creative Technologies.">
   <!-- Social Share & PWA -->
-  <meta property="og:title" content="GIDIGBA STUDIOS">
-  <meta property="og:description" content="No studio. No stress. Just stunning photos.">
+  <meta property="og:title" content="GIDIGBA CREATIVES">
+  <meta property="og:description" content="Your product might be good. But does your content make people want to buy it?">
   <meta property="og:image" content="https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg">
   <meta property="og:url" content="https://gidigba.vercel.app">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#C0F500">
+  <meta name="theme-color" content="#BCEB2D">
+  <link rel="icon" type="image/png" href="/icon-512.png">
+  <link rel="apple-touch-icon" href="/icon-512.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -25,40 +27,147 @@
 <!-- HOME SCREEN -->
 <div class="screen active" id="home">
   <div class="container">
-   <div class="logo">
-  <img src="https://i.ibb.co/TxVB7Jkb/photo-6008125456143551445-x.jpg" alt="Logo" style="height:40px; width:auto;">
-  <span class="logo-text">GIDIGBA STUDIOS</span>
-</div>
-  <div></div>
-</div>
+    <div class="logo">
+      <div class="logo-main">
+        <span class="logo-g">G</span>
+        <span class="logo-text">GIDIGBA <span class="logo-acc">CREATIVES</span></span>
+      </div>
+      <div class="logo-sub">Business Creative · Under Radikal Creative Technologies</div>
+    </div>
+    <div></div>
     <section class="hero">
-      <span class="badge">✨ ADVANCED PHOTO RECREATION</span>
-      <h1>No studio.<br>No stress.<br><span>Just stunning photos.</span></h1>
-      <p class="hero-desc">Send a selfie & full‑body pic. Describe your dream look. Get high‑res images on WhatsApp in 4 hours.</p>
-      <div class="stats"><div class="stat-item"><span class="stat-num">4h</span><div class="stat-label">Delivery</div></div><div class="stat-item"><span class="stat-num">95%</span><div class="stat-label">Identity Match</div></div></div>
+      <span class="badge">CLASS. TECH. FUTURE.</span>
+      <h1>We turn businesses, products &amp; ideas into <span>powerful visual content.</span></h1>
+      <p class="hero-desc">Branding, design, product visuals, video, motion &amp; AI production — from one creative team. Stop struggling with random phone pictures. Send us what you have — we'll make it look the part.</p>
+      <div class="stats"><div class="stat-item"><span class="stat-num">06</span><div class="stat-label">Service Lines</div></div><div class="stat-item"><span class="stat-num">A→Z</span><div class="stat-label">Idea to Final Content</div></div></div>
     </section>
     <div class="pathway-grid">
-      <div class="path-card glass" onclick="startPhotoshoot()">
-        <div class="path-title">📸 Start Photoshoot</div>
-        <div class="path-sub">Full scene recreation · Outfit, hair, makeup, background</div>
-        <div class="examples"><span class="example-tag">Birthday</span><span class="example-tag">Maternity</span><span class="example-tag">Traditional</span><span class="example-tag">Couple</span><span class="example-tag">Anniversary</span></div>
-        <button class="btn" style="width:100%;" onclick="event.stopPropagation();startPhotoshoot()">Choose Package →</button>
+      <div class="path-card glass" onclick="startProject()">
+        <div class="path-title">🚀 Start a Project</div>
+        <div class="path-sub">Bring a product, brand or idea. We'll turn it into images, graphics, video &amp; motion — and send you a clear quote.</div>
+        <div class="examples"><span class="example-tag">Logo &amp; Identity</span><span class="example-tag">Product Images</span><span class="example-tag">Brand Video</span><span class="example-tag">Logo Animation</span><span class="example-tag">AI Commercial</span></div>
+        <button class="btn" style="width:100%;" onclick="event.stopPropagation();startProject()">Start a Project →</button>
       </div>
-      <div class="path-card glass" onclick="startCustom()">
-        <div class="path-title">✨ Custom Edit</div>
-        <div class="path-sub">Specific changes only · Pay for what you need</div>
-        <div class="examples"><span class="example-tag">Change Outfit</span><span class="example-tag">Change Hair</span><span class="example-tag">Apply Makeup</span><span class="example-tag">Background</span><span class="example-tag">Retouch</span></div>
-        <button class="btn btn-outline" style="width:100%;" onclick="event.stopPropagation();startCustom()">Select Services →</button>
+      <div class="path-card glass" onclick="waChat()">
+        <div class="path-title">💬 Not Sure What You Need?</div>
+        <div class="path-sub">Tell us about your business on WhatsApp. We'll advise on what will present it best — and send you a quote.</div>
+        <div class="examples"><span class="example-tag">Free Advice</span><span class="example-tag">Quick Quote</span><span class="example-tag">Mobile Money</span></div>
+        <button class="btn btn-outline" style="width:100%;" onclick="event.stopPropagation();waChat()">Chat on WhatsApp →</button>
       </div>
     </div>
+    <!-- SERVICES -->
     <section class="section">
-      <h2>Work Samples</h2>
-      <div class="work-grid">
-        <div class="work-card"><div class="work-badge">MODEL 1 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/ycKRckGN/image-24.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
-        <div class="work-card"><div class="work-badge">MODEL 2 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
+      <h2>What We Do</h2>
+      <p class="section-note">Six lines of work. One team. Pick a line to start your brief.</p>
+      <div class="service-list">
+        <div class="service-card glass" onclick="startProject(0)">
+          <div class="service-num">01</div>
+          <div class="service-body">
+            <div class="service-title">Branding</div>
+            <div class="service-desc">Logo, identity, brand guidelines and business design.</div>
+            <div class="examples"><span class="example-tag">Logo</span><span class="example-tag">Identity</span><span class="example-tag">Business Cards</span><span class="example-tag">Guidelines</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
+        <div class="service-card glass" onclick="startProject(1)">
+          <div class="service-num">02</div>
+          <div class="service-body">
+            <div class="service-title">Graphic Design</div>
+            <div class="service-desc">Marketing graphics, social media designs, advertisements and promotional materials.</div>
+            <div class="examples"><span class="example-tag">Social Media</span><span class="example-tag">Flyers &amp; Posters</span><span class="example-tag">Ads</span><span class="example-tag">Templates</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
+        <div class="service-card glass" onclick="startProject(2)">
+          <div class="service-num">03</div>
+          <div class="service-body">
+            <div class="service-title">Business &amp; Product Visuals</div>
+            <div class="service-desc">Product images, brand photography, campaign visuals and commercial imagery.</div>
+            <div class="examples"><span class="example-tag">Product Photos</span><span class="example-tag">E-commerce</span><span class="example-tag">Campaigns</span><span class="example-tag">Portraits</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
+        <div class="service-card glass" onclick="startProject(3)">
+          <div class="service-num">04</div>
+          <div class="service-body">
+            <div class="service-title">Video</div>
+            <div class="service-desc">Brand videos, product videos, commercials, social media videos and AI video production.</div>
+            <div class="examples"><span class="example-tag">Brand Films</span><span class="example-tag">Commercials</span><span class="example-tag">Reels &amp; TikTok</span><span class="example-tag">AI Video</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
+        <div class="service-card glass" onclick="startProject(4)">
+          <div class="service-num">05</div>
+          <div class="service-body">
+            <div class="service-title">Motion &amp; Animation</div>
+            <div class="service-desc">Motion graphics, logo animation, product animation and promotional animation.</div>
+            <div class="examples"><span class="example-tag">Logo Animation</span><span class="example-tag">Motion Graphics</span><span class="example-tag">VFX</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
+        <div class="service-card glass" onclick="startProject(5)">
+          <div class="service-num">06</div>
+          <div class="service-body">
+            <div class="service-title">Advanced Creative Production</div>
+            <div class="service-desc">AI visuals, AI commercials, virtual scenes, cinematic concepts and experimental digital content.</div>
+            <div class="examples"><span class="example-tag">AI Commercials</span><span class="example-tag">3D Scenes</span><span class="example-tag">Digital Characters</span><span class="example-tag">Cinematic</span></div>
+          </div>
+          <i class="fas fa-chevron-right service-arrow"></i>
+        </div>
       </div>
     </section>
-    <!-- Client Feedback Slideshow (updated images) -->
+    <!-- WHO WE SERVE -->
+    <section class="section">
+      <h2>Built For</h2>
+      <p class="section-note">If you run a business or a brand, this is your team.</p>
+      <div class="examples serve-tags">
+        <span class="example-tag">Small Businesses</span>
+        <span class="example-tag">Entrepreneurs</span>
+        <span class="example-tag">Startups</span>
+        <span class="example-tag">Product Brands</span>
+        <span class="example-tag">Service Businesses</span>
+        <span class="example-tag">Fashion Brands</span>
+        <span class="example-tag">Beauty</span>
+        <span class="example-tag">Food &amp; Restaurants</span>
+        <span class="example-tag">Hotels</span>
+        <span class="example-tag">E-commerce</span>
+        <span class="example-tag">Corporate</span>
+        <span class="example-tag">Content-Driven Brands</span>
+        <span class="example-tag">Organizations</span>
+      </div>
+    </section>
+    <!-- CUSTOMER NEEDS -->
+    <section class="section">
+      <h2>Say It Like You Mean It</h2>
+      <p class="section-note">No corporate talk. Here's how businesses talk to us — and what we do.</p>
+      <div class="need-list">
+        <div class="need-row"><span class="need-quote">"I need my business to look professional."</span><span class="need-service"><span class="need-arrow">→</span> Branding</span></div>
+        <div class="need-row"><span class="need-quote">"I need better pictures of my products."</span><span class="need-service"><span class="need-arrow">→</span> Product Visuals</span></div>
+        <div class="need-row"><span class="need-quote">"I need content for Instagram / TikTok."</span><span class="need-service"><span class="need-arrow">→</span> Social Media Creative</span></div>
+        <div class="need-row"><span class="need-quote">"I need an advert that looks different."</span><span class="need-service"><span class="need-arrow">→</span> Advanced / AI Production</span></div>
+        <div class="need-row"><span class="need-quote">"I have an idea but don't know how to visualize it."</span><span class="need-service"><span class="need-arrow">→</span> Creative Direction + Production</span></div>
+      </div>
+    </section>
+    <!-- PROCESS -->
+    <section class="section">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-body"><div class="step-title">You bring</div><div class="step-desc">A product, service or idea — even if it's just phone pictures and a description.</div></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-body"><div class="step-title">We shape</div><div class="step-desc">Creative direction — what your brand should say, look like and feel like.</div></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-body"><div class="step-title">We produce</div><div class="step-desc">Branding, visuals, video and motion — studio and AI tools where they help.</div></div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-body"><div class="step-title">You present</div><div class="step-desc">Marketing content that makes your business easier to understand, remember and buy from.</div></div></div>
+      </div>
+    </section>
+    <!-- WORK SAMPLES -->
+    <section class="section">
+      <h2>Creative Work</h2>
+      <p class="section-note">AI scene recreation &amp; advanced digital production — samples.</p>
+      <div class="work-grid">
+        <div class="work-card"><div class="work-badge">AI PRODUCTION · SAMPLE 01</div><div class="reveal-container"><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/ycKRckGN/image-24.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--green);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
+        <div class="work-card"><div class="work-badge">AI PRODUCTION · SAMPLE 02</div><div class="reveal-container"><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--green);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
+      </div>
+    </section>
+    <!-- CLIENT FEEDBACK -->
     <section class="section">
       <h2>Client Feedback</h2>
       <div class="feedback-carousel-container">
@@ -73,65 +182,48 @@
       </div>
       <p class="swipe-hint">← Swipe to see more →</p>
     </section>
+    <!-- FAQ -->
     <section class="section">
       <h2>FAQ</h2>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How long does delivery take? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">All orders delivered within 4 hours. Platinum priority (2h).</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Can I get a revision? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No free revisions. Changes after delivery cost extra.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How long do you keep my images? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Deleted exactly 20 minutes after delivery.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Do you use my photos? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Never. Your images remain completely private.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Payment method? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Mobile Money. Full payment required before work begins.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How do I start? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Tap "Start a Project" — pick what you need, tell us about your business and attach any product images you already have. We'll come back with a quote and timeline.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">I only have phone pictures of my product. Is that enough? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. Send what you have and tell us how you want the final content to look — we handle lighting, scenes and presentation.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Do you use AI for visuals and video? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. AI is one of our production tools — for commercials, product scenes and brand imagery. You always review the final work before delivery.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How much does it cost? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Every business is different. Send your brief and you'll get a clear quote before any payment.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How do I pay? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Mobile Money. Payment is confirmed before production starts.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">I need a personal photoshoot, not business content. <i class="fas fa-chevron-down"></i></div><div class="faq-answer">You want Radikal Studios — our sister brand for personal photoshoots and individual visuals. We're here for businesses and brands.</div></div>
     </section>
     <footer class="footer">
       <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-tiktok"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
       <p>📞 +233 53 431 7611</p>
-      <p>Images deleted 20min after delivery · No free revisions</p>
+      <p class="eco-tag">CLASS. TECH. FUTURE.</p>
+      <p class="eco-line">Under <strong>Radikal Creative Technologies</strong><br>Gidigba = business creative · Radikal Studios = personal photoshoots · Akutu Systems = software</p>
+      <p class="fine">© 2026 Gidigba Creatives. All rights reserved.</p>
     </footer>
   </div>
 </div>
 
-<!-- PACKAGES SCREEN -->
-<div class="screen" id="packages">
+<!-- PROJECT SCREEN -->
+<div class="screen" id="project">
   <div class="container">
     <button class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Choose Package</h2>
-    <div class="tabs"><div class="tab active" id="tabIndividual" onclick="setPkgType('individual')">Individual</div><div class="tab" id="tabCouple" onclick="setPkgType('couple')">Couple</div></div>
-    <div id="packageContainer"></div>
-    <div style="position:sticky; bottom:20px; margin-top:30px;"><button class="btn btn-full" id="continuePkgBtn" disabled onclick="goToUpload()">Continue →</button></div>
-  </div>
-</div><!-- DISCLAIMER SCREEN (Photoshop only) -->
-<div class="screen" id="disclaimer">
-  <div class="container" style="display:flex; flex-direction:column; justify-content:center; min-height:80vh; text-align:center;">
-    <div style="background:var(--card-bg); border:1px solid var(--border-light); border-radius:24px; padding:30px 20px;">
-      <p style="font-size:20px; margin-bottom:15px;"><i class="fas fa-exclamation-triangle" style="color:var(--lemon);"></i> Important Notice</p>
-      <p style="margin-bottom:25px; line-height:1.8;">
-        These are software‑assisted generated images.<br>
-        Do not expect 100% real‑life perfection.<br>
-        Minor changes may occur, and some details may not be as accurate as in real life.<br>
-        We are not liable for these variations.
-      </p>
-      <button class="btn btn-full" onclick="acknowledgeDisclaimer()">I Understand</button>
+    <h2 style="margin-top:20px;">Start a Project</h2>
+    <div class="step-label">01 · What do you need?</div>
+    <div class="chip-row" id="serviceChips"></div>
+    <div class="step-label">02 · Tell us about it</div>
+    <input class="finput" id="bizName" type="text" placeholder="Your business — name & what you sell (required)">
+    <textarea class="finput" id="bizIdea" rows="4" placeholder="What do you want to create? Describe the idea — e.g. 'I sell handmade candles and want product images for my website + a short promo video' (required)"></textarea>
+    <input class="finput" id="bizBudget" type="text" placeholder="Budget range (optional, e.g. GH₵ 500 – 1,500)">
+    <div class="step-label">03 · Existing images (optional)</div>
+    <p class="step-note">Send the product or brand images you already have — we'll build from there.</p>
+    <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+      <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="addImages(event)">
+      <i class="fas fa-images" style="font-size:24px; color:var(--green);"></i>
+      <div style="margin-top:8px;">Product / brand images (up to 4)</div>
     </div>
-  </div>
-</div>
-<!-- CUSTOM EDIT SCREEN -->
-<div class="screen" id="custom">
-  <div class="container">
-    <button class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Custom Edit</h2>
-    <p style="color:var(--silver-dim); margin-bottom:20px;">Swipe to select services →</p>
-    <div style="display:flex; overflow-x:auto; gap:12px; padding-bottom:15px;" id="servicesContainer"></div>
-    <div style="margin:20px 0; padding:15px; background:var(--card-bg); border-radius:12px; display:flex; justify-content:space-between;"><span>Total:</span><span id="customTotal" style="color:var(--lemon); font-weight:700;">GH₵ 0</span></div>
-    <button class="btn btn-full" id="continueCustomBtn" disabled onclick="goToUpload()">Continue →</button>
-  </div>
-</div>
-
-<!-- UPLOAD SCREEN -->
-<div class="screen" id="upload">
-  <div class="container">
-    <button class="back-btn" onclick="goBackFromUpload()"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Upload Photos</h2>
-    <div id="uploadFields"></div>
-    <button class="btn btn-full" onclick="goToReview()">Review & Continue →</button>
+    <div class="image-grid" id="imagePreviews"></div>
+    <div style="margin-top:24px;">
+      <button class="btn btn-full" onclick="goToReview()">Review Brief →</button>
+    </div>
     <div style="height:80px;"></div>
   </div>
 </div>
@@ -139,16 +231,16 @@
 <!-- REVIEW SCREEN -->
 <div class="screen" id="review">
   <div class="container">
-    <button class="back-btn" onclick="showScreen('upload')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Review Order</h2>
+    <button class="back-btn" onclick="showScreen('project')"><i class="fas fa-arrow-left"></i> Back</button>
+    <h2 style="margin-top:20px;">Review Your Brief</h2>
     <div id="reviewDetails" style="background:var(--card-bg); border-radius:20px; padding:20px; margin-bottom:20px;"></div>
-    <div style="background:rgba(192,245,0,0.05); border:1px solid var(--lemon); border-radius:12px; padding:15px; text-align:center; margin-bottom:20px;"><i class="fas fa-info-circle"></i> Submit your order to WhatsApp to make payment for work to begin.</div>
-    <button class="btn btn-wa btn-full" id="submitBtn" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+    <div class="review-note"><i class="fas fa-info-circle"></i> Send your brief to WhatsApp — we'll confirm pricing &amp; timeline before you pay anything.</div>
+    <button class="btn btn-wa btn-full" id="submitBtn" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Send Brief via WhatsApp</button>
   </div>
 </div>
 
 <div class="install-bar glass" id="installBar">
-  <span>📸 Install our app for instant access</span>
+  <span>⚡ Install our app for quick access</span>
   <button id="installBtn">Install</button>
 </div>
 <script src="script.js"></script>

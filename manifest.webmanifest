@@ -1,23 +1,24 @@
 {
-  "name": "GIDIGBA STUDIOS",
+  "name": "GIDIGBA CREATIVES",
   "short_name": "GIDIGBA",
-  "description": "No studio. No stress. Just stunning photos.",
+  "description": "We turn businesses, products and ideas into powerful visual content. Branding, design, product visuals, video, motion & AI production — under Radikal Creative Technologies.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A0A0A",
-  "theme_color": "#0A0A0A",
+  "background_color": "#000000",
+  "theme_color": "#BCEB2D",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg"
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
