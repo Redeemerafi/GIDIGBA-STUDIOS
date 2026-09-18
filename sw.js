@@ -1,13 +1,17 @@
-const CACHE_NAME = 'gidigba-creatives-v1';
+const CACHE_NAME = 'gidigba-creatives-v2';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
+  '/app.html',
   '/style.css',
   '/script.js',
   '/manifest.webmanifest',
   '/icon-512.png',
+  '/logo-mark.png',
+  '/logo.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap'
+  'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap'
 ];
 
 self.addEventListener('install', event => {

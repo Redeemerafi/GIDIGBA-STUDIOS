@@ -178,6 +178,10 @@ p { color: var(--silver-dim); line-height: 1.7; }
   box-shadow: 0 3px 0 var(--green-dark);
   flex-shrink: 0;
 }
+img.logo-g {
+  object-fit: cover;
+  padding: 0;
+}
 .logo-text {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 800;

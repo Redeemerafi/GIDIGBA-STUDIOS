@@ -1,248 +1,1763 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GIDIGBA CREATIVES · Business Creative • Branding • Video • Motion</title>
-  <meta name="description" content="We turn businesses, products and ideas into powerful visual content. Branding, graphic design, product visuals, video, motion & AI production — under Radikal Creative Technologies.">
-  <!-- Social Share & PWA -->
-  <meta property="og:title" content="GIDIGBA CREATIVES">
-  <meta property="og:description" content="Your product might be good. But does your content make people want to buy it?">
-  <meta property="og:image" content="https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg">
-  <meta property="og:url" content="https://gidigba.vercel.app">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#BCEB2D">
-  <link rel="icon" type="image/png" href="/icon-512.png">
-  <link rel="apple-touch-icon" href="/icon-512.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gidigba Creatives — Branding • Video • Motion • Digital Marketing</title>
+<meta name="description" content="Gidigba Creatives helps businesses turn products, services and ideas into powerful visual content. Branding, design, video, motion, social media management, digital marketing and advanced creative production." />
+<!-- Social Share & PWA -->
+<meta property="og:title" content="GIDIGBA CREATIVES">
+<meta property="og:description" content="Your product might be good. But does your content make people want to buy it?">
+<meta property="og:image" content="https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg">
+<meta property="og:url" content="https://gidigba.vercel.app">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#BCEB2D">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/logo-mark.png">
+<link rel="apple-touch-icon" href="/icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --green:#BCEB2D;
+  --green-dim:rgba(188,235,45,.14);
+  --black:#000000;
+  --ink:#080808;
+  --ink-2:#0e0e0e;
+  --white:#ffffff;
+  --grey:#8f8f8f;
+  --grey-2:#bdbdbd;
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.16);
+  --radius:18px;
+  --radius-sm:12px;
+  --max:1240px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--green);color:#000}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:#1e1e1e;border-radius:20px}
+::-webkit-scrollbar-thumb:hover{background:var(--green)}
+
+.container{
+  width:100%;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 28px;
+}
+
+/* ============================================================
+   TYPOGRAPHY HELPERS
+   ============================================================ */
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--green);
+}
+.eyebrow::before{
+  content:"";
+  width:26px;height:2px;
+  background:var(--green);
+  display:block;
+  flex-shrink:0;
+}
+.section-head{max-width:820px;margin-bottom:64px}
+.section-head h2{
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-.03em;
+  margin:18px 0 20px;
+}
+.section-head p{
+  color:var(--grey-2);
+  font-size:clamp(1rem,1.6vw,1.12rem);
+  max-width:640px;
+  font-weight:300;
+}
+.hl{color:var(--green)}
+.italic-quiet{font-style:italic;color:var(--grey)}
+
+section{
+  padding:clamp(80px,10vw,140px) 0;
+  position:relative;
+}
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px 30px;
+  border-radius:100px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.02em;
+  transition:all .35s var(--ease);
+  white-space:nowrap;
+  border:1px solid transparent;
+}
+.btn-primary{
+  background:var(--green);
+  color:#000;
+  box-shadow:0 0 0 0 rgba(188,235,45,.5);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px -8px rgba(188,235,45,.55);
+}
+.btn-ghost{
+  border-color:var(--line-strong);
+  color:#fff;
+}
+.btn-ghost:hover{
+  border-color:var(--green);
+  color:var(--green);
+  transform:translateY(-2px);
+}
+.btn svg{width:15px;height:15px}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  transition:all .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom-color:var(--line);
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:76px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:800;
+  letter-spacing:-.02em;
+  font-size:16px;
+}
+.logo-mark{
+  width:30px;height:30px;
+  border-radius:9px;
+  background:var(--green);
+  color:#000;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:-.05em;
+  flex-shrink:0;
+  object-fit:cover;
+}
+.logo-text small{
+  display:block;
+  font-size:8.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--grey);
+  font-weight:600;
+  margin-top:-3px;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:36px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:13.5px;
+  font-weight:500;
+  color:var(--grey-2);
+  transition:color .25s;
+  position:relative;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-6px;
+  width:0;height:1.5px;
+  background:var(--green);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.nav-cta .btn{padding:12px 22px;font-size:13px}
+
+.burger{
+  display:none;
+  width:44px;height:44px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  place-items:center;
+  flex-direction:column;
+  gap:5px;
+}
+.burger span{
+  display:block;
+  width:18px;height:1.8px;
+  background:#fff;
+  transition:all .3s var(--ease);
+  border-radius:2px;
+}
+.burger.open span:nth-child(1){transform:translateY(6.8px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6.8px) rotate(-45deg)}
+
+.mobile-menu{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:99;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 32px;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .4s var(--ease),visibility .4s;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.mobile-menu a{
+  font-size:clamp(2rem,9vw,3rem);
+  font-weight:800;
+  letter-spacing:-.04em;
+  display:block;
+  padding:8px 0;
+  color:#fff;
+  transition:color .25s,transform .35s var(--ease);
+}
+.mobile-menu a:hover{color:var(--green);transform:translateX(8px)}
+.mobile-menu .mm-foot{
+  margin-top:56px;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  color:var(--grey);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:150px 0 90px;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 78%);
+  pointer-events:none;
+}
+.hero-glow{
+  position:absolute;
+  width:900px;height:900px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(188,235,45,.16) 0%,rgba(188,235,45,.05) 38%,transparent 68%);
+  top:-320px;right:-260px;
+  filter:blur(30px);
+  pointer-events:none;
+  animation:float 14s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(-40px,50px) scale(1.08)}
+}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero h1{
+  font-size:clamp(2.5rem,7.4vw,5.6rem);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.045em;
+  margin:26px 0 0;
+  max-width:16ch;
+}
+.hero h1 .outline{
+  -webkit-text-stroke:1.6px var(--green);
+  color:transparent;
+}
+.hero-sub{
+  margin-top:30px;
+  font-size:clamp(1rem,1.9vw,1.22rem);
+  color:var(--grey-2);
+  max-width:580px;
+  font-weight:300;
+  line-height:1.7;
+}
+.hero-actions{
+  display:flex;
+  gap:14px;
+  margin-top:42px;
+  flex-wrap:wrap;
+}
+.hero-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:64px;
+  padding-top:28px;
+  border-top:1px solid var(--line);
+}
+.hero-tags span{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:600;
+  color:var(--grey);
+  padding:7px 14px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  transition:all .3s var(--ease);
+}
+.hero-tags span:hover{
+  border-color:var(--green);
+  color:var(--green);
+}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{
+  background:var(--green);
+  color:#000;
+  padding:16px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-top:1px solid #000;
+  border-bottom:1px solid #000;
+}
+.marquee-track{
+  display:inline-flex;
+  animation:scroll-x 40s linear infinite;
+  will-change:transform;
+}
+.marquee-track span{
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:0 26px;
+  display:inline-flex;
+  align-items:center;
+  gap:26px;
+}
+.marquee-track span::after{
+  content:"◆";
+  font-size:8px;
+  opacity:.55;
+}
+@keyframes scroll-x{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* ============================================================
+   WHO WE ARE
+   ============================================================ */
+.who-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:70px;
+  align-items:start;
+}
+.who-copy p{
+  color:var(--grey-2);
+  font-weight:300;
+  font-size:1.05rem;
+  margin-bottom:22px;
+  max-width:56ch;
+}
+.who-copy strong{color:#fff;font-weight:600}
+.statement{
+  font-size:clamp(1.5rem,3.2vw,2.3rem);
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.22;
+  padding-left:28px;
+  border-left:3px solid var(--green);
+  margin-top:12px;
+}
+.statement em{color:var(--green);font-style:normal}
+
+.info-stack{display:flex;flex-direction:column;gap:14px}
+.info-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0));
+  transition:all .4s var(--ease);
+}
+.info-card:hover{
+  border-color:var(--line-strong);
+  transform:translateY(-3px);
+  background:linear-gradient(180deg,rgba(188,235,45,.05),rgba(255,255,255,0));
+}
+.info-card .k{
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--green);
+  font-weight:700;
+  display:block;
+  margin-bottom:10px;
+}
+.info-card p{color:var(--grey-2);font-weight:300;font-size:.95rem}
+.info-card h4{font-size:1.1rem;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+
+/* ============================================================
+   PROBLEM
+   ============================================================ */
+.problem-grid{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:70px;
+  align-items:start;
+}
+.pain-list{list-style:none;display:flex;flex-direction:column}
+.pain-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:17px 0;
+  border-bottom:1px solid var(--line);
+  color:var(--grey-2);
+  font-weight:300;
+  font-size:1rem;
+  transition:all .3s var(--ease);
+}
+.pain-list li:hover{color:#fff;padding-left:6px}
+.pain-list li .x{
+  flex-shrink:0;
+  width:20px;height:20px;
+  border-radius:50%;
+  border:1px solid rgba(255,80,80,.4);
+  color:#ff5b5b;
+  display:grid;
+  place-items:center;
+  font-size:10px;
+  font-weight:900;
+  margin-top:4px;
+}
+.philosophy{
+  margin-top:64px;
+  padding:44px;
+  border-radius:var(--radius);
+  border:1px solid rgba(188,235,45,.28);
+  background:linear-gradient(135deg,rgba(188,235,45,.09),rgba(255,255,255,0) 65%);
+  position:relative;
+}
+.philosophy p{
+  font-size:clamp(1.25rem,2.7vw,1.85rem);
+  font-weight:700;
+  line-height:1.3;
+  letter-spacing:-.025em;
+  max-width:22ch;
+}
+.philosophy .qlabel{
+  font-size:10.5px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  font-weight:800;
+  color:var(--green);
+  display:block;
+  margin-bottom:18px;
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services{background:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.svc-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.svc-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:34px 30px 30px;
+  background:#0a0a0a;
+  display:flex;
+  flex-direction:column;
+  transition:all .45s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.svc-card::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:0;
+  background:linear-gradient(180deg,rgba(188,235,45,.08),transparent);
+  transition:height .5s var(--ease);
+  pointer-events:none;
+}
+.svc-card:hover{
+  border-color:rgba(188,235,45,.45);
+  transform:translateY(-6px);
+}
+.svc-card:hover::after{height:100%}
+.svc-card > *{position:relative;z-index:1}
+.svc-num{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.16em;
+  color:var(--green);
+  font-family:'Inter',monospace;
+}
+.svc-card h3{
+  font-size:1.35rem;
+  font-weight:800;
+  letter-spacing:-.025em;
+  margin:18px 0 12px;
+  line-height:1.15;
+}
+.svc-card > p{
+  color:var(--grey);
+  font-size:.93rem;
+  font-weight:300;
+  margin-bottom:24px;
+  min-height:44px;
+}
+.svc-card.digital{
+  border-color:rgba(188,235,45,.22);
+  background:linear-gradient(180deg,rgba(188,235,45,.035),#0a0a0a 70%);
+}
+.svc-card.digital .svc-num{color:var(--green)}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:auto;
+}
+.tags span{
+  font-size:11px;
+  padding:6px 11px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  color:var(--grey-2);
+  font-weight:400;
+  transition:all .3s var(--ease);
+  white-space:nowrap;
+}
+.svc-card:hover .tags span{border-color:rgba(255,255,255,.18)}
+.tags span:hover{border-color:var(--green);color:var(--green)}
+
+.svc-footnote{
+  margin-top:34px;
+  padding:22px 26px;
+  border-radius:var(--radius-sm);
+  border:1px dashed var(--line-strong);
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+}
+.svc-footnote p{
+  font-size:.92rem;
+  color:var(--grey-2);
+  font-weight:300;
+  max-width:60ch;
+}
+.svc-footnote p strong{color:var(--green);font-weight:600}
+
+/* ============================================================
+   WHO WE SERVE
+   ============================================================ */
+.serve-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+.serve-cloud span{
+  font-size:clamp(.86rem,1.5vw,1rem);
+  font-weight:500;
+  padding:12px 22px;
+  border-radius:100px;
+  border:1px solid var(--line-strong);
+  color:var(--grey-2);
+  transition:all .35s var(--ease);
+  cursor:default;
+}
+.serve-cloud span:hover{
+  background:var(--green);
+  color:#000;
+  border-color:var(--green);
+  transform:translateY(-3px);
+}
+
+/* ============================================================
+   NEEDS
+   ============================================================ */
+.needs{background:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.needs-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.need{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:26px 24px;
+  background:#0a0a0a;
+  transition:all .4s var(--ease);
+}
+.need:hover{border-color:rgba(188,235,45,.4);transform:translateY(-4px)}
+.need q{
+  display:block;
+  font-size:.98rem;
+  font-weight:500;
+  line-height:1.45;
+  color:#fff;
+  quotes:none;
+  margin-bottom:16px;
+  min-height:58px;
+}
+.need .arrow{
+  color:var(--green);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.need .arrow::before{
+  content:"→";
+  font-size:14px;
+}
+
+/* ============================================================
+   DIFFERENCE
+   ============================================================ */
+.diff-wrap{
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:clamp(36px,6vw,72px);
+  background:
+    radial-gradient(ellipse 70% 100% at 100% 0%,rgba(188,235,45,.09),transparent 60%),
+    #050505;
+}
+.diff-flow{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  flex-wrap:wrap;
+  margin-top:44px;
+}
+.diff-box{
+  flex:1;
+  min-width:190px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:24px;
+  background:#0b0b0b;
+}
+.diff-box .k{
+  font-size:10.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--grey);
+  font-weight:700;
+  margin-bottom:10px;
+  display:block;
+}
+.diff-box p{font-size:1.05rem;font-weight:600;letter-spacing:-.01em;line-height:1.4}
+.diff-box.accent{
+  border-color:rgba(188,235,45,.45);
+  background:linear-gradient(180deg,rgba(188,235,45,.08),transparent);
+}
+.diff-box.accent p{color:var(--green)}
+.diff-arrow{
+  font-size:22px;
+  color:var(--green);
+  font-weight:300;
+  flex-shrink:0;
+}
+.diff-note{
+  margin-top:36px;
+  color:var(--grey-2);
+  font-weight:300;
+  max-width:62ch;
+  font-size:1rem;
+}
+
+/* ============================================================
+   JOURNEY
+   ============================================================ */
+.journey{background:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.flow{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:0;
+  align-items:stretch;
+  margin-top:12px;
+}
+.flow-step{
+  padding:26px 20px;
+  border-left:1px solid var(--line);
+  position:relative;
+  transition:all .4s var(--ease);
+}
+.flow-step:last-child{border-right:1px solid var(--line)}
+.flow-step:hover{background:rgba(188,235,45,.045)}
+.flow-step .dot{
+  width:9px;height:9px;
+  border-radius:50%;
+  background:#2a2a2a;
+  margin-bottom:20px;
+  transition:all .4s var(--ease);
+}
+.flow-step:hover .dot{background:var(--green);box-shadow:0 0 0 5px rgba(188,235,45,.16)}
+.flow-step .step-n{
+  font-size:10px;
+  letter-spacing:.2em;
+  color:var(--grey);
+  font-weight:700;
+  display:block;
+  margin-bottom:8px;
+}
+.flow-step h4{
+  font-size:.98rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.3;
+}
+.flow-step.final{background:rgba(188,235,45,.06)}
+.flow-step.final .dot{background:var(--green)}
+.flow-step.final h4{color:var(--green)}
+
+/* ============================================================
+   VISION
+   ============================================================ */
+.vision-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:start;
+}
+.vision-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 30px;
+  list-style:none;
+}
+.vision-list li{
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+  color:var(--grey-2);
+  font-size:.94rem;
+  font-weight:300;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  transition:color .3s;
+}
+.vision-list li:hover{color:#fff}
+.vision-list li::before{
+  content:"";
+  width:5px;height:5px;
+  background:var(--green);
+  border-radius:50%;
+  flex-shrink:0;
+}
+.vision-quote{
+  margin-top:40px;
+  padding:30px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:#0a0a0a;
+  font-size:1.05rem;
+  font-weight:300;
+  color:var(--grey-2);
+  line-height:1.6;
+}
+.vision-quote strong{color:var(--green);font-weight:600}
+
+/* ============================================================
+   CTA / CONTACT
+   ============================================================ */
+.cta{
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 110%,rgba(188,235,45,.16),transparent 65%),
+    #000;
+  text-align:center;
+  border-top:1px solid var(--line);
+}
+.cta h2{
+  font-size:clamp(2.1rem,6vw,4.2rem);
+  font-weight:900;
+  letter-spacing:-.045em;
+  line-height:1.02;
+  max-width:16ch;
+  margin:24px auto 26px;
+}
+.cta p{
+  color:var(--grey-2);
+  font-weight:300;
+  max-width:54ch;
+  margin:0 auto;
+  font-size:clamp(1rem,1.7vw,1.12rem);
+}
+.cta-actions{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:44px;
+}
+.contact-row{
+  display:flex;
+  justify-content:center;
+  gap:clamp(24px,6vw,80px);
+  flex-wrap:wrap;
+  margin-top:70px;
+  padding-top:44px;
+  border-top:1px solid var(--line);
+}
+.contact-item{text-align:center}
+.contact-item .k{
+  font-size:10.5px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--grey);
+  font-weight:700;
+  display:block;
+  margin-bottom:10px;
+}
+.contact-item a,.contact-item span{
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  transition:color .3s;
+}
+.contact-item a:hover{color:var(--green)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{
+  border-top:1px solid var(--line);
+  padding:56px 0 40px;
+  background:#000;
+}
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:wrap;
+  padding-bottom:40px;
+  border-bottom:1px solid var(--line);
+}
+.footer-brand{max-width:340px}
+.footer-brand p{
+  color:var(--grey);
+  font-size:.9rem;
+  font-weight:300;
+  margin-top:16px;
+  line-height:1.7;
+}
+.footer-brand .logo-mark{width:38px;height:38px;border-radius:11px}
+.footer-brand .logo{font-size:17px}
+.footer-cols{
+  display:flex;
+  gap:clamp(36px,7vw,90px);
+  flex-wrap:wrap;
+}
+.footer-col h5{
+  font-size:10.5px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--green);
+  font-weight:800;
+  margin-bottom:18px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer-col a{
+  font-size:.9rem;
+  color:var(--grey);
+  font-weight:300;
+  transition:color .3s;
+}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  padding-top:28px;
+  font-size:12.5px;
+  color:#5c5c5c;
+}
+.footer-bottom .brandline{
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:10.5px;
+  color:var(--grey);
+}
+.footer-bottom .brandline b{color:var(--green)}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1080px){
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .needs-grid{grid-template-columns:repeat(2,1fr)}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .flow-step:nth-child(4){border-left:1px solid var(--line)}
+  .flow-step{border-bottom:1px solid var(--line)}
+}
+@media (max-width:900px){
+  .nav-links,.nav-cta .btn{display:none}
+  .burger{display:flex}
+  .who-grid,.problem-grid,.vision-grid{grid-template-columns:1fr;gap:44px}
+  .diff-flow{flex-direction:column;align-items:stretch}
+  .diff-arrow{transform:rotate(90deg);text-align:center}
+}
+@media (max-width:640px){
+  .container{padding:0 20px}
+  .svc-grid,.needs-grid{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .vision-list{grid-template-columns:1fr}
+  .hero{padding:130px 0 70px;min-height:auto}
+  .hero-actions .btn{flex:1;justify-content:center}
+  .philosophy{padding:30px 24px}
+  .footer-top{flex-direction:column;gap:36px}
+  .marquee-track span{font-size:12px;padding:0 18px}
+}
+</style>
 </head>
 <body>
-<div class="toast glass" id="toast"></div>
-<a href="https://wa.me/233534317611" class="float-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<!-- HOME SCREEN -->
-<div class="screen active" id="home">
-  <div class="container">
-    <div class="logo">
-      <div class="logo-main">
-        <span class="logo-g">G</span>
-        <span class="logo-text">GIDIGBA <span class="logo-acc">CREATIVES</span></span>
-      </div>
-      <div class="logo-sub">Business Creative · Under Radikal Creative Technologies</div>
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="logo">
+      <img class="logo-mark" src="/logo-mark.png" alt="Gidigba Creatives logo mark" width="30" height="30">
+      <span class="logo-text">
+        GIDIGBA CREATIVES
+        <small>Under Radikal</small>
+      </span>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#serve">Who We Serve</a></li>
+        <li><a href="#vision">Vision</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="/app.html" class="btn btn-primary">Start a Project</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div></div>
-    <section class="hero">
-      <span class="badge">CLASS. TECH. FUTURE.</span>
-      <h1>We turn businesses, products &amp; ideas into <span>powerful visual content.</span></h1>
-      <p class="hero-desc">Branding, design, product visuals, video, motion &amp; AI production — from one creative team. Stop struggling with random phone pictures. Send us what you have — we'll make it look the part.</p>
-      <div class="stats"><div class="stat-item"><span class="stat-num">06</span><div class="stat-label">Service Lines</div></div><div class="stat-item"><span class="stat-num">A→Z</span><div class="stat-label">Idea to Final Content</div></div></div>
-    </section>
-    <div class="pathway-grid">
-      <div class="path-card glass" onclick="startProject()">
-        <div class="path-title">🚀 Start a Project</div>
-        <div class="path-sub">Bring a product, brand or idea. We'll turn it into images, graphics, video &amp; motion — and send you a clear quote.</div>
-        <div class="examples"><span class="example-tag">Logo &amp; Identity</span><span class="example-tag">Product Images</span><span class="example-tag">Brand Video</span><span class="example-tag">Logo Animation</span><span class="example-tag">AI Commercial</span></div>
-        <button class="btn" style="width:100%;" onclick="event.stopPropagation();startProject()">Start a Project →</button>
-      </div>
-      <div class="path-card glass" onclick="waChat()">
-        <div class="path-title">💬 Not Sure What You Need?</div>
-        <div class="path-sub">Tell us about your business on WhatsApp. We'll advise on what will present it best — and send you a quote.</div>
-        <div class="examples"><span class="example-tag">Free Advice</span><span class="example-tag">Quick Quote</span><span class="example-tag">Mobile Money</span></div>
-        <button class="btn btn-outline" style="width:100%;" onclick="event.stopPropagation();waChat()">Chat on WhatsApp →</button>
-      </div>
-    </div>
-    <!-- SERVICES -->
-    <section class="section">
-      <h2>What We Do</h2>
-      <p class="section-note">Six lines of work. One team. Pick a line to start your brief.</p>
-      <div class="service-list">
-        <div class="service-card glass" onclick="startProject(0)">
-          <div class="service-num">01</div>
-          <div class="service-body">
-            <div class="service-title">Branding</div>
-            <div class="service-desc">Logo, identity, brand guidelines and business design.</div>
-            <div class="examples"><span class="example-tag">Logo</span><span class="example-tag">Identity</span><span class="example-tag">Business Cards</span><span class="example-tag">Guidelines</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-        <div class="service-card glass" onclick="startProject(1)">
-          <div class="service-num">02</div>
-          <div class="service-body">
-            <div class="service-title">Graphic Design</div>
-            <div class="service-desc">Marketing graphics, social media designs, advertisements and promotional materials.</div>
-            <div class="examples"><span class="example-tag">Social Media</span><span class="example-tag">Flyers &amp; Posters</span><span class="example-tag">Ads</span><span class="example-tag">Templates</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-        <div class="service-card glass" onclick="startProject(2)">
-          <div class="service-num">03</div>
-          <div class="service-body">
-            <div class="service-title">Business &amp; Product Visuals</div>
-            <div class="service-desc">Product images, brand photography, campaign visuals and commercial imagery.</div>
-            <div class="examples"><span class="example-tag">Product Photos</span><span class="example-tag">E-commerce</span><span class="example-tag">Campaigns</span><span class="example-tag">Portraits</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-        <div class="service-card glass" onclick="startProject(3)">
-          <div class="service-num">04</div>
-          <div class="service-body">
-            <div class="service-title">Video</div>
-            <div class="service-desc">Brand videos, product videos, commercials, social media videos and AI video production.</div>
-            <div class="examples"><span class="example-tag">Brand Films</span><span class="example-tag">Commercials</span><span class="example-tag">Reels &amp; TikTok</span><span class="example-tag">AI Video</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-        <div class="service-card glass" onclick="startProject(4)">
-          <div class="service-num">05</div>
-          <div class="service-body">
-            <div class="service-title">Motion &amp; Animation</div>
-            <div class="service-desc">Motion graphics, logo animation, product animation and promotional animation.</div>
-            <div class="examples"><span class="example-tag">Logo Animation</span><span class="example-tag">Motion Graphics</span><span class="example-tag">VFX</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-        <div class="service-card glass" onclick="startProject(5)">
-          <div class="service-num">06</div>
-          <div class="service-body">
-            <div class="service-title">Advanced Creative Production</div>
-            <div class="service-desc">AI visuals, AI commercials, virtual scenes, cinematic concepts and experimental digital content.</div>
-            <div class="examples"><span class="example-tag">AI Commercials</span><span class="example-tag">3D Scenes</span><span class="example-tag">Digital Characters</span><span class="example-tag">Cinematic</span></div>
-          </div>
-          <i class="fas fa-chevron-right service-arrow"></i>
-        </div>
-      </div>
-    </section>
-    <!-- WHO WE SERVE -->
-    <section class="section">
-      <h2>Built For</h2>
-      <p class="section-note">If you run a business or a brand, this is your team.</p>
-      <div class="examples serve-tags">
-        <span class="example-tag">Small Businesses</span>
-        <span class="example-tag">Entrepreneurs</span>
-        <span class="example-tag">Startups</span>
-        <span class="example-tag">Product Brands</span>
-        <span class="example-tag">Service Businesses</span>
-        <span class="example-tag">Fashion Brands</span>
-        <span class="example-tag">Beauty</span>
-        <span class="example-tag">Food &amp; Restaurants</span>
-        <span class="example-tag">Hotels</span>
-        <span class="example-tag">E-commerce</span>
-        <span class="example-tag">Corporate</span>
-        <span class="example-tag">Content-Driven Brands</span>
-        <span class="example-tag">Organizations</span>
-      </div>
-    </section>
-    <!-- CUSTOMER NEEDS -->
-    <section class="section">
-      <h2>Say It Like You Mean It</h2>
-      <p class="section-note">No corporate talk. Here's how businesses talk to us — and what we do.</p>
-      <div class="need-list">
-        <div class="need-row"><span class="need-quote">"I need my business to look professional."</span><span class="need-service"><span class="need-arrow">→</span> Branding</span></div>
-        <div class="need-row"><span class="need-quote">"I need better pictures of my products."</span><span class="need-service"><span class="need-arrow">→</span> Product Visuals</span></div>
-        <div class="need-row"><span class="need-quote">"I need content for Instagram / TikTok."</span><span class="need-service"><span class="need-arrow">→</span> Social Media Creative</span></div>
-        <div class="need-row"><span class="need-quote">"I need an advert that looks different."</span><span class="need-service"><span class="need-arrow">→</span> Advanced / AI Production</span></div>
-        <div class="need-row"><span class="need-quote">"I have an idea but don't know how to visualize it."</span><span class="need-service"><span class="need-arrow">→</span> Creative Direction + Production</span></div>
-      </div>
-    </section>
-    <!-- PROCESS -->
-    <section class="section">
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step"><div class="step-dot">1</div><div class="step-body"><div class="step-title">You bring</div><div class="step-desc">A product, service or idea — even if it's just phone pictures and a description.</div></div></div>
-        <div class="step"><div class="step-dot">2</div><div class="step-body"><div class="step-title">We shape</div><div class="step-desc">Creative direction — what your brand should say, look like and feel like.</div></div></div>
-        <div class="step"><div class="step-dot">3</div><div class="step-body"><div class="step-title">We produce</div><div class="step-desc">Branding, visuals, video and motion — studio and AI tools where they help.</div></div></div>
-        <div class="step"><div class="step-dot">4</div><div class="step-body"><div class="step-title">You present</div><div class="step-desc">Marketing content that makes your business easier to understand, remember and buy from.</div></div></div>
-      </div>
-    </section>
-    <!-- WORK SAMPLES -->
-    <section class="section">
-      <h2>Creative Work</h2>
-      <p class="section-note">AI scene recreation &amp; advanced digital production — samples.</p>
-      <div class="work-grid">
-        <div class="work-card"><div class="work-badge">AI PRODUCTION · SAMPLE 01</div><div class="reveal-container"><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/ycKRckGN/image-24.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--green);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
-        <div class="work-card"><div class="work-badge">AI PRODUCTION · SAMPLE 02</div><div class="reveal-container"><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--green);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
-      </div>
-    </section>
-    <!-- CLIENT FEEDBACK -->
-    <section class="section">
-      <h2>Client Feedback</h2>
-      <div class="feedback-carousel-container">
-        <div class="feedback-track" id="feedbackTrack">
-          <div class="feedback-slide"><img src="https://i.ibb.co/Ndr9NnvC/In-Collage-20260423-033313687.jpg" alt="Client 1"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/DDdpsJSx/IMG-20260423-080406-715.jpg" alt="Client 2"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/W4x2KsMg/IMG-20260423-080346-875.jpg" alt="Client 3"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/k2GHnbM7/IMG-20260423-080438-296.jpg" alt="Client 4"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/4RQpVrHJ/IMG-20260423-080421-956.jpg" alt="Client 5"></div>
-        </div>
-        <div class="feedback-dots" id="feedbackDots"></div>
-      </div>
-      <p class="swipe-hint">← Swipe to see more →</p>
-    </section>
-    <!-- FAQ -->
-    <section class="section">
-      <h2>FAQ</h2>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How do I start? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Tap "Start a Project" — pick what you need, tell us about your business and attach any product images you already have. We'll come back with a quote and timeline.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">I only have phone pictures of my product. Is that enough? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. Send what you have and tell us how you want the final content to look — we handle lighting, scenes and presentation.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Do you use AI for visuals and video? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. AI is one of our production tools — for commercials, product scenes and brand imagery. You always review the final work before delivery.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How much does it cost? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Every business is different. Send your brief and you'll get a clear quote before any payment.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How do I pay? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Mobile Money. Payment is confirmed before production starts.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">I need a personal photoshoot, not business content. <i class="fas fa-chevron-down"></i></div><div class="faq-answer">You want Radikal Studios — our sister brand for personal photoshoots and individual visuals. We're here for businesses and brands.</div></div>
-    </section>
-    <footer class="footer">
-      <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-tiktok"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
-      <p>📞 +233 53 431 7611</p>
-      <p class="eco-tag">CLASS. TECH. FUTURE.</p>
-      <p class="eco-line">Under <strong>Radikal Creative Technologies</strong><br>Gidigba = business creative · Radikal Studios = personal photoshoots · Akutu Systems = software</p>
-      <p class="fine">© 2026 Gidigba Creatives. All rights reserved.</p>
-    </footer>
+  </div>
+</header>
+
+<!-- ================= MOBILE MENU ================= -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#serve">Who We Serve</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="/app.html">Start a Project</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="mm-foot">
+    Branding • Video • Motion • Social Media • Digital Marketing
   </div>
 </div>
 
-<!-- PROJECT SCREEN -->
-<div class="screen" id="project">
-  <div class="container">
-    <button class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Start a Project</h2>
-    <div class="step-label">01 · What do you need?</div>
-    <div class="chip-row" id="serviceChips"></div>
-    <div class="step-label">02 · Tell us about it</div>
-    <input class="finput" id="bizName" type="text" placeholder="Your business — name & what you sell (required)">
-    <textarea class="finput" id="bizIdea" rows="4" placeholder="What do you want to create? Describe the idea — e.g. 'I sell handmade candles and want product images for my website + a short promo video' (required)"></textarea>
-    <input class="finput" id="bizBudget" type="text" placeholder="Budget range (optional, e.g. GH₵ 500 – 1,500)">
-    <div class="step-label">03 · Existing images (optional)</div>
-    <p class="step-note">Send the product or brand images you already have — we'll build from there.</p>
-    <div class="upload-box" onclick="document.getElementById('imageInput').click()">
-      <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="addImages(event)">
-      <i class="fas fa-images" style="font-size:24px; color:var(--green);"></i>
-      <div style="margin-top:8px;">Product / brand images (up to 4)</div>
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+    <span class="eyebrow reveal">Branding • Video • Motion • Social Media • Digital</span>
+
+    <h1 class="reveal">
+      We turn <span class="hl">businesses</span>, products and ideas into <span class="outline">powerful</span> digital presence.
+    </h1>
+
+    <p class="hero-sub reveal">
+      Gidigba Creatives is a business-focused creative and digital agency under
+      Radikal Creative Technologies — helping brands look, communicate and grow
+      online with content that actually sells.
+    </p>
+
+    <div class="hero-actions reveal">
+      <a href="/app.html" class="btn btn-primary">
+        Start a Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#services" class="btn btn-ghost">See What We Do</a>
     </div>
-    <div class="image-grid" id="imagePreviews"></div>
-    <div style="margin-top:24px;">
-      <button class="btn btn-full" onclick="goToReview()">Review Brief →</button>
+
+    <div class="hero-tags reveal">
+      <span>Branding</span>
+      <span>Graphic Design</span>
+      <span>Product Visuals</span>
+      <span>Video &amp; Motion</span>
+      <span>Social Media Management</span>
+      <span>Digital Marketing</span>
+      <span>Digital Branding</span>
+      <span>AI Creative Production</span>
     </div>
-    <div style="height:80px;"></div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Branding</span><span>Graphic Design</span><span>Product Visuals</span><span>Video Production</span>
+    <span>Motion Graphics</span><span>Social Media Management</span><span>Digital Marketing</span>
+    <span>Digital Branding</span><span>Content Strategy</span><span>AI Commercials</span>
+    <span>Logo Animation</span><span>Digital Advice</span>
+    <span>Branding</span><span>Graphic Design</span><span>Product Visuals</span><span>Video Production</span>
+    <span>Motion Graphics</span><span>Social Media Management</span><span>Digital Marketing</span>
+    <span>Digital Branding</span><span>Content Strategy</span><span>AI Commercials</span>
+    <span>Logo Animation</span><span>Digital Advice</span>
   </div>
 </div>
 
-<!-- REVIEW SCREEN -->
-<div class="screen" id="review">
+<!-- ================= WHO WE ARE ================= -->
+<section id="about">
   <div class="container">
-    <button class="back-btn" onclick="showScreen('project')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Review Your Brief</h2>
-    <div id="reviewDetails" style="background:var(--card-bg); border-radius:20px; padding:20px; margin-bottom:20px;"></div>
-    <div class="review-note"><i class="fas fa-info-circle"></i> Send your brief to WhatsApp — we'll confirm pricing &amp; timeline before you pay anything.</div>
-    <button class="btn btn-wa btn-full" id="submitBtn" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Send Brief via WhatsApp</button>
-  </div>
-</div>
+    <div class="who-grid">
+      <div class="who-copy">
+        <span class="eyebrow reveal">01 — Who We Are</span>
+        <h2 class="section-head reveal" style="margin-bottom:26px;font-size:clamp(2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.06;">
+          A creative &amp; digital agency built for <span class="hl">business</span>.
+        </h2>
 
-<div class="install-bar glass" id="installBar">
-  <span>⚡ Install our app for quick access</span>
-  <button id="installBtn">Install</button>
-</div>
-<script src="script.js"></script>
+        <p class="reveal">
+          <strong>Gidigba Creatives</strong> is a business-focused creative and digital
+          production brand under <strong>Radikal Creative Technologies</strong>. We help
+          businesses, entrepreneurs, brands and organizations turn their products,
+          services and ideas into professional, attention-grabbing visual and digital content.
+        </p>
+
+        <p class="reveal">
+          Gidigba is not primarily a personal photography brand. Our focus is
+          <strong>business presentation and growth</strong> — helping a business look,
+          communicate and market itself as good as the product or service it sells.
+        </p>
+
+        <div class="statement reveal">
+          We turn businesses, products and ideas into <em>powerful digital presence</em>.
+        </div>
+      </div>
+
+      <div class="info-stack">
+        <div class="info-card reveal">
+          <span class="k">Core Focus</span>
+          <h4>Business Presentation &amp; Growth</h4>
+          <p>Making a business look, feel and perform as strong as what it actually sells.</p>
+        </div>
+        <div class="info-card reveal">
+          <span class="k">What We Produce</span>
+          <h4>Creative + Digital, End to End</h4>
+          <p>Images, graphics, video, motion, social content and digital marketing — from one team.</p>
+        </div>
+        <div class="info-card reveal">
+          <span class="k">How We Work</span>
+          <h4>Product + Idea → Finished Content</h4>
+          <p>Bring us a product or an idea and we handle the creative and digital side.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEM ================= -->
+<section id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <span class="eyebrow reveal">02 — The Problem We Solve</span>
+        <h2 class="section-head reveal" style="margin-bottom:0;">
+          Good products. <span class="hl">Weak presentation.</span>
+        </h2>
+      </div>
+
+      <div>
+        <p class="reveal" style="color:var(--grey-2);font-weight:300;margin-bottom:28px;max-width:52ch;">
+          Many businesses have good products and services but struggle with how they
+          present and market them. They may:
+        </p>
+
+        <ul class="pain-list">
+          <li class="reveal"><span class="x">✕</span> Take product pictures with their phones</li>
+          <li class="reveal"><span class="x">✕</span> Put products on floors, beds or random backgrounds</li>
+          <li class="reveal"><span class="x">✕</span> Struggle with lighting and angles</li>
+          <li class="reveal"><span class="x">✕</span> Create inconsistent social media content</li>
+          <li class="reveal"><span class="x">✕</span> Have weak promotional graphics and branding</li>
+          <li class="reveal"><span class="x">✕</span> Post online without a real digital strategy</li>
+          <li class="reveal"><span class="x">✕</span> Struggle to create professional videos</li>
+          <li class="reveal"><span class="x">✕</span> Spend too much time trying to do everything themselves</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="philosophy reveal">
+      <span class="qlabel">Our Philosophy</span>
+      <p>The problem isn't always your product. Sometimes, it's how your product is presented and marketed.</p>
+      <p style="font-size:1rem;font-weight:300;color:var(--grey-2);margin-top:22px;max-width:56ch;letter-spacing:0;">
+        Gidigba helps businesses close that gap — creatively and digitally.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">03 — What We Do</span>
+      <h2>Nine ways we build how your business is <span class="hl">seen</span> and <span class="hl">sold</span>.</h2>
+      <p>From the logo on your door to the advert on someone's feed — it all works together.</p>
+    </div>
+
+    <div class="svc-grid">
+
+      <article class="svc-card reveal">
+        <span class="svc-num">01</span>
+        <h3>Branding &amp; Identity</h3>
+        <p>We help businesses establish a recognizable visual identity.</p>
+        <div class="tags">
+          <span>Logo Design</span><span>Brand Identity</span><span>Brand Guidelines</span>
+          <span>Business Cards</span><span>Marketing Materials</span><span>Branded Templates</span>
+        </div>
+      </article>
+
+      <article class="svc-card digital reveal">
+        <span class="svc-num">02</span>
+        <h3>Digital Branding</h3>
+        <p>How your brand shows up, feels and sounds online.</p>
+        <div class="tags">
+          <span>Online Brand Presence</span><span>Brand Positioning</span><span>Digital Identity</span>
+          <span>Social Profile Setup</span><span>Brand Voice &amp; Tone</span><span>Content Direction</span>
+        </div>
+      </article>
+
+      <article class="svc-card reveal">
+        <span class="svc-num">03</span>
+        <h3>Graphic Design</h3>
+        <p>Marketing graphics, social designs and promotional materials.</p>
+        <div class="tags">
+          <span>Social Media Graphics</span><span>Promotional Graphics</span><span>Campaign Designs</span>
+          <span>Flyers &amp; Posters</span><span>Digital Ads</span><span>Product Designs</span>
+        </div>
+      </article>
+
+      <article class="svc-card reveal">
+        <span class="svc-num">04</span>
+        <h3>Business &amp; Product Visuals</h3>
+        <p>Professional visual representations of your products and services.</p>
+        <div class="tags">
+          <span>Product Photography</span><span>Business Photography</span><span>Brand Photography</span>
+          <span>E-commerce Images</span><span>Product Mockups</span><span>Creative Scenes</span>
+        </div>
+      </article>
+
+      <article class="svc-card reveal">
+        <span class="svc-num">05</span>
+        <h3>Video Production</h3>
+        <p>Visual content businesses can use to promote what they sell.</p>
+        <div class="tags">
+          <span>Brand Videos</span><span>Product Videos</span><span>Advertisements</span>
+          <span>Social Media Videos</span><span>Explainer Videos</span><span>AI Videos</span>
+        </div>
+      </article>
+
+      <article class="svc-card reveal">
+        <span class="svc-num">06</span>
+        <h3>Motion &amp; Animation</h3>
+        <p>We bring brands and designs to life through movement.</p>
+        <div class="tags">
+          <span>Motion Graphics</span><span>Logo Animation</span><span>Product Animation</span>
+          <span>Animated Ads</span><span>Text Animation</span><span>Visual Effects</span>
+        </div>
+      </article>
+
+      <article class="svc-card digital reveal">
+        <span class="svc-num">07</span>
+        <h3>Social Media Management</h3>
+        <p>We plan, create and manage your social presence so it stays consistent.</p>
+        <div class="tags">
+          <span>Content Planning</span><span>Content Calendar</span><span>Posting &amp; Scheduling</span>
+          <span>Community Management</span><span>Page Optimisation</span><span>Monthly Reporting</span>
+        </div>
+      </article>
+
+      <article class="svc-card digital reveal">
+        <span class="svc-num">08</span>
+        <h3>Digital Marketing &amp; Advice</h3>
+        <p>Strategy, campaigns and honest digital advice for businesses that want growth.</p>
+        <div class="tags">
+          <span>Marketing Strategy</span><span>Campaign Management</span><span>Paid Ads</span>
+          <span>Content Marketing</span><span>Growth Consulting</span><span>Digital Advice</span>
+        </div>
+      </article>
+
+      <article class="svc-card reveal">
+        <span class="svc-num">09</span>
+        <h3>Advanced Creative Production</h3>
+        <p>Modern creative technology for content that would otherwise cost a fortune.</p>
+        <div class="tags">
+          <span>AI Commercials</span><span>AI Brand Imagery</span><span>Virtual Environments</span>
+          <span>Digital Characters</span><span>Cinematic Concepts</span><span>Product Visualization</span>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="svc-footnote reveal">
+      <p>
+        <strong>Not sure what you need?</strong> Bring us your product, your idea or
+        just the problem — we'll advise you on the right mix of creative and digital work.
+      </p>
+      <a href="https://wa.me/233534317611" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:12px 24px;font-size:13px;">Talk to Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHO WE SERVE ================= -->
+<section id="serve">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 — Who We Serve</span>
+      <h2>Built for businesses that need to be <span class="hl">seen</span>.</h2>
+      <p>Gidigba Creatives is designed primarily for:</p>
+    </div>
+
+    <div class="serve-cloud">
+      <span class="reveal">Small Businesses</span>
+      <span class="reveal">Entrepreneurs</span>
+      <span class="reveal">Startups</span>
+      <span class="reveal">Product Brands</span>
+      <span class="reveal">Service Businesses</span>
+      <span class="reveal">Fashion Brands</span>
+      <span class="reveal">Beauty Businesses</span>
+      <span class="reveal">Food Businesses</span>
+      <span class="reveal">Hotels</span>
+      <span class="reveal">Restaurants</span>
+      <span class="reveal">E-commerce Businesses</span>
+      <span class="reveal">Corporate Organizations</span>
+      <span class="reveal">Content-Driven Businesses</span>
+      <span class="reveal">Organizations &amp; Institutions</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEEDS ================= -->
+<section class="needs">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">05 — Core Customer Needs</span>
+      <h2>What people actually come to us for.</h2>
+    </div>
+
+    <div class="needs-grid">
+      <div class="need reveal">
+        <q>I need my business to look professional.</q>
+        <div class="arrow">Branding</div>
+      </div>
+      <div class="need reveal">
+        <q>I need better pictures of my products.</q>
+        <div class="arrow">Product Visuals</div>
+      </div>
+      <div class="need reveal">
+        <q>I need content for Instagram / TikTok.</q>
+        <div class="arrow">Social Media Production</div>
+      </div>
+      <div class="need reveal">
+        <q>I need an advert.</q>
+        <div class="arrow">Promotional Graphics / Video</div>
+      </div>
+      <div class="need reveal">
+        <q>I need a video for my business.</q>
+        <div class="arrow">Video Production</div>
+      </div>
+      <div class="need reveal">
+        <q>I want my logo to move.</q>
+        <div class="arrow">Logo Animation</div>
+      </div>
+      <div class="need reveal">
+        <q>I need someone to manage my social media.</q>
+        <div class="arrow">Social Media Management</div>
+      </div>
+      <div class="need reveal">
+        <q>I need more customers online.</q>
+        <div class="arrow">Digital Marketing</div>
+      </div>
+      <div class="need reveal">
+        <q>I want my brand to stand out online.</q>
+        <div class="arrow">Digital Branding</div>
+      </div>
+      <div class="need reveal">
+        <q>I need help with my digital strategy.</q>
+        <div class="arrow">Digital Advice</div>
+      </div>
+      <div class="need reveal">
+        <q>I want an advertisement that looks different.</q>
+        <div class="arrow">Advanced / AI Production</div>
+      </div>
+      <div class="need reveal">
+        <q>I have an idea but don't know how to visualize it.</q>
+        <div class="arrow">Creative Direction + Production</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIFFERENCE ================= -->
+<section id="difference">
+  <div class="container">
+    <div class="diff-wrap reveal">
+      <span class="eyebrow">06 — Our Difference</span>
+      <h2 style="font-size:clamp(1.8rem,4.4vw,3rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin:20px 0 0;max-width:18ch;">
+        Gidigba is not simply about making designs. It's about <span class="hl">visualizing and growing a business</span>.
+      </h2>
+
+      <div class="diff-flow">
+        <div class="diff-box">
+          <span class="k">A client comes with</span>
+          <p>A product + an idea</p>
+        </div>
+        <div class="diff-arrow">→</div>
+        <div class="diff-box accent">
+          <span class="k">Gidigba turns it into</span>
+          <p>Images + graphics + video + motion + social content + marketing</p>
+        </div>
+      </div>
+
+      <p class="diff-note">
+        The goal is to make the business easier to understand, remember and present —
+        and easier for the right people to find and buy from.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOURNEY ================= -->
+<section class="journey">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">07 — Customer Journey</span>
+      <h2>From an idea to a stronger presence.</h2>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step reveal">
+        <div class="dot"></div>
+        <span class="step-n">01</span>
+        <h4>Business has a product, service or idea</h4>
+      </div>
+      <div class="flow-step reveal">
+        <div class="dot"></div>
+        <span class="step-n">02</span>
+        <h4>Gidigba Creatives</h4>
+      </div>
+      <div class="flow-step reveal">
+        <div class="dot"></div>
+        <span class="step-n">03</span>
+        <h4>Branding, Visuals &amp; Digital Identity</h4>
+      </div>
+      <div class="flow-step reveal">
+        <div class="dot"></div>
+        <span class="step-n">04</span>
+        <h4>Video, Motion &amp; Social Content</h4>
+      </div>
+      <div class="flow-step reveal">
+        <div class="dot"></div>
+        <span class="step-n">05</span>
+        <h4>Digital Marketing &amp; Management</h4>
+      </div>
+      <div class="flow-step final reveal">
+        <div class="dot"></div>
+        <span class="step-n">06</span>
+        <h4>Stronger Presence &amp; Sales</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPROACH ================= -->
+<section id="approach">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">08 — How We Communicate</span>
+      <h2>Straight talk. Not corporate noise.</h2>
+    </div>
+
+    <div class="diff-wrap reveal" style="padding:clamp(30px,5vw,56px);">
+      <div style="display:grid;grid-template-columns:1fr;gap:26px;">
+
+        <div style="padding-bottom:26px;border-bottom:1px solid var(--line);">
+          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);font-weight:700;">Instead of</span>
+          <p style="font-size:1.1rem;color:var(--grey);font-weight:300;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.25);margin-top:10px;">
+            "We offer professional creative solutions."
+          </p>
+        </div>
+
+        <div>
+          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:700;">We say</span>
+
+          <p style="font-size:clamp(1.15rem,2.6vw,1.7rem);font-weight:700;letter-spacing:-.025em;line-height:1.32;margin-top:14px;max-width:26ch;">
+            Your product might be good. But does your content make people want to buy it?
+          </p>
+
+          <p style="font-size:clamp(1.05rem,2.2vw,1.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;margin-top:30px;max-width:30ch;color:var(--grey-2);">
+            People see your brand before they buy from you. Make sure what they see looks the part.
+          </p>
+
+          <p style="font-size:clamp(1.05rem,2.2vw,1.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;margin-top:30px;max-width:34ch;color:var(--grey-2);">
+            Stop struggling to make your products look good with random phone pictures. Send us the product — we'll help you create the visuals.
+          </p>
+
+          <p style="font-size:clamp(1.05rem,2.2vw,1.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;margin-top:30px;max-width:34ch;color:var(--grey-2);">
+            Posting every day isn't a strategy. Let's build a digital presence that actually brings customers.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="tags" style="margin-top:44px;padding-top:30px;border-top:1px solid var(--line);">
+        <span>Simple</span><span>Direct</span><span>Relatable</span><span>Sales-Focused</span>
+        <span>Human</span><span>Problem-Driven</span><span>Easy to Understand</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISION ================= -->
+<section id="vision" class="journey">
+  <div class="container">
+    <div class="vision-grid">
+      <div>
+        <span class="eyebrow reveal">09 — Long-Term Vision</span>
+        <h2 style="font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin:20px 0 22px;" class="reveal">
+          A full creative &amp; digital growth company — starting in <span class="hl">Ghana</span>.
+        </h2>
+        <p style="color:var(--grey-2);font-weight:300;max-width:50ch;" class="reveal">
+          Gidigba Creatives can grow into a full creative and digital production company
+          serving businesses across Ghana and eventually beyond. The aim is to become
+          a place where a business can bring an idea and have the creative and digital
+          side of that idea produced from start to finish.
+        </p>
+
+        <div class="vision-quote reveal">
+          <strong>In one sentence:</strong> Gidigba Creatives helps businesses look,
+          communicate, present and market themselves better through branding, visuals,
+          video, motion, social media, digital marketing and advanced creative technology.
+        </div>
+      </div>
+
+      <ul class="vision-list">
+        <li class="reveal">Business Branding</li>
+        <li class="reveal">Digital Branding</li>
+        <li class="reveal">Commercial Photography</li>
+        <li class="reveal">Commercial Video</li>
+        <li class="reveal">AI Video Production</li>
+        <li class="reveal">Motion Graphics</li>
+        <li class="reveal">Social Media Management</li>
+        <li class="reveal">Digital Marketing</li>
+        <li class="reveal">Advertising Content</li>
+        <li class="reveal">Digital Campaigns</li>
+        <li class="reveal">Product Visualization</li>
+        <li class="reveal">Creative &amp; Digital Direction</li>
+        <li class="reveal">Large-Scale Brand Campaigns</li>
+        <li class="reveal">Original Commercial Productions</li>
+        <li class="reveal">Creative Technology</li>
+        <li class="reveal">Digital Growth Consulting</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI NOTE ================= -->
+<section>
+  <div class="container">
+    <div class="diff-wrap reveal" style="text-align:center;padding:clamp(40px,7vw,80px) clamp(24px,5vw,60px);">
+      <span class="eyebrow" style="justify-content:center;">10 — AI &amp; Advanced Production</span>
+      <h2 style="font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin:20px auto 22px;max-width:20ch;">
+        The technology is a tool. The result is still <span class="hl">business</span>.
+      </h2>
+      <p style="color:var(--grey-2);font-weight:300;max-width:58ch;margin:0 auto;">
+        Gidigba Creatives uses modern creative technology to produce content that may
+        otherwise require expensive production setups — AI videos, AI commercials,
+        virtual environments, digital characters and cinematic visual concepts.
+        The focus remains on the business, the brand and the final result.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section id="contact" class="cta">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Let's Work</span>
+    <h2 class="reveal">Ready to make your business look the part — online and off?</h2>
+    <p class="reveal">
+      Send us your product, your idea, or just the problem you're trying to solve.
+      We'll help you turn it into visuals and digital presence that sell.
+    </p>
+
+    <div class="cta-actions reveal">
+      <a href="/app.html" class="btn btn-primary">
+        Start a Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="https://wa.me/233534317611" target="_blank" rel="noopener" class="btn btn-ghost">
+        WhatsApp Us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-item reveal">
+        <span class="k">Email</span>
+        <a href="mailto:hello@gidigbacreatives.com">hello@gidigbacreatives.com</a>
+      </div>
+      <div class="contact-item reveal">
+        <span class="k">Phone / WhatsApp</span>
+        <a href="https://wa.me/233534317611" target="_blank" rel="noopener">+233 53 431 7611</a>
+      </div>
+      <div class="contact-item reveal">
+        <span class="k">Location</span>
+        <span>Ghana</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <img class="logo-mark" src="/logo-mark.png" alt="Gidigba Creatives logo mark" width="38" height="38">
+          <span class="logo-text">
+            GIDIGBA CREATIVES
+            <small>Under Radikal</small>
+          </span>
+        </a>
+        <p>
+          Branding • Video • Motion • Social Media • Digital Marketing.
+          A business-focused creative and digital agency under Radikal Creative Technologies.
+        </p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Creative</h5>
+          <ul>
+            <li><a href="#services">Branding &amp; Identity</a></li>
+            <li><a href="#services">Graphic Design</a></li>
+            <li><a href="#services">Business &amp; Product Visuals</a></li>
+            <li><a href="#services">Video Production</a></li>
+            <li><a href="#services">Motion &amp; Animation</a></li>
+            <li><a href="#services">Advanced Creative Production</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Digital</h5>
+          <ul>
+            <li><a href="#services">Digital Branding</a></li>
+            <li><a href="#services">Social Media Management</a></li>
+            <li><a href="#services">Digital Marketing</a></li>
+            <li><a href="#services">Content Strategy</a></li>
+            <li><a href="#services">Digital Advice</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#serve">Who We Serve</a></li>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="/app.html">Start a Project</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="brandline">Class. Tech. Future.</span>
+      <span>© <span id="year"></span> Gidigba Creatives. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   NAV SCROLL STATE
+   ============================================================ */
+const nav = document.getElementById('nav');
+const onScroll = () => {
+  if (window.scrollY > 24) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+};
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function toggleMenu(force) {
+  const open = typeof force === 'boolean' ? force : !mobileMenu.classList.contains('open');
+  mobileMenu.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+burger.addEventListener('click', () => toggleMenu());
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => toggleMenu(false));
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') toggleMenu(false);
+});
+
+/* ============================================================
+   REVEAL ON SCROLL
+   ============================================================ */
+const revealEls = document.querySelectorAll('.reveal');
+
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = Math.min(i * 60, 240);
+        setTimeout(() => entry.target.classList.add('in'), delay);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => io.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in'));
+}
+
+/* ============================================================
+   YEAR
+   ============================================================ */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   SUBTLE PARALLAX ON HERO GLOW
+   ============================================================ */
+const glow = document.querySelector('.hero-glow');
+if (glow && window.matchMedia('(pointer:fine)').matches) {
+  window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+    const y = (e.clientY / window.innerHeight - 0.5) * 40;
+    glow.style.transform = `translate(${x}px, ${y}px)`;
+  }, { passive: true });
+}
+
+/* ============================================================
+   PWA — installable + offline (shared service worker)
+   ============================================================ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+}
+</script>
+
 </body>
 </html>
