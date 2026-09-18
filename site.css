@@ -1669,3 +1669,75 @@ section{
 }
 .brand-cell.join:hover .plus{background:var(--green);color:#000;border-style:solid}
 .rail .brand-cell{flex:0 0 min(260px,72vw);scroll-snap-align:start;min-height:170px}
+
+/* ============================================================
+   BRAND WALL (logo grid, hairline cells)
+   ============================================================ */
+.wall{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.wall-2{grid-template-columns:repeat(2,1fr)}
+.wall-3{grid-template-columns:repeat(3,1fr)}
+.wall-1{grid-template-columns:1fr}
+.wall-cell{
+  background:#0a0a0a;
+  display:grid;
+  place-items:center;
+  padding:clamp(28px,4vw,44px) 24px;
+  transition:background .35s var(--ease);
+}
+.wall-cell:hover{background:#0e0e0e}
+.wall-cell img{
+  width:min(230px,74%);
+  height:auto;
+  filter:grayscale(100%);
+  opacity:.72;
+  transition:all .35s var(--ease);
+}
+.wall-cell:hover img{filter:none;opacity:1}
+.wall-cat{
+  font-size:clamp(1.15rem,2.6vw,1.7rem);
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  line-height:1.15;
+  margin:0 0 22px;
+  color:#fff;
+}
+.wall-cat-sec{padding:clamp(24px,3.6vw,38px) 0}
+.wall-cell.join a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:var(--grey-2);
+  padding:8px 0;
+}
+.wall-cell.join{background:transparent}
+.wall-cell.join .plus{
+  width:54px;height:54px;
+  border-radius:16px;
+  border:1.5px dashed var(--green);
+  color:var(--green);
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  font-weight:900;
+  transition:all .35s var(--ease);
+}
+.wall-cell.join:hover .plus{background:var(--green);color:#000;border-style:solid}
+.wall-cell.join b{font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+@media (max-width:860px){
+  .wall{grid-template-columns:repeat(2,1fr)}
+  .wall-3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .wall,.wall-2,.wall-3{grid-template-columns:1fr}
+}
