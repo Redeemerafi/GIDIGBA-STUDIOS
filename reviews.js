@@ -14,9 +14,28 @@
     return d.innerHTML;
   }
 
+  var SEEDS = [
+    {
+      n: 'Kofi Mensah',
+      b: 'Kwa Ofori Foods',
+      t: 'We used to shoot our food on the counter with a phone. Gidigba rebuilt the whole look, same jollof, different league. Orders off Instagram doubled in a month, and the quotes never moved after we agreed them.',
+      d: Date.now() - 18 * 86400000,
+      sample: true
+    },
+    {
+      n: 'Efua Boateng',
+      b: 'Baaba Coffee Roasters',
+      t: 'Briefed them on a Tuesday, had packaging visuals and a launch reel by Friday. They actually answer, the revisions are counted upfront, and the work looked more premium than what we paid for.',
+      d: Date.now() - 6 * 86400000,
+      sample: true
+    }
+  ];
+
   function load() {
-    try { return JSON.parse(localStorage.getItem(STORE)) || []; }
-    catch (e) { return []; }
+    var stored = [];
+    try { stored = JSON.parse(localStorage.getItem(STORE)) || []; }
+    catch (e) { stored = []; }
+    return stored.concat(SEEDS).sort(function (a, b) { return b.d - a.d; });
   }
 
   function save(list) {
@@ -56,8 +75,8 @@
           (r.t ? '<p class="rev-text">' + esc(r.t) + '</p>' : '') +
           (r.img ? '<img class="rev-img" src="' + esc(r.img) + '" alt="Review attachment" loading="lazy">' : '') +
           '<div class="rev-foot">' +
-            '<span class="rev-tag">Client review</span>' +
-            '<button type="button" class="rev-del" data-i="' + i + '" title="Remove this review from this device">×</button>' +
+            '<span class="rev-tag">' + (r.sample ? 'Client review · sample' : 'Client review') + '</span>' +
+            (r.sample ? '' : '<button type="button" class="rev-del" data-i="' + i + '" title="Remove this review from this device">×</button>') +
           '</div>' +
         '</article>';
     }).join('');
