@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Reviews · Gidigba Creatives</title>
-<meta name="description" content="Client feedback for Gidigba Creatives, straight from the chat. Unfiltered, unedited, and the standard we keep to earn them." />
+<meta name="description" content="Client reviews for Gidigba Creatives. Read what businesses say after delivery, or leave a review of your own in under a minute." />
 <meta name="theme-color" content="#BCEB2D">
 <link rel="icon" type="image/png" href="/logo-mark.png">
 <link rel="apple-touch-icon" href="/icon-512.png">
@@ -39,44 +39,67 @@
 <section class="page-intro">
   <div class="container">
     <span class="eyebrow reveal">Reviews</span>
-    <h1 class="reveal">The receipt speaks for <span class="hl">the work</span>.</h1>
-    <p class="reveal">No polished video testimonials with actors. This is real client feedback, screenshotted straight from the chat, because that's worth more than anything we could write about ourselves.</p>
+    <h1 class="reveal">Words from the people who <span class="hl">paid the bill</span>.</h1>
+    <p class="reveal">No screenshots, no staged praise. Just what clients say after delivery, kept as text because that's the part that matters.</p>
   </div>
 </section>
 
-<section class="chapter" id="feedback" style="border-top:0;padding-top:26px;">
+<section class="chapter" id="client-reviews" style="border-top:0;padding-top:26px;">
   <div class="container">
     <div class="ch-head reveal">
-      <span class="eyebrow">01 · Straight from the Chat</span>
-      <h2>Unfiltered, unedited, unsentimental.</h2>
+      <span class="eyebrow">01 · Client Reviews</span>
+      <h2>The receipt is the text.</h2>
+      <p>Reviews posted here are written by clients, not the studio. Work with us and yours lands on this grid the moment you send it.</p>
     </div>
 
-    <div class="quote-grid">
-      <div class="quote-card reveal">
-        <span class="q-src"><b>Client 01</b> · WhatsApp feedback</span>
-        <img src="https://i.ibb.co/Ndr9NnvC/In-Collage-20260423-033313687.jpg" alt="Client feedback screenshot" loading="lazy">
+    <div class="review-grid" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<section class="chapter" id="leave">
+  <div class="container">
+    <div class="leave-wrap">
+      <div class="leave-copy">
+        <span class="eyebrow reveal">02 · Leave a Review</span>
+        <h2 class="reveal" style="font-size:clamp(1.5rem,3.6vw,2.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:14px 0 14px;">
+          Two lines beats a whole paragraph. Say it plain.
+        </h2>
+        <p class="reveal" style="color:var(--grey-2);font-weight:300;max-width:44ch;margin-bottom:22px;">
+          Your name is the only required field. The review text and a photo are both optional.
+          What you write goes on this page instantly and straight to the studio's WhatsApp,
+          because feedback that reaches the team is feedback that changes things.
+        </p>
+        <ul class="rev-rules reveal">
+          <li>Honest beats nice. Criticism welcome.</li>
+          <li>Mention what was delivered: branding, visuals, video, motion, social.</li>
+          <li>No last names or private details needed. First name and business is plenty.</li>
+        </ul>
       </div>
-      <div class="quote-card reveal">
-        <span class="q-src"><b>Client 02</b> · WhatsApp feedback</span>
-        <img src="https://i.ibb.co/DDdpsJSx/IMG-20260423-080406-715.jpg" alt="Client feedback screenshot" loading="lazy">
-      </div>
-      <div class="quote-card reveal">
-        <span class="q-src"><b>Client 03</b> · WhatsApp feedback</span>
-        <img src="https://i.ibb.co/W4x2KsMg/IMG-20260423-080346-875.jpg" alt="Client feedback screenshot" loading="lazy">
-      </div>
-      <div class="quote-card reveal">
-        <span class="q-src"><b>Client 04</b> · WhatsApp feedback</span>
-        <img src="https://i.ibb.co/k2GHnbM7/IMG-20260423-080438-296.jpg" alt="Client feedback screenshot" loading="lazy">
-      </div>
-      <div class="quote-card reveal">
-        <span class="q-src"><b>Client 05</b> · WhatsApp feedback</span>
-        <img src="https://i.ibb.co/4RQpVrHJ/IMG-20260423-080421-956.jpg" alt="Client feedback screenshot" loading="lazy">
-      </div>
-      <a class="quote-card reveal" href="/app.html" style="justify-content:center;align-items:flex-start;text-decoration:none;border-style:dashed;border-color:var(--line-strong);">
-        <span class="q-src"><b>You</b> · Next on this page</span>
-        <h3 style="font-size:1.15rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;">Deliver a project, keep the standard, and this card is yours.</h3>
-        <span class="rc-go" style="font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green);">Start a project <i>→</i></span>
-      </a>
+
+      <form class="leave-form reveal" id="reviewForm" autocomplete="off">
+        <label>
+          <span>Your name <b>*</b></span>
+          <input class="rev-input" id="revName" type="text" placeholder="e.g. Ama" required>
+        </label>
+        <label>
+          <span>Your business <span class="opt">optional</span></span>
+          <input class="rev-input" id="revBiz" type="text" placeholder="e.g. Kwa Ofori Foods, Accra">
+        </label>
+        <label>
+          <span>Your review <span class="opt">optional</span></span>
+          <textarea class="rev-input" id="revText" rows="4" placeholder="What we delivered, how it went, what changed for the business. Plain words are perfect."></textarea>
+        </label>
+        <label>
+          <span>A photo, if you want <span class="opt">optional</span></span>
+          <input class="rev-input rev-file" id="revImage" type="file" accept="image/*">
+          <span class="rev-filename" id="revFileName"></span>
+        </label>
+        <button class="btn btn-primary" id="revSubmit" type="submit" style="width:100%;">
+          Post Review &amp; Send to Studio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="rev-note">Posts appear on this device's list and open in WhatsApp for the studio. No account, no email, no noise.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -84,11 +107,11 @@
 <section class="chapter" id="standard">
   <div class="container">
     <div class="ch-head reveal">
-      <span class="eyebrow">02 · The Standard Behind the Praise</span>
+      <span class="eyebrow">03 · The Standard Behind the Praise</span>
       <h2>Reviews aren't luck. They're process.</h2>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+    <div class="std-grid">
       <div class="info-card reveal">
         <span class="k">Quote First</span>
         <h4>The price is final before work starts</h4>
@@ -110,8 +133,8 @@
 
 <section class="cta-strip">
   <div class="container">
-    <h2 class="reveal">The next review on this page could be yours. Make it a good one, or we'll make it right.</h2>
-    <p class="reveal">That's the deal: you bring the business, we bring the content, and the standard is both of our names on it.</p>
+    <h2 class="reveal">The best review you can write today is a project first.</h2>
+    <p class="reveal">Start a brief, get a quote the same day, and see why the word keeps spreading.</p>
     <div class="btn-row">
       <a href="/app.html" class="btn btn-primary">Start a Project</a>
       <a href="https://wa.me/233534317611" target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp Us</a>
@@ -136,5 +159,6 @@
 </footer>
 
 <script src="/site.js"></script>
+<script src="/reviews.js"></script>
 </body>
 </html>

@@ -125,7 +125,7 @@ window.goToReview = function () {
     <p><strong>Business:</strong> ${esc(biz)}</p>
     <p><strong>Idea:</strong> ${esc(idea)}</p>`;
   if (budget) details += `<p><strong>Budget:</strong> ${esc(budget)}</p>`;
-  details += `<p><strong>Images:</strong> ${projectImages.length > 0 ? projectImages.length + ' attached' : 'None yet — can share later'}</p>`;
+  details += `<p><strong>Images:</strong> ${projectImages.length > 0 ? projectImages.length + ' attached' : 'None yet, can share later'}</p>`;
   document.getElementById('reviewDetails').innerHTML = details;
   saveDraft();
   showScreen('review');
@@ -135,7 +135,7 @@ window.goToReview = function () {
 async function submitOrder() {
   if (!isOnline()) {
     saveDraft();
-    showToast("You're offline — your brief is saved. Send it when you're back online.", true);
+    showToast("You're offline. Your brief is saved. Send it when you're back online.", true);
     return;
   }
   const btn = document.getElementById('submitBtn');
@@ -158,7 +158,7 @@ async function submitOrder() {
     let msg = `Hello GIDIGBA CREATIVES!%0A%0A📦 New Project Brief%0A🎯 Services: ${selectedServices.map(i => SERVICES[i].name).join(', ')}%0A💼 Business: ${biz}%0A📝 Idea: ${idea}`;
     if (budget) msg += `%0A💰 Budget: ${budget}`;
     if (urls.length) msg += `%0A%0A📸 Images:` + urls.map(u => `%0A${u}`).join('');
-    else msg += `%0A📸 Images: None yet — I'll share them here`;
+    else msg += `%0A📸 Images: None yet, I'll share them here`;
     msg += `%0A%0A✅ I've reviewed this brief and I'm ready to discuss pricing.`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
     showToast('Brief sent! We\'ll get back to you.', true);
