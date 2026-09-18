@@ -1763,15 +1763,12 @@ section{
   line-height:1.02;
   margin:0 0 clamp(24px,3.6vw,38px);
 }
-.bboxes{
-  overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
-}
+.bbrands{overflow:hidden}
 .bboxes{
   display:flex;
   width:max-content;
   animation:bbox-scroll 38s linear infinite;
+  will-change:transform;
 }
 .bboxes-track{
   display:flex;
@@ -1785,6 +1782,10 @@ section{
 @keyframes bbox-scroll{
   from{transform:translateX(0)}
   to{transform:translateX(-50%)}
+}
+.bbrands .bboxes{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
 }
 .bbox{
   flex:0 0 300px;
