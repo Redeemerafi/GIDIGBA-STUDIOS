@@ -1768,16 +1768,20 @@ section{
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
 }
+.bboxes{
+  display:flex;
+  width:max-content;
+  animation:bbox-scroll 38s linear infinite;
+}
 .bboxes-track{
   display:flex;
   gap:18px;
   width:max-content;
   padding:4px 0 16px;
   padding-right:18px;
-  animation:bbox-scroll 38s linear infinite;
   will-change:transform;
 }
-.bboxes:hover .bboxes-track{animation-play-state:paused}
+.bboxes:hover{animation-play-state:paused}
 @keyframes bbox-scroll{
   from{transform:translateX(0)}
   to{transform:translateX(-50%)}
@@ -1895,28 +1899,4 @@ a.svc-card{cursor:pointer;text-decoration:none;color:inherit}
   .foot-mini-in{gap:12px}
   .std-grid,.partner-grid,.quote-grid,.plogo-grid{gap:12px}
   .footer{padding:30px 0 24px}
-}
-
-/* ============================================================
-   VERTICAL BRAND STACK (overrides the horizontal track)
-   ============================================================ */
-.bboxes{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  padding:0 20px;
-  overflow:visible;
-  -webkit-mask-image:none;
-  mask-image:none;
-}
-.bboxes-track{display:contents}
-.bbox{
-  width:min(420px,88vw);
-  flex:none;
-  height:118px;
-}
-@media (max-width:640px){
-  .bbox{width:100%;height:96px;border-radius:14px}
-  .bboxes{gap:10px;padding:0}
 }
