@@ -1,8 +1,17 @@
-const CACHE_NAME = 'gidigba-creatives-v2';
+const CACHE_NAME = 'gidigba-creatives-v3';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/app.html',
+  '/about.html',
+  '/services.html',
+  '/process.html',
+  '/vision.html',
+  '/work.html',
+  '/partners.html',
+  '/testimonials.html',
+  '/site.css',
+  '/site.js',
   '/style.css',
   '/script.js',
   '/manifest.webmanifest',
