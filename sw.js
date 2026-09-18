@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gidigba-creatives-v8';
+const CACHE_NAME = 'gidigba-creatives-v9';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -28,6 +28,13 @@ const PRECACHE_URLS = [
   '/brands/fofie-interiors.png',
   '/brands/kasa-records.png',
   '/brands/all.png',
+  '/samples/followers.png',
+  '/samples/views.png',
+  '/samples/engagement.png',
+  '/samples/reach.png',
+  '/samples/product-candle.jpg',
+  '/samples/product-sneaker.jpg',
+  '/samples/product-food.jpg',
   '/brands/food.png',
   '/brands/fashion.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',

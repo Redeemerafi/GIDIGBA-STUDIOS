@@ -349,7 +349,7 @@ section{
   padding-top:28px;
   border-top:1px solid var(--line);
 }
-.hero-tags span{
+.hero-tags a, .hero-tags span{
   font-size:11px;
   letter-spacing:.14em;
   text-transform:uppercase;
@@ -360,7 +360,7 @@ section{
   border-radius:100px;
   transition:all .3s var(--ease);
 }
-.hero-tags span:hover{
+.hero-tags a:hover, .hero-tags span:hover{
   border-color:var(--green);
   color:var(--green);
 }
@@ -1747,3 +1747,152 @@ section{
    ============================================================ */
 .strip-wrap{line-height:0}
 .strip-wrap img{width:100%;height:auto;display:block}
+
+/* ============================================================
+   BIG BRANDS BOX RAIL (centered, animated)
+   ============================================================ */
+.bbrands{
+  padding:clamp(40px,6vw,72px) 0 clamp(36px,5vw,60px);
+  border-top:1px solid var(--line);
+}
+.bbrands h2{
+  text-align:center;
+  font-size:clamp(1.9rem,5.6vw,3.4rem);
+  font-weight:900;
+  letter-spacing:-.04em;
+  line-height:1.02;
+  margin:0 0 clamp(24px,3.6vw,38px);
+}
+.bboxes{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+}
+.bboxes-track{
+  display:flex;
+  gap:18px;
+  width:max-content;
+  padding:4px 0 16px;
+  padding-right:18px;
+  animation:bbox-scroll 38s linear infinite;
+  will-change:transform;
+}
+.bboxes:hover .bboxes-track{animation-play-state:paused}
+@keyframes bbox-scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+.bbox{
+  flex:0 0 300px;
+  height:122px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#0a0a0a;
+  display:grid;
+  place-items:center;
+  padding:20px 26px;
+  transition:border-color .35s var(--ease),background .35s var(--ease);
+}
+.bbox img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:grayscale(100%);
+  opacity:.72;
+  transition:all .35s var(--ease);
+}
+.bbox:hover{border-color:rgba(188,235,45,.55);background:#0e0e0e}
+.bbox:hover img{filter:none;opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .bboxes-track{animation:none}
+}
+
+/* ============================================================
+   FUNCTIONAL SERVICE CARDS
+   ============================================================ */
+a.svc-card{cursor:pointer;text-decoration:none;color:inherit}
+.svc-go{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  font-size:10.5px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--grey);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:color .3s;
+}
+.svc-go i{font-style:normal;transition:transform .3s var(--ease)}
+.svc-card:hover .svc-go{color:var(--green)}
+.svc-card:hover .svc-go i{transform:translateX(5px)}
+
+/* ============================================================
+   MOBILE: CLOSE UP SPACE, TIGHTEN EVERYTHING
+   ============================================================ */
+@media (max-width:640px){
+  section{padding:clamp(38px,9vw,54px) 0}
+  .rail-sec{padding:30px 0 0}
+  .hero{padding:96px 0 40px}
+  .hero h1{font-size:clamp(2.15rem,10vw,3rem);margin-top:16px}
+  .hero-sub{font-size:.98rem;margin-top:16px}
+  .hero-actions{margin-top:24px}
+  .hero-tags{margin-top:28px;padding-top:16px}
+  .hero-tags a,.hero-tags span{font-size:10px;padding:6px 11px}
+  .marquee{padding:11px 0}
+  .marquee-track span{font-size:11px;padding:0 14px;gap:14px}
+  .rail-head{margin-bottom:14px}
+  .rail-head h2{font-size:clamp(1.25rem,5.4vw,1.6rem)}
+  .rail-card{flex-basis:min(232px,78vw);padding:18px}
+  .rail .work-item{flex-basis:min(252px,82vw)}
+  .bbox{flex-basis:236px;height:100px;padding:14px 18px}
+  .bboxes-track{gap:12px;padding-right:12px}
+  .bbrands{padding:32px 0 26px}
+  .bbrands h2{font-size:clamp(1.7rem,8.6vw,2.3rem);margin-bottom:18px}
+  .subnav-inner{height:54px;gap:10px}
+  .subnav .logo-mark{width:24px;height:24px;border-radius:7px}
+  .subnav .logo-text{font-size:12.5px}
+  .tab{font-size:11px;padding:7px 12px}
+  .page-intro{padding:30px 0 20px}
+  .page-intro h1{margin:12px 0 12px;font-size:clamp(1.7rem,8.2vw,2.4rem)}
+  .chapter{padding:28px 0}
+  .wall-cat-sec{padding:20px 0}
+  .wall-cat{margin-bottom:14px;font-size:1rem}
+  .ch-head{margin-bottom:20px}
+  .ch-head h2{font-size:clamp(1.35rem,6vw,1.8rem);margin:10px 0 10px}
+  .ch-head p{font-size:.92rem}
+  .svc-grid{gap:12px}
+  .svc-card{padding:22px 18px 20px;border-radius:14px}
+  .svc-card h3{font-size:1.12rem;margin:12px 0 8px}
+  .svc-card > p{min-height:0;margin-bottom:16px;font-size:.86rem}
+  .svc-footnote{padding:18px;gap:12px}
+  .needs-grid{gap:12px}
+  .need{padding:18px 16px}
+  .need q{min-height:0;font-size:.9rem;margin-bottom:10px}
+  .flow{gap:0}
+  .flow-step{padding:16px 12px}
+  .flow-step h4{font-size:.86rem}
+  .diff-wrap{border-radius:16px}
+  .pain-list li{padding:12px 0;font-size:.92rem;gap:12px}
+  .info-card{padding:20px}
+  .philosophy{padding:22px 18px;margin-top:28px}
+  .statement{font-size:1.2rem;padding-left:18px}
+  .who-grid,.problem-grid,.vision-grid{gap:26px}
+  .cta-strip{padding:38px 0}
+  .cta-strip h2{font-size:clamp(1.35rem,6.4vw,1.9rem);margin-bottom:12px}
+  .cta-actions,.btn-row{margin-top:20px !important}
+  .contact-row{margin-top:30px;padding-top:22px;gap:18px}
+  .contact-item a,.contact-item span{font-size:.9rem}
+  .review-grid{gap:12px}
+  .review-card{padding:18px;gap:12px}
+  .leave-form{padding:18px;gap:14px}
+  .brand-cell{padding:22px 16px;min-height:150px;border-radius:14px}
+  .work-grid{gap:12px}
+  .work-shot figcaption{padding:12px 13px}
+  .foot-mini{padding:20px 0}
+  .foot-mini-in{gap:12px}
+  .std-grid,.partner-grid,.quote-grid,.plogo-grid{gap:12px}
+  .footer{padding:30px 0 24px}
+}
