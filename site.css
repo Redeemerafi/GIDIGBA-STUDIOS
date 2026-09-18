@@ -1302,3 +1302,112 @@ section{
 }
 .cta-strip p{color:var(--grey-2);font-weight:300;max-width:52ch;margin:0 auto 28px;font-size:.98rem}
 .cta-strip .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ============================================================
+   PARTNER LOGO PLATES + MARQUEE
+   ============================================================ */
+.plogo{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+}
+.plogo .pl-tile{
+  width:58px;height:58px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:26px;
+  letter-spacing:-.05em;
+  flex-shrink:0;
+  transition:all .4s var(--ease);
+}
+.plogo .pl-name{
+  font-weight:800;
+  font-size:1rem;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  color:#fff;
+  white-space:nowrap;
+}
+.plogo .pl-role{
+  display:block;
+  font-size:9px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--grey);
+  font-weight:700;
+  margin-top:4px;
+}
+/* per-brand tile variants (palette stays green/black/white) */
+.t-gidigba .pl-tile{background:var(--green);color:#000}
+.t-radikal-tech .pl-tile{background:#000;border:1.5px solid var(--green);color:var(--green)}
+.t-radikal-studios .pl-tile{background:#fff;color:#000}
+.t-akutu .pl-tile{background:#121212;border:1.5px solid var(--line-strong);color:#fff}
+.t-you .pl-tile{background:transparent;border:1.5px dashed var(--green);color:var(--green)}
+.t-gidigba:hover .pl-tile,.t-radikal-tech:hover .pl-tile,.t-radikal-studios:hover .pl-tile,.t-akutu:hover .pl-tile,.t-you:hover .pl-tile{transform:translateY(-3px) rotate(-3deg)}
+
+/* scrolling partner band (home) */
+.pm{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:#050505;
+  padding:20px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.pm-track{
+  display:inline-flex;
+  animation:scroll-x 34s linear infinite;
+  will-change:transform;
+}
+.pm-half{
+  display:inline-flex;
+  align-items:center;
+  gap:64px;
+  padding-right:64px;
+  flex-shrink:0;
+}
+.pm .sep{
+  color:rgba(188,235,45,.4);
+  font-size:9px;
+  flex-shrink:0;
+}
+.pm:hover .pm-track{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+  .pm-track{animation:none}
+}
+
+/* partner logos grid (partners page visuals) */
+.plogo-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.plogo-cell{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#0a0a0a;
+  padding:30px 24px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
+  transition:all .4s var(--ease);
+}
+.plogo-cell:hover{border-color:rgba(188,235,45,.45);transform:translateY(-4px)}
+.plogo-cell .plogo{align-items:flex-start}
+.plogo-cell .pl-tile{width:68px;height:68px;border-radius:18px;font-size:30px}
+.plogo-cell .pl-name{white-space:normal;font-size:1.05rem}
+.plogo-cell p{font-size:.86rem;color:var(--grey);font-weight:300;line-height:1.55;white-space:normal}
+.plogo-cell .pl-link{
+  margin-top:auto;
+  font-size:10.5px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--green);
+}
+@media (max-width:1080px){.plogo-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.plogo-grid{grid-template-columns:1fr}}
