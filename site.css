@@ -1741,3 +1741,9 @@ section{
 @media (max-width:560px){
   .wall,.wall-2,.wall-3{grid-template-columns:1fr}
 }
+
+/* ============================================================
+   CASEY-STYLE LOGO STRIPS (image only, no text)
+   ============================================================ */
+.strip-wrap{line-height:0}
+.strip-wrap img{width:100%;height:auto;display:block}
