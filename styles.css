@@ -1401,6 +1401,10 @@ section,
   letter-spacing: -.01em;
   transition: color .3s;
 }
+.contact-item a {
+  display: inline-block;
+  padding: 6px 0;
+}
 .contact-item a:hover { color: var(--green); }
 
 /* ============================================================
@@ -2392,4 +2396,95 @@ body::after {
 
 @media (max-width: 1079px) {
   .hv-pill-a { left: 8px; }
+}
+
+/* ============================================================
+   RESPONSIVE PERFECT — audit-driven fixes
+   ============================================================ */
+
+/* Teaser grid MUST stack below 900px (was squeezing image to ~2px on phones) */
+@media (max-width: 900px) {
+  .teaser-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .teaser-media { max-width: 640px; }
+}
+
+/* CTA/hero button rows stack on phones — no more clipped labels */
+@media (max-width: 520px) {
+  .hero-actions, .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn,
+  .cta-actions .btn {
+    width: 100%;
+    flex: none;
+  }
+}
+
+/* Hero meta: drop dividers when items wrap on small screens */
+@media (max-width: 560px) {
+  .meta-divider { display: none; }
+  .hero-meta {
+    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-meta .meta-item { display: flex; align-items: baseline; gap: 10px; }
+  .hero-meta .meta-item strong { font-size: 14px; }
+}
+
+/* Looks gallery → 2×2 on phones (was 4 tiny columns) */
+@media (max-width: 780px) {
+  .looks-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Booking inspiration slots → 2×2 */
+@media (max-width: 520px) {
+  .inspiration-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mid-size: keep service/how cards 2-up instead of 1 giant column */
+@media (min-width: 641px) and (max-width: 780px) {
+  .svc-grid, .how-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Footer links: comfortable touch targets without changing look */
+.footer-col ul { gap: 0; }
+.footer-col a {
+  display: block;
+  padding: 6px 0;
+}
+
+/* Hero tags: bigger tap targets */
+.tag { padding: 9px 15px; }
+
+/* Ghost words: fit the viewport, align to the container edge */
+.ph-ghost {
+  font-size: clamp(2.6rem, 12vw, 11.5rem);
+  right: max(14px, calc((100vw - var(--max)) / 2 + 20px));
+}
+
+/* Minimum legible sizes for micro labels */
+.sample-badge, .pkg-badge { font-size: 10.5px; }
+.bl-sub { font-size: 9px; }
+.hv-pill span { font-size: 10.5px; }
+
+/* Phones: tighter section rhythm, wrapped filter rows, breathing callout */
+@media (max-width: 640px) {
+  section, .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .section-tight { padding-top: 0; }
+  .photo-callout-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .section-head { margin-bottom: 36px; }
+  .photo-callout { padding: 26px 20px; }
+  .work-filter { flex-wrap: wrap; }
+  .callout-mini-list { gap: 6px; }
 }
