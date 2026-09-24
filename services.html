@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services | GIDIGBA STUDIOS — Branding, Design, Marketing, Photoshoots</title>
+<meta name="description" content="Ten services from GIDIGBA STUDIOS: brand identity, graphic design, social media, digital marketing, commercial photography, video, content, websites, campaigns and personal photography." />
+<meta name="theme-color" content="#C0F500" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="services">
+<div id="chrome-top"></div>
+
+<main id="top">
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-ghost" aria-hidden="true">SERVICES</div>
+  <div class="container">
+    <span class="eyebrow reveal">01 — What We Do</span>
+    <h1 class="reveal">Ten ways we build how your business is <span class="hl">seen</span> and <span class="hl">sold</span>.</h1>
+    <p class="reveal">From the logo on your door to the advert on someone's feed — it all works together. Every card is a starting point: tap one and tell us what you need.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="container">
+    <div class="svc-grid" id="servicesGrid"></div>
+
+    <div class="svc-footnote reveal">
+      <p><strong>Not sure what you need?</strong> Bring us your product, your idea or just the problem — we'll advise you on the right mix of creative and digital work.</p>
+      <button class="btn btn-ghost btn-sm" onclick="openBookingChoice('business')">Talk to Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEEDS -->
+<section class="section section-alt" id="needs">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — Core Customer Needs</span>
+      <h2>What people actually come to us for.</h2>
+    </div>
+    <div class="needs-grid">
+      <button class="need reveal" data-book="business"><q>I need my business to look professional.</q><span class="arrow">Branding</span></button>
+      <button class="need reveal" data-book="business"><q>I need better pictures of my products.</q><span class="arrow">Commercial Photography</span></button>
+      <button class="need reveal" data-book="business"><q>I need content for Instagram / TikTok.</q><span class="arrow">Social Media</span></button>
+      <button class="need reveal" data-book="business"><q>I need an advert.</q><span class="arrow">Campaign Production</span></button>
+      <button class="need reveal" data-book="business"><q>I need a video for my business.</q><span class="arrow">Video Production</span></button>
+      <button class="need reveal" data-book="photo"><q>I need a professional headshot — without a studio visit.</q><span class="arrow">Online Photoshoot</span></button>
+      <button class="need reveal" data-book="business"><q>I need someone to manage my social media.</q><span class="arrow">Social Media Management</span></button>
+      <button class="need reveal" data-book="business"><q>I need more customers online.</q><span class="arrow">Digital Marketing</span></button>
+      <button class="need reveal" data-book="business"><q>I need a website that converts.</q><span class="arrow">Website Design</span></button>
+      <button class="need reveal" data-book="photo"><q>I want graduation &amp; birthday photos, fully online.</q><span class="arrow">Book Your Session</span></button>
+      <button class="need reveal" data-book="business"><q>I want an advertisement that looks different.</q><span class="arrow">Advanced Production</span></button>
+      <button class="need reveal" data-book="business"><q>I have an idea but don't know how to visualize it.</q><span class="arrow">Creative Direction</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Let's Work</span>
+    <h2 class="cta-title reveal">Which of these is yours?</h2>
+    <p class="cta-sub reveal">Start a business project, or book an online photoshoot — we'll take it from there.</p>
+    <div class="cta-actions reveal">
+      <button class="btn btn-primary" onclick="openBookingChoice('business')">Start a Business Project</button>
+      <button class="btn btn-ghost" onclick="openBookingChoice('photo')">Book a Photography Session</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="chrome-bottom"></div>
+<script src="script.js"></script>
+</body>
+</html>

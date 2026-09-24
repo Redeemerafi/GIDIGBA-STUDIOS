@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book Personal Photography | GIDIGBA STUDIOS</title>
+<meta name="description" content="Book birthday, graduation, portrait, headshot, fashion, lifestyle and personal-brand photography sessions with GIDIGBA STUDIOS — 100% online, delivered via WhatsApp in 4 hours." />
+<meta name="theme-color" content="#C0F500" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="photoshoots">
+<div id="chrome-top"></div>
+
+<main id="top">
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-ghost" aria-hidden="true">SHOOTS</div>
+  <div class="container">
+    <span class="eyebrow reveal">Online Photoshoots · 100% Remote</span>
+    <h1 class="reveal">No studio. No stress. Just <span class="hl">stunning photos</span>.</h1>
+    <p class="reveal">Send a selfie &amp; full-body pic, describe your dream look, and get software-assisted images on WhatsApp in 4 hours. Fully remote — you never have to leave home.</p>
+    <div class="hero-actions reveal" style="margin-top:30px;">
+      <button class="btn btn-primary" onclick="openPhotoBooking()">
+        Book Your Session
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <a href="#packages" class="btn btn-ghost">See Packages</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">01 — How It Works</span>
+      <h2>Three steps. All from your phone.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <span class="how-num">1</span>
+        <h4>Choose &amp; describe</h4>
+        <p>Pick a package and photoshoot type. Tell us the outfits, hairstyle, mood and scene you want.</p>
+      </div>
+      <div class="how-card reveal">
+        <span class="how-num">2</span>
+        <h4>Upload your photos</h4>
+        <p>Send a selfie and full-body picture online. Add references if you like — that's all we need.</p>
+      </div>
+      <div class="how-card reveal">
+        <span class="how-num">3</span>
+        <h4>Receive on WhatsApp</h4>
+        <p>Your finished images arrive within 4 hours (2h on Platinum priority). Simple as that.</p>
+      </div>
+    </div>
+
+    <div class="looks-gallery">
+      <div class="looks-item reveal">
+        <img src="images/work-grad.jpg" alt="Graduation look sample" loading="lazy" />
+        <span class="sample-badge">Sample</span>
+      </div>
+      <div class="looks-item reveal">
+        <img src="images/work-birthday.jpg" alt="Birthday look sample" loading="lazy" />
+        <span class="sample-badge">Sample</span>
+      </div>
+      <div class="looks-item reveal">
+        <img src="images/work-headshot.jpg" alt="Headshot look sample" loading="lazy" />
+        <span class="sample-badge">Sample</span>
+      </div>
+      <div class="looks-item reveal">
+        <img src="images/work-fashion.jpg" alt="Fashion look sample" loading="lazy" />
+        <span class="sample-badge">Sample</span>
+      </div>
+    </div>
+    <p class="gallery-caption">Recent looks — birthday, graduation, headshot and fashion recreations. All samples produced from uploaded photos.</p>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section section-alt" id="packages">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — Packages</span>
+      <h2>Pick your package. We build the look.</h2>
+      <p>Prices in Ghana Cedis. Everything delivered online to your WhatsApp.</p>
+    </div>
+
+    <div class="packages-head reveal">
+      <h3>Packages</h3>
+      <div class="tabs" id="pkgTabs">
+        <button class="tab active" data-pkgtype="individual">Individual</button>
+        <button class="tab" data-pkgtype="couple">Couple</button>
+      </div>
+    </div>
+    <div class="pkg-grid" id="pkgGrid"></div>
+
+    <div class="custom-cta-bar reveal">
+      <div>
+        <h4>Need something specific?</h4>
+        <p>Custom Edits — retouch, outfit change, background change, makeup &amp; more. Pay for what you need, from GH₵10.</p>
+      </div>
+      <button class="btn btn-ghost" onclick="openPhotoBooking(null, 'custom')">Select Services</button>
+    </div>
+
+    <div class="disclaimer-strip reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>These are software-assisted generated images. Minor variations from real life may occur. 100% online — no in-person sessions. Images deleted 20 minutes after delivery.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Book Your Session</span>
+    <h2 class="cta-title reveal">Your moment deserves more than a phone picture.</h2>
+    <p class="cta-sub reveal">Choose your package, send your ideas, and let us build the look — delivered to your WhatsApp in hours, not weeks.</p>
+    <div class="cta-actions reveal">
+      <button class="btn btn-primary" onclick="openPhotoBooking()">Book Your Session</button>
+      <a href="reviews.html" class="btn btn-ghost">See Reviews</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="chrome-bottom"></div>
+<script src="script.js"></script>
+</body>
+</html>

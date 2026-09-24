@@ -1,54 +1,66 @@
-const CACHE_NAME = 'gidigba-v1';
+const CACHE_NAME = 'gidigba-v4';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/style.css',
+  '/about.html',
+  '/services.html',
+  '/photoshoots.html',
+  '/work.html',
+  '/brands.html',
+  '/reviews.html',
+  '/styles.css',
   '/script.js',
-  '/manifest.webmanifest',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
-  'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap'
+  '/manifest.webmanifest'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(PRECACHE_URLS))
+      .catch(() => {})
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', event => {
   const { request } = event;
+  if (request.method !== 'GET') return;
+
   const url = new URL(request.url);
-  if (url.hostname === 'i.ibb.co') {
+
+  // Runtime cache for images (ours + portfolio hosts)
+  if (request.destination === 'image' || url.hostname === 'i.ibb.co') {
     event.respondWith(
-      caches.open('portfolio-images').then(cache => {
-        return fetch(request).then(response => {
-          cache.put(request, response.clone());
+      caches.open('gidigba-images').then(cache =>
+        fetch(request).then(response => {
+          if (response && (response.status === 200 || response.type === 'opaque')) {
+            cache.put(request, response.clone()).catch(() => {});
+          }
           return response;
-        }).catch(() => cache.match(request));
-      })
+        }).catch(() => cache.match(request))
+      )
     );
     return;
   }
+
   event.respondWith(
-    caches.match(request).then(cachedResponse => {
-      const fetchPromise = fetch(request).then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+    caches.match(request).then(cached => {
+      const network = fetch(request).then(response => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone).catch(() => {}));
         }
-        return networkResponse;
-      });
-      return cachedResponse || fetchPromise;
+        return response;
+      }).catch(() => cached);
+      return cached || network;
     })
   );
 });

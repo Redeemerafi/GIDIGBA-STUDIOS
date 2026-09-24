@@ -1,156 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GIDIGBA STUDIOS · Your Vision, Recreated</title>
-  <meta name="description" content="AI-powered photo recreation studio. Send a selfie, describe your dream look, get stunning photos in 4 hours.">
-  <!-- Social Share & PWA -->
-  <meta property="og:title" content="GIDIGBA STUDIOS">
-  <meta property="og:description" content="No studio. No stress. Just stunning photos.">
-  <meta property="og:image" content="https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg">
-  <meta property="og:url" content="https://gidigba.vercel.app">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#C0F500">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GIDIGBA STUDIOS | Developed Specially for Businesses</title>
+<meta name="description" content="GIDIGBA STUDIOS provides branding, design, digital marketing, content production, commercial visuals and online personal photography booking in Ghana. Photoshoots are 100% online — no in-person sessions." />
+<meta property="og:title" content="GIDIGBA STUDIOS | Developed Specially for Businesses" />
+<meta property="og:description" content="Creative production, digital growth and AI-powered online photoshoots for businesses, brands and people ready to look their best." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#C0F500" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body>
-<div class="toast glass" id="toast"></div>
-<a href="https://wa.me/233534317611" class="float-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<body data-page="home">
+<div id="chrome-top"></div>
 
-<!-- HOME SCREEN -->
-<div class="screen active" id="home">
-  <div class="container">
-   <div class="logo">
-  <img src="https://i.ibb.co/TxVB7Jkb/photo-6008125456143551445-x.jpg" alt="Logo" style="height:40px; width:auto;">
-  <span class="logo-text">GIDIGBA STUDIOS</span>
-</div>
-  <div></div>
-</div>
-    <section class="hero">
-      <span class="badge">✨ ADVANCED PHOTO RECREATION</span>
-      <h1>No studio.<br>No stress.<br><span>Just stunning photos.</span></h1>
-      <p class="hero-desc">Send a selfie & full‑body pic. Describe your dream look. Get high‑res images on WhatsApp in 4 hours.</p>
-      <div class="stats"><div class="stat-item"><span class="stat-num">4h</span><div class="stat-label">Delivery</div></div><div class="stat-item"><span class="stat-num">95%</span><div class="stat-label">Identity Match</div></div></div>
-    </section>
-    <div class="pathway-grid">
-      <div class="path-card glass" onclick="startPhotoshoot()">
-        <div class="path-title">📸 Start Photoshoot</div>
-        <div class="path-sub">Full scene recreation · Outfit, hair, makeup, background</div>
-        <div class="examples"><span class="example-tag">Birthday</span><span class="example-tag">Maternity</span><span class="example-tag">Traditional</span><span class="example-tag">Couple</span><span class="example-tag">Anniversary</span></div>
-        <button class="btn" style="width:100%;" onclick="event.stopPropagation();startPhotoshoot()">Choose Package →</button>
-      </div>
-      <div class="path-card glass" onclick="startCustom()">
-        <div class="path-title">✨ Custom Edit</div>
-        <div class="path-sub">Specific changes only · Pay for what you need</div>
-        <div class="examples"><span class="example-tag">Change Outfit</span><span class="example-tag">Change Hair</span><span class="example-tag">Apply Makeup</span><span class="example-tag">Background</span><span class="example-tag">Retouch</span></div>
-        <button class="btn btn-outline" style="width:100%;" onclick="event.stopPropagation();startCustom()">Select Services →</button>
-      </div>
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow" id="heroGlow"><div class="hero-glow-core"></div></div>
+
+  <div class="container hero-inner">
+    <div class="hero-copy">
+    <span class="eyebrow reveal">Creative • Technology • Online Photoshoots</span>
+
+    <h1 class="reveal">
+      <span class="brand-name">GIDIGBA <span class="outline">STUDIOS</span></span>
+      <span class="hero-tagline">Developed specially for businesses.</span>
+    </h1>
+
+    <p class="hero-sub reveal">
+      Creative production, digital growth and professional photography for businesses,
+      brands and people ready to look their best — with photoshoots you can order
+      fully online, no in-person session required.
+    </p>
+
+    <div class="hero-actions reveal">
+      <button class="btn btn-primary" onclick="openBookingChoice('business')">
+        Start a Business Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <button class="btn btn-ghost" onclick="openBookingChoice('photo')">Book a Photography Session</button>
     </div>
-    <section class="section">
-      <h2>Work Samples</h2>
-      <div class="work-grid">
-        <div class="work-card"><div class="work-badge">MODEL 1 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/V0GzhVBH/176871241416412177.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/ycKRckGN/image-24.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/ycKRckGN/image-24.jpg"><img src="https://i.ibb.co/v6ZkXHyq/Photo-1767071805759.jpg"><img src="https://i.ibb.co/q3Yk4M5M/Photo-1767071785655.jpg"><img src="https://i.ibb.co/9k8Rm7Py/Photo-1767071789970.jpg"><img src="https://i.ibb.co/6cjhCTWW/Photo-1767071794742.jpg"><img src="https://i.ibb.co/353Z6RMp/pm-1769858575625-cmp.jpg"></div></div>
-        <div class="work-card"><div class="work-badge">MODEL 2 · ORIGINAL</div><div class="reveal-container"><img src="https://i.ibb.co/xSZSgcr9/pm-1769858574070-cmp.jpg" alt="Before"><img class="reveal-after" src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg" alt="After"></div><div style="padding:8px;"><span style="color:var(--lemon);">↓ Swipe After ↓</span></div><div class="carousel"><img src="https://i.ibb.co/35mM0dDk/pm-1769858575349-cmp.jpg"><img src="https://i.ibb.co/Fkh2rvLw/pm-1769858575967-cmp.jpg"><img src="https://i.ibb.co/WmrHqVc/pm-1769858574591-cmp.jpg"><img src="https://i.ibb.co/4R9YzKKk/pm-1769858574688-cmp.jpg"></div></div>
-      </div>
-    </section>
-    <!-- Client Feedback Slideshow (updated images) -->
-    <section class="section">
-      <h2>Client Feedback</h2>
-      <div class="feedback-carousel-container">
-        <div class="feedback-track" id="feedbackTrack">
-          <div class="feedback-slide"><img src="https://i.ibb.co/Ndr9NnvC/In-Collage-20260423-033313687.jpg" alt="Client 1"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/DDdpsJSx/IMG-20260423-080406-715.jpg" alt="Client 2"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/W4x2KsMg/IMG-20260423-080346-875.jpg" alt="Client 3"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/k2GHnbM7/IMG-20260423-080438-296.jpg" alt="Client 4"></div>
-          <div class="feedback-slide"><img src="https://i.ibb.co/4RQpVrHJ/IMG-20260423-080421-956.jpg" alt="Client 5"></div>
+
+    <div class="hero-tags reveal">
+      <button class="tag" onclick="location.href='services.html'">Branding</button>
+      <button class="tag" onclick="location.href='services.html'">Graphic Design</button>
+      <button class="tag" onclick="location.href='services.html'">Digital Marketing</button>
+      <button class="tag" onclick="location.href='services.html'">Commercial Photography</button>
+      <button class="tag tag-highlight" onclick="openBookingChoice('photo')">Personal Photography</button>
+      <button class="tag" onclick="location.href='services.html'">Video Production</button>
+      <button class="tag" onclick="location.href='services.html'">Social Media</button>
+      <button class="tag" onclick="location.href='services.html'">Websites</button>
+      <button class="tag" onclick="location.href='services.html'">Campaigns</button>
+    </div>
+
+    <div class="hero-meta reveal">
+      <div class="meta-item"><strong>4h Delivery</strong><span>Standard turnaround</span></div>
+      <div class="meta-divider"></div>
+      <div class="meta-item"><strong>95% Identity Match</strong><span>Software-assisted recreation</span></div>
+      <div class="meta-divider"></div>
+      <div class="meta-item"><strong>100% Online</strong><span>No in-person sessions</span></div>
+    </div>
+    </div><!-- /hero-copy -->
+
+    <div class="hero-visual reveal" aria-hidden="true">
+      <figure class="hv-card hv-main">
+        <img src="images/work-headshot.jpg" alt="" fetchpriority="high"
+             onerror="this.parentElement.classList.add('hv-fallback'); this.remove();" />
+      </figure>
+      <figure class="hv-card hv-float">
+        <img src="images/work-fashion.jpg" alt="" loading="lazy"
+             onerror="this.parentElement.classList.add('hv-fallback'); this.remove();" />
+      </figure>
+      <div class="hv-pill hv-pill-a"><strong>4h</strong><span>WhatsApp delivery</span></div>
+      <div class="hv-pill hv-pill-b"><strong>100%</strong><span>Online — no studio visit</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Branding</span><span>Graphic Design</span><span>Digital Marketing</span><span>Commercial Photography</span>
+    <span>Personal Photography</span><span>Video Production</span><span>Social Media</span><span>Websites</span>
+    <span>Campaigns</span><span>Online Photoshoots</span><span>Content Creation</span><span>Brand Identity</span>
+    <span>Branding</span><span>Graphic Design</span><span>Digital Marketing</span><span>Commercial Photography</span>
+    <span>Personal Photography</span><span>Video Production</span><span>Social Media</span><span>Websites</span>
+    <span>Campaigns</span><span>Online Photoshoots</span><span>Content Creation</span><span>Brand Identity</span>
+  </div>
+</div>
+
+<!-- ABOUT TEASER -->
+<section class="section" id="about-teaser">
+  <div class="container">
+    <div class="teaser-grid">
+      <div class="teaser-copy">
+        <span class="eyebrow reveal">01 — Who We Are</span>
+        <h2 class="section-title reveal">A creative &amp; technology studio built for <span class="hl">business</span>.</h2>
+        <p class="reveal">
+          <strong>GIDIGBA STUDIOS</strong> is a creative, technology, and photography studio developed
+          specially for businesses — turning products, services and ideas into professional,
+          attention-grabbing visual and digital content.
+        </p>
+        <p class="reveal">
+          Individuals can order polished photoshoots online too: send your photos, describe the
+          look, receive stunning images on WhatsApp. No studio. No stress. No in-person sessions.
+        </p>
+        <div class="statement reveal" style="margin-bottom:8px;">
+          We turn businesses, products and ideas into <em>powerful digital presence</em>.
         </div>
-        <div class="feedback-dots" id="feedbackDots"></div>
+        <div class="teaser-actions reveal">
+          <a href="about.html" class="btn btn-primary btn-sm">More About the Studio</a>
+          <a href="photoshoots.html" class="btn btn-ghost btn-sm">Online Photoshoots</a>
+        </div>
       </div>
-      <p class="swipe-hint">← Swipe to see more →</p>
-    </section>
-    <section class="section">
-      <h2>FAQ</h2>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How long does delivery take? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">All orders delivered within 4 hours. Platinum priority (2h).</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Can I get a revision? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No free revisions. Changes after delivery cost extra.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">How long do you keep my images? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Deleted exactly 20 minutes after delivery.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Do you use my photos? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Never. Your images remain completely private.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-question">Payment method? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Mobile Money. Full payment required before work begins.</div></div>
-    </section>
-    <footer class="footer">
-      <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-tiktok"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
-      <p>📞 +233 53 431 7611</p>
-      <p>Images deleted 20min after delivery · No free revisions</p>
-    </footer>
-  </div>
-</div>
-
-<!-- PACKAGES SCREEN -->
-<div class="screen" id="packages">
-  <div class="container">
-    <button class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Choose Package</h2>
-    <div class="tabs"><div class="tab active" id="tabIndividual" onclick="setPkgType('individual')">Individual</div><div class="tab" id="tabCouple" onclick="setPkgType('couple')">Couple</div></div>
-    <div id="packageContainer"></div>
-    <div style="position:sticky; bottom:20px; margin-top:30px;"><button class="btn btn-full" id="continuePkgBtn" disabled onclick="goToUpload()">Continue →</button></div>
-  </div>
-</div><!-- DISCLAIMER SCREEN (Photoshop only) -->
-<div class="screen" id="disclaimer">
-  <div class="container" style="display:flex; flex-direction:column; justify-content:center; min-height:80vh; text-align:center;">
-    <div style="background:var(--card-bg); border:1px solid var(--border-light); border-radius:24px; padding:30px 20px;">
-      <p style="font-size:20px; margin-bottom:15px;"><i class="fas fa-exclamation-triangle" style="color:var(--lemon);"></i> Important Notice</p>
-      <p style="margin-bottom:25px; line-height:1.8;">
-        These are software‑assisted generated images.<br>
-        Do not expect 100% real‑life perfection.<br>
-        Minor changes may occur, and some details may not be as accurate as in real life.<br>
-        We are not liable for these variations.
-      </p>
-      <button class="btn btn-full" onclick="acknowledgeDisclaimer()">I Understand</button>
+      <div class="teaser-media reveal">
+        <img src="images/about-studio.jpg" alt="GIDIGBA STUDIOS creative workspace" loading="lazy"
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#101010,#1a1f0d)'; this.remove();" />
+        <span class="sample-badge">Studio</span>
+      </div>
     </div>
   </div>
-</div>
-<!-- CUSTOM EDIT SCREEN -->
-<div class="screen" id="custom">
-  <div class="container">
-    <button class="back-btn" onclick="showScreen('home')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Custom Edit</h2>
-    <p style="color:var(--silver-dim); margin-bottom:20px;">Swipe to select services →</p>
-    <div style="display:flex; overflow-x:auto; gap:12px; padding-bottom:15px;" id="servicesContainer"></div>
-    <div style="margin:20px 0; padding:15px; background:var(--card-bg); border-radius:12px; display:flex; justify-content:space-between;"><span>Total:</span><span id="customTotal" style="color:var(--lemon); font-weight:700;">GH₵ 0</span></div>
-    <button class="btn btn-full" id="continueCustomBtn" disabled onclick="goToUpload()">Continue →</button>
-  </div>
-</div>
+</section>
 
-<!-- UPLOAD SCREEN -->
-<div class="screen" id="upload">
+<!-- SERVICES (top picks + featured) -->
+<section class="section section-alt" id="services">
   <div class="container">
-    <button class="back-btn" onclick="goBackFromUpload()"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Upload Photos</h2>
-    <div id="uploadFields"></div>
-    <button class="btn btn-full" onclick="goToReview()">Review & Continue →</button>
-    <div style="height:80px;"></div>
-  </div>
-</div>
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — What We Do</span>
+      <h2>Ten ways we build how your business is <span class="hl">seen</span> and <span class="hl">sold</span>.</h2>
+      <p>From the logo on your door to the advert on someone's feed — it all works together.</p>
+    </div>
 
-<!-- REVIEW SCREEN -->
-<div class="screen" id="review">
+    <div class="svc-grid" id="servicesGrid" data-limit="6"></div>
+
+    <div class="svc-footnote reveal">
+      <p><strong>Want the full list?</strong> All ten services — from brand identity to online photoshoots — live on our services page.</p>
+      <a href="services.html" class="btn btn-ghost btn-sm">See All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY CALLOUT -->
+<section class="section photo-callout-section" id="photo-callout">
   <div class="container">
-    <button class="back-btn" onclick="showScreen('upload')"><i class="fas fa-arrow-left"></i> Back</button>
-    <h2 style="margin-top:20px;">Review Order</h2>
-    <div id="reviewDetails" style="background:var(--card-bg); border-radius:20px; padding:20px; margin-bottom:20px;"></div>
-    <div style="background:rgba(192,245,0,0.05); border:1px solid var(--lemon); border-radius:12px; padding:15px; text-align:center; margin-bottom:20px;"><i class="fas fa-info-circle"></i> Submit your order to WhatsApp to make payment for work to begin.</div>
-    <button class="btn btn-wa btn-full" id="submitBtn" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+    <div class="photo-callout reveal">
+      <div class="photo-callout-left">
+        <span class="callout-eyebrow">Personal Photography · 100% Online</span>
+        <h2>Photography for people too.</h2>
+        <p>Birthdays, graduations, portraits, headshots and personal-brand photoshoots — booked online, delivered to your WhatsApp. No studio visit needed.</p>
+        <p class="callout-quote">Your moment deserves more than a phone picture.</p>
+        <div class="hero-actions" style="margin-top:26px;">
+          <button class="btn btn-primary" onclick="openBookingChoice('photo')">Book Your Session</button>
+          <a href="photoshoots.html" class="btn btn-ghost">See Packages</a>
+        </div>
+        <div class="callout-mini-list" style="margin-top:20px;">
+          <span>Birthdays</span><span>Graduations</span><span>Headshots</span>
+          <span>Portraits</span><span>Fashion</span><span>Fully Online</span>
+        </div>
+      </div>
+      <div class="photo-callout-right">
+        <div class="callout-media">
+          <img src="images/callout-portrait.jpg" alt="Studio portrait sample" loading="lazy"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#141414,#1a1f0d)'; this.remove();" />
+          <span class="sample-badge">Sample</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="install-bar glass" id="installBar">
-  <span>📸 Install our app for instant access</span>
-  <button id="installBtn">Install</button>
-</div>
+<!-- CTA -->
+<section class="section cta-section" id="cta">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Let's Work</span>
+    <h2 class="cta-title reveal">Ready to make your business look the part?</h2>
+    <p class="cta-sub reveal">Start a business project or order an online photoshoot — send us your product, your idea, or just the problem you're trying to solve.</p>
+
+    <div class="cta-actions reveal">
+      <button class="btn btn-primary" onclick="openBookingChoice('business')">
+        Start a Business Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <button class="btn btn-ghost" onclick="openBookingChoice('photo')">Book a Photography Session</button>
+    </div>
+
+    <div class="contact-row reveal">
+      <div class="contact-item">
+        <span class="k">Phone / WhatsApp</span>
+        <a href="https://wa.me/233534317611" target="_blank" rel="noopener">+233 53 431 7611</a>
+      </div>
+      <div class="contact-item">
+        <span class="k">Location</span>
+        <span>Accra, Ghana</span>
+      </div>
+      <div class="contact-item">
+        <span class="k">Photoshoots</span>
+        <span>100% Online</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="chrome-bottom"></div>
 <script src="script.js"></script>
 </body>
 </html>

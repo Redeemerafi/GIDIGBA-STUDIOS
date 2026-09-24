@@ -1,11 +1,11 @@
 {
   "name": "GIDIGBA STUDIOS",
   "short_name": "GIDIGBA",
-  "description": "No studio. No stress. Just stunning photos.",
+  "description": "DEVELOPED SPECIALLY FOR BUSINESSES. Creative production, digital growth and 100% online photoshoots.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A0A0A",
-  "theme_color": "#0A0A0A",
+  "background_color": "#0a0a0a",
+  "theme_color": "#C0F500",
   "orientation": "portrait",
   "icons": [
     {
@@ -17,7 +17,7 @@
       "src": "https://i.ibb.co/YBzg9Lnq/pm-1769858586229-cmp.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }

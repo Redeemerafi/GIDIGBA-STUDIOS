@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work | GIDIGBA STUDIOS — Selected Projects & Sessions</title>
+<meta name="description" content="Selected business projects and personal photoshoot sessions from GIDIGBA STUDIOS — branding, campaigns, product visuals, graduations, headshots and more." />
+<meta name="theme-color" content="#C0F500" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="work">
+<div id="chrome-top"></div>
+
+<main id="top">
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="ph-ghost" aria-hidden="true">WORK</div>
+  <div class="container">
+    <span class="eyebrow reveal">01 — Work</span>
+    <h1 class="reveal">Selected work &amp; <span class="hl">sessions</span>.</h1>
+    <p class="reveal">A mix of commercial projects and personal photoshoot looks. Images shown are samples.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="work-filter reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="business">Business</button>
+      <button class="filter-btn" data-filter="personal">Personal</button>
+    </div>
+    <div class="work-grid" id="workGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center;">Your Turn</span>
+    <h2 class="cta-title reveal">Want work that looks like this?</h2>
+    <p class="cta-sub reveal">Start a business project, or order an online photoshoot for yourself.</p>
+    <div class="cta-actions reveal">
+      <button class="btn btn-primary" onclick="openBookingChoice('business')">Start a Business Project</button>
+      <button class="btn btn-ghost" onclick="openBookingChoice('photo')">Book a Photography Session</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="chrome-bottom"></div>
+<script src="script.js"></script>
+</body>
+</html>
