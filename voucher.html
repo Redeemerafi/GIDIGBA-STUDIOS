@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gift a Photoshoot | GIDIGBA STUDIOS</title>
+<meta name="description" content="Gift a GIDIGBA STUDIOS online photoshoot — choose a package, personalize a branded voucher, and send it on WhatsApp. Birthdays, graduations, Valentine's." />
+<meta name="theme-color" content="#C0F500" />
+<meta property="og:image" content="images/og-image.jpg" />
+<meta name="twitter:image" content="images/og-image.jpg" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="voucher">
+<div id="chrome-top"></div>
+
+<main id="top">
+
+<section class="page-hero">
+  <div class="ph-ghost" aria-hidden="true">GIFT</div>
+  <div class="container">
+    <span class="eyebrow reveal">Gift Vouchers · Delivered Instantly</span>
+    <h1 class="reveal">Gift a <span class="hl">photoshoot</span>, not another pair of socks.</h1>
+    <p class="reveal">Pick a package, personalize a branded voucher, download it and send it on WhatsApp. The recipient redeems fully online — photos delivered in 4 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="voucher-shell">
+      <div class="voucher-card reveal">
+        <span class="modal-label">Build your voucher</span>
+        <h3 style="font-size:1.5rem; margin-bottom:18px;">Who's it for?</h3>
+        <div class="v-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vRecipient">Recipient's name</label>
+              <input id="vRecipient" type="text" placeholder="e.g. Ama" maxlength="40" />
+            </div>
+            <div class="form-group">
+              <label for="vSender">From (your name)</label>
+              <input id="vSender" type="text" placeholder="e.g. Kojo" maxlength="40" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vOccasion">Occasion</label>
+              <select id="vOccasion">
+                <option>🎂 Birthday</option>
+                <option>🎓 Graduation</option>
+                <option>💞 Valentine's / Anniversary</option>
+                <option>🎄 Christmas</option>
+                <option>💼 Just because they deserve it</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="vPkg">Package</label>
+              <select id="vPkg">
+                <option value="SILVER">Silver — GH₵ 55</option>
+                <option value="GOLD" selected>Gold — GH₵ 100</option>
+                <option value="PLATINUM">Platinum — GH₵ 150</option>
+                <option value="COUPLE SILVER">Couple Silver — GH₵ 120</option>
+                <option value="COUPLE GOLD">Couple Gold — GH₵ 230</option>
+                <option value="COUPLE PLATINUM">Couple Platinum — GH₵ 350</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="voucherGen()">Generate Voucher →</button>
+        </div>
+        <div id="voucherOut"></div>
+        <p class="pay-hint">You pay for the package on redemption (MoMo details on WhatsApp) — the voucher itself is free to generate. Valid 6 months from issue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="chrome-bottom"></div>
+<script src="script.js"></script>
+</body>
+</html>

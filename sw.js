@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gidigba-v5';
+const CACHE_NAME = 'gidigba-v6';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -8,6 +8,12 @@ const PRECACHE_URLS = [
   '/work.html',
   '/brands.html',
   '/reviews.html',
+  '/journal.html',
+  '/track.html',
+  '/voucher.html',
+  '/for-restaurants.html',
+  '/for-real-estate.html',
+  '/for-events.html',
   '/styles.css',
   '/script.js',
   '/manifest.webmanifest'
@@ -59,7 +65,17 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_NAME).then(cache => cache.put(request, clone).catch(() => {}));
         }
         return response;
-      }).catch(() => cached);
+      }).catch(() => {
+        // Offline fallback: pages → cached copy, else home; assets → fail quietly
+        if (cached) return cached;
+        if (request.mode === 'navigate') {
+          return caches.match('/index.html').then(home => home || new Response(
+            '<!DOCTYPE html><meta charset="utf-8"><title>Offline</title><body style="background:#000;color:#fff;font-family:sans-serif;padding:40px;text-align:center"><h1>You are offline</h1><p>This page is not cached yet. Reconnect to browse GIDIGBA STUDIOS.</p></body>',
+            { headers: { 'Content-Type': 'text/html' } }
+          ));
+        }
+        return Response.error();
+      });
       return cached || network;
     })
   );

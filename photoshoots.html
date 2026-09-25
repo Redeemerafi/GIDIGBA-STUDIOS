@@ -6,6 +6,8 @@
 <title>Book Personal Photography | GIDIGBA STUDIOS</title>
 <meta name="description" content="Book birthday, graduation, portrait, headshot, fashion, lifestyle and personal-brand photography sessions with GIDIGBA STUDIOS — 100% online, delivered via WhatsApp in 4 hours." />
 <meta name="theme-color" content="#C0F500" />
+<meta property="og:image" content="images/og-image.jpg" />
+<meta name="twitter:image" content="images/og-image.jpg" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,19 +63,19 @@
 
     <div class="looks-gallery">
       <div class="looks-item reveal">
-        <img src="images/work-grad.jpg" alt="Graduation look sample" loading="lazy" />
+        <img src="images/work-grad.webp" alt="Graduation look sample" loading="lazy" />
         <span class="sample-badge">Sample</span>
       </div>
       <div class="looks-item reveal">
-        <img src="images/work-birthday.jpg" alt="Birthday look sample" loading="lazy" />
+        <img src="images/work-birthday.webp" alt="Birthday look sample" loading="lazy" />
         <span class="sample-badge">Sample</span>
       </div>
       <div class="looks-item reveal">
-        <img src="images/work-headshot.jpg" alt="Headshot look sample" loading="lazy" />
+        <img src="images/work-headshot.webp" alt="Headshot look sample" loading="lazy" />
         <span class="sample-badge">Sample</span>
       </div>
       <div class="looks-item reveal">
-        <img src="images/work-fashion.jpg" alt="Fashion look sample" loading="lazy" />
+        <img src="images/work-fashion.webp" alt="Fashion look sample" loading="lazy" />
         <span class="sample-badge">Sample</span>
       </div>
     </div>
@@ -81,11 +83,31 @@
   </div>
 </section>
 
+<!-- BEFORE / AFTER PROOF -->
+<section class="section section-alt" id="proof">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 — The Difference</span>
+      <h2>From camera roll to <span class="hl">studio grade</span>.</h2>
+      <p>Drag the handle. Left: an ordinary phone photo. Right: the same person, GIDIGBA style.</p>
+    </div>
+    <div class="ba-slider reveal" id="baSlider">
+      <img class="ba-img ba-after" src="images/callout-portrait.webp" alt="After — GIDIGBA studio-style result" loading="lazy" />
+      <img class="ba-img ba-before" id="baBefore" src="images/before-phone.webp" alt="Before — ordinary phone photo" loading="lazy" style="clip-path: inset(0 50% 0 0);" />
+      <span class="ba-tag ba-tag-l">Before · phone pic</span>
+      <span class="ba-tag ba-tag-r">After · GIDIGBA</span>
+      <div class="ba-handle" id="baHandle" style="left:50%;" aria-hidden="true"><span>⇆</span></div>
+      <input type="range" min="2" max="98" value="50" id="baRange" class="ba-range" aria-label="Compare before and after" />
+    </div>
+    <p class="gallery-caption">Illustration of the transformation. Final images are software-assisted — minor variations from real life may occur.</p>
+  </div>
+</section>
+
 <!-- PACKAGES -->
 <section class="section section-alt" id="packages">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">02 — Packages</span>
+      <span class="eyebrow">03 — Packages</span>
       <h2>Pick your package. We build the look.</h2>
       <p>Prices in Ghana Cedis. Everything delivered online to your WhatsApp.</p>
     </div>
@@ -107,9 +129,111 @@
       <button class="btn btn-ghost" onclick="openPhotoBooking(null, 'custom')">Select Services</button>
     </div>
 
+    <div class="cmp-wrap reveal">
+      <h3 class="cmp-title">Compare at a glance</h3>
+      <div class="cmp-scroll">
+        <table class="cmp-table">
+          <thead><tr><th>Individual</th><th>Silver</th><th class="cmp-hi">Gold</th><th>Platinum</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>GH₵ 55</td><td class="cmp-hi">GH₵ 100</td><td>GH₵ 150</td></tr>
+            <tr><td>Photos</td><td>3</td><td class="cmp-hi">6</td><td>9</td></tr>
+            <tr><td>Outfits</td><td>1</td><td class="cmp-hi">2</td><td>3</td></tr>
+            <tr><td>Editing</td><td>Basic</td><td class="cmp-hi">Premium</td><td>Premium + custom background</td></tr>
+            <tr><td>Delivery</td><td>4 hours</td><td class="cmp-hi">4 hours</td><td>Priority 2 hours</td></tr>
+            <tr class="cmp-cta"><td></td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('SILVER')">Book Silver</button></td>
+              <td class="cmp-hi"><button class="pkg-book" onclick="openPhotoBooking('GOLD')">Book Gold</button></td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('PLATINUM')">Book Platinum</button></td></tr>
+          </tbody>
+        </table>
+        <table class="cmp-table">
+          <thead><tr><th>Couple</th><th>Silver</th><th class="cmp-hi">Gold</th><th>Platinum</th></tr></thead>
+          <tbody>
+            <tr><td>Price</td><td>GH₵ 120</td><td class="cmp-hi">GH₵ 230</td><td>GH₵ 350</td></tr>
+            <tr><td>Images</td><td>3</td><td class="cmp-hi">4</td><td>6</td></tr>
+            <tr><td>Outfits</td><td>1 each</td><td class="cmp-hi">2 each</td><td>3 each</td></tr>
+            <tr><td>Scene</td><td>Studio layout</td><td class="cmp-hi">Creative scene</td><td>Premium concepts</td></tr>
+            <tr><td>Delivery</td><td>4 hours</td><td class="cmp-hi">4 hours</td><td>Priority 2 hours</td></tr>
+            <tr class="cmp-cta"><td></td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE SILVER')">Book</button></td>
+              <td class="cmp-hi"><button class="pkg-book" onclick="openPhotoBooking('COUPLE GOLD')">Book</button></td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE PLATINUM')">Book</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="disclaimer-strip reveal">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       <span>These are software-assisted generated images. Minor variations from real life may occur. 100% online — no in-person sessions. Images deleted 20 minutes after delivery.</span>
+    </div>
+  </div>
+</section>
+
+<!-- STYLE QUIZ -->
+<section class="section" id="quiz">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 — Find Your Match</span>
+      <h2>Not sure which package? Answer four questions.</h2>
+      <p>We'll match you to a package and preselect your photoshoot type — one tap to book it.</p>
+    </div>
+    <div class="quiz-grid reveal">
+      <div class="quiz-q">
+        <h5>1 · Who's in the photos?</h5>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="quizPick('who','solo',this)">Just me</button>
+          <button class="quiz-opt" onclick="quizPick('who','couple',this)">A couple</button>
+          <button class="quiz-opt" onclick="quizPick('who','group',this)">Family / group</button>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h5>2 · What's the occasion?</h5>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="quizPick('occasion','birthday',this)">🎂 Birthday</button>
+          <button class="quiz-opt" onclick="quizPick('occasion','grad',this)">🎓 Graduation</button>
+          <button class="quiz-opt" onclick="quizPick('occasion','pro',this)">💼 Professional</button>
+          <button class="quiz-opt" onclick="quizPick('occasion','everyday',this)">✨ Just because</button>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h5>3 · What's your budget?</h5>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="quizPick('budget','low',this)">Tight — GH₵ 55–100</button>
+          <button class="quiz-opt" onclick="quizPick('budget','mid',this)">Balanced — GH₵ 100–150</button>
+          <button class="quiz-opt" onclick="quizPick('budget','high',this)">Go all out</button>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h5>4 · How fast do you need them?</h5>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="quizPick('speed','rush',this)">⚡ In 2 hours</button>
+          <button class="quiz-opt" onclick="quizPick('speed','day',this)">Today — 4 hours</button>
+          <button class="quiz-opt" onclick="quizPick('speed','week',this)">This week</button>
+        </div>
+      </div>
+    </div>
+    <div class="quiz-actions reveal" style="margin-top:8px;">
+      <button class="btn btn-primary" onclick="quizResult()">See My Match →</button>
+      <button class="btn btn-ghost" onclick="quizReset()">Retake</button>
+    </div>
+    <div id="quizResult" class="quiz-result"></div>
+  </div>
+</section>
+
+<!-- CORPORATE / TEAMS -->
+<section class="section section-alt" id="teams">
+  <div class="container">
+    <div class="corp-band reveal">
+      <div class="corp-copy">
+        <span class="callout-eyebrow">For teams · Corporate Headshot Day</span>
+        <h2>10+ employees. One invoice. Zero studio visits.</h2>
+        <p>Everyone uploads from home, we deliver consistent, on-brand headshots for the whole team — matched looks, one turnaround, one invoice. Custom quote per team size.</p>
+      </div>
+      <div class="hero-actions" style="margin-top:0;">
+        <a class="btn btn-primary" href="https://wa.me/233534317611?text=Hello%20GIDIGBA%20STUDIOS!%20I%27d%20like%20a%20Corporate%20Headshot%20Day%20quote%20for%20my%20team." target="_blank" rel="noopener">Request a Team Quote</a>
+        <button class="btn btn-ghost" onclick="openBookingChoice('business')">Start a Business Project</button>
+      </div>
     </div>
   </div>
 </section>
