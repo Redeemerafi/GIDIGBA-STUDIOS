@@ -2137,7 +2137,39 @@ body::after {
 .nav.scrolled .nav-inner { height: 64px; }
 
 /* Logo mark — slight italic cut for character */
-.logo-mark { transform: skewX(-7deg); }
+img.logo-mark { display: block; object-fit: cover; }
+.logo-mark:not(img) { transform: skewX(-7deg); }
+
+/* Booking — attribute blocks (upload + describe together), option warnings */
+.attr-block {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 14px;
+  background: rgba(255, 255, 255, .02);
+}
+.attr-block[hidden] { display: none; }
+.attr-head {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--grey-2);
+  margin-bottom: 10px;
+}
+.attr-block .form-group { margin-top: 10px; }
+.attr-block .upload-grid { margin-top: 0 !important; }
+.opt-warn {
+  margin-top: 8px;
+  font-size: .82rem;
+  line-height: 1.55;
+  color: #ffd166;
+  background: rgba(255, 209, 102, .08);
+  border: 1px solid rgba(255, 209, 102, .28);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+.opt-warn[hidden] { display: none; }
 
 /* Buttons — shine sweep + arrow nudge + press */
 .btn-primary { position: relative; overflow: hidden; }
