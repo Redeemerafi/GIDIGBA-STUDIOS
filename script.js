@@ -555,7 +555,9 @@ const PACKAGES = [
   { name: 'PACKAGE · 3', price: 35, type: 'individual', images: 3, features: ['3 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
   { name: 'PACKAGE · 5', price: 55, type: 'individual', images: 5, features: ['5 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
   { name: 'PACKAGE · 10', price: 105, type: 'individual', images: 10, features: ['10 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
-  { name: 'COUPLE', price: 30, type: 'couple', images: 2, features: ['2 people · 1 all-in image each', 'Extra images + GH₵10 each', 'Delivery in 24 hours'] },
+  { name: 'COUPLE SILVER', price: 120, type: 'couple', images: 3, features: ['3 images', '1 outfit each', 'Studio layout', 'Delivery in 24 hours'] },
+  { name: 'COUPLE GOLD', price: 230, type: 'couple', images: 4, features: ['4 images', '2 outfits each', 'Creative scene', 'Delivery in 24 hours'] },
+  { name: 'COUPLE PLATINUM', price: 350, type: 'couple', images: 6, features: ['6 images', '3 outfits each', 'Premium concepts', 'Delivery in 24 hours'] },
 ];
 const SERVICES_EDIT = [
   { name: 'Earring / Accessories Change', price: 10, icon: '💍' },
@@ -584,20 +586,41 @@ let pkgTab = 'individual';
 function renderPkgGrid() {
   const grid = document.getElementById('pkgGrid');
   if (!grid) return;
-  grid.innerHTML = PACKAGES.map(p => `
-    <div class="pkg-card reveal" onclick="openPhotoBooking('${p.name}')">
-      ${p.name === 'PACKAGE · 10' ? '<span class="pkg-badge">Best value</span>' : ''}
-      ${p.name === 'COUPLE' ? '<span class="pkg-badge">2 people</span>' : ''}
-      ${p.name === 'SINGLE IMAGE' ? '<span class="pkg-badge">Most popular</span>' : ''}
-      <div class="pkg-name">${p.name}</div>
-      <div class="pkg-price">GH₵ ${p.price} <small>one-time</small></div>
-      <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
-      <span class="pkg-book">Book ${p.name} →</span>
-      <button class="pkg-share" onclick="event.stopPropagation(); sharePkg('${p.name}')">↗ Share this package</button>
-    </div>`).join('');
+  if (pkgTab === 'editing') {
+    grid.innerHTML = SERVICES_EDIT.map((s, i) => `
+      <div class="pkg-card reveal" onclick="bookEdit(${i})">
+        <span class="pkg-badge">Standalone</span>
+        <div class="pkg-name">${s.icon} ${esc(s.name)}</div>
+        <div class="pkg-price">GH₵ ${s.price} <small>each</small></div>
+        <ul><li>Upload the photo you already have</li><li>Delivered within 24 hours</li></ul>
+        <span class="pkg-book">Book this edit →</span>
+      </div>`).join('');
+  } else {
+    grid.innerHTML = PACKAGES.filter(p => p.type === pkgTab).map(p => `
+      <div class="pkg-card reveal" onclick="openPhotoBooking('${p.name}')">
+        ${p.name === 'PACKAGE · 10' ? '<span class="pkg-badge">Best value</span>' : ''}
+        ${p.name === 'SINGLE IMAGE' ? '<span class="pkg-badge">Most popular</span>' : ''}
+        ${p.name === 'COUPLE PLATINUM' ? '<span class="pkg-badge">Most images</span>' : ''}
+        <div class="pkg-name">${p.name}</div>
+        <div class="pkg-price">GH₵ ${p.price} <small>one-time</small></div>
+        <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+        <span class="pkg-book">Book ${p.name} →</span>
+        <button class="pkg-share" onclick="event.stopPropagation(); sharePkg('${p.name}')">↗ Share this package</button>
+      </div>`).join('');
+  }
   observeReveals(grid);
 }
-if (document.getElementById('pkgGrid')) renderPkgGrid();
+if (document.getElementById('pkgGrid')) {
+  document.querySelectorAll('#pkgTabs .tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('#pkgTabs .tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      pkgTab = t.dataset.pkgtype;
+      renderPkgGrid();
+    });
+  });
+  renderPkgGrid();
+}
 
 // ---- Homepage "change just one thing" tiles ----
 function renderHomeEdits() {
@@ -716,10 +739,13 @@ function freshBookingData() {
     makeup1: false, makeup2: false,
     vision: '', mood: '', intendedUse: '', notes: '',
     disclaimerOk: false,
+    hurry: false,
+    pose: '',
     inspiration: []
   };
 }
 let booking = { step: 1, data: freshBookingData() };
+let bookTab = 'individual';
 let sourceFiles = {};
 
 function getSelectedPackage() {
@@ -763,17 +789,21 @@ function openPhotoBooking(packageName, mode) {
     booking.data.orderType = 'custom';
     booking.data.selectedPackage = null;
     booking.step = 1;
+    bookTab = 'editing';
   } else if (packageName) {
     const pkg = PACKAGES.find(p => p.name === packageName);
     if (pkg) {
-      const keep = { fullName: booking.data.fullName, phone: booking.data.phone, email: booking.data.email };
-      booking.data = { ...freshBookingData(), ...keep, orderType: 'photoshoot', selectedPackage: pkg.name };
+      booking.data = { ...freshBookingData(), orderType: 'photoshoot', selectedPackage: pkg.name };
       if (pkg.type === 'couple') booking.data.photoType = 'couple';
+      bookTab = pkg.type;
       const same = draft && draft.data && draft.data.selectedPackage === pkg.name && draft.data.orderType === 'photoshoot';
       booking.step = same && draft.step > 1 ? draft.step : 2;
     }
-  } else if (!draft) {
-    booking = { step: 1, data: freshBookingData() };
+  } else {
+    if (!draft) booking = { step: 1, data: freshBookingData() };
+    bookTab = booking.data.orderType === 'custom'
+      ? 'editing'
+      : (PACKAGES.find(p => p.name === booking.data.selectedPackage)?.type === 'couple' ? 'couple' : 'individual');
   }
   renderPhotoStep();
   updateBookingSteps();
@@ -825,17 +855,21 @@ function photoPrevStep() {
 function validateStep(step) {
   const d = booking.data;
   if (step === 1) {
-    if (d.orderType === 'photoshoot' && !d.selectedPackage) { toast('Choose Single Image or a Package to continue', false); return false; }
-    if (d.orderType === 'custom' && d.selectedServices.length === 0) { toast('Select at least one single-change service', false); return false; }
+    if (d.orderType === 'custom') {
+      if (d.selectedServices.length === 0) { toast('Select at least one editing service', false); return false; }
+    } else {
+      const pkg = getSelectedPackage();
+      if (!pkg) { toast('Choose a package to continue', false); return false; }
+      const wantCouple = bookTab === 'couple';
+      if ((pkg.type === 'couple') !== wantCouple) { toast('Choose a package from this tab', false); return false; }
+    }
   }
   if (step === 2) {
-    if (!d.fullName || !d.phone || !d.email) { toast('Fill in your name, phone and email', false); return false; }
     if (d.orderType === 'photoshoot') {
-      if (!d.photoType) { toast('Select a photoshoot type', false); return false; }
-      if (!d.prefDate || !d.prefTime) { toast('Choose your preferred date and time', false); return false; }
+      if (!d.photoType) { toast('Select what the photoshoot is about', false); return false; }
       if (!sourceFiles.selfie) { toast('Upload your selfie (required)', false); return false; }
       if (!sourceFiles.fullbody) { toast('Upload a full-body photo (required)', false); return false; }
-      if (!d.hairstyle1.trim()) { toast('Describe your desired hairstyle', false); return false; }
+      if (!d.hairstyle1.trim() && !sourceFiles.hairstyleImg) { toast('Describe or upload your hairstyle', false); return false; }
       if (isCouplePkg()) {
         if (!sourceFiles.partnerSelfie) { toast("Upload partner's selfie", false); return false; }
         if (!sourceFiles.partnerFull) { toast("Upload partner's full-body photo", false); return false; }
@@ -861,12 +895,20 @@ function renderPhotoStep() {
   let html = '';
 
   if (booking.step === 1) {
-    if (d.orderType === 'custom') {
+    const tabsHtml = `
+      <div class="tabs" style="margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="tab ${bookTab === 'individual' ? 'active' : ''}" onclick="setBookingTab('individual')">Individual</button>
+        <button class="tab ${bookTab === 'couple' ? 'active' : ''}" onclick="setBookingTab('couple')">Couple</button>
+        <button class="tab ${bookTab === 'editing' ? 'active' : ''}" onclick="setBookingTab('editing')">Editing · GH₵10</button>
+      </div>`;
+
+    if (bookTab === 'editing') {
       html = `
       <div class="step-pane active">
-        <span class="modal-label">Step 1 of 3 · Single-change edits</span>
+        <span class="modal-label">Step 1 of 3 · Simple image editing</span>
         <h4>Change just one thing — GH₵10 each</h4>
-        <p class="step-hint">No photoshoot needed. Upload the photo you already have and pick any changes — flat 10 cedis per change. Runs fully online.</p>
+        <p class="step-hint">No photoshoot needed. Upload the photo you already have and pick any changes — flat 10 cedis per change.</p>
+        ${tabsHtml}
         <div class="svc-scroll">
           ${SERVICES_EDIT.map((s, i) => `
             <div class="svc-chip ${d.selectedServices.includes(i) ? 'selected' : ''}" onclick="toggleEditService(${i})">
@@ -876,26 +918,22 @@ function renderPhotoStep() {
             </div>`).join('')}
         </div>
         <div class="total-bar"><span>Total</span><strong>GH₵ ${getCustomTotal()}</strong></div>
-        <div style="margin-top:14px; text-align:center;">
-          <button class="btn btn-ghost btn-sm" onclick="switchToSession()">📸 Or book a full session — from GH₵15 →</button>
-        </div>
       </div>`;
     } else {
+      const list = PACKAGES.filter(p => p.type === (bookTab === 'couple' ? 'couple' : 'individual'));
       html = `
       <div class="step-pane active">
         <span class="modal-label">Step 1 of 3</span>
-        <h4>Single image or a package?</h4>
-        <p class="step-hint">One price, everything included — makeup, retouch, hair, outfit &amp; background choice. Delivered within 24 business hours. Prices in Ghana Cedis.</p>
+        <h4>${bookTab === 'couple' ? 'Couple package' : 'Individual package'}</h4>
+        <p class="step-hint">One price, everything included. Delivered within 24 business hours. Prices in Ghana Cedis.</p>
+        ${tabsHtml}
         <div class="pkg-mini-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
-          ${PACKAGES.map(p => `
+          ${list.map(p => `
             <div class="pkg-mini ${d.selectedPackage === p.name ? 'selected' : ''}" onclick="selectBookingPackage('${p.name}')">
               <div class="pm-name">${p.name}</div>
               <div class="pm-price">GH₵ ${p.price}</div>
               <div class="pm-feats">${p.features.join(' · ')}</div>
             </div>`).join('')}
-        </div>
-        <div style="margin-top:14px; text-align:center;">
-          <button class="btn btn-ghost btn-sm" onclick="switchToCustomEdit()">✨ Or change just one thing — GH₵10 each →</button>
         </div>
       </div>`;
     }
@@ -903,10 +941,14 @@ function renderPhotoStep() {
 
   else if (booking.step === 2) {
     const isSession = d.orderType === 'photoshoot';
+    const pkg = getSelectedPackage();
     const couple = isCouplePkg();
+    const individual = isSession && pkg && pkg.type === 'individual';
+    const biggest = isSession && (pkg?.name === 'PACKAGE · 10' || pkg?.name === 'COUPLE PLATINUM');
     const svcNames = d.selectedServices.map(i => SERVICES_EDIT[i].name);
     const needVision = !isSession && (svcNames.includes('Background Choice') || svcNames.includes('Full Scene Replacement'));
     const needHair = !isSession && svcNames.includes('Hairstyle Change');
+    const types = PHOTO_TYPES.filter(t => !(individual && t.id === 'couple'));
 
     const upBox = (key, label, sub) => `
       <label class="upload-box ${sourceFiles[key] ? 'filled' : ''}" data-key="${key}">
@@ -917,97 +959,59 @@ function renderPhotoStep() {
         <img class="ub-preview" alt="preview" />
       </label>`;
 
-    const inspSlots = Array.from({ length: 4 }).map((_, i) => {
-      const img = d.inspiration[i];
-      if (img) {
-        return `<div class="insp-slot"><span class="remove-insp" data-idx="${i}">&times;</span><img src="${img.dataUrl}" alt="ref ${i + 1}" /></div>`;
-      }
-      return `<label class="insp-slot" data-insp="${i}">+ Ref ${i + 1}</label>`;
-    }).join('');
-
     html = `
       <div class="step-pane active">
         <span class="modal-label">Step 2 of 3</span>
-        <h4>${isSession ? 'Your shoot details & photos' : 'Your edit details & photo'}</h4>
+        <h4>${isSession ? 'Your photos & look' : 'Your edit & photo'}</h4>
         <p class="step-hint">${isSession
-          ? 'Tell us the look, when you need it, then upload your photos. Delivered within 24 business hours.'
+          ? 'Selfie + full-body required. Outfit & hairstyle: upload a pic or just describe it. Delivered within 24 business hours.'
           : `Send the photo to change — ${d.selectedServices.length} edit${d.selectedServices.length > 1 ? 's' : ''} · GH₵ ${getCustomTotal()}. Delivered within 24 business hours.`}</p>
 
         ${isSession ? `
-        <div class="form" style="gap:16px;">
-          <div class="form-group">
-            <label>What kind of photoshoot? *</label>
-            <div class="option-grid" id="photoTypeGrid">
-              ${PHOTO_TYPES.map(t => `
-                <div class="option-card ${d.photoType === t.id ? 'selected' : ''}" data-type="${t.id}">
-                  <span class="opt-emoji">${t.emoji}</span><span>${t.label}</span>
-                </div>`).join('')}
-            </div>
-          </div>
-          <div class="form-group">
-            <label>What setting should we create? <span style="color:var(--grey); font-weight:400;">(optional)</span></label>
-            <div class="option-grid" id="lookGrid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
-              ${LOOK_PREFS.map(s => `
-                <div class="option-card ${d.look === s.id ? 'selected' : ''}" data-look="${s.id}">
-                  <span class="opt-emoji">${s.emoji}</span><span>${s.label}</span>
-                </div>`).join('')}
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Preferred date *</label><input type="date" id="prefDate" value="${esc(d.prefDate)}" /></div>
-            <div class="form-group"><label>Preferred time *</label><input type="time" id="prefTime" value="${esc(d.prefTime)}" /></div>
-          </div>
-          <p class="step-hint" style="margin:-4px 0 0;">⏱ Delivered within 24 business hours of confirmation — one day, no rush fees.</p>
-        </div>` : ''}
-
-        <div class="form" style="gap:16px; margin-top:16px;">
-          <div class="form-row">
-            <div class="form-group"><label>Full name *</label><input type="text" id="fullName" value="${esc(d.fullName)}" placeholder="Your name" /></div>
-            <div class="form-group"><label>Phone number *</label><input type="tel" id="phone" value="${esc(d.phone)}" placeholder="+233 ..." /></div>
-          </div>
-          <div class="form-group"><label>Email address *</label><input type="email" id="email" value="${esc(d.email)}" placeholder="you@email.com" /></div>
-          ${isSession ? `
-          <div class="form-group">
-            <label>Describe your outfit(s)</label>
-            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit...">${esc(d.outfitDesc)}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Desired mood or visual style</label>
-            <input type="text" id="mood" value="${esc(d.mood)}" placeholder="e.g. warm & candid, editorial, moody, bright & minimal" />
-          </div>` : ''}
-          <div class="form-group">
-            <label>${isSession ? 'Additional notes' : 'Extra instructions for the editor'}</label>
-            <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
+        <div class="form-group" style="margin-top:14px;">
+          <label>What is the photoshoot about? *</label>
+          <div class="option-grid" id="photoTypeGrid">
+            ${types.map(t => `
+              <div class="option-card ${d.photoType === t.id ? 'selected' : ''}" data-type="${t.id}">
+                <span class="opt-emoji">${t.emoji}</span><span>${t.label}</span>
+              </div>`).join('')}
           </div>
         </div>
 
-        ${isSession ? `
-        <div style="margin-top:18px;">
-          <p style="font-size:13px; font-weight:600; margin-bottom:8px;">Upload your photos *</p>
-          <div class="upload-grid">
-            ${upBox('selfie', 'Selfie (required)', 'Face clearly visible')}
-            ${upBox('fullbody', 'Full body (required)', 'Head to toe')}
-            ${couple ? upBox('partnerSelfie', 'Partner selfie (required)', "Partner's face") : ''}
-            ${couple ? upBox('partnerFull', 'Partner full body (required)', 'Partner head to toe') : ''}
+        <div class="upload-grid" style="margin-top:16px;">
+          ${upBox('selfie', 'Selfie (required)', 'Face clearly visible')}
+          ${upBox('fullbody', 'Full body (required)', 'Head to toe')}
+          ${upBox('outfitImg', 'Outfit photo (or describe below)', 'Your outfit for the shoot')}
+          ${upBox('hairstyleImg', 'Hairstyle photo (or describe below)', 'The hair you want')}
+          ${couple ? upBox('partnerSelfie', "Partner selfie (required)", "Partner's face") : ''}
+          ${couple ? upBox('partnerFull', 'Partner full body (required)', 'Partner head to toe') : ''}
+        </div>
+
+        <div class="form" style="gap:12px; margin-top:16px;">
+          <div class="form-group">
+            <label>Describe your outfit(s)</label>
+            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit — or leave empty if you uploaded a photo">${esc(d.outfitDesc)}</textarea>
           </div>
-          <div class="form-group" style="margin-top:12px;">
+          <div class="form-group">
             <label>Describe your desired hairstyle *</label>
-            <textarea id="hairstyle1" rows="2" placeholder="e.g. long braids with gold cuffs, low cut fade...">${esc(d.hairstyle1)}</textarea>
+            <textarea id="hairstyle1" rows="2" placeholder="e.g. long braids with gold cuffs, low cut fade... — or leave empty if you uploaded a photo">${esc(d.hairstyle1)}</textarea>
           </div>
           ${couple ? `
-          <div class="form-group" style="margin-top:10px;">
+          <div class="form-group">
             <label>Partner's desired hairstyle *</label>
             <textarea id="hairstyle2" rows="2" placeholder="Describe partner's hairstyle...">${esc(d.hairstyle2)}</textarea>
           </div>` : ''}
-          <div style="margin-top:14px;">
-            <p style="font-size:13px; font-weight:600; margin-bottom:4px;">Inspiration images <span style="color:var(--grey); font-weight:400;">(optional — up to 4)</span></p>
-            <p class="step-hint" style="margin-bottom:8px;">Poses, outfits, colour ideas, lighting or editing references.</p>
-            <input type="file" id="inspInput" accept="image/*" multiple hidden />
-            <div class="inspiration-row">${inspSlots}</div>
+          ${biggest ? `
+          <div class="form-group">
+            <label>POSE — biggest package: describe the pose / expression you want <span style="color:var(--grey); font-weight:400;">(optional)</span></label>
+            <textarea id="poseDesc" rows="2" placeholder="e.g. seated on a stool, arms folded, looking away...">${esc(d.pose)}</textarea>
+          </div>` : ''}
+          <div class="form-group">
+            <label>Additional notes</label>
+            <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
           </div>
         </div>` : `
-        <div style="margin-top:18px;">
-          <p style="font-size:13px; font-weight:600; margin-bottom:8px;">Upload the photo to edit *</p>
+        <div style="margin-top:16px;">
           <div class="upload-grid">${upBox('editImage', 'Photo to edit (required)', 'The picture you want changed')}</div>
           ${needVision ? `
           <div class="form-group" style="margin-top:12px;">
@@ -1019,9 +1023,18 @@ function renderPhotoStep() {
             <label>Describe the hairstyle change *</label>
             <textarea id="hairstyle1" rows="2" placeholder="e.g. change to short afro, add braids...">${esc(d.hairstyle1)}</textarea>
           </div>` : ''}
+          <div class="form-group" style="margin-top:12px;">
+            <label>Additional notes</label>
+            <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
+          </div>
         </div>`}
 
-        <label class="disclaimer-check" style="margin-top:18px;">
+        <div class="toggle-row hurry-row" onclick="toggleHurry()" style="margin-top:16px;">
+          <span>⚡ I'm in a hurry — I need my images ASAP</span>
+          <div class="toggle-switch ${d.hurry ? 'active' : ''}"></div>
+        </div>
+
+        <label class="disclaimer-check" style="margin-top:16px;">
           <input type="checkbox" id="disclaimerOk" ${d.disclaimerOk ? 'checked' : ''} />
           <span><strong>I understand:</strong> these are software-assisted generated images. Minor changes may occur and details may not be 100% real-life accurate. 100% online service — no in-person session. Source images are deleted 20 minutes after delivery.</span>
         </label>
@@ -1032,14 +1045,16 @@ function renderPhotoStep() {
     const isSession = d.orderType === 'photoshoot';
     const pkg = getSelectedPackage();
     const typeLabel = PHOTO_TYPES.find(t => t.id === d.photoType)?.label || '—';
-    const lookLabel = LOOK_PREFS.find(l => l.id === d.look)?.label || '—';
     const offerLine = isSession
       ? `${pkg?.name || '—'} · GH₵ ${pkg?.price || 0}`
       : `Single-change edits · GH₵ ${getCustomTotal()}`;
-    const svcLine = !isSession
+    const includesLine = !isSession
       ? d.selectedServices.map(i => `${SERVICES_EDIT[i].name} (GH₵10)`).join(', ')
-      : null;
+      : (pkg?.type === 'couple' ? pkg.features.filter(f => !f.startsWith('Delivery')).join(' · ') : 'Makeup · Retouch · Hair · Outfit · Background choice');
+    const outfitVal = d.outfitDesc || (sourceFiles.outfitImg ? 'Photo attached' : '—');
+    const hairVal = d.hairstyle1 || (sourceFiles.hairstyleImg ? 'Photo attached' : '—');
     const srcCount = Object.keys(sourceFiles).length;
+    const biggest = isSession && (pkg?.name === 'PACKAGE · 10' || pkg?.name === 'COUPLE PLATINUM');
 
     html = `
       <div class="step-pane active">
@@ -1050,34 +1065,25 @@ function renderPhotoStep() {
         <div class="review-block">
           <h5>Order</h5>
           <div class="review-row"><span class="rv-label">Offer</span><span class="rv-value">${esc(offerLine)}</span></div>
-          ${isSession
-            ? `<div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">Makeup · Retouch · Hair · Outfit · Background choice</span></div>
-               <div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>`
-            : `<div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(svcLine)}</span></div>`}
+          <div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">${esc(includesLine)}</span></div>
+          ${isSession ? `<div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>
+          <div class="review-row"><span class="rv-label">Photoshoot</span><span class="rv-value">${esc(typeLabel)}</span></div>` : ''}
           <div class="review-row"><span class="rv-label">Delivery</span><span class="rv-value">Within 24 business hours</span></div>
-          ${isSession ? `<div class="review-row"><span class="rv-label">Photoshoot type</span><span class="rv-value">${esc(typeLabel)}</span></div>
-          <div class="review-row"><span class="rv-label">Setting</span><span class="rv-value">${esc(lookLabel)}</span></div>` : ''}
+          <div class="review-row"><span class="rv-label">Hurry</span><span class="rv-value">${d.hurry ? '⚡ YES — ASAP' : 'Standard'}</span></div>
         </div>
 
-        ${isSession ? `
         <div class="review-block">
-          <h5>Schedule</h5>
-          <div class="review-row"><span class="rv-label">Preferred date</span><span class="rv-value">${esc(d.prefDate || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Preferred time</span><span class="rv-value">${esc(d.prefTime || '—')}</span></div>
-        </div>` : ''}
-
-        <div class="review-block">
-          <h5>Client &amp; creative</h5>
-          <div class="review-row"><span class="rv-label">Name</span><span class="rv-value">${esc(d.fullName)}</span></div>
-          <div class="review-row"><span class="rv-label">Phone</span><span class="rv-value">${esc(d.phone)}</span></div>
-          <div class="review-row"><span class="rv-label">Email</span><span class="rv-value">${esc(d.email)}</span></div>
-          <div class="review-row"><span class="rv-label">People</span><span class="rv-value">${esc(d.peopleCount || (isCouplePkg() ? '2' : '1'))}</span></div>
-          ${isSession ? `<div class="review-row"><span class="rv-label">Outfits</span><span class="rv-value">${esc(d.outfitDesc || '—')}</span></div>` : ''}
-          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(d.hairstyle1 || '—')}${d.hairstyle2 ? ' / ' + esc(d.hairstyle2) : ''}</span></div>
-          ${d.vision ? `<div class="review-row"><span class="rv-label">Background</span><span class="rv-value">${esc(d.vision)}</span></div>` : ''}
-          ${isSession ? `<div class="review-row"><span class="rv-label">Mood / style</span><span class="rv-value">${esc(d.mood || '—')}</span></div>` : ''}
+          <h5>Creative</h5>
+          ${isSession ? `
+          <div class="review-row"><span class="rv-label">Outfit</span><span class="rv-value">${esc(outfitVal)}</span></div>
+          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(hairVal)}</span></div>
+          ${coupleHasPartner(d) ? `<div class="review-row"><span class="rv-label">Partner hair</span><span class="rv-value">${esc(d.hairstyle2 || '—')}</span></div>` : ''}
+          ${biggest && d.pose ? `<div class="review-row"><span class="rv-label">Pose</span><span class="rv-value">${esc(d.pose)}</span></div>` : ''}` : `
+          <div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(includesLine)}</span></div>
+          ${d.hairstyle1 ? `<div class="review-row"><span class="rv-label">Hairstyle change</span><span class="rv-value">${esc(d.hairstyle1)}</span></div>` : ''}
+          ${d.vision ? `<div class="review-row"><span class="rv-label">Background</span><span class="rv-value">${esc(d.vision)}</span></div>` : ''}`}
           <div class="review-row"><span class="rv-label">Notes</span><span class="rv-value">${esc(d.notes || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Photos attached</span><span class="rv-value">${srcCount} source + ${d.inspiration.length} inspiration</span></div>
+          <div class="review-row"><span class="rv-label">Photos attached</span><span class="rv-value">${srcCount}</span></div>
         </div>
 
         ${PAY_URL ? `<a class="btn btn-primary btn-full pay-online" href="${PAY_URL}" target="_blank" rel="noopener">Pay online now — MoMo / Card · ${esc(offerLine)}</a>` : ''}
@@ -1093,36 +1099,48 @@ function renderPhotoStep() {
   attachStepListeners();
 }
 
+function coupleHasPartner(d) {
+  return d.orderType === 'photoshoot' && getSelectedPackage()?.type === 'couple';
+}
+
+window.setBookingTab = function (t) {
+  bookTab = t;
+  if (t === 'editing') {
+    booking.data.orderType = 'custom';
+    booking.data.selectedPackage = null;
+  } else {
+    booking.data.orderType = 'photoshoot';
+    booking.data.selectedPackage = null;
+    booking.data.photoType = null;
+  }
+  renderPhotoStep();
+};
 window.selectBookingPackage = function (name) {
-  booking.data.selectedPackage = name;
   const pkg = PACKAGES.find(p => p.name === name);
-  if (pkg?.type === 'couple') booking.data.photoType = 'couple';
+  if (!pkg) return;
+  booking.data.selectedPackage = name;
+  booking.data.orderType = 'photoshoot';
+  bookTab = pkg.type;
+  if (pkg.type === 'couple') booking.data.photoType = 'couple';
   booking.step = 2;
   saveDraft();
   renderPhotoStep();
   updateBookingSteps();
-  toast(`Selected ${name} — GH₵ ${pkg ? pkg.price : ''}`);
+  toast(`Selected ${name} — GH₵ ${pkg.price}`);
 };
-window.switchToCustomEdit = function () {
-  booking.data.orderType = 'custom';
-  booking.data.selectedPackage = null;
-  renderPhotoStep();
-};
-window.switchToSession = function () {
-  booking.data.orderType = 'photoshoot';
-  renderPhotoStep();
-};
-window.switchToPackageEdit = window.switchToSession;
 window.toggleEditService = function (i) {
   const arr = booking.data.selectedServices;
   const idx = arr.indexOf(i);
   if (idx >= 0) arr.splice(idx, 1); else arr.push(i);
   renderPhotoStep();
 };
-window.toggleMakeup = function (person) {
-  const key = person === 1 ? 'makeup1' : 'makeup2';
-  booking.data[key] = !booking.data[key];
-  renderPhotoStep();
+window.toggleHurry = function () {
+  booking.data.hurry = !booking.data.hurry;
+  const row = document.querySelector('.hurry-row');
+  if (row) {
+    const sw = row.querySelector('.toggle-switch');
+    if (sw) sw.classList.toggle('active', booking.data.hurry);
+  }
 };
 
 function attachStepListeners() {
@@ -1136,89 +1154,39 @@ function attachStepListeners() {
       });
     });
   }
-  const lookGrid = document.getElementById('lookGrid');
-  if (lookGrid) {
-    lookGrid.querySelectorAll('.option-card').forEach(card => {
-      card.addEventListener('click', () => {
-        booking.data.look = card.dataset.look;
-        lookGrid.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-      });
-    });
+  if (document.getElementById('photoTypeGrid')) {
+    const noop = true;
   }
-  if (document.getElementById('prefDate')) {
-    document.getElementById('prefDate').addEventListener('change', e => booking.data.prefDate = e.target.value);
-    document.getElementById('prefTime').addEventListener('change', e => booking.data.prefTime = e.target.value);
-  }
-  if (document.getElementById('fullName')) {
+  {
     const bind = (id, key) => {
       const el = document.getElementById(id);
       if (!el) return;
-      const ev = el.tagName === 'SELECT' ? 'change' : 'input';
-      el.addEventListener(ev, e => booking.data[key] = e.target.value);
+      el.addEventListener('input', e => booking.data[key] = e.target.value);
     };
-    ['fullName|fullName', 'phone|phone', 'email|email',
-     'outfitDesc|outfitDesc', 'mood|mood', 'notes|notes']
+    ['outfitDesc|outfitDesc', 'hairstyle1|hairstyle1', 'hairstyle2|hairstyle2',
+     'poseDesc|pose', 'notes|notes', 'vision|vision']
       .forEach(pair => { const [id, key] = pair.split('|'); bind(id, key); });
   }
-  if (document.getElementById('inspInput') || document.querySelector('.upload-box[data-key]')) {
-    document.querySelectorAll('.upload-box[data-key]').forEach(box => {
-      const key = box.dataset.key;
-      const input = box.querySelector('input[type="file"]');
-      if (sourceFiles[key]) {
-        const r = new FileReader();
-        r.onload = ev => { const img = box.querySelector('.ub-preview'); if (img) img.src = ev.target.result; };
-        r.readAsDataURL(sourceFiles[key]);
-      }
-      input.addEventListener('change', e => {
-        const f = e.target.files[0];
-        if (!f) return;
-        sourceFiles[key] = f;
-        box.classList.add('filled');
-        const r = new FileReader();
-        r.onload = ev => { box.querySelector('.ub-preview').src = ev.target.result; };
-        r.readAsDataURL(f);
-      });
-    });
-    const bindT = (id, key) => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', e => booking.data[key] = e.target.value);
-    };
-    bindT('hairstyle1', 'hairstyle1');
-    bindT('hairstyle2', 'hairstyle2');
-    bindT('vision', 'vision');
-    bindT('notes', 'notes');
-    const disc = document.getElementById('disclaimerOk');
-    if (disc) disc.addEventListener('change', e => booking.data.disclaimerOk = e.target.checked);
-
-    const inspInput = document.getElementById('inspInput');
-    if (inspInput) {
-      document.querySelectorAll('.insp-slot[data-insp]').forEach(slot => {
-        slot.addEventListener('click', () => inspInput.click());
-      });
-      document.querySelectorAll('.remove-insp').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.preventDefault();
-          e.stopPropagation();
-          booking.data.inspiration.splice(parseInt(btn.dataset.idx), 1);
-          renderPhotoStep();
-        });
-      });
-      inspInput.addEventListener('change', e => {
-        const files = Array.from(e.target.files);
-        files.forEach(file => {
-          if (booking.data.inspiration.length >= 4) { toast('Max 4 inspiration images', false); return; }
-          const r = new FileReader();
-          r.onload = ev => {
-            booking.data.inspiration.push({ name: file.name, dataUrl: ev.target.result, file });
-            renderPhotoStep();
-          };
-          r.readAsDataURL(file);
-        });
-        e.target.value = '';
-      });
+  document.querySelectorAll('.upload-box[data-key]').forEach(box => {
+    const key = box.dataset.key;
+    const input = box.querySelector('input[type="file"]');
+    if (sourceFiles[key]) {
+      const r = new FileReader();
+      r.onload = ev => { const img = box.querySelector('.ub-preview'); if (img) img.src = ev.target.result; };
+      r.readAsDataURL(sourceFiles[key]);
     }
-  }
+    input.addEventListener('change', e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      sourceFiles[key] = f;
+      box.classList.add('filled');
+      const r = new FileReader();
+      r.onload = ev => { box.querySelector('.ub-preview').src = ev.target.result; };
+      r.readAsDataURL(f);
+    });
+  });
+  const disc = document.getElementById('disclaimerOk');
+  if (disc) disc.addEventListener('change', e => booking.data.disclaimerOk = e.target.checked);
 }
 
 async function submitPhotoOrder() {
@@ -1236,7 +1204,6 @@ async function submitPhotoOrder() {
     const urls = {};
     const uploads = [];
     for (const [k, f] of Object.entries(sourceFiles)) uploads.push([k, f]);
-    booking.data.inspiration.forEach((img, i) => uploads.push([`inspiration_${i + 1}`, img.file]));
 
     for (const [k, f] of uploads) {
       const fd = new FormData();
@@ -1251,27 +1218,33 @@ async function submitPhotoOrder() {
     const pkg = getSelectedPackage();
     const isSession = d.orderType === 'photoshoot';
     const typeLabel = PHOTO_TYPES.find(t => t.id === d.photoType)?.label || 'N/A';
-    const lookLabel = LOOK_PREFS.find(l => l.id === d.look)?.label || 'N/A';
 
     let msg = `Hello GIDIGBA STUDIOS! 📸\n*New Online Order — simple pricing*\n\n*ORDER*\n`;
     if (isSession && pkg) {
       msg += `Offer: ${pkg.name} (GH₵ ${pkg.price})\n`;
-      msg += `Includes: makeup, retouch, hair, outfit & background choice\n`;
+      if (pkg.type === 'couple') {
+        msg += `Includes: ${pkg.features.filter(f => !f.startsWith('Delivery')).join(' · ')}\n`;
+      } else {
+        msg += `Includes: makeup, retouch, hair, outfit & background choice\n`;
+      }
       msg += `Images: ${pkg.images} · Delivery: within 24 business hours\n`;
-      msg += `Type: ${typeLabel}\nSetting: ${lookLabel}\n\n`;
-      msg += `*SCHEDULE*\nPreferred: ${d.prefDate} ${d.prefTime}\n\n`;
+      msg += `Photoshoot: ${typeLabel}\n`;
     } else {
       msg += `Single-change edits — GH₵10 each:\n`;
       d.selectedServices.forEach(i => { msg += `  • ${SERVICES_EDIT[i].name} — GH₵10\n`; });
-      msg += `Total: GH₵ ${getCustomTotal()} · Delivery: within 24 business hours\n\n`;
+      msg += `Total: GH₵ ${getCustomTotal()} · Delivery: within 24 business hours\n`;
     }
-    msg += `*CLIENT*\nName: ${d.fullName}\nPhone: ${d.phone}\nEmail: ${d.email}\nPeople: ${d.peopleCount || (isCouplePkg() ? '2' : '1')}\n\n`;
+    msg += `Hurry: ${d.hurry ? 'YES — customer needs images ASAP' : 'Standard'}\n\n`;
     msg += `*CREATIVE*\n`;
-    if (isSession) msg += `Outfits: ${d.outfitDesc || 'N/A'}\n`;
-    msg += `Hairstyle: ${d.hairstyle1 || 'N/A'}\n`;
-    if (d.hairstyle2) msg += `Partner hairstyle: ${d.hairstyle2}\n`;
-    if (d.vision) msg += `Background/scene: ${d.vision}\n`;
-    if (isSession) msg += `Mood: ${d.mood || 'N/A'}\n`;
+    if (isSession) {
+      msg += `Outfit: ${d.outfitDesc || (urls.outfitImg ? 'Photo attached' : 'N/A')}\n`;
+      msg += `Hairstyle: ${d.hairstyle1 || (urls.hairstyleImg ? 'Photo attached' : 'N/A')}\n`;
+      if (d.hairstyle2) msg += `Partner hairstyle: ${d.hairstyle2}\n`;
+      if (d.pose) msg += `Pose: ${d.pose}\n`;
+    } else {
+      if (d.hairstyle1) msg += `Hairstyle change: ${d.hairstyle1}\n`;
+      if (d.vision) msg += `Background/scene: ${d.vision}\n`;
+    }
     msg += `Notes: ${d.notes || 'N/A'}\n\n`;
     msg += `*PHOTOS*\n`;
     Object.entries(urls).forEach(([k, u]) => { msg += `${k}: ${u}\n`; });
@@ -1397,7 +1370,7 @@ function quizResult() {
 
   let pkgName;
   if (who === 'couple') {
-    pkgName = 'COUPLE';
+    pkgName = budget === 'low' ? 'COUPLE SILVER' : budget === 'high' ? 'COUPLE PLATINUM' : 'COUPLE GOLD';
   } else {
     pkgName = budget === 'low' ? 'SINGLE IMAGE' : budget === 'high' ? 'PACKAGE · 5' : 'PACKAGE · 3';
   }

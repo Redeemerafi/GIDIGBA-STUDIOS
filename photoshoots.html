@@ -108,19 +108,19 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">03 — Prices</span>
-      <h2>Single image or a package. <span class="hl">That's it.</span></h2>
-      <p>One image all-in from <strong style="color:var(--green);">GH₵15</strong> — makeup, retouch, hair, outfit &amp; background choice included. Every order delivered within 24 business hours.</p>
+      <h2>Individual, Couple, or a <span class="hl">simple edit</span>.</h2>
+      <p>Single image all-in from <strong style="color:var(--green);">GH₵15</strong> · couple packages from GH₵120 · any single change GH₵10. Delivered within 24 business hours.</p>
     </div>
 
-    <div class="pkg-grid" id="pkgGrid"></div>
-
-    <div class="custom-cta-bar reveal">
-      <div>
-        <h4>Only want one thing changed?</h4>
-        <p>Single-change edits — earring, hair, outfit, makeup, retouch &amp; more. Flat GH₵10 each, no photoshoot needed.</p>
+    <div class="packages-head reveal">
+      <h3>Packages</h3>
+      <div class="tabs" id="pkgTabs">
+        <button class="tab active" data-pkgtype="individual">Individual</button>
+        <button class="tab" data-pkgtype="couple">Couple</button>
+        <button class="tab" data-pkgtype="editing">Editing · GH₵10</button>
       </div>
-      <button class="btn btn-ghost" onclick="openPhotoBooking(null, 'custom')">Select Services</button>
     </div>
+    <div class="pkg-grid" id="pkgGrid"></div>
 
     <div class="cmp-wrap reveal">
       <h3 class="cmp-title">How booking works</h3>
@@ -136,10 +136,14 @@
               <td><button class="pkg-book" onclick="openPhotoBooking('PACKAGE · 5')">Book</button></td></tr>
             <tr><td><strong>Package · 10</strong></td><td>10 all-in images — everything included per image</td><td class="cmp-hi">GH₵ 105</td>
               <td><button class="pkg-book" onclick="openPhotoBooking('PACKAGE · 10')">Book</button></td></tr>
-            <tr><td><strong>Couple</strong></td><td>2 people · 1 all-in image each (extra images +GH₵10)</td><td class="cmp-hi">GH₵ 30</td>
-              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE')">Book</button></td></tr>
-            <tr><td><strong>Single-change edit</strong></td><td>Change just one thing — any of 20 services, upload the photo you have</td><td class="cmp-hi">GH₵ 10</td>
+            <tr><td><strong>Single-change edit</strong></td><td>Simple image editing — any of 20 services, upload the photo you have</td><td class="cmp-hi">GH₵ 10</td>
               <td><button class="pkg-book" onclick="openPhotoBooking(null, 'custom')">Pick</button></td></tr>
+            <tr><td><strong>Couple Silver</strong></td><td>3 images · 1 outfit each · studio layout</td><td class="cmp-hi">GH₵ 120</td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE SILVER')">Book</button></td></tr>
+            <tr><td><strong>Couple Gold</strong></td><td>4 images · 2 outfits each · creative scene</td><td class="cmp-hi">GH₵ 230</td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE GOLD')">Book</button></td></tr>
+            <tr><td><strong>Couple Platinum</strong></td><td>6 images · 3 outfits each · premium concepts</td><td class="cmp-hi">GH₵ 350</td>
+              <td><button class="pkg-book" onclick="openPhotoBooking('COUPLE PLATINUM')">Book</button></td></tr>
             <tr><td><strong>Delivery</strong></td><td>Within 24 business hours — one day, for every offer</td><td class="cmp-hi">24h</td><td></td></tr>
           </tbody>
         </table>
