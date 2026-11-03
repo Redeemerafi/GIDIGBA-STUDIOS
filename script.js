@@ -161,13 +161,9 @@ const CHROME_BOTTOM = `
       <p class="booking-head-note">No in-person session. Photos uploaded here are delivered to our team securely and deleted 20 minutes after your order is delivered.</p>
     </div>
     <div class="booking-steps" id="bookingSteps">
-      <div class="step active" data-step="1"><span>1</span><em>Package</em></div>
-      <div class="step" data-step="2"><span>2</span><em>Type</em></div>
-      <div class="step" data-step="3"><span>3</span><em>Look</em></div>
-      <div class="step" data-step="4"><span>4</span><em>Date</em></div>
-      <div class="step" data-step="5"><span>5</span><em>Details</em></div>
-      <div class="step" data-step="6"><span>6</span><em>Photos</em></div>
-      <div class="step" data-step="7"><span>7</span><em>Review</em></div>
+      <div class="step active" data-step="1"><span>1</span><em>Pick</em></div>
+      <div class="step" data-step="2"><span>2</span><em>Details</em></div>
+      <div class="step" data-step="3"><span>3</span><em>Review</em></div>
     </div>
     <div class="photo-booking-container" id="photoBookingContainer"></div>
     <div class="booking-nav" id="bookingNav">
@@ -238,7 +234,7 @@ const CHROME_BOTTOM = `
 </footer>
 
 <div class="sticky-bar" id="stickyBar">
-  <div class="sticky-info"><strong>From GH₵55</strong><span>100% online shoot</span></div>
+  <div class="sticky-info"><strong>From GH₵15</strong><span>1 image · all-in</span></div>
   <button class="btn btn-primary btn-sm" onclick="openBookingChoice('photo')">Book Session</button>
   <a href="https://wa.me/${WA_NUMBER}" class="sticky-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085.719-1.006.719-1.413 2.48-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -287,7 +283,7 @@ function initGrowth() {
         const b = document.createElement('div');
         b.className = 'resume-banner';
         b.id = 'resumeBanner';
-        b.innerHTML = `<span><strong>Unfinished booking</strong> — you stopped at step ${dr.step} of 7.</span>
+        b.innerHTML = `<span><strong>Unfinished booking</strong> — you stopped at step ${dr.step} of 3.</span>
           <button class="rb-resume" onclick="openPhotoBooking()">Resume booking</button>
           <button class="rb-x" onclick="document.getElementById('resumeBanner').remove()" aria-label="Dismiss">✕</button>`;
         document.body.appendChild(b);
@@ -444,7 +440,7 @@ const services = [
   },
   {
     num: '10', title: 'Personal Photography',
-    desc: '100% online photoshoots: birthdays, graduations, portraits, headshots, couples and personal-brand looks. Upload photos, get images on WhatsApp in 4 hours.',
+    desc: '100% online photoshoots: birthdays, graduations, portraits, headshots, couples and personal-brand looks. One image from GH₵15 — upload photos, get images on WhatsApp within 24 hours.',
     tags: ['Birthdays', 'Graduations', 'Headshots', 'Couples', 'Fully Online'],
     cta: 'Book Your Session', action: () => openBookingChoice('photo'), featured: true
   }
@@ -555,27 +551,44 @@ document.querySelectorAll('.faq-item').forEach(item => {
    PACKAGES
    ============================================================ */
 const PACKAGES = [
-  { name: 'SILVER', price: 55, outfits: 1, type: 'individual', features: ['3 Photos', '1 Outfit', 'Basic editing'] },
-  { name: 'GOLD', price: 100, outfits: 2, type: 'individual', features: ['6 Photos', '2 Outfits', 'Premium editing'] },
-  { name: 'PLATINUM', price: 150, outfits: 3, type: 'individual', features: ['9 Photos', '3 Outfits', 'Custom Background', 'Priority 2h delivery'] },
-  { name: 'COUPLE SILVER', price: 120, outfits: 1, type: 'couple', features: ['3 images', '1 outfit each', 'Studio layout'] },
-  { name: 'COUPLE GOLD', price: 230, outfits: 2, type: 'couple', features: ['4 images', '2 outfits each', 'Creative scene'] },
-  { name: 'COUPLE PLATINUM', price: 350, outfits: 3, type: 'couple', features: ['6 images', '3 outfits each', 'Premium concepts'] },
+  { name: 'SINGLE IMAGE', price: 15, type: 'individual', images: 1, features: ['1 all-in image', 'Makeup · Retouch · Hair · Outfit · Background', 'Delivery in 24 hours'] },
+  { name: 'PACKAGE · 3', price: 35, type: 'individual', images: 3, features: ['3 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
+  { name: 'PACKAGE · 5', price: 55, type: 'individual', images: 5, features: ['5 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
+  { name: 'PACKAGE · 10', price: 105, type: 'individual', images: 10, features: ['10 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
+  { name: 'COUPLE', price: 30, type: 'couple', images: 2, features: ['2 people · 1 all-in image each', 'Extra images + GH₵10 each', 'Delivery in 24 hours'] },
 ];
 const SERVICES_EDIT = [
-  { name: 'Basic Retouch', price: 30 }, { name: 'Advanced Retouch', price: 50 }, { name: 'Outfit Change', price: 15 },
-  { name: 'Hairstyle Change', price: 15 }, { name: 'Makeup Application', price: 20 }, { name: 'Pose Adjustment', price: 10 },
-  { name: 'Background Change', price: 10 }, { name: 'Two People Combined', price: 50 }, { name: 'Object Removal', price: 20 },
-  { name: 'Full Scene Replacement', price: 50 }, { name: 'Cartoon Style', price: 40 }, { name: 'Sky Enhancement', price: 30 },
+  { name: 'Earring / Accessories Change', price: 10, icon: '💍' },
+  { name: 'Hairstyle Change', price: 10, icon: '💇' },
+  { name: 'Outfit Change', price: 10, icon: '👗' },
+  { name: 'Makeup Application', price: 10, icon: '💄' },
+  { name: 'Basic Retouch', price: 10, icon: '✨' },
+  { name: 'Advanced Retouch', price: 10, icon: '🌟' },
+  { name: 'Pose Adjustment', price: 10, icon: '🧍' },
+  { name: 'Background Choice', price: 10, icon: '🎨' },
+  { name: 'Object Removal', price: 10, icon: '🧹' },
+  { name: 'Two People Combined', price: 10, icon: '👥' },
+  { name: 'Full Scene Replacement', price: 10, icon: '🏞️' },
+  { name: 'Cartoon / Anime Style', price: 10, icon: '🎭' },
+  { name: 'Glasses On / Off', price: 10, icon: '👓' },
+  { name: 'Teeth Whitening', price: 10, icon: '😁' },
+  { name: 'Hair Color Change', price: 10, icon: '🌈' },
+  { name: 'Body / Weight Adjustment', price: 10, icon: '⚖️' },
+  { name: 'Wrinkle & Age Removal', price: 10, icon: '⏳' },
+  { name: 'Photo Restoration & Colorization', price: 10, icon: '🖼️' },
+  { name: 'Watermark / Text Removal', price: 10, icon: '🚫' },
+  { name: 'Photo Upscale / Sharpen', price: 10, icon: '🔍' },
 ];
 
 let pkgTab = 'individual';
 function renderPkgGrid() {
   const grid = document.getElementById('pkgGrid');
   if (!grid) return;
-  grid.innerHTML = PACKAGES.filter(p => p.type === pkgTab).map(p => `
+  grid.innerHTML = PACKAGES.map(p => `
     <div class="pkg-card reveal" onclick="openPhotoBooking('${p.name}')">
-      ${p.name.includes('PLATINUM') ? '<span class="pkg-badge">Priority</span>' : ''}
+      ${p.name === 'PACKAGE · 10' ? '<span class="pkg-badge">Best value</span>' : ''}
+      ${p.name === 'COUPLE' ? '<span class="pkg-badge">2 people</span>' : ''}
+      ${p.name === 'SINGLE IMAGE' ? '<span class="pkg-badge">Most popular</span>' : ''}
       <div class="pkg-name">${p.name}</div>
       <div class="pkg-price">GH₵ ${p.price} <small>one-time</small></div>
       <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
@@ -584,17 +597,27 @@ function renderPkgGrid() {
     </div>`).join('');
   observeReveals(grid);
 }
-if (document.getElementById('pkgGrid')) {
-  document.querySelectorAll('#pkgTabs .tab').forEach(t => {
-    t.addEventListener('click', () => {
-      document.querySelectorAll('#pkgTabs .tab').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-      pkgTab = t.dataset.pkgtype;
-      renderPkgGrid();
-    });
-  });
-  renderPkgGrid();
+if (document.getElementById('pkgGrid')) renderPkgGrid();
+
+// ---- Homepage "change just one thing" tiles ----
+function renderHomeEdits() {
+  const g = document.getElementById('homeEditGrid');
+  if (!g) return;
+  g.innerHTML = SERVICES_EDIT.map((s, i) => `
+    <button class="edit-tile" onclick="bookEdit(${i})">
+      <span class="et-emoji">${s.icon}</span>
+      <span class="et-name">${esc(s.name)}</span>
+      <span class="et-price">GH₵ ${s.price}</span>
+      <span class="et-add">Tap to book →</span>
+    </button>`).join('');
 }
+renderHomeEdits();
+window.bookEdit = function (i) {
+  openPhotoBooking(null, 'custom');
+  if (!booking.data.selectedServices.includes(i)) booking.data.selectedServices.push(i);
+  renderPhotoStep();
+  toast(`${SERVICES_EDIT[i].name} added — GH₵10`);
+};
 
 /* ============================================================
    MODALS
@@ -706,9 +729,8 @@ function getCustomTotal() {
   return booking.data.selectedServices.reduce((s, i) => s + SERVICES_EDIT[i].price, 0);
 }
 function getOutfitCount() {
-  const pkg = getSelectedPackage();
-  if (booking.data.orderType === 'photoshoot') return pkg ? pkg.outfits : 1;
-  return booking.data.selectedServices.some(i => SERVICES_EDIT[i].name === 'Outfit Change') ? 1 : 0;
+  if (booking.data.orderType === 'photoshoot') return 1;
+  return 0;
 }
 function isCouplePkg() {
   return booking.data.orderType === 'photoshoot' && getSelectedPackage()?.type === 'couple';
@@ -726,7 +748,7 @@ function loadDraft() {
     if (!raw) return null;
     const d = JSON.parse(raw);
     let step = d.step || 1;
-    if (step > 5) step = 5;
+    if (step > 3) step = 3;
     return { step, data: { ...freshBookingData(), ...d.data, inspiration: [], disclaimerOk: false } };
   } catch (e) { return null; }
 }
@@ -739,24 +761,24 @@ function openPhotoBooking(packageName, mode) {
   booking.data.inspiration = [];
   if (mode === 'custom') {
     booking.data.orderType = 'custom';
+    booking.data.selectedPackage = null;
     booking.step = 1;
-  }
-  if (packageName) {
+  } else if (packageName) {
     const pkg = PACKAGES.find(p => p.name === packageName);
     if (pkg) {
-      booking.data = { ...freshBookingData(), fullName: booking.data.fullName, phone: booking.data.phone, email: booking.data.email };
-      booking.data.selectedPackage = pkg.name;
-      booking.data.pkgType = pkg.type;
-      booking.data.orderType = 'photoshoot';
+      const keep = { fullName: booking.data.fullName, phone: booking.data.phone, email: booking.data.email };
+      booking.data = { ...freshBookingData(), ...keep, orderType: 'photoshoot', selectedPackage: pkg.name };
       if (pkg.type === 'couple') booking.data.photoType = 'couple';
-      booking.data.turnaround = pkg.name.includes('PLATINUM') ? 'priority' : 'standard';
-      booking.step = draft && draft.step > 1 && draft.data.selectedPackage === pkg.name ? draft.step : 2;
+      const same = draft && draft.data && draft.data.selectedPackage === pkg.name && draft.data.orderType === 'photoshoot';
+      booking.step = same && draft.step > 1 ? draft.step : 2;
     }
+  } else if (!draft) {
+    booking = { step: 1, data: freshBookingData() };
   }
   renderPhotoStep();
   updateBookingSteps();
   openModal('photoModal');
-  if (draft && !packageName && booking.step > 1) toast('Draft restored — continue where you left off');
+  if (draft && !packageName && mode !== 'custom' && booking.step > 1) toast('Draft restored — continue where you left off');
 }
 
 function updateBookingSteps() {
@@ -770,7 +792,7 @@ function updateBookingSteps() {
   const next = document.getElementById('nextStepBtn');
   if (!prev || !next) return;
   prev.style.visibility = booking.step === 1 ? 'hidden' : 'visible';
-  if (booking.step === 7) {
+  if (booking.step === 3) {
     next.innerHTML = `Send Booking Request
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
     next.className = 'btn btn-wa';
@@ -783,8 +805,7 @@ function updateBookingSteps() {
 
 function photoNextStep() {
   if (!validateStep(booking.step)) return;
-  if (booking.step === 7) {
-    if (!validateStep(6)) { booking.step = 6; renderPhotoStep(); updateBookingSteps(); return; }
+  if (booking.step === 3) {
     submitPhotoOrder();
     return;
   }
@@ -804,41 +825,31 @@ function photoPrevStep() {
 function validateStep(step) {
   const d = booking.data;
   if (step === 1) {
-    if (d.orderType === 'photoshoot' && !d.selectedPackage) { toast('Select a package to continue', false); return false; }
-    if (d.orderType === 'custom' && d.selectedServices.length === 0) { toast('Select at least one service', false); return false; }
+    if (d.orderType === 'photoshoot' && !d.selectedPackage) { toast('Choose Single Image or a Package to continue', false); return false; }
+    if (d.orderType === 'custom' && d.selectedServices.length === 0) { toast('Select at least one single-change service', false); return false; }
   }
-  if (step === 2 && !d.photoType) { toast('Select a photoshoot type', false); return false; }
-  if (step === 3 && !d.look) { toast('Select your preferred look', false); return false; }
-  if (step === 4) {
-    if (!d.prefDate) { toast('Choose your preferred delivery date', false); return false; }
-    if (!d.prefTime) { toast('Choose a preferred time', false); return false; }
-    if (!d.turnaround) { toast('Choose a turnaround', false); return false; }
-  }
-  if (step === 5) {
+  if (step === 2) {
     if (!d.fullName || !d.phone || !d.email) { toast('Fill in your name, phone and email', false); return false; }
-  }
-  if (step === 6) {
-    const d6 = booking.data;
-    if (d6.orderType === 'photoshoot') {
+    if (d.orderType === 'photoshoot') {
+      if (!d.photoType) { toast('Select a photoshoot type', false); return false; }
+      if (!d.prefDate || !d.prefTime) { toast('Choose your preferred date and time', false); return false; }
       if (!sourceFiles.selfie) { toast('Upload your selfie (required)', false); return false; }
       if (!sourceFiles.fullbody) { toast('Upload a full-body photo (required)', false); return false; }
-      if (!d6.hairstyle1.trim()) { toast('Describe your desired hairstyle', false); return false; }
+      if (!d.hairstyle1.trim()) { toast('Describe your desired hairstyle', false); return false; }
       if (isCouplePkg()) {
         if (!sourceFiles.partnerSelfie) { toast("Upload partner's selfie", false); return false; }
         if (!sourceFiles.partnerFull) { toast("Upload partner's full-body photo", false); return false; }
-        if (!d6.hairstyle2.trim()) { toast("Describe partner's hairstyle", false); return false; }
+        if (!d.hairstyle2.trim()) { toast("Describe partner's hairstyle", false); return false; }
       }
-      const needVision = getSelectedPackage()?.name.includes('PLATINUM');
-      if (needVision && !d6.vision.trim()) { toast('Describe your custom background (Platinum)', false); return false; }
     } else {
-      if (!sourceFiles.editImage) { toast('Upload the image to edit (required)', false); return false; }
-      const names = d6.selectedServices.map(i => SERVICES_EDIT[i].name);
-      if (names.includes('Background Change') || names.includes('Full Scene Replacement')) {
-        if (!d6.vision.trim()) { toast('Describe the background/scene', false); return false; }
+      if (!sourceFiles.editImage) { toast('Upload the photo you want edited (required)', false); return false; }
+      const names = d.selectedServices.map(i => SERVICES_EDIT[i].name);
+      if (names.includes('Background Choice') || names.includes('Full Scene Replacement')) {
+        if (!d.vision.trim()) { toast('Describe the background/scene', false); return false; }
       }
-      if (names.includes('Hairstyle Change') && !d6.hairstyle1.trim()) { toast('Describe the hairstyle change', false); return false; }
+      if (names.includes('Hairstyle Change') && !d.hairstyle1.trim()) { toast('Describe the hairstyle change', false); return false; }
     }
-    if (!d6.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); return false; }
+    if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); return false; }
   }
   return true;
 }
@@ -850,18 +861,33 @@ function renderPhotoStep() {
   let html = '';
 
   if (booking.step === 1) {
-    if (d.orderType === 'photoshoot') {
+    if (d.orderType === 'custom') {
       html = `
       <div class="step-pane active">
-        <span class="modal-label">Step 1 of 7</span>
-        <h4>Choose your package</h4>
-        <p class="step-hint">All packages are delivered fully online — upload photos, receive images on WhatsApp. Prices in Ghana Cedis.</p>
-        <div class="tabs" style="margin-bottom:16px;">
-          <button class="tab ${d.pkgType === 'individual' ? 'active' : ''}" onclick="setBookingPkgType('individual')">Individual</button>
-          <button class="tab ${d.pkgType === 'couple' ? 'active' : ''}" onclick="setBookingPkgType('couple')">Couple</button>
+        <span class="modal-label">Step 1 of 3 · Single-change edits</span>
+        <h4>Change just one thing — GH₵10 each</h4>
+        <p class="step-hint">No photoshoot needed. Upload the photo you already have and pick any changes — flat 10 cedis per change. Runs fully online.</p>
+        <div class="svc-scroll">
+          ${SERVICES_EDIT.map((s, i) => `
+            <div class="svc-chip ${d.selectedServices.includes(i) ? 'selected' : ''}" onclick="toggleEditService(${i})">
+              <div class="svc-price">GH₵ ${s.price}</div>
+              <h5>${s.icon} ${esc(s.name)}</h5>
+              <div class="svc-check">${d.selectedServices.includes(i) ? '✓ Selected' : 'Tap to add'}</div>
+            </div>`).join('')}
         </div>
-        <div class="pkg-mini-grid">
-          ${PACKAGES.filter(p => p.type === d.pkgType).map(p => `
+        <div class="total-bar"><span>Total</span><strong>GH₵ ${getCustomTotal()}</strong></div>
+        <div style="margin-top:14px; text-align:center;">
+          <button class="btn btn-ghost btn-sm" onclick="switchToSession()">📸 Or book a full session — from GH₵15 →</button>
+        </div>
+      </div>`;
+    } else {
+      html = `
+      <div class="step-pane active">
+        <span class="modal-label">Step 1 of 3</span>
+        <h4>Single image or a package?</h4>
+        <p class="step-hint">One price, everything included — makeup, retouch, hair, outfit &amp; background choice. Delivered within 24 business hours. Prices in Ghana Cedis.</p>
+        <div class="pkg-mini-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+          ${PACKAGES.map(p => `
             <div class="pkg-mini ${d.selectedPackage === p.name ? 'selected' : ''}" onclick="selectBookingPackage('${p.name}')">
               <div class="pm-name">${p.name}</div>
               <div class="pm-price">GH₵ ${p.price}</div>
@@ -869,143 +895,18 @@ function renderPhotoStep() {
             </div>`).join('')}
         </div>
         <div style="margin-top:14px; text-align:center;">
-          <button class="btn btn-ghost btn-sm" onclick="switchToCustomEdit()">✨ Or build a Custom Edit instead →</button>
-        </div>
-      </div>`;
-    } else {
-      html = `
-      <div class="step-pane active">
-        <span class="modal-label">Step 1 of 7 · Custom Edit</span>
-        <h4>Select your services</h4>
-        <p class="step-hint">Pay for what you need. Swipe to browse — everything runs fully online.</p>
-        <div class="svc-scroll">
-          ${SERVICES_EDIT.map((s, i) => `
-            <div class="svc-chip ${d.selectedServices.includes(i) ? 'selected' : ''}" onclick="toggleEditService(${i})">
-              <div class="svc-price">GH₵ ${s.price}</div>
-              <h5>${esc(s.name)}</h5>
-              <div class="svc-check">${d.selectedServices.includes(i) ? '✓ Selected' : 'Tap to add'}</div>
-            </div>`).join('')}
-        </div>
-        <div class="total-bar"><span>Total</span><strong>GH₵ ${getCustomTotal()}</strong></div>
-        <div style="margin-top:14px; text-align:center;">
-          <button class="btn btn-ghost btn-sm" onclick="switchToPackageEdit()">📦 Or choose a Package instead →</button>
+          <button class="btn btn-ghost btn-sm" onclick="switchToCustomEdit()">✨ Or change just one thing — GH₵10 each →</button>
         </div>
       </div>`;
     }
   }
 
   else if (booking.step === 2) {
-    html = `
-      <div class="step-pane active">
-        <span class="modal-label">Step 2 of 7</span>
-        <h4>What kind of photoshoot?</h4>
-        <p class="step-hint">Pick the occasion or look. We recreate the scene from your uploaded photos — fully online.</p>
-        <div class="option-grid" id="photoTypeGrid">
-          ${PHOTO_TYPES.map(t => `
-            <div class="option-card ${d.photoType === t.id ? 'selected' : ''}" data-type="${t.id}">
-              <span class="opt-emoji">${t.emoji}</span><span>${t.label}</span>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  }
-
-  else if (booking.step === 3) {
-    html = `
-      <div class="step-pane active">
-        <span class="modal-label">Step 3 of 7</span>
-        <h4>What setting should we create?</h4>
-        <p class="step-hint">These are virtual looks built into your images — not physical locations. There are no in-person sessions.</p>
-        <div class="option-grid" id="lookGrid" style="grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));">
-          ${LOOK_PREFS.map(s => `
-            <div class="option-card ${d.look === s.id ? 'selected' : ''}" data-look="${s.id}">
-              <span class="opt-emoji">${s.emoji}</span><span>${s.label}</span>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  }
-
-  else if (booking.step === 4) {
-    const pkg = getSelectedPackage();
-    const isPriority = pkg?.name.includes('PLATINUM');
-    html = `
-      <div class="step-pane active">
-        <span class="modal-label">Step 4 of 7</span>
-        <h4>When do you need your images?</h4>
-        <p class="step-hint">Standard delivery is within 4 hours of order confirmation (2h priority on Platinum). Delivery slots are confirmed by GIDIGBA STUDIOS once your order is submitted.</p>
-        <div class="form" style="gap:16px;">
-          <div class="form-row">
-            <div class="form-group"><label>Preferred date *</label><input type="date" id="prefDate" value="${esc(d.prefDate)}" /></div>
-            <div class="form-group"><label>Alternative date</label><input type="date" id="altDate" value="${esc(d.altDate)}" /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Preferred time *</label><input type="time" id="prefTime" value="${esc(d.prefTime)}" /></div>
-            <div class="form-group">
-              <label>Turnaround *</label>
-              <select id="turnaround">
-                <option value="">Select</option>
-                <option value="standard" ${d.turnaround === 'standard' ? 'selected' : ''}>Standard — within 4 hours</option>
-                <option value="priority" ${d.turnaround === 'priority' ? 'selected' : ''}>Priority — within 2 hours (Platinum)</option>
-                <option value="flexible" ${d.turnaround === 'flexible' ? 'selected' : ''}>Flexible — no rush</option>
-              </select>
-              ${isPriority && d.turnaround !== 'priority' ? '<span class="form-hint">Platinum includes priority 2h — recommended.</span>' : ''}
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  else if (booking.step === 5) {
-    const typeLabel = PHOTO_TYPES.find(t => t.id === d.photoType)?.label || '';
-    html = `
-      <div class="step-pane active">
-        <span class="modal-label">Step 5 of 7</span>
-        <h4>Tell us about the shoot</h4>
-        <p class="step-hint">A few details so we can build the right look for you. No address needed — this service is 100% online.</p>
-        <div class="form" style="gap:16px;">
-          <div class="form-row">
-            <div class="form-group"><label>Full name *</label><input type="text" id="fullName" value="${esc(d.fullName)}" placeholder="Your name" /></div>
-            <div class="form-group"><label>Phone number *</label><input type="tel" id="phone" value="${esc(d.phone)}" placeholder="+233 ..." /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Email address *</label><input type="email" id="email" value="${esc(d.email)}" placeholder="you@email.com" /></div>
-            <div class="form-group"><label>Type of photography</label><input type="text" value="${esc(typeLabel)}" readonly /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Number of people</label><input type="number" id="peopleCount" value="${esc(d.peopleCount)}" min="1" placeholder="${isCouplePkg() ? '2' : '1'}" /></div>
-            <div class="form-group">
-              <label>Intended use of photos</label>
-              <select id="intendedUse">
-                <option value="">Select</option>
-                ${['Personal keepsake', 'Social media', 'Professional / LinkedIn', 'Personal branding', 'Portfolio', 'Family album', 'Anniversary / gift', 'Other']
-                  .map(o => `<option ${d.intendedUse === o ? 'selected' : ''}>${o}</option>`).join('')}
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Describe your outfit(s) ${getOutfitCount() > 0 ? `· ${getOutfitCount()} outfit${getOutfitCount() > 1 ? 's' : ''}` : ''}</label>
-            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit...">${esc(d.outfitDesc)}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Desired mood or visual style</label>
-            <input type="text" id="mood" value="${esc(d.mood)}" placeholder="e.g. warm & candid, editorial, moody, bright & minimal" />
-          </div>
-          <div class="form-group">
-            <label>Additional notes</label>
-            <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  else if (booking.step === 6) {
-    const isPhotoshoot = d.orderType === 'photoshoot';
+    const isSession = d.orderType === 'photoshoot';
     const couple = isCouplePkg();
-    const needVision = isPhotoshoot
-      ? getSelectedPackage()?.name.includes('PLATINUM')
-      : d.selectedServices.some(i => ['Background Change', 'Full Scene Replacement'].includes(SERVICES_EDIT[i].name));
-    const needMakeup = !isPhotoshoot
-      ? d.selectedServices.some(i => SERVICES_EDIT[i].name === 'Makeup Application')
-      : true;
+    const svcNames = d.selectedServices.map(i => SERVICES_EDIT[i].name);
+    const needVision = !isSession && (svcNames.includes('Background Choice') || svcNames.includes('Full Scene Replacement'));
+    const needHair = !isSession && svcNames.includes('Hairstyle Change');
 
     const upBox = (key, label, sub) => `
       <label class="upload-box ${sourceFiles[key] ? 'filled' : ''}" data-key="${key}">
@@ -1026,124 +927,164 @@ function renderPhotoStep() {
 
     html = `
       <div class="step-pane active">
-        <span class="modal-label">Step 6 of 7</span>
-        <h4>Upload your photos</h4>
-        <p class="step-hint">Clear selfies and full-body photos give the best results. Add up to 4 inspiration refs. ${isPhotoshoot ? '' : 'This is the image we will edit.'}</p>
+        <span class="modal-label">Step 2 of 3</span>
+        <h4>${isSession ? 'Your shoot details & photos' : 'Your edit details & photo'}</h4>
+        <p class="step-hint">${isSession
+          ? 'Tell us the look, when you need it, then upload your photos. Delivered within 24 business hours.'
+          : `Send the photo to change — ${d.selectedServices.length} edit${d.selectedServices.length > 1 ? 's' : ''} · GH₵ ${getCustomTotal()}. Delivered within 24 business hours.`}</p>
 
-        <div class="upload-grid">
-          ${isPhotoshoot ? `
+        ${isSession ? `
+        <div class="form" style="gap:16px;">
+          <div class="form-group">
+            <label>What kind of photoshoot? *</label>
+            <div class="option-grid" id="photoTypeGrid">
+              ${PHOTO_TYPES.map(t => `
+                <div class="option-card ${d.photoType === t.id ? 'selected' : ''}" data-type="${t.id}">
+                  <span class="opt-emoji">${t.emoji}</span><span>${t.label}</span>
+                </div>`).join('')}
+            </div>
+          </div>
+          <div class="form-group">
+            <label>What setting should we create? <span style="color:var(--grey); font-weight:400;">(optional)</span></label>
+            <div class="option-grid" id="lookGrid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+              ${LOOK_PREFS.map(s => `
+                <div class="option-card ${d.look === s.id ? 'selected' : ''}" data-look="${s.id}">
+                  <span class="opt-emoji">${s.emoji}</span><span>${s.label}</span>
+                </div>`).join('')}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Preferred date *</label><input type="date" id="prefDate" value="${esc(d.prefDate)}" /></div>
+            <div class="form-group"><label>Preferred time *</label><input type="time" id="prefTime" value="${esc(d.prefTime)}" /></div>
+          </div>
+          <p class="step-hint" style="margin:-4px 0 0;">⏱ Delivered within 24 business hours of confirmation — one day, no rush fees.</p>
+        </div>` : ''}
+
+        <div class="form" style="gap:16px; margin-top:16px;">
+          <div class="form-row">
+            <div class="form-group"><label>Full name *</label><input type="text" id="fullName" value="${esc(d.fullName)}" placeholder="Your name" /></div>
+            <div class="form-group"><label>Phone number *</label><input type="tel" id="phone" value="${esc(d.phone)}" placeholder="+233 ..." /></div>
+          </div>
+          <div class="form-group"><label>Email address *</label><input type="email" id="email" value="${esc(d.email)}" placeholder="you@email.com" /></div>
+          ${isSession ? `
+          <div class="form-group">
+            <label>Describe your outfit(s)</label>
+            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit...">${esc(d.outfitDesc)}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Desired mood or visual style</label>
+            <input type="text" id="mood" value="${esc(d.mood)}" placeholder="e.g. warm & candid, editorial, moody, bright & minimal" />
+          </div>` : ''}
+          <div class="form-group">
+            <label>${isSession ? 'Additional notes' : 'Extra instructions for the editor'}</label>
+            <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
+          </div>
+        </div>
+
+        ${isSession ? `
+        <div style="margin-top:18px;">
+          <p style="font-size:13px; font-weight:600; margin-bottom:8px;">Upload your photos *</p>
+          <div class="upload-grid">
             ${upBox('selfie', 'Selfie (required)', 'Face clearly visible')}
             ${upBox('fullbody', 'Full body (required)', 'Head to toe')}
             ${couple ? upBox('partnerSelfie', 'Partner selfie (required)', "Partner's face") : ''}
-            ${couple ? upBox('partnerFull', 'Partner full body (required)', "Partner head to toe") : ''}
-          ` : `
-            ${upBox('editImage', 'Image to edit (required)', 'The photo you want changed')}
-          `}
-        </div>
-
-        <div style="margin-top:16px;">
-          <div class="form-group">
-            <label>${isPhotoshoot ? 'Describe your desired hairstyle *' : 'Hairstyle change description'}</label>
+            ${couple ? upBox('partnerFull', 'Partner full body (required)', 'Partner head to toe') : ''}
+          </div>
+          <div class="form-group" style="margin-top:12px;">
+            <label>Describe your desired hairstyle *</label>
             <textarea id="hairstyle1" rows="2" placeholder="e.g. long braids with gold cuffs, low cut fade...">${esc(d.hairstyle1)}</textarea>
           </div>
           ${couple ? `
-            <div class="form-group" style="margin-top:10px;">
-              <label>Partner's desired hairstyle *</label>
-              <textarea id="hairstyle2" rows="2" placeholder="Describe partner's hairstyle...">${esc(d.hairstyle2)}</textarea>
-            </div>` : ''}
-          ${needMakeup ? `
-            <div class="toggle-row" onclick="toggleMakeup(1)">
-              <span>💄 Light makeup touch-up</span>
-              <div class="toggle-switch ${d.makeup1 ? 'active' : ''}"></div>
-            </div>
-            ${couple ? `
-            <div class="toggle-row" onclick="toggleMakeup(2)">
-              <span>💄 Light makeup — partner</span>
-              <div class="toggle-switch ${d.makeup2 ? 'active' : ''}"></div>
-            </div>` : ''}` : ''}
-          ${needVision ? `
-            <div class="form-group" style="margin-top:10px;">
-              <label>${isPhotoshoot ? 'Custom background / concept *' : 'Describe background / scene *'}</label>
-              <textarea id="vision" rows="2" placeholder="e.g. sunset beach, black studio backdrop, Accra skyline...">${esc(d.vision)}</textarea>
-            </div>` : ''}
-          ${!isPhotoshoot ? `
-            <div class="form-group" style="margin-top:10px;">
-              <label>Any additional instructions</label>
-              <textarea id="instructions" rows="2" placeholder="Optional extra notes for the editor...">${esc(d.notes)}</textarea>
-            </div>` : ''}
-        </div>
-
+          <div class="form-group" style="margin-top:10px;">
+            <label>Partner's desired hairstyle *</label>
+            <textarea id="hairstyle2" rows="2" placeholder="Describe partner's hairstyle...">${esc(d.hairstyle2)}</textarea>
+          </div>` : ''}
+          <div style="margin-top:14px;">
+            <p style="font-size:13px; font-weight:600; margin-bottom:4px;">Inspiration images <span style="color:var(--grey); font-weight:400;">(optional — up to 4)</span></p>
+            <p class="step-hint" style="margin-bottom:8px;">Poses, outfits, colour ideas, lighting or editing references.</p>
+            <input type="file" id="inspInput" accept="image/*" multiple hidden />
+            <div class="inspiration-row">${inspSlots}</div>
+          </div>
+        </div>` : `
         <div style="margin-top:18px;">
-          <p style="font-size:13px; font-weight:600; margin-bottom:4px;">Inspiration images <span style="color:var(--grey); font-weight:400;">(optional — up to 4)</span></p>
-          <p class="step-hint" style="margin-bottom:8px;">Poses, outfits, colour ideas, lighting or editing references.</p>
-          <input type="file" id="inspInput" accept="image/*" multiple hidden />
-          <div class="inspiration-row">${inspSlots}</div>
-        </div>
+          <p style="font-size:13px; font-weight:600; margin-bottom:8px;">Upload the photo to edit *</p>
+          <div class="upload-grid">${upBox('editImage', 'Photo to edit (required)', 'The picture you want changed')}</div>
+          ${needVision ? `
+          <div class="form-group" style="margin-top:12px;">
+            <label>Describe the background / scene *</label>
+            <textarea id="vision" rows="2" placeholder="e.g. sunset beach, black studio backdrop, Accra skyline...">${esc(d.vision)}</textarea>
+          </div>` : ''}
+          ${needHair ? `
+          <div class="form-group" style="margin-top:10px;">
+            <label>Describe the hairstyle change *</label>
+            <textarea id="hairstyle1" rows="2" placeholder="e.g. change to short afro, add braids...">${esc(d.hairstyle1)}</textarea>
+          </div>` : ''}
+        </div>`}
 
-        <label class="disclaimer-check">
+        <label class="disclaimer-check" style="margin-top:18px;">
           <input type="checkbox" id="disclaimerOk" ${d.disclaimerOk ? 'checked' : ''} />
           <span><strong>I understand:</strong> these are software-assisted generated images. Minor changes may occur and details may not be 100% real-life accurate. 100% online service — no in-person session. Source images are deleted 20 minutes after delivery.</span>
         </label>
       </div>`;
   }
 
-  else if (booking.step === 7) {
-    const d7 = booking.data;
+  else if (booking.step === 3) {
+    const isSession = d.orderType === 'photoshoot';
     const pkg = getSelectedPackage();
-    const typeLabel = PHOTO_TYPES.find(t => t.id === d7.photoType)?.label || '—';
-    const lookLabel = LOOK_PREFS.find(l => l.id === d7.look)?.label || '—';
-    const turnaroundLabel = { standard: 'Standard (4h)', priority: 'Priority (2h)', flexible: 'Flexible' }[d7.turnaround] || '—';
-    const pkgLine = d7.orderType === 'photoshoot'
+    const typeLabel = PHOTO_TYPES.find(t => t.id === d.photoType)?.label || '—';
+    const lookLabel = LOOK_PREFS.find(l => l.id === d.look)?.label || '—';
+    const offerLine = isSession
       ? `${pkg?.name || '—'} · GH₵ ${pkg?.price || 0}`
-      : `Custom Edit · GH₵ ${getCustomTotal()}`;
-    const svcLine = d7.orderType === 'custom'
-      ? d7.selectedServices.map(i => SERVICES_EDIT[i].name).join(', ')
+      : `Single-change edits · GH₵ ${getCustomTotal()}`;
+    const svcLine = !isSession
+      ? d.selectedServices.map(i => `${SERVICES_EDIT[i].name} (GH₵10)`).join(', ')
       : null;
     const srcCount = Object.keys(sourceFiles).length;
 
     html = `
       <div class="step-pane active">
-        <span class="modal-label">Step 7 of 7 — Review</span>
-        <h4>Review your booking request</h4>
+        <span class="modal-label">Step 3 of 3 — Review</span>
+        <h4>Review &amp; send</h4>
         <p class="step-hint">Check everything below. Use Back to edit — then send your request to us on WhatsApp.</p>
 
         <div class="review-block">
           <h5>Order</h5>
-          <div class="review-row"><span class="rv-label">Package</span><span class="rv-value">${esc(pkgLine)}</span></div>
-          ${svcLine ? `<div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(svcLine)}</span></div>` : ''}
-          <div class="review-row"><span class="rv-label">Photoshoot type</span><span class="rv-value">${esc(typeLabel)}</span></div>
-          <div class="review-row"><span class="rv-label">Setting</span><span class="rv-value">${esc(lookLabel)}</span></div>
+          <div class="review-row"><span class="rv-label">Offer</span><span class="rv-value">${esc(offerLine)}</span></div>
+          ${isSession
+            ? `<div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">Makeup · Retouch · Hair · Outfit · Background choice</span></div>
+               <div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>`
+            : `<div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(svcLine)}</span></div>`}
+          <div class="review-row"><span class="rv-label">Delivery</span><span class="rv-value">Within 24 business hours</span></div>
+          ${isSession ? `<div class="review-row"><span class="rv-label">Photoshoot type</span><span class="rv-value">${esc(typeLabel)}</span></div>
+          <div class="review-row"><span class="rv-label">Setting</span><span class="rv-value">${esc(lookLabel)}</span></div>` : ''}
         </div>
 
+        ${isSession ? `
         <div class="review-block">
           <h5>Schedule</h5>
-          <div class="review-row"><span class="rv-label">Preferred date</span><span class="rv-value">${esc(d7.prefDate || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Alternative date</span><span class="rv-value">${esc(d7.altDate || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Preferred time</span><span class="rv-value">${esc(d7.prefTime || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Turnaround</span><span class="rv-value">${esc(turnaroundLabel)}</span></div>
-        </div>
+          <div class="review-row"><span class="rv-label">Preferred date</span><span class="rv-value">${esc(d.prefDate || '—')}</span></div>
+          <div class="review-row"><span class="rv-label">Preferred time</span><span class="rv-value">${esc(d.prefTime || '—')}</span></div>
+        </div>` : ''}
 
         <div class="review-block">
           <h5>Client &amp; creative</h5>
-          <div class="review-row"><span class="rv-label">Name</span><span class="rv-value">${esc(d7.fullName)}</span></div>
-          <div class="review-row"><span class="rv-label">Phone</span><span class="rv-value">${esc(d7.phone)}</span></div>
-          <div class="review-row"><span class="rv-label">Email</span><span class="rv-value">${esc(d7.email)}</span></div>
-          <div class="review-row"><span class="rv-label">People</span><span class="rv-value">${esc(d7.peopleCount || (isCouplePkg() ? '2' : '1'))}</span></div>
-          <div class="review-row"><span class="rv-label">Outfits</span><span class="rv-value">${esc(d7.outfitDesc || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(d7.hairstyle1 || '—')}${d7.hairstyle2 ? ' / ' + esc(d7.hairstyle2) : ''}</span></div>
-          <div class="review-row"><span class="rv-label">Makeup</span><span class="rv-value">${d7.makeup1 ? 'Light' : 'None'}${d7.makeup2 ? ' (partner: Light)' : ''}</span></div>
-          ${d7.vision ? `<div class="review-row"><span class="rv-label">Background</span><span class="rv-value">${esc(d7.vision)}</span></div>` : ''}
-          <div class="review-row"><span class="rv-label">Mood / style</span><span class="rv-value">${esc(d7.mood || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Intended use</span><span class="rv-value">${esc(d7.intendedUse || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Notes</span><span class="rv-value">${esc(d7.notes || '—')}</span></div>
-          <div class="review-row"><span class="rv-label">Photos attached</span><span class="rv-value">${srcCount} source + ${d7.inspiration.length} inspiration</span></div>
+          <div class="review-row"><span class="rv-label">Name</span><span class="rv-value">${esc(d.fullName)}</span></div>
+          <div class="review-row"><span class="rv-label">Phone</span><span class="rv-value">${esc(d.phone)}</span></div>
+          <div class="review-row"><span class="rv-label">Email</span><span class="rv-value">${esc(d.email)}</span></div>
+          <div class="review-row"><span class="rv-label">People</span><span class="rv-value">${esc(d.peopleCount || (isCouplePkg() ? '2' : '1'))}</span></div>
+          ${isSession ? `<div class="review-row"><span class="rv-label">Outfits</span><span class="rv-value">${esc(d.outfitDesc || '—')}</span></div>` : ''}
+          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(d.hairstyle1 || '—')}${d.hairstyle2 ? ' / ' + esc(d.hairstyle2) : ''}</span></div>
+          ${d.vision ? `<div class="review-row"><span class="rv-label">Background</span><span class="rv-value">${esc(d.vision)}</span></div>` : ''}
+          ${isSession ? `<div class="review-row"><span class="rv-label">Mood / style</span><span class="rv-value">${esc(d.mood || '—')}</span></div>` : ''}
+          <div class="review-row"><span class="rv-label">Notes</span><span class="rv-value">${esc(d.notes || '—')}</span></div>
+          <div class="review-row"><span class="rv-label">Photos attached</span><span class="rv-value">${srcCount} source + ${d.inspiration.length} inspiration</span></div>
         </div>
 
-        ${PAY_URL ? `<a class="btn btn-primary btn-full pay-online" href="${PAY_URL}" target="_blank" rel="noopener">Pay online now — MoMo / Card · ${esc(pkgLine)}</a>` : ''}
+        ${PAY_URL ? `<a class="btn btn-primary btn-full pay-online" href="${PAY_URL}" target="_blank" rel="noopener">Pay online now — MoMo / Card · ${esc(offerLine)}</a>` : ''}
         <p class="pay-hint">${PAY_URL ? 'Paying now locks your slot instantly — then send your request below.' : 'Payment: Mobile Money details are shared on WhatsApp after you send your request. Your slot is confirmed once payment completes.'}</p>
 
         <div class="review-note">
-          <strong>Note:</strong> Submitting sends a booking request via WhatsApp to GIDIGBA STUDIOS. Your order begins after availability is confirmed and payment (Mobile Money) is completed. This is a 100% online service — software-assisted images, delivered to your WhatsApp.
+          <strong>Note:</strong> Submitting sends a booking request via WhatsApp to GIDIGBA STUDIOS. Your order begins after availability is confirmed and payment (Mobile Money) is completed. This is a 100% online service — software-assisted images, delivered to your WhatsApp within 24 business hours.
         </div>
       </div>`;
   }
@@ -1152,27 +1093,26 @@ function renderPhotoStep() {
   attachStepListeners();
 }
 
-window.setBookingPkgType = function (type) {
-  booking.data.pkgType = type;
-  booking.data.selectedPackage = null;
-  renderPhotoStep();
-};
 window.selectBookingPackage = function (name) {
   booking.data.selectedPackage = name;
   const pkg = PACKAGES.find(p => p.name === name);
   if (pkg?.type === 'couple') booking.data.photoType = 'couple';
-  if (pkg?.name.includes('PLATINUM') && !booking.data.turnaround) booking.data.turnaround = 'priority';
+  booking.step = 2;
+  saveDraft();
   renderPhotoStep();
-  toast(`Selected ${name}`);
+  updateBookingSteps();
+  toast(`Selected ${name} — GH₵ ${pkg ? pkg.price : ''}`);
 };
 window.switchToCustomEdit = function () {
   booking.data.orderType = 'custom';
+  booking.data.selectedPackage = null;
   renderPhotoStep();
 };
-window.switchToPackageEdit = function () {
+window.switchToSession = function () {
   booking.data.orderType = 'photoshoot';
   renderPhotoStep();
 };
+window.switchToPackageEdit = window.switchToSession;
 window.toggleEditService = function (i) {
   const arr = booking.data.selectedServices;
   const idx = arr.indexOf(i);
@@ -1208,9 +1148,7 @@ function attachStepListeners() {
   }
   if (document.getElementById('prefDate')) {
     document.getElementById('prefDate').addEventListener('change', e => booking.data.prefDate = e.target.value);
-    document.getElementById('altDate').addEventListener('change', e => booking.data.altDate = e.target.value);
     document.getElementById('prefTime').addEventListener('change', e => booking.data.prefTime = e.target.value);
-    document.getElementById('turnaround').addEventListener('change', e => booking.data.turnaround = e.target.value);
   }
   if (document.getElementById('fullName')) {
     const bind = (id, key) => {
@@ -1219,11 +1157,11 @@ function attachStepListeners() {
       const ev = el.tagName === 'SELECT' ? 'change' : 'input';
       el.addEventListener(ev, e => booking.data[key] = e.target.value);
     };
-    ['fullName|fullName', 'phone|phone', 'email|email', 'peopleCount|peopleCount',
-     'outfitDesc|outfitDesc', 'mood|mood', 'intendedUse|intendedUse', 'notes|notes']
+    ['fullName|fullName', 'phone|phone', 'email|email',
+     'outfitDesc|outfitDesc', 'mood|mood', 'notes|notes']
       .forEach(pair => { const [id, key] = pair.split('|'); bind(id, key); });
   }
-  if (document.getElementById('inspInput')) {
+  if (document.getElementById('inspInput') || document.querySelector('.upload-box[data-key]')) {
     document.querySelectorAll('.upload-box[data-key]').forEach(box => {
       const key = box.dataset.key;
       const input = box.querySelector('input[type="file"]');
@@ -1249,35 +1187,37 @@ function attachStepListeners() {
     bindT('hairstyle1', 'hairstyle1');
     bindT('hairstyle2', 'hairstyle2');
     bindT('vision', 'vision');
-    bindT('instructions', 'notes');
+    bindT('notes', 'notes');
     const disc = document.getElementById('disclaimerOk');
     if (disc) disc.addEventListener('change', e => booking.data.disclaimerOk = e.target.checked);
 
     const inspInput = document.getElementById('inspInput');
-    document.querySelectorAll('.insp-slot[data-insp]').forEach(slot => {
-      slot.addEventListener('click', () => inspInput.click());
-    });
-    document.querySelectorAll('.remove-insp').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        booking.data.inspiration.splice(parseInt(btn.dataset.idx), 1);
-        renderPhotoStep();
+    if (inspInput) {
+      document.querySelectorAll('.insp-slot[data-insp]').forEach(slot => {
+        slot.addEventListener('click', () => inspInput.click());
       });
-    });
-    inspInput.addEventListener('change', e => {
-      const files = Array.from(e.target.files);
-      files.forEach(file => {
-        if (booking.data.inspiration.length >= 4) { toast('Max 4 inspiration images', false); return; }
-        const r = new FileReader();
-        r.onload = ev => {
-          booking.data.inspiration.push({ name: file.name, dataUrl: ev.target.result, file });
+      document.querySelectorAll('.remove-insp').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          booking.data.inspiration.splice(parseInt(btn.dataset.idx), 1);
           renderPhotoStep();
-        };
-        r.readAsDataURL(file);
+        });
       });
-      e.target.value = '';
-    });
+      inspInput.addEventListener('change', e => {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+          if (booking.data.inspiration.length >= 4) { toast('Max 4 inspiration images', false); return; }
+          const r = new FileReader();
+          r.onload = ev => {
+            booking.data.inspiration.push({ name: file.name, dataUrl: ev.target.result, file });
+            renderPhotoStep();
+          };
+          r.readAsDataURL(file);
+        });
+        e.target.value = '';
+      });
+    }
   }
 }
 
@@ -1309,28 +1249,33 @@ async function submitPhotoOrder() {
 
     const d = booking.data;
     const pkg = getSelectedPackage();
+    const isSession = d.orderType === 'photoshoot';
     const typeLabel = PHOTO_TYPES.find(t => t.id === d.photoType)?.label || 'N/A';
     const lookLabel = LOOK_PREFS.find(l => l.id === d.look)?.label || 'N/A';
-    const turnaroundLabel = { standard: 'Standard (4h)', priority: 'Priority (2h)', flexible: 'Flexible' }[d.turnaround] || 'N/A';
 
-    let msg = `Hello GIDIGBA STUDIOS! 📸\n*New Online Photoshoot Booking Request*\n\n`;
-    msg += `*ORDER*\n`;
-    if (d.orderType === 'photoshoot') {
-      msg += `Package: ${pkg.name} (GH₵ ${pkg.price})\n`;
+    let msg = `Hello GIDIGBA STUDIOS! 📸\n*New Online Order — simple pricing*\n\n*ORDER*\n`;
+    if (isSession && pkg) {
+      msg += `Offer: ${pkg.name} (GH₵ ${pkg.price})\n`;
+      msg += `Includes: makeup, retouch, hair, outfit & background choice\n`;
+      msg += `Images: ${pkg.images} · Delivery: within 24 business hours\n`;
+      msg += `Type: ${typeLabel}\nSetting: ${lookLabel}\n\n`;
+      msg += `*SCHEDULE*\nPreferred: ${d.prefDate} ${d.prefTime}\n\n`;
     } else {
-      msg += `Custom Edit (GH₵ ${getCustomTotal()})\nServices: ${d.selectedServices.map(i => SERVICES_EDIT[i].name).join(', ')}\n`;
+      msg += `Single-change edits — GH₵10 each:\n`;
+      d.selectedServices.forEach(i => { msg += `  • ${SERVICES_EDIT[i].name} — GH₵10\n`; });
+      msg += `Total: GH₵ ${getCustomTotal()} · Delivery: within 24 business hours\n\n`;
     }
-    msg += `Type: ${typeLabel}\nSetting: ${lookLabel}\n\n`;
-    msg += `*SCHEDULE*\nPreferred: ${d.prefDate} ${d.prefTime}\nAlternative: ${d.altDate || '—'}\nTurnaround: ${turnaroundLabel}\n\n`;
     msg += `*CLIENT*\nName: ${d.fullName}\nPhone: ${d.phone}\nEmail: ${d.email}\nPeople: ${d.peopleCount || (isCouplePkg() ? '2' : '1')}\n\n`;
-    msg += `*CREATIVE*\nOutfits: ${d.outfitDesc || 'N/A'}\nHairstyle: ${d.hairstyle1 || 'N/A'}\n`;
+    msg += `*CREATIVE*\n`;
+    if (isSession) msg += `Outfits: ${d.outfitDesc || 'N/A'}\n`;
+    msg += `Hairstyle: ${d.hairstyle1 || 'N/A'}\n`;
     if (d.hairstyle2) msg += `Partner hairstyle: ${d.hairstyle2}\n`;
-    msg += `Makeup: ${d.makeup1 ? 'Light' : 'None'}${d.makeup2 ? ' / Partner: Light' : ''}\n`;
-    if (d.vision) msg += `Background: ${d.vision}\n`;
-    msg += `Mood: ${d.mood || 'N/A'}\nUse: ${d.intendedUse || 'N/A'}\nNotes: ${d.notes || 'N/A'}\n\n`;
+    if (d.vision) msg += `Background/scene: ${d.vision}\n`;
+    if (isSession) msg += `Mood: ${d.mood || 'N/A'}\n`;
+    msg += `Notes: ${d.notes || 'N/A'}\n\n`;
     msg += `*PHOTOS*\n`;
     Object.entries(urls).forEach(([k, u]) => { msg += `${k}: ${u}\n`; });
-    msg += `\n✅ I understand these are software-assisted generated images (minor variations may occur).\n✅ 100% online — no in-person session.\n✅ I've reviewed this request and will complete Mobile Money payment.`;
+    msg += `\n✅ I understand these are software-assisted generated images (minor variations may occur).\n✅ 100% online — no in-person session.\n✅ Delivery within 24 business hours.\n✅ I've reviewed this request and will complete Mobile Money payment.`;
     const refBy = localStorage.getItem('gidigba_referral');
     if (refBy) msg += `\n\n*Referred by:* ${refBy}`;
 
@@ -1340,8 +1285,8 @@ async function submitPhotoOrder() {
     try {
       localStorage.setItem('gidigba_last_order', JSON.stringify({
         ts: Date.now(),
-        pkg: d.orderType === 'photoshoot' ? pkg.name : 'Custom Edit',
-        price: d.orderType === 'photoshoot' ? pkg.price : getCustomTotal()
+        pkg: isSession && pkg ? pkg.name : 'Single-change edits',
+        price: isSession && pkg ? pkg.price : getCustomTotal()
       }));
     } catch (e) {}
     booking = { step: 1, data: freshBookingData() };
@@ -1367,7 +1312,7 @@ function bookLook(typeId, title) {
   openPhotoBooking();
   booking.data.photoType = typeId;
   if (typeof saveDraft === 'function') saveDraft();
-  toast(`Photoshoot type set to “${t ? t.label : 'Portrait'}” from “${title}” — pick your package`);
+  toast(`Photoshoot type set to “${t ? t.label : 'Portrait'}” from “${title}” — choose Single Image or a Package`);
 }
 
 // ---- Shareable package card (canvas → PNG) ----
@@ -1392,7 +1337,7 @@ function sharePkg(name) {
   x.fillStyle = '#bdbdbd'; x.font = '400 34px Inter, Arial, sans-serif';
   x.fillText(p.features.join('  ·  '), 70, 530);
   x.fillStyle = '#8f8f8f'; x.font = '400 30px Inter, Arial, sans-serif';
-  x.fillText('Photos delivered to your WhatsApp in 4 hours (Platinum: 2h).', 70, 590);
+  x.fillText('Photos delivered to your WhatsApp within 24 business hours.', 70, 590);
   x.strokeStyle = 'rgba(255,255,255,.14)';
   x.beginPath(); x.moveTo(70, 760); x.lineTo(W - 70, 760); x.stroke();
   x.fillStyle = '#fff'; x.font = '800 46px Syne, Inter, Arial, sans-serif';
@@ -1403,7 +1348,7 @@ function sharePkg(name) {
   x.fillText('Book on WhatsApp · +233 53 431 7611 · Accra, Ghana', 70, 960);
   try {
     const a = document.createElement('a');
-    a.download = 'gidigba-' + p.name.toLowerCase().replace(/\s+/g, '-') + '.png';
+    a.download = 'gidigba-' + p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.png';
     a.href = c.toDataURL('image/png');
     a.click();
     toast('Card saved — share it on your WhatsApp status ✨');
@@ -1452,20 +1397,17 @@ function quizResult() {
 
   let pkgName;
   if (who === 'couple') {
-    pkgName = budget === 'low' ? 'COUPLE SILVER' : budget === 'high' ? 'COUPLE PLATINUM' : 'COUPLE GOLD';
+    pkgName = 'COUPLE';
   } else {
-    pkgName = budget === 'low' ? 'SILVER' : budget === 'high' ? 'PLATINUM' : 'GOLD';
+    pkgName = budget === 'low' ? 'SINGLE IMAGE' : budget === 'high' ? 'PACKAGE · 5' : 'PACKAGE · 3';
   }
-  if (speed === 'rush' && pkgName !== 'PLATINUM' && pkgName !== 'COUPLE PLATINUM') {
-    pkgName = who === 'couple' ? 'COUPLE PLATINUM' : 'PLATINUM';
-  }
-  const p = PACKAGES.find(x => x.name === pkgName);
+  const p = PACKAGES.find(x => x.name === pkgName) || PACKAGES[0];
   const tLabel = PHOTO_TYPES.find(t => t.id === QUIZ_OCCASION_TYPE[occasion])?.label || 'Portrait';
   res.innerHTML = `
     <div class="quiz-card quiz-win">
       <span class="quiz-kicker">Your match</span>
       <h4>${p.name} · GH₵ ${p.price}</h4>
-      <p>${p.features.join(' · ')} — matched for a ${tLabel.toLowerCase()} shoot, ${speed === 'rush' ? 'priority 2-hour delivery' : speed === 'day' ? '4-hour delivery' : 'flexible timing'}. Your photoshoot type is preselected too.</p>
+      <p>${p.features.join(' · ')} — matched for a ${tLabel.toLowerCase()} shoot. Delivered to your WhatsApp within 24 business hours. Your photoshoot type is preselected too.</p>
       <div class="quiz-actions">
         <button class="btn btn-primary btn-sm" onclick="bookQuizPkg('${p.name}', '${QUIZ_OCCASION_TYPE[occasion]}')">Book ${p.name} →</button>
         <button class="btn btn-ghost btn-sm" onclick="sharePkg('${p.name}')">↗ Share</button>
@@ -1529,7 +1471,7 @@ function shareReferral() {
   const link = (location.origin && location.origin !== 'null' ? location.origin : location.href.split('?')[0]) + (location.pathname.endsWith('.html') || location.pathname === '/' || location.pathname === '' ? '' : '') + '?ref=' + code;
   const base = location.href.split('?')[0].split('#')[0];
   const url = base + '?ref=' + code;
-  const text = `✨ I'm getting an online photoshoot with GIDIGBA STUDIOS — no studio, photos on WhatsApp in 4 hours. Use my code ${code} and we both get ${REFERRAL_REWARD} off 👉 ${url}`;
+  const text = `✨ I'm getting an online photoshoot with GIDIGBA STUDIOS — no studio, photos on WhatsApp within 24 hours, one image from GH₵15. Use my code ${code} and we both get ${REFERRAL_REWARD} off 👉 ${url}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -1572,7 +1514,7 @@ function initTrack() {
       <div class="track-card">
         <span class="track-kicker">Draft in progress</span>
         <h4>Not submitted yet</h4>
-        <p class="track-sub">You stopped at step ${draft.step} of 7${draft.data && draft.data.selectedPackage ? ' with ' + esc(draft.data.selectedPackage) : ''}.</p>
+        <p class="track-sub">You stopped at step ${draft.step} of 3${draft.data && draft.data.selectedPackage ? ' with ' + esc(draft.data.selectedPackage) : ''}.</p>
         <ol class="track-steps">
           <li class="done">Started booking</li>
           <li class="active">Draft saved on this device</li>
@@ -1621,7 +1563,7 @@ function voucherGen() {
   x.fillStyle = '#C0F500'; x.font = '700 30px Inter, Arial, sans-serif';
   x.fillText('GIFT VOUCHER · GIDIGBA STUDIOS', 80, 130);
   x.fillStyle = '#fff'; x.font = '800 64px Syne, Inter, Arial, sans-serif';
-  x.fillText('An ' + p.name + ' photoshoot', 80, 300);
+  x.fillText(p.name + ' photoshoot', 80, 300);
   x.fillText('is coming your way,', 80, 380);
   x.fillStyle = '#C0F500';
   x.fillText(recipient.toUpperCase() + '.', 80, 470);
