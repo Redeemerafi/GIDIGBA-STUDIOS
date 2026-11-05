@@ -121,7 +121,7 @@ const CHROME_BOTTOM = `
     <button class="modal-close" onclick="closeModal('projectModal')">&times;</button>
     <span class="modal-label">Business Project Brief</span>
     <h3>Start a Business Project</h3>
-    <p class="modal-sub">Tell us about your project. We'll review and reply on WhatsApp within 24 hours.</p>
+    <p class="modal-sub">Tell us about your project. We'll review and reply on WhatsApp within 24 business hours.</p>
     <form id="projectForm" class="form">
       <div class="form-row">
         <div class="form-group"><label>Full name *</label><input type="text" name="name" required /></div>
