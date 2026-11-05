@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gidigba-v7';
+const CACHE_NAME = 'gidigba-v8';
 const PRECACHE_URLS = [
   '/',
   '/index.html',

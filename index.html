@@ -16,7 +16,7 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
@@ -41,7 +41,7 @@
     <p class="hero-sub reveal">
       Creative production, digital growth and professional photography for businesses,
       brands and people ready to look their best — online photoshoots from
-      <strong style="color:var(--green);">GH₵15 for one all-in image</strong>, delivered
+      <strong style="color:var(--green-ink);">GH₵15 for one all-in image</strong>, delivered
       to your WhatsApp within 24 hours. No in-person session required.
     </p>
 
@@ -182,10 +182,12 @@
     <div class="section-head reveal">
       <span class="eyebrow">Change Just One Thing · GH₵10 each</span>
       <h2>Only want the <span class="hl">earrings</span> changed? Or the <span class="hl">hair</span>? It's there.</h2>
-      <p>Any single change — flat 10 cedis. Upload the photo you already have, no photoshoot needed. Tap any tile to start.</p>
+      <p>Any single change — flat 10 cedis. Upload the photo you already have, no photoshoot needed. Tap the button to start — choose any of the 20 changes inside.</p>
     </div>
-    <div class="edit-grid reveal" id="homeEditGrid"></div>
-    <div class="reveal" style="text-align:center; margin-top:24px;">
+    <div class="reveal" style="text-align:center; margin-top:4px;">
+      <button class="btn btn-primary btn-lg" onclick="openPhotoBooking(null, 'custom')">Image Editing from GH₵10 →</button>
+    </div>
+    <div class="reveal" style="text-align:center; margin-top:18px;">
       <a href="photoshoots.html#packages" class="btn btn-ghost">See session prices — from GH₵15 →</a>
     </div>
   </div>

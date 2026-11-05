@@ -237,7 +237,7 @@ const CHROME_BOTTOM = `
   <div class="sticky-info"><strong>From GH₵15</strong><span>1 image · all-in</span></div>
   <button class="btn btn-primary btn-sm" onclick="openBookingChoice('photo')">Book Session</button>
   <a href="https://wa.me/${WA_NUMBER}" class="sticky-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085.719-1.006.719-1.413 2.48-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 </div>
 
@@ -440,7 +440,7 @@ const services = [
   },
   {
     num: '10', title: 'Personal Photography',
-    desc: '100% online photoshoots: birthdays, graduations, portraits, headshots, couples and personal-brand looks. One image from GH₵15 — upload photos, get images on WhatsApp within 24 hours.',
+    desc: '100% online photoshoots: birthdays, graduations, portraits, headshots, couples and personal-brand looks. One image from GH₵15 — upload photos, get images on WhatsApp within 24 business hours.',
     tags: ['Birthdays', 'Graduations', 'Headshots', 'Couples', 'Fully Online'],
     cta: 'Book Your Session', action: () => openBookingChoice('photo'), featured: true
   }
@@ -550,14 +550,15 @@ document.querySelectorAll('.faq-item').forEach(item => {
 /* ============================================================
    PACKAGES
    ============================================================ */
+const INCLUSIONS = 'Makeup · Retouch · Hair · Outfit · Background';
 const PACKAGES = [
-  { name: 'SINGLE IMAGE', price: 15, type: 'individual', images: 1, features: ['1 all-in image', 'Makeup · Retouch · Hair · Outfit · Background', 'Delivery in 24 hours'] },
-  { name: 'PACKAGE · 3', price: 35, type: 'individual', images: 3, features: ['3 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
-  { name: 'PACKAGE · 5', price: 55, type: 'individual', images: 5, features: ['5 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
-  { name: 'PACKAGE · 10', price: 105, type: 'individual', images: 10, features: ['10 all-in images', 'Everything included per image', 'Delivery in 24 hours'] },
-  { name: 'COUPLE SILVER', price: 120, type: 'couple', images: 3, features: ['3 images', '1 outfit each', 'Studio layout', 'Delivery in 24 hours'] },
-  { name: 'COUPLE GOLD', price: 230, type: 'couple', images: 4, features: ['4 images', '2 outfits each', 'Creative scene', 'Delivery in 24 hours'] },
-  { name: 'COUPLE PLATINUM', price: 350, type: 'couple', images: 6, features: ['6 images', '3 outfits each', 'Premium concepts', 'Delivery in 24 hours'] },
+  { name: 'SINGLE IMAGE', price: 15, type: 'individual', images: 1, features: ['1 all-in image', INCLUSIONS, 'Delivery in 24 business hours'] },
+  { name: 'LITE', price: 35, type: 'individual', images: 3, features: ['3 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'MEDIUM', price: 55, type: 'individual', images: 5, features: ['5 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'SUPERIOR', price: 105, type: 'individual', images: 10, features: ['10 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE SILVER', price: 120, type: 'couple', images: 3, features: ['3 images', '1 outfit each', 'Studio layout', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE GOLD', price: 230, type: 'couple', images: 4, features: ['4 images', '2 outfits each', 'Creative scene', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE PLATINUM', price: 350, type: 'couple', images: 6, features: ['6 images', '3 outfits each', 'Premium concepts', 'Delivery in 24 business hours'] },
 ];
 const SERVICES_EDIT = [
   { name: 'Earring / Accessories Change', price: 10, icon: '💍' },
@@ -592,13 +593,13 @@ function renderPkgGrid() {
         <span class="pkg-badge">Standalone</span>
         <div class="pkg-name">${s.icon} ${esc(s.name)}</div>
         <div class="pkg-price">GH₵ ${s.price} <small>each</small></div>
-        <ul><li>Upload the photo you already have</li><li>Delivered within 24 hours</li></ul>
+        <ul><li>Upload the photo you already have</li><li>Delivered within 24 business hours</li></ul>
         <span class="pkg-book">Book this edit →</span>
       </div>`).join('');
   } else {
     grid.innerHTML = PACKAGES.filter(p => p.type === pkgTab).map(p => `
       <div class="pkg-card reveal" onclick="openPhotoBooking('${p.name}')">
-        ${p.name === 'PACKAGE · 10' ? '<span class="pkg-badge">Best value</span>' : ''}
+        ${p.name === 'SUPERIOR' ? '<span class="pkg-badge">Best value</span>' : ''}
         ${p.name === 'SINGLE IMAGE' ? '<span class="pkg-badge">Most popular</span>' : ''}
         ${p.name === 'COUPLE PLATINUM' ? '<span class="pkg-badge">Most images</span>' : ''}
         <div class="pkg-name">${p.name}</div>
@@ -622,19 +623,6 @@ if (document.getElementById('pkgGrid')) {
   renderPkgGrid();
 }
 
-// ---- Homepage "change just one thing" tiles ----
-function renderHomeEdits() {
-  const g = document.getElementById('homeEditGrid');
-  if (!g) return;
-  g.innerHTML = SERVICES_EDIT.map((s, i) => `
-    <button class="edit-tile" onclick="bookEdit(${i})">
-      <span class="et-emoji">${s.icon}</span>
-      <span class="et-name">${esc(s.name)}</span>
-      <span class="et-price">GH₵ ${s.price}</span>
-      <span class="et-add">Tap to book →</span>
-    </button>`).join('');
-}
-renderHomeEdits();
 window.bookEdit = function (i) {
   openPhotoBooking(null, 'custom');
   if (!booking.data.selectedServices.includes(i)) booking.data.selectedServices.push(i);
@@ -946,7 +934,7 @@ function renderPhotoStep() {
     const isSession = d.orderType === 'photoshoot';
     const pkg = getSelectedPackage();
     const couple = isCouplePkg();
-    const biggest = isSession && (pkg?.name === 'PACKAGE · 10' || pkg?.name === 'COUPLE PLATINUM');
+    const biggest = isSession && (pkg?.name === 'SUPERIOR' || pkg?.name === 'COUPLE PLATINUM');
     const svcNames = d.selectedServices.map(i => SERVICES_EDIT[i].name);
     const needVision = !isSession && (svcNames.includes('Background Choice') || svcNames.includes('Full Scene Replacement'));
     const needHair = !isSession && svcNames.includes('Hairstyle Change');
@@ -1077,7 +1065,7 @@ function renderPhotoStep() {
     const outfitVal = d.outfitDesc || (sourceFiles.outfitImg ? 'Photo attached' : '—');
     const hairVal = d.hairstyle1 || (sourceFiles.hairstyleImg ? 'Photo attached' : '—');
     const srcCount = Object.keys(sourceFiles).length;
-    const biggest = isSession && (pkg?.name === 'PACKAGE · 10' || pkg?.name === 'COUPLE PLATINUM');
+    const biggest = isSession && (pkg?.name === 'SUPERIOR' || pkg?.name === 'COUPLE PLATINUM');
 
     html = `
       <div class="step-pane active">
@@ -1349,9 +1337,9 @@ function sharePkg(name) {
   x.fillStyle = '#C0F500'; x.fillRect(0, 0, W, 14);
   x.fillStyle = '#8f8f8f'; x.font = '700 30px Inter, Arial, sans-serif';
   x.fillText('ONLINE PHOTOSHOOT · 100% REMOTE', 70, 120);
-  x.fillStyle = '#fff'; x.font = '800 84px Syne, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 84px Poppins, Inter, Arial, sans-serif';
   x.fillText(p.name, 70, 280);
-  x.fillStyle = '#C0F500'; x.font = '900 150px Syne, Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '900 150px Poppins, Inter, Arial, sans-serif';
   x.fillText('GH₵ ' + p.price, 70, 450);
   x.fillStyle = '#bdbdbd'; x.font = '400 34px Inter, Arial, sans-serif';
   x.fillText(p.features.join('  ·  '), 70, 530);
@@ -1359,7 +1347,7 @@ function sharePkg(name) {
   x.fillText('Photos delivered to your WhatsApp within 24 business hours.', 70, 590);
   x.strokeStyle = 'rgba(255,255,255,.14)';
   x.beginPath(); x.moveTo(70, 760); x.lineTo(W - 70, 760); x.stroke();
-  x.fillStyle = '#fff'; x.font = '800 46px Syne, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 46px Poppins, Inter, Arial, sans-serif';
   x.fillText('GIDIGBA STUDIOS', 70, 850);
   x.fillStyle = '#C0F500'; x.font = '700 27px Inter, Arial, sans-serif';
   x.fillText('DEVELOPED SPECIALLY FOR BUSINESSES.', 70, 900);
@@ -1418,7 +1406,7 @@ function quizResult() {
   if (who === 'couple') {
     pkgName = budget === 'low' ? 'COUPLE SILVER' : budget === 'high' ? 'COUPLE PLATINUM' : 'COUPLE GOLD';
   } else {
-    pkgName = budget === 'low' ? 'SINGLE IMAGE' : budget === 'high' ? 'PACKAGE · 5' : 'PACKAGE · 3';
+    pkgName = budget === 'low' ? 'SINGLE IMAGE' : budget === 'high' ? 'MEDIUM' : 'LITE';
   }
   const p = PACKAGES.find(x => x.name === pkgName) || PACKAGES[0];
   const tLabel = PHOTO_TYPES.find(t => t.id === QUIZ_OCCASION_TYPE[occasion])?.label || 'Portrait';
@@ -1491,7 +1479,7 @@ function shareReferral() {
   const link = (location.origin && location.origin !== 'null' ? location.origin : location.href.split('?')[0]) + (location.pathname.endsWith('.html') || location.pathname === '/' || location.pathname === '' ? '' : '') + '?ref=' + code;
   const base = location.href.split('?')[0].split('#')[0];
   const url = base + '?ref=' + code;
-  const text = `✨ I'm getting an online photoshoot with GIDIGBA STUDIOS — no studio, photos on WhatsApp within 24 hours, one image from GH₵15. Use my code ${code} and we both get ${REFERRAL_REWARD} off 👉 ${url}`;
+  const text = `✨ I'm getting an online photoshoot with GIDIGBA STUDIOS — no studio, photos on WhatsApp within 24 business hours, one image from GH₵15. Use my code ${code} and we both get ${REFERRAL_REWARD} off 👉 ${url}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -1582,7 +1570,7 @@ function voucherGen() {
   x.strokeRect(30, 30, W - 60, H - 60);
   x.fillStyle = '#C0F500'; x.font = '700 30px Inter, Arial, sans-serif';
   x.fillText('GIFT VOUCHER · GIDIGBA STUDIOS', 80, 130);
-  x.fillStyle = '#fff'; x.font = '800 64px Syne, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 64px Poppins, Inter, Arial, sans-serif';
   x.fillText(p.name + ' photoshoot', 80, 300);
   x.fillText('is coming your way,', 80, 380);
   x.fillStyle = '#C0F500';
@@ -1594,7 +1582,7 @@ function voucherGen() {
   x.fillText('From: ' + sender, 80, 670);
   x.fillStyle = 'rgba(192,245,45,.12)';
   x.fillRect(80, 730, W - 160, 110);
-  x.fillStyle = '#C0F500'; x.font = '800 44px Syne, Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '800 44px Poppins, Inter, Arial, sans-serif';
   x.fillText(code, 110, 800);
   x.fillStyle = '#fff'; x.font = '400 28px Inter, Arial, sans-serif';
   x.fillText('Redeem on WhatsApp · +233 53 431 7611', 80, 930);
