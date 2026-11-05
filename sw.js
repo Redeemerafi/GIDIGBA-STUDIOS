@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gidigba-v8';
+const CACHE_NAME = 'gidigba-v9';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -57,26 +57,25 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Network-first for pages & assets (always fresh when online), cache fallback offline
   event.respondWith(
-    caches.match(request).then(cached => {
-      const network = fetch(request).then(response => {
-        if (response && response.status === 200) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, clone).catch(() => {}));
-        }
-        return response;
-      }).catch(() => {
-        // Offline fallback: pages → cached copy, else home; assets → fail quietly
+    fetch(request).then(response => {
+      if (response && response.status === 200) {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, clone).catch(() => {}));
+      }
+      return response;
+    }).catch(() => {
+      return caches.match(request).then(cached => {
         if (cached) return cached;
         if (request.mode === 'navigate') {
           return caches.match('/index.html').then(home => home || new Response(
-            '<!DOCTYPE html><meta charset="utf-8"><title>Offline</title><body style="background:#000;color:#fff;font-family:sans-serif;padding:40px;text-align:center"><h1>You are offline</h1><p>This page is not cached yet. Reconnect to browse GIDIGBA STUDIOS.</p></body>',
+            '<!DOCTYPE html><meta charset="utf-8"><title>Offline</title><body style="background:#f6f6f3;color:#111;font-family:sans-serif;padding:40px;text-align:center"><h1>You are offline</h1><p>This page is not cached yet. Reconnect to browse GIDIGBA STUDIOS.</p></body>',
             { headers: { 'Content-Type': 'text/html' } }
           ));
         }
         return Response.error();
       });
-      return cached || network;
     })
   );
 });

@@ -25,6 +25,8 @@ Bonus fixes found during the audit: brands logo text was near-invisible on white
 - Functional: home button → editing modal ✓ · tile names ✓ · pose gates ✓ · quiz → MEDIUM ✓ · voucher 7 options ✓
 - `node --check` OK · CSS braces balanced · zero "Syne" references left
 - **Full flow suite: 17/17** — business brief → WhatsApp, choice modal, LITE e2e (style-me lift + Style/Makeup/Hurry message lines), COUPLE GOLD e2e (partner uploads + descriptions), edit e2e (GH₵10 total), track after real order, voucher generate, referral share, FAQ, look prefill, quiz → book MEDIUM, share card, mobile menu, before/after slider, zero page errors
+- Validation UX: a blocked Continue now **scrolls the missing field into view and flashes it red** (`.field-error`) — typing/uploading clears it. Covers photoAbout, selfie/fullbody/partner uploads, hairstyle boxes, vision, disclaimer, package/service pickers
+- Service worker **v9 = network-first** for pages/assets (cache only as offline fallback) — browsers always get the newest build when online; stale-theme incidents gone
 - QA sweep: every delivery claim now says **24 business hours** (8 spots; journal's "24 hours" kept — it's Instagram stories), `twitter:card` added to 12 pages, sitemap covers all 13 pages
 
 ---

@@ -323,6 +323,22 @@ function toast(msg, ok = true) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 
+// Scroll to + flash the field that blocked validation
+let flagTimer;
+function flagField(sel) {
+  const el = document.querySelector(sel);
+  if (!el) return;
+  try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { el.scrollIntoView(); }
+  el.classList.remove('field-error');
+  void el.offsetWidth;
+  el.classList.add('field-error');
+  clearTimeout(flagTimer);
+  flagTimer = setTimeout(() => el.classList.remove('field-error'), 3400);
+  if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+    try { el.focus({ preventScroll: true }); } catch (e) { try { el.focus(); } catch (e2) {} }
+  }
+}
+
 // ---- Active nav by page ----
 const currentPage = document.body.dataset.page || '';
 document.querySelectorAll(`.nav-link[data-nav="${currentPage}"]`).forEach(l => l.classList.add('active'));
@@ -847,34 +863,34 @@ function validateStep(step) {
   const d = booking.data;
   if (step === 1) {
     if (d.orderType === 'custom') {
-      if (d.selectedServices.length === 0) { toast('Select at least one editing service', false); return false; }
+      if (d.selectedServices.length === 0) { toast('Select at least one editing service', false); flagField('.svc-scroll'); return false; }
     } else {
       const pkg = getSelectedPackage();
-      if (!pkg) { toast('Choose a package to continue', false); return false; }
+      if (!pkg) { toast('Choose a package to continue', false); flagField('.pkg-mini-grid'); return false; }
       const wantCouple = bookTab === 'couple';
-      if ((pkg.type === 'couple') !== wantCouple) { toast('Choose a package from this tab', false); return false; }
+      if ((pkg.type === 'couple') !== wantCouple) { toast('Choose a package from this tab', false); flagField('.pkg-mini-grid'); return false; }
     }
   }
   if (step === 2) {
     if (d.orderType === 'photoshoot') {
-      if (!d.photoAbout || !d.photoAbout.trim()) { toast('Tell us what the photoshoot is about', false); return false; }
-      if (!sourceFiles.selfie) { toast('Upload your selfie (required)', false); return false; }
-      if (!sourceFiles.fullbody) { toast('Upload a full-body photo (required)', false); return false; }
-      if (!d.styleMe && !d.hairstyle1.trim() && !sourceFiles.hairstyleImg) { toast('Describe or upload your hairstyle — or pick “Let us style you”', false); return false; }
+      if (!d.photoAbout || !d.photoAbout.trim()) { toast('Tell us what the photoshoot is about', false); flagField('#photoAbout'); return false; }
+      if (!sourceFiles.selfie) { toast('Upload your selfie (required)', false); flagField('.upload-box[data-key="selfie"]'); return false; }
+      if (!sourceFiles.fullbody) { toast('Upload a full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
+      if (!d.styleMe && !d.hairstyle1.trim() && !sourceFiles.hairstyleImg) { toast('Describe or upload your hairstyle — or pick “Let us style you”', false); flagField('#hairstyle1'); return false; }
       if (isCouplePkg()) {
-        if (!sourceFiles.partnerSelfie) { toast("Upload partner's selfie", false); return false; }
-        if (!sourceFiles.partnerFull) { toast("Upload partner's full-body photo", false); return false; }
-        if (!d.styleMe && !d.hairstyle2.trim()) { toast("Describe partner's hairstyle — or pick “Let us style you”", false); return false; }
+        if (!sourceFiles.partnerSelfie) { toast("Upload partner's selfie", false); flagField('.upload-box[data-key="partnerSelfie"]'); return false; }
+        if (!sourceFiles.partnerFull) { toast("Upload partner's full-body photo", false); flagField('.upload-box[data-key="partnerFull"]'); return false; }
+        if (!d.styleMe && !d.hairstyle2.trim()) { toast("Describe partner's hairstyle — or pick “Let us style you”", false); flagField('#hairstyle2'); return false; }
       }
     } else {
-      if (!sourceFiles.editImage) { toast('Upload the photo you want edited (required)', false); return false; }
+      if (!sourceFiles.editImage) { toast('Upload the photo you want edited (required)', false); flagField('.upload-box[data-key="editImage"]'); return false; }
       const names = d.selectedServices.map(i => SERVICES_EDIT[i].name);
       if (names.includes('Background Choice') || names.includes('Full Scene Replacement')) {
-        if (!d.vision.trim()) { toast('Describe the background/scene', false); return false; }
+        if (!d.vision.trim()) { toast('Describe the background/scene', false); flagField('#vision'); return false; }
       }
-      if (names.includes('Hairstyle Change') && !d.hairstyle1.trim()) { toast('Describe the hairstyle change', false); return false; }
+      if (names.includes('Hairstyle Change') && !d.hairstyle1.trim()) { toast('Describe the hairstyle change', false); flagField('#hairstyle1'); return false; }
     }
-    if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); return false; }
+    if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); flagField('.disclaimer-check'); return false; }
   }
   return true;
 }
@@ -1195,7 +1211,12 @@ function attachStepListeners() {
     };
     ['photoAbout|photoAbout', 'outfitDesc|outfitDesc', 'hairstyle1|hairstyle1', 'hairstyle2|hairstyle2',
      'poseDesc|pose', 'notes|notes', 'vision|vision']
-      .forEach(pair => { const [id, key] = pair.split('|'); bind(id, key); });
+      .forEach(pair => {
+        const [id, key] = pair.split('|');
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', e => { booking.data[key] = e.target.value; el.classList.remove('field-error'); });
+      });
   }
   document.querySelectorAll('.upload-box[data-key]').forEach(box => {
     const key = box.dataset.key;
@@ -1210,13 +1231,18 @@ function attachStepListeners() {
       if (!f) return;
       sourceFiles[key] = f;
       box.classList.add('filled');
+      box.classList.remove('field-error');
       const r = new FileReader();
       r.onload = ev => { box.querySelector('.ub-preview').src = ev.target.result; };
       r.readAsDataURL(f);
     });
   });
   const disc = document.getElementById('disclaimerOk');
-  if (disc) disc.addEventListener('change', e => booking.data.disclaimerOk = e.target.checked);
+  if (disc) disc.addEventListener('change', e => {
+    booking.data.disclaimerOk = e.target.checked;
+    const lbl = disc.closest('.disclaimer-check');
+    if (lbl) lbl.classList.remove('field-error');
+  });
 }
 
 async function submitPhotoOrder() {
