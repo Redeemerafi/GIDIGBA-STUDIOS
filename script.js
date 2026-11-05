@@ -59,6 +59,10 @@ const CHROME_TOP = `
       <a href="#" class="btn btn-ghost btn-sm hide-mobile" onclick="openBookingChoice('photo'); return false;">Book Photography</a>
       <a href="#" class="btn btn-primary btn-sm hide-mobile" onclick="openBookingChoice('business'); return false;">Start a Project</a>
       <a href="#" class="btn btn-primary btn-sm only-mobile" onclick="openBookingChoice(); return false;">Book</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="tt-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="tt-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -338,6 +342,22 @@ function flagField(sel) {
     try { el.focus({ preventScroll: true }); } catch (e) { try { el.focus(); } catch (e2) {} }
   }
 }
+
+// ---- Light / dark theme toggle (light is default) ----
+function currentTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+function toggleTheme() {
+  const next = currentTheme() === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('gidigba_theme', next); } catch (e) {}
+  const btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.setAttribute('aria-label', next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    btn.title = next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  }
+}
+window.toggleTheme = toggleTheme;
 
 // ---- Active nav by page ----
 const currentPage = document.body.dataset.page || '';
@@ -1361,23 +1381,23 @@ function sharePkg(name) {
   for (let i = 0; i <= W; i += 70) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i, H); x.stroke(); }
   for (let i = 0; i <= H; i += 70) { x.beginPath(); x.moveTo(0, i); x.lineTo(W, i); x.stroke(); }
   x.fillStyle = '#C0F500'; x.fillRect(0, 0, W, 14);
-  x.fillStyle = '#8f8f8f'; x.font = '700 30px Inter, Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '700 30px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('ONLINE PHOTOSHOOT · 100% REMOTE', 70, 120);
-  x.fillStyle = '#fff'; x.font = '800 84px Poppins, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 84px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText(p.name, 70, 280);
-  x.fillStyle = '#C0F500'; x.font = '900 150px Poppins, Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '900 150px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('GH₵ ' + p.price, 70, 450);
-  x.fillStyle = '#bdbdbd'; x.font = '400 34px Inter, Arial, sans-serif';
+  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText(p.features.join('  ·  '), 70, 530);
-  x.fillStyle = '#8f8f8f'; x.font = '400 30px Inter, Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('Photos delivered to your WhatsApp within 24 business hours.', 70, 590);
   x.strokeStyle = 'rgba(255,255,255,.14)';
   x.beginPath(); x.moveTo(70, 760); x.lineTo(W - 70, 760); x.stroke();
-  x.fillStyle = '#fff'; x.font = '800 46px Poppins, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 46px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('GIDIGBA STUDIOS', 70, 850);
-  x.fillStyle = '#C0F500'; x.font = '700 27px Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '700 27px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('DEVELOPED SPECIALLY FOR BUSINESSES.', 70, 900);
-  x.fillStyle = '#5c5c5c'; x.font = '400 26px Inter, Arial, sans-serif';
+  x.fillStyle = '#5c5c5c'; x.font = '400 26px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('Book on WhatsApp · +233 53 431 7611 · Accra, Ghana', 70, 960);
   try {
     const a = document.createElement('a');
@@ -1594,25 +1614,25 @@ function voucherGen() {
   for (let i = 0; i <= H; i += 70) { x.beginPath(); x.moveTo(0, i); x.lineTo(W, i); x.stroke(); }
   x.strokeStyle = '#C0F500'; x.lineWidth = 6;
   x.strokeRect(30, 30, W - 60, H - 60);
-  x.fillStyle = '#C0F500'; x.font = '700 30px Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '700 30px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('GIFT VOUCHER · GIDIGBA STUDIOS', 80, 130);
-  x.fillStyle = '#fff'; x.font = '800 64px Poppins, Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 64px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText(p.name + ' photoshoot', 80, 300);
   x.fillText('is coming your way,', 80, 380);
   x.fillStyle = '#C0F500';
   x.fillText(recipient.toUpperCase() + '.', 80, 470);
-  x.fillStyle = '#bdbdbd'; x.font = '400 34px Inter, Arial, sans-serif';
+  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('Occasion: ' + occasion, 80, 560);
   x.fillText('Value: GH₵ ' + p.price + ' · ' + p.features.join(', '), 80, 610);
-  x.fillStyle = '#8f8f8f'; x.font = '400 30px Inter, Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('From: ' + sender, 80, 670);
   x.fillStyle = 'rgba(192,245,45,.12)';
   x.fillRect(80, 730, W - 160, 110);
-  x.fillStyle = '#C0F500'; x.font = '800 44px Poppins, Inter, Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '800 44px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText(code, 110, 800);
-  x.fillStyle = '#fff'; x.font = '400 28px Inter, Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '400 28px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('Redeem on WhatsApp · +233 53 431 7611', 80, 930);
-  x.fillStyle = '#5c5c5c'; x.font = '400 24px Inter, Arial, sans-serif';
+  x.fillStyle = '#5c5c5c'; x.font = '400 24px "Plus Jakarta Sans", Arial, sans-serif';
   x.fillText('100% online photoshoot · Accra, Ghana · Valid 6 months', 80, 975);
 
   try {
