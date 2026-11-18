@@ -109,3 +109,12 @@ User feedback: "background looks / font size / things look too clumsy" → direc
 - **Bug fixed**: `body { color: var(--text)111 }` (mangled v5 replace — invalid CSS) → `color: var(--text)`.
 - **Kept**: lime doors/CTAs, meta row (24h/95%/100%), `.section-alt` quiet bands, photo collage, all content.
 - Tests: theme_test **11/11**, theme_audit **light + dark both clean** (contrast0/overflow none/console clean), flows **17/17**, flag_test **8/8**; DOM assertions (no grid/glow/pills/grain/ghosts; body color rgb(17,17,17)).
+
+## v7 — Real photos, male/female sections, priority-fee disclosure (2026-11-05)
+
+- **All fake AI images removed** (work-*, about-studio, callout-portrait, before-phone deleted from `images/`) and replaced with the user's **19 real photos** (`images/f-*.webp` ×11, `images/m-*.webp` ×8) + new `og-image.jpg` (f-gold,1200×630).
+- **Work page = Female + Male sections** (replaced All/Business/Personal filter): `works[]` now carries `sex`; renders into `#workGridF` (8) / `#workGridM` (5) with section heads; Sample badges + look-prefill kept.
+- **Before/after slider**: before = `f-before.webp` (blurry white female, user's500px shot), after = `f-kente.webp`.
+- **Hurry toggle ⚡**: auto-discloses "A small fee may be demanded by the team after submission for priority delivery." (note appears on toggle, review gets a Priority-fee row, WhatsApp message appends the note when Hurry: YES). Standing rule unchanged: standard delivery stays24 business hours.
+- Swaps: index collage (f-kente + m-denim), index/about portraits, photoshoots look grid (incl. m-red headshot), journal thumbs.
+- Tests: flows **17/17**, flag **8/8**, theme **11/11**, new checks **5/5** (F/M counts,13-page zero-broken-images, ba sources, hurry note), audits **light + dark clean**.

@@ -513,19 +513,19 @@ if (servicesGrid) {
    WORK
    ============================================================ */
 const works = [
-  { title: 'Social Media Management', caption: 'Ongoing content & growth', cat: 'business', wi: 1, img: 'images/work-social.webp' },
-  { title: 'Brand Film Rollout', caption: 'Campaign series', cat: 'business', wi: 2, img: 'images/work-film.webp' },
-  { title: 'Engagement System', caption: 'Digital marketing sprint', cat: 'business', wi: 3, img: 'images/work-engagement.webp' },
-  { title: 'Product Photography', caption: 'Online commercial visuals', cat: 'business', wi: 4, img: 'images/work-product.webp' },
-  { title: 'Digital Marketing Sprint', caption: 'Paid acquisition', cat: 'business', wi: 5, img: 'images/work-digital.webp' },
-  { title: 'Fashion Brand Visuals', caption: 'Lookbook & campaign', cat: 'business', wi: 6, img: 'images/work-fashion.webp' },
-  { title: 'Food Brand Content', caption: 'Library + launch', cat: 'business', wi: 7, img: 'images/work-food.webp' },
-  { title: 'Graduation Portrait', caption: 'Online photoshoot look', cat: 'personal', wi: 8, img: 'images/work-grad.webp' },
-  { title: 'Birthday Session', caption: 'Studio-style recreation', cat: 'personal', wi: 9, img: 'images/work-birthday.webp' },
-  { title: 'Professional Headshot', caption: 'Remote headshot set', cat: 'personal', wi: 10, img: 'images/work-headshot.webp' },
-  { title: 'Personal Brand Portrait', caption: 'Founder look', cat: 'personal', wi: 11, img: 'images/work-brand.webp' },
-  { title: 'Outdoor Lifestyle Session', caption: 'Outdoor-style scene', cat: 'personal', wi: 12, img: 'images/work-couple.webp' },
-  { title: 'Studio Fashion Portrait', caption: 'Creative recreation', cat: 'personal', wi: 13, img: 'images/work-studio-fashion.webp' },
+  { title: 'Social Media Management', caption: 'Ongoing content & growth', cat: 'business', sex: 'female', wi: 1, img: 'images/f-night1.webp' },
+  { title: 'Brand Film Rollout', caption: 'Campaign series', cat: 'business', sex: 'male', wi: 2, img: 'images/m-teal.webp' },
+  { title: 'Engagement System', caption: 'Digital marketing sprint', cat: 'business', sex: 'female', wi: 3, img: 'images/f-floral.webp' },
+  { title: 'Product Photography', caption: 'Online commercial visuals', cat: 'business', sex: 'male', wi: 4, img: 'images/m-rose.webp' },
+  { title: 'Digital Marketing Sprint', caption: 'Paid acquisition', cat: 'business', sex: 'male', wi: 5, img: 'images/m-match.webp' },
+  { title: 'Fashion Brand Visuals', caption: 'Lookbook & campaign', cat: 'business', sex: 'female', wi: 6, img: 'images/f-bikini.webp' },
+  { title: 'Food Brand Content', caption: 'Library + launch', cat: 'business', sex: 'female', wi: 7, img: 'images/f-cake.webp' },
+  { title: 'Graduation Portrait', caption: 'Online photoshoot look', cat: 'personal', sex: 'female', wi: 8, img: 'images/f-pepper.webp' },
+  { title: 'Birthday Session', caption: 'Studio-style recreation', cat: 'personal', sex: 'female', wi: 9, img: 'images/f-gold.webp' },
+  { title: 'Professional Headshot', caption: 'Remote headshot set', cat: 'personal', sex: 'male', wi: 10, img: 'images/m-red.webp' },
+  { title: 'Personal Brand Portrait', caption: 'Founder look', cat: 'personal', sex: 'female', wi: 11, img: 'images/f-lace.webp' },
+  { title: 'Outdoor Lifestyle Session', caption: 'Outdoor-style scene', cat: 'personal', sex: 'male', wi: 12, img: 'images/m-flowers.webp' },
+  { title: 'Studio Fashion Portrait', caption: 'Creative recreation', cat: 'personal', sex: 'female', wi: 13, img: 'images/f-night2.webp' },
 ];
 
 const LOOK_MAP = {
@@ -536,11 +536,13 @@ const LOOK_MAP = {
   'Outdoor Lifestyle Session': 'outdoor',
   'Studio Fashion Portrait': 'fashion',
 };
-const workGrid = document.getElementById('workGrid');
-function renderWorks(filter = 'all') {
-  if (!workGrid) return;
-  workGrid.innerHTML = '';
-  (filter === 'all' ? works : works.filter(w => w.cat === filter)).forEach(w => {
+const workGridF = document.getElementById('workGridF');
+const workGridM = document.getElementById('workGridM');
+function renderWorks() {
+  if (!workGridF || !workGridM) return;
+  workGridF.innerHTML = '';
+  workGridM.innerHTML = '';
+  works.forEach(w => {
     const item = document.createElement('div');
     item.className = 'work-item reveal';
     const media = w.img
@@ -555,18 +557,12 @@ function renderWorks(filter = 'all') {
       <div class="work-info"><h4>${esc(w.title)}</h4><p>${esc(w.caption)}</p>
         ${LOOK_MAP[w.title] ? `<button class="look-btn" onclick="bookLook('${LOOK_MAP[w.title]}', '${esc(w.title)}')">Get this look →</button>` : ''}
       </div>`;
-    workGrid.appendChild(item);
+    (w.sex === 'male' ? workGridM : workGridF).appendChild(item);
   });
-  observeReveals(workGrid);
+  observeReveals(workGridF);
+  observeReveals(workGridM);
 }
 renderWorks();
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderWorks(btn.dataset.filter);
-  });
-});
 
 // ---- Needs → booking shortcuts ----
 document.querySelectorAll('.need[data-book]').forEach(card => {
@@ -1081,6 +1077,7 @@ function renderPhotoStep() {
           <span>⚡ I'm in a hurry — I need my images ASAP</span>
           <div class="toggle-switch ${d.hurry ? 'active' : ''}"></div>
         </div>
+        <p class="hurry-note${d.hurry ? ' show' : ''}">A small fee may be demanded by the team after submission for priority delivery.</p>
 
         <label class="disclaimer-check" style="margin-top:16px;">
           <input type="checkbox" id="disclaimerOk" ${d.disclaimerOk ? 'checked' : ''} />
@@ -1117,6 +1114,7 @@ function renderPhotoStep() {
           <div class="review-row"><span class="rv-label">Photoshoot</span><span class="rv-value">${esc(d.photoAbout || '—')}</span></div>` : ''}
           <div class="review-row"><span class="rv-label">Delivery</span><span class="rv-value">Within 24 business hours</span></div>
           <div class="review-row"><span class="rv-label">Hurry</span><span class="rv-value">${d.hurry ? '⚡ YES — ASAP' : 'Standard'}</span></div>
+          ${d.hurry ? '<div class="review-row"><span class="rv-label">Priority fee</span><span class="rv-value">A small fee may be demanded after submission</span></div>' : ''}
         </div>
 
         <div class="review-block">
@@ -1190,6 +1188,8 @@ window.toggleHurry = function () {
     const sw = row.querySelector('.toggle-switch');
     if (sw) sw.classList.toggle('active', booking.data.hurry);
   }
+  const note = document.querySelector('.hurry-note');
+  if (note) note.classList.toggle('show', booking.data.hurry);
 };
 window.toggleStyleMe = function () {
   booking.data.styleMe = !booking.data.styleMe;
@@ -1310,6 +1310,7 @@ async function submitPhotoOrder() {
       msg += `Total: GH₵ ${getCustomTotal()} · Delivery: within 24 business hours\n`;
     }
     msg += `Hurry: ${d.hurry ? 'YES — customer needs images ASAP' : 'Standard'}\n`;
+    if (d.hurry) msg += `Note: A small fee may be demanded by the team after submission for priority delivery.\n`;
     if (isSession) {
       msg += `Style: ${d.styleMe ? 'YES — GIDIGBA styles them (no free style changes after work begins)' : 'No — client provides outfit & hairstyle'}\n`;
       msg += `Makeup: ${d.makeup ? 'YES — client informed makeup changes face as in normal life' : 'No'}\n`;
