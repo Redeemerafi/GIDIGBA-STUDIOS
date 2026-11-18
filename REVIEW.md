@@ -90,3 +90,22 @@ cd gidigba-repo
 git remote add origin https://github.com/Redeemerafi/GIDIGBA-STUDIOS.git   # if missing
 git push origin main
 ```
+
+## v5 — Font swap + light/dark toggle (2026-11-05)
+
+- **Font everywhere → Plus Jakarta Sans** (Google link on all 13 pages, weights 300–800; `--font-display`, body, `.door-title`, and the script.js canvas fonts). Poppins/Inter fully removed (0 refs).
+- **Light/dark mode toggle**: sun/moon button in the nav (desktop + mobile chrome). **Light is default**; choice persists in `localStorage gidigba_theme`; a tiny inline head script applies the theme before first paint (no flash, no-JS → light).
+- Implementation: all theme colors in styles.css now flow through variables (`--bg/--text/--surface/--ink/--green-ink/--nav-bg/--grid-line/--tint/--inset/--hover/--ghost…`); `[data-theme="dark"]` redefines the palette (lime stays `#C0F500` on dark); `.opt-warn` gets an amber dark variant. Service-worker bumped to `gidigba-v10` (network-first, so theme updates reach users immediately).
+- Tests: `audit/theme_test.py` **11/11** (default light, toggle + persistence across pages, icon swap, fresh-visitor light, dark contrast, booking smoke, toggle present on all 13 pages, no dark overflow); `audit/theme_audit.py` contrast/overflow/console **clean in BOTH themes** (`THEME=light|dark` env); flows **17/17**; flag_test **8/8**.
+
+To undo the font: swap the 13 Google links + 3 styles.css spots + canvas strings back (pattern in git history `c64c763..HEAD`).
+
+## v6 — Declutter pass: plain backgrounds, calmer type (2026-11-05)
+
+User feedback: "background looks / font size / things look too clumsy" → direction chosen: **plain & clean backgrounds, smaller & calmer typography, keep lime energy but organized**.
+
+- **Removed decorations**: film-grain overlay (`body::after`), hero blueprint grid (`.hero-grid` + div), hero lime glow blob (`.hero-glow` + div), page-hero grid + glow (`::before/::after`), CTA grid, all lime radial glow layers (photo-callout/diff/cta/quiz → solid backgrounds), hero side marker, hero floating pills (`hv-pill` ×2), hero eyebrow line, **giant outline ghost words** on12 pages (`.ph-ghost`) + footer ghost wordmark (`.footer::before`).
+- **Typography**: all `font-weight:800` → `700` (54 spots); hero/section/door/cta/diff/page-hero heading clamps scaled down (~25%); `.eyebrow` →10.5px/600/muted, no lime dash.
+- **Bug fixed**: `body { color: var(--text)111 }` (mangled v5 replace — invalid CSS) → `color: var(--text)`.
+- **Kept**: lime doors/CTAs, meta row (24h/95%/100%), `.section-alt` quiet bands, photo collage, all content.
+- Tests: theme_test **11/11**, theme_audit **light + dark both clean** (contrast0/overflow none/console clean), flows **17/17**, flag_test **8/8**; DOM assertions (no grid/glow/pills/grain/ghosts; body color rgb(17,17,17)).
