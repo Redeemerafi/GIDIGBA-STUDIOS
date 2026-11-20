@@ -848,6 +848,14 @@ function openPhotoBooking(packageName, mode) {
       ? 'editing'
       : (PACKAGES.find(p => p.name === booking.data.selectedPackage)?.type === 'couple' ? 'couple' : 'individual');
   }
+  // migration: pre-gender drafts opened at review must answer the gender stage first
+  if (booking.step === 3 && booking.data.orderType === 'photoshoot') {
+    const dpk = PACKAGES.find(x => x.name === booking.data.selectedPackage);
+    if (dpk && dpk.type !== 'couple' && !booking.data.gender) {
+      booking.step = 2;
+      setTimeout(() => toast('One quick thing — tell us who the shoot is for'), 450);
+    }
+  }
   renderPhotoStep();
   updateBookingSteps();
   openModal('photoModal');
@@ -901,6 +909,7 @@ function validateStep(step) {
     if (d.orderType === 'custom') {
       if (d.selectedServices.length === 0) { toast('Select at least one editing service', false); flagField('.svc-scroll'); return false; }
     } else {
+      if (bookTab === 'individual' && !d.gender) { toast('Tell us who the shoot is for', false); flagField('#genderPicks'); return false; }
       const pkg = getSelectedPackage();
       if (!pkg) { toast('Choose a package to continue', false); flagField('.pkg-mini-grid'); return false; }
       const wantCouple = bookTab === 'couple';
@@ -981,6 +990,14 @@ function renderPhotoStep() {
         <h4>${bookTab === 'couple' ? 'Couple package' : 'Individual package'}</h4>
         <p class="step-hint">One price, everything included. Delivered within 24 business hours. Prices in Ghana Cedis.</p>
         ${tabsHtml}
+        ${bookTab === 'individual' ? `
+        <div class="form-group" style="margin-top:6px;">
+          <label>Who is this shoot for? *</label>
+          <div class="gender-picks" id="genderPicks">
+            <button type="button" class="g-pick ${d.gender === 'female' ? 'active' : ''}" onclick="setGender('female')">👩 Female</button>
+            <button type="button" class="g-pick ${d.gender === 'male' ? 'active' : ''}" onclick="setGender('male')">👨 Male</button>
+          </div>
+        </div>` : ''}
         <div class="pkg-mini-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
           ${list.map(p => `
             <div class="pkg-mini ${d.selectedPackage === p.name ? 'selected' : ''}" onclick="selectBookingPackage('${p.name}')">
