@@ -49,6 +49,7 @@ async def main():
 
         # 3. LITE e2e with style-me + makeup + hurry (validation lift)
         await page.evaluate("() => { clearDraft(); openPhotoBooking('LITE'); }")
+        await page.evaluate("() => setGender('female')")
         await page.wait_for_timeout(400)
         await page.evaluate("() => { toggleStyleMe(); toggleMakeup(); toggleHurry(); }")
         await page.wait_for_timeout(300)

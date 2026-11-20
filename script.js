@@ -777,7 +777,7 @@ function freshBookingData() {
     peopleCount: '', outfitDesc: '',
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
-    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null,
+    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null, gender: '',
     disclaimerOk: false,
     hurry: false,
     pose: '',
@@ -909,6 +909,7 @@ function validateStep(step) {
   }
   if (step === 2) {
     if (d.orderType === 'photoshoot') {
+      if (!isCouplePkg() && !d.gender) { toast('Tell us who the shoot is for', false); flagField('#genderPicks'); return false; }
       if (!d.photoAbout || !d.photoAbout.trim()) { toast('Tell us what the photoshoot is about', false); flagField('#photoAbout'); return false; }
       if (!sourceFiles.selfie) { toast('Upload your selfie (required)', false); flagField('.upload-box[data-key="selfie"]'); return false; }
       if (!sourceFiles.fullbody) { toast('Upload a full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
@@ -1037,6 +1038,14 @@ function renderPhotoStep() {
           : `Send the photo to change — ${d.selectedServices.length} edit${d.selectedServices.length > 1 ? 's' : ''} · GH₵ ${getCustomTotal()}. Delivered within 24 business hours.`}</p>
 
         ${isSession ? `
+        ${isSession && !couple ? `
+        <div class="form-group" style="margin-top:12px;">
+          <label>Who is this shoot for? *</label>
+          <div class="gender-picks" id="genderPicks">
+            <button type="button" class="g-pick ${d.gender === 'female' ? 'active' : ''}" onclick="setGender('female')">👩 Female</button>
+            <button type="button" class="g-pick ${d.gender === 'male' ? 'active' : ''}" onclick="setGender('male')">👨 Male</button>
+          </div>
+        </div>` : ''}
         <div class="form-group" style="margin-top:14px;">
           <label>What is the photoshoot about? *</label>
           <textarea id="photoAbout" rows="2" placeholder="e.g. Graduation shoot in kente, birthday with gold theme, LinkedIn headshot...">${esc(d.photoAbout)}</textarea>
@@ -1088,11 +1097,12 @@ function renderPhotoStep() {
         </div>
         <p class="opt-warn" id="styleWarn"${d.styleMe ? '' : ' hidden'}>⚠️ <strong>No free style changes after work begins.</strong> Once production starts, outfit &amp; hairstyle can no longer be changed for free.</p>
 
+        ${d.gender !== 'male' ? `
         <div class="toggle-row" id="makeupRow" onclick="toggleMakeup()" style="margin-top:12px;">
           <span>💄 Add makeup</span>
           <div class="toggle-switch ${d.makeup ? 'active' : ''}"></div>
         </div>
-        <p class="opt-warn" id="makeupWarn"${d.makeup ? '' : ' hidden'}>⚠️ Adding makeup will cause changes to your face — as it would in normal life.</p>
+        <p class="opt-warn" id="makeupWarn"${d.makeup ? '' : ' hidden'}>⚠️ Adding makeup will cause changes to your face — as it would in normal life.</p>` : ''}
 
         ${biggest ? `
         <div class="form-group" style="margin-top:14px;">
@@ -1161,7 +1171,8 @@ function renderPhotoStep() {
           <div class="review-row"><span class="rv-label">Offer</span><span class="rv-value">${esc(offerLine)}</span></div>
           <div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">${esc(includesLine)}</span></div>
           ${isSession ? `<div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>
-          <div class="review-row"><span class="rv-label">Photoshoot</span><span class="rv-value">${esc(d.photoAbout || '—')}</span></div>` : ''}
+          <div class="review-row"><span class="rv-label">Photoshoot</span><span class="rv-value">${esc(d.photoAbout || '—')}</span></div>
+          ${pkg?.type !== 'couple' ? `<div class="review-row"><span class="rv-label">For</span><span class="rv-value">${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : '—'}</span></div>` : ''}` : ''}
           <div class="review-row"><span class="rv-label">Delivery</span><span class="rv-value">Within 24 business hours</span></div>
           <div class="review-row"><span class="rv-label">Hurry</span><span class="rv-value">${d.hurry ? '⚡ YES — ASAP' : 'Standard'}</span></div>
           ${d.hurry ? '<div class="review-row"><span class="rv-label">Priority fee</span><span class="rv-value">A small fee may be demanded after submission</span></div>' : ''}
@@ -1201,9 +1212,11 @@ function renderPhotoStep() {
     const grid = document.getElementById('pickGrid_' + target);
     if (!grid) return;
     const pick = target === 'outfit' ? booking.data.outfitPick : booking.data.hairPick;
-    const cat = pick ? pick.cat : 'female';
+    let cat = pick ? pick.cat : (booking.data.gender || 'female');
     const tabs = grid.previousElementSibling;
     if (tabs && tabs.classList.contains('gallery-tabs')) {
+      const tabNames = [...tabs.querySelectorAll('.g-tab')].map(b => b.textContent.toLowerCase());
+      if (!tabNames.includes(cat)) cat = tabNames[0] || cat;
       tabs.querySelectorAll('.g-tab').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === cat));
     }
     renderPickGrid(kind, target, cat);
@@ -1270,6 +1283,13 @@ window.toggleStyleMe = function () {
   if (w) w.hidden = !on;
   document.querySelectorAll('.style-block').forEach(el => { el.hidden = on; });
 };
+window.setGender = function (g) {
+  booking.data.gender = g;
+  if (g === 'male') booking.data.makeup = false;
+  saveDraft();
+  renderPhotoStep();
+  updateBookingSteps();
+};
 window.toggleMakeup = function () {
   booking.data.makeup = !booking.data.makeup;
   const on = booking.data.makeup;
@@ -1287,7 +1307,10 @@ function galleryHas(kind) {
 }
 function galleryHtml(kind, target, title) {
   if (!galleryHas(kind)) return '';
-  const cats = ['female', 'male', 'children'];
+  const gsel = booking.data.gender;
+  const cats = gsel === 'female' ? ['female', 'children']
+    : gsel === 'male' ? ['male', 'children']
+    : ['female', 'male', 'children'];
   return `
   <div class="gallery-picker" data-kind="${kind}" data-target="${target}" style="margin-top:10px;">
     <div class="attr-head" style="font-size:13.5px; margin-bottom:2px;">${title}</div>
@@ -1478,6 +1501,7 @@ async function submitPhotoOrder() {
       }
       msg += `Images: ${pkg.images} · Delivery: within 24 business hours\n`;
       msg += `Photoshoot: ${d.photoAbout || 'N/A'}\n`;
+      if (pkg.type !== 'couple') msg += `Gender: ${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : 'N/A'}\n`;
     } else {
       msg += `Single-change edits — GH₵10 each:\n`;
       d.selectedServices.forEach(i => { msg += `  • ${SERVICES_EDIT[i].name} — GH₵10\n`; });

@@ -4141,3 +4141,25 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
   .ws-track img { height: 118px; }
   .ws-slide-main .ws-track img { height: 170px; }
 }
+
+/* gender picker — streamlines step 2 */
+.gender-picks { display: flex; gap: 10px; }
+.g-pick {
+  flex: 1;
+  padding: 13px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.g-pick:hover { background: var(--tint); }
+.g-pick.active {
+  background: #C0F500;
+  border-color: #C0F500;
+  color: #000000;
+}
