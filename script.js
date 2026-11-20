@@ -1382,23 +1382,23 @@ function sharePkg(name) {
   for (let i = 0; i <= W; i += 70) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i, H); x.stroke(); }
   for (let i = 0; i <= H; i += 70) { x.beginPath(); x.moveTo(0, i); x.lineTo(W, i); x.stroke(); }
   x.fillStyle = '#C0F500'; x.fillRect(0, 0, W, 14);
-  x.fillStyle = '#8f8f8f'; x.font = '700 30px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '700 30px "Outfit", Arial, sans-serif';
   x.fillText('ONLINE PHOTOSHOOT · 100% REMOTE', 70, 120);
-  x.fillStyle = '#fff'; x.font = '800 84px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 84px "Outfit", Arial, sans-serif';
   x.fillText(p.name, 70, 280);
-  x.fillStyle = '#C0F500'; x.font = '900 150px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '900 150px "Outfit", Arial, sans-serif';
   x.fillText('GH₵ ' + p.price, 70, 450);
-  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Outfit", Arial, sans-serif';
   x.fillText(p.features.join('  ·  '), 70, 530);
-  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Outfit", Arial, sans-serif';
   x.fillText('Photos delivered to your WhatsApp within 24 business hours.', 70, 590);
   x.strokeStyle = 'rgba(255,255,255,.14)';
   x.beginPath(); x.moveTo(70, 760); x.lineTo(W - 70, 760); x.stroke();
-  x.fillStyle = '#fff'; x.font = '800 46px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 46px "Outfit", Arial, sans-serif';
   x.fillText('GIDIGBA STUDIOS', 70, 850);
-  x.fillStyle = '#C0F500'; x.font = '700 27px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '700 27px "Outfit", Arial, sans-serif';
   x.fillText('DEVELOPED SPECIALLY FOR BUSINESSES.', 70, 900);
-  x.fillStyle = '#5c5c5c'; x.font = '400 26px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#5c5c5c'; x.font = '400 26px "Outfit", Arial, sans-serif';
   x.fillText('Book on WhatsApp · +233 53 431 7611 · Accra, Ghana', 70, 960);
   try {
     const a = document.createElement('a');
@@ -1615,25 +1615,25 @@ function voucherGen() {
   for (let i = 0; i <= H; i += 70) { x.beginPath(); x.moveTo(0, i); x.lineTo(W, i); x.stroke(); }
   x.strokeStyle = '#C0F500'; x.lineWidth = 6;
   x.strokeRect(30, 30, W - 60, H - 60);
-  x.fillStyle = '#C0F500'; x.font = '700 30px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '700 30px "Outfit", Arial, sans-serif';
   x.fillText('GIFT VOUCHER · GIDIGBA STUDIOS', 80, 130);
-  x.fillStyle = '#fff'; x.font = '800 64px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '800 64px "Outfit", Arial, sans-serif';
   x.fillText(p.name + ' photoshoot', 80, 300);
   x.fillText('is coming your way,', 80, 380);
   x.fillStyle = '#C0F500';
   x.fillText(recipient.toUpperCase() + '.', 80, 470);
-  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#bdbdbd'; x.font = '400 34px "Outfit", Arial, sans-serif';
   x.fillText('Occasion: ' + occasion, 80, 560);
   x.fillText('Value: GH₵ ' + p.price + ' · ' + p.features.join(', '), 80, 610);
-  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#8f8f8f'; x.font = '400 30px "Outfit", Arial, sans-serif';
   x.fillText('From: ' + sender, 80, 670);
   x.fillStyle = 'rgba(192,245,45,.12)';
   x.fillRect(80, 730, W - 160, 110);
-  x.fillStyle = '#C0F500'; x.font = '800 44px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#C0F500'; x.font = '800 44px "Outfit", Arial, sans-serif';
   x.fillText(code, 110, 800);
-  x.fillStyle = '#fff'; x.font = '400 28px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#fff'; x.font = '400 28px "Outfit", Arial, sans-serif';
   x.fillText('Redeem on WhatsApp · +233 53 431 7611', 80, 930);
-  x.fillStyle = '#5c5c5c'; x.font = '400 24px "Fraunces", Arial, sans-serif';
+  x.fillStyle = '#5c5c5c'; x.font = '400 24px "Outfit", Arial, sans-serif';
   x.fillText('100% online photoshoot · Accra, Ghana · Valid 6 months', 80, 975);
 
   try {

@@ -139,3 +139,15 @@ New vibe — **warm-paper editorial magazine**:
 - Google link ×13 now `Fraunces+Inter`; zero "Plus Jakarta" left.
 - Tests: flows17/17, flag8/8, theme **11/11** (color assertions updated to warm palette), audits **clean light+dark**, editorial DOM checks (Fraunces loaded, paper bg,2px doors, ink btn).
 - **This is a preview** — revert = `git revert`/reset to `dd7abdb` if user rejects.
+
+## v10 — SOFT PASTEL MODERN (PREVIEW, awaiting verdict) (2026-11-20)
+
+User rejected editorial ("something different, don't copy what we have") and picked **Soft Pastel Modern** from options.
+
+- **Type**: Outfit everywhere (13 links, body, display var, canvas); sentence-case friendly sizes (nav14.5, buttons14.5, eyebrows = pastel pills13px).
+- **Palette**: cream `#FBF9F4` / pastel dark `#17171C`; sage + lavender washes (`--ink`=#F1EEFA lav, `--ink-2`=#EEF3E9 sage, `--lav-soft/--sage-soft/--peach-soft/--violet`); **violet #6D5BD0 CTAs** (hover ink); lime kept only as `.hl` highlighter + logo/meta.
+- **Shape**: radius back up — `--radius:24 / sm:12 / lg:28`, literals16, buttons/badges **pill999**, doors **28px gradient cards** (violet primary / sage secondary, soft shadow), cards24 + soft shadows (pastel vibe = subtle depth OK).
+- **Decoration**: hero = soft gradient + two pastel blob circles; page-headers lavender wash; CTA = sage→lavender gradient; section-alt = lavender; mobile menu = lavender sheet.
+- **Contrast fixes**: door gradients gained `background-color` (audit reads color, not image), `.btn-ghost` theme-aware (`var(--surface)`), badge dark text variants.
+- Tests: flows17/17, flag8/8, theme11/11 (expectations → cream rgb(251,249,244) / dark rgb(23,23,28)), audits **clean both themes**, pastel DOM checks.
+- PREVIEW — revert to `81332f0` if rejected.
