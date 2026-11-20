@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Work | GIDIGBA STUDIOS — Example of Works</title>
-<meta name="description" content="Example of works from GIDIGBA STUDIOS — real online AI photoshoot samples for females and males, shown as before & after pairs arranged by the packages they qualify for." />
+<meta name="description" content="Example of works from GIDIGBA STUDIOS — a gallery of real online AI photoshoot results. Tap Female or Male to view every sample in that section." />
 <meta name="theme-color" content="#C0F500" />
 <link rel="icon" type="image/png" href="images/logo-mark.png" />
 <meta property="og:image" content="images/og-image.jpg" />
@@ -22,109 +22,104 @@
 
 <main id="top">
 
-<!-- PAGE HERO -->
+<!-- PAGE HEADER -->
 <section class="page-hero">
   <div class="container">
     <span class="eyebrow reveal">01 — Work</span>
     <h1 class="reveal">Example of <span class="hl">works</span>.</h1>
-    <p class="reveal">Real online AI photoshoot samples — female and male, each shown as a before &amp; after pair and arranged by the package it qualifies for.</p>
+    <p class="reveal">Explore our gallery of transformations — from raw inputs to polished, professional results. Tap Female or Male to see every sample in that section.</p>
   </div>
-</section>
-
-<!-- HERO IMAGE — full picture, scaled, never cropped -->
-<section class="work-hero-img reveal">
-  <img src="images/f-lace.webp" alt="GIDIGBA STUDIOS sample photoshoot — female result" />
 </section>
 
 <section class="section">
   <div class="container">
 
-    <div class="work-section-head reveal"><h3>Female</h3></div>
+    <div class="filter-row reveal" id="wfTabs">
+      <button class="chip active" onclick="filterWorks(this,'female')">Female</button>
+      <button class="chip" onclick="filterWorks(this,'male')">Male</button>
+    </div>
+    <p class="wf-count reveal" id="wfCount">11 results</p>
 
-    <div class="tier-row reveal">
-      <span class="tier-badge">Standard Shoot · Single Image · GH₵15</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/f-white-before.webp" alt="Female before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/f-white.webp" alt="Female after — GIDIGBA standard shoot result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
+    <div class="workfolio-grid" id="gridFemale">
+      <button class="wf-tile" onclick="openWF('images/f-before.webp', 'Before')" aria-label="Before — f-before">
+        <img src="images/f-before.webp" alt="GIDIGBA before sample — f-before" loading="lazy" />
+        <span class="wf-label">Before</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-bikini.webp', 'After')" aria-label="After — f-bikini">
+        <img src="images/f-bikini.webp" alt="GIDIGBA after sample — f-bikini" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-cake.webp', 'After')" aria-label="After — f-cake">
+        <img src="images/f-cake.webp" alt="GIDIGBA after sample — f-cake" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-floral.webp', 'After')" aria-label="After — f-floral">
+        <img src="images/f-floral.webp" alt="GIDIGBA after sample — f-floral" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-gold.webp', 'After')" aria-label="After — f-gold">
+        <img src="images/f-gold.webp" alt="GIDIGBA after sample — f-gold" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-kente.webp', 'After')" aria-label="After — f-kente">
+        <img src="images/f-kente.webp" alt="GIDIGBA after sample — f-kente" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-lace.webp', 'After')" aria-label="After — f-lace">
+        <img src="images/f-lace.webp" alt="GIDIGBA after sample — f-lace" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-night1.webp', 'After')" aria-label="After — f-night1">
+        <img src="images/f-night1.webp" alt="GIDIGBA after sample — f-night1" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-night2.webp', 'After')" aria-label="After — f-night2">
+        <img src="images/f-night2.webp" alt="GIDIGBA after sample — f-night2" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-pepper.webp', 'After')" aria-label="After — f-pepper">
+        <img src="images/f-pepper.webp" alt="GIDIGBA after sample — f-pepper" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/f-white.webp', 'After')" aria-label="After — f-white">
+        <img src="images/f-white.webp" alt="GIDIGBA after sample — f-white" loading="lazy" />
+        <span class="wf-label">After</span>
+      </button>
     </div>
 
-    <div class="tier-row reveal">
-      <span class="tier-badge">LITE Package · 3 Images · GH₵35</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/f-gold-before.webp" alt="Female before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/f-gold.webp" alt="Female after — GIDIGBA LITE package result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="tier-row reveal">
-      <span class="tier-badge">All Packages · Medium, Superior &amp; Couple</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/f-before.webp" alt="Female before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/f-kente.webp" alt="Female after — GIDIGBA all-packages result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="work-section-head reveal"><h3>Male</h3></div>
-
-    <div class="tier-row reveal">
-      <span class="tier-badge">Standard Shoot · Single Image · GH₵15</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/m-shirt-before.webp" alt="Male before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/m-shirt.webp" alt="Male after — GIDIGBA standard shoot result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="tier-row reveal">
-      <span class="tier-badge">LITE Package · 3 Images · GH₵35</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/m-red-before.webp" alt="Male before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/m-red.webp" alt="Male after — GIDIGBA LITE package result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="tier-row reveal">
-      <span class="tier-badge">All Packages · Medium, Superior &amp; Couple</span>
-      <div class="ba-pair">
-        <figure class="ba-cell">
-          <img src="images/m-flowers-before.webp" alt="Male before — ordinary phone photo" loading="lazy" />
-          <figcaption>Before</figcaption>
-        </figure>
-        <figure class="ba-cell after">
-          <img src="images/m-flowers.webp" alt="Male after — GIDIGBA all-packages result" loading="lazy" />
-          <figcaption>After</figcaption>
-        </figure>
-      </div>
+    <div class="workfolio-grid" id="gridMale" hidden>
+      <button class="wf-tile" onclick="openWF('images/m-denim.webp', 'Sample')" aria-label="Sample — m-denim">
+        <img src="images/m-denim.webp" alt="GIDIGBA sample sample — m-denim" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-flowers.webp', 'Sample')" aria-label="Sample — m-flowers">
+        <img src="images/m-flowers.webp" alt="GIDIGBA sample sample — m-flowers" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-match.webp', 'Sample')" aria-label="Sample — m-match">
+        <img src="images/m-match.webp" alt="GIDIGBA sample sample — m-match" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-red.webp', 'Sample')" aria-label="Sample — m-red">
+        <img src="images/m-red.webp" alt="GIDIGBA sample sample — m-red" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-rose.webp', 'Sample')" aria-label="Sample — m-rose">
+        <img src="images/m-rose.webp" alt="GIDIGBA sample sample — m-rose" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-shirt.webp', 'Sample')" aria-label="Sample — m-shirt">
+        <img src="images/m-shirt.webp" alt="GIDIGBA sample sample — m-shirt" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-shirt2.webp', 'Sample')" aria-label="Sample — m-shirt2">
+        <img src="images/m-shirt2.webp" alt="GIDIGBA sample sample — m-shirt2" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
+      <button class="wf-tile" onclick="openWF('images/m-teal.webp', 'Sample')" aria-label="Sample — m-teal">
+        <img src="images/m-teal.webp" alt="GIDIGBA sample sample — m-teal" loading="lazy" />
+        <span class="wf-label">Sample</span>
+      </button>
     </div>
 
   </div>
@@ -135,15 +130,22 @@
   <div class="container">
     <span class="eyebrow reveal" style="justify-content:center;">Your Turn</span>
     <h2 class="cta-title reveal">Want work that looks like this?</h2>
-    <p class="cta-sub reveal">Start a business project, or order an online photoshoot for yourself.</p>
+    <p class="cta-sub reveal">Order an online photoshoot for yourself, or start a business project.</p>
     <div class="cta-actions reveal">
-      <button class="btn btn-primary" onclick="openBookingChoice('business')">Start a Business Project</button>
-      <button class="btn btn-ghost" onclick="openBookingChoice('photo')">Book a Photography Session</button>
+      <button class="btn btn-primary" onclick="openBookingChoice('photo')">Book a Photography Session</button>
+      <button class="btn btn-ghost" onclick="openBookingChoice('business')">Start a Business Project</button>
     </div>
   </div>
 </section>
 
 </main>
+
+<!-- LIGHTBOX — full image, never cropped -->
+<div class="wf-lightbox" id="wfLightbox" onclick="closeWF()">
+  <button class="wf-lb-close" aria-label="Close">&times;</button>
+  <img alt="Full view" />
+  <div class="wf-lb-cap"></div>
+</div>
 
 <div id="chrome-bottom"></div>
 <script src="script.js"></script>

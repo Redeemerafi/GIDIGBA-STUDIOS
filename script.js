@@ -615,6 +615,26 @@ const SERVICES_EDIT = [
   { name: 'Photo Upscale / Sharpen', price: 10, icon: '🔍' },
 ];
 
+const SVC_QUESTIONS = {
+  'Earring / Accessories Change': { q: 'What kind of earring or accessory do you want?', ph: 'e.g. gold hoops, beaded studs, pearl drops, wristwatch — or upload a photo of the style below' },
+  'Outfit Change': { q: 'What outfit (or shoes) should you be wearing?', ph: 'e.g. black evening gown, navy suit, white sneakers — or upload a photo of the look' },
+  'Makeup Application': { q: 'What makeup look do you want?', ph: 'e.g. natural glow, smoky eyes, bold red lip — or upload a reference photo' },
+  'Basic Retouch': { q: 'What should we retouch?', ph: 'e.g. remove blemishes, smooth skin, tidy the background' },
+  'Advanced Retouch': { q: 'What exactly should we improve?', ph: 'e.g. skin, lighting, colors — point out what to change (or upload a marked-up photo)' },
+  'Pose Adjustment': { q: 'What pose or expression do you want?', ph: 'e.g. arms folded, looking away, seated on a stool — or upload an example pose' },
+  'Object Removal': { q: 'What object should we remove?', ph: 'e.g. water bottle, person in the background, phone, date stamp' },
+  'Two People Combined': { q: 'Whose photos are we combining?', ph: 'Describe both looks — or upload both photos' },
+  'Cartoon / Anime Style': { q: 'Which cartoon style?', ph: 'e.g. Pixar, anime, comic book — or upload an example style' },
+  'Glasses On / Off': { q: 'Glasses on or off — and which ones?', ph: 'e.g. remove my glasses / add round black frames — or upload the frame you want' },
+  'Teeth Whitening': { q: 'How white should the teeth be?', ph: 'e.g. natural white, bright white — note anything else about the smile' },
+  'Hair Color Change': { q: 'What hair color do you want?', ph: 'e.g. blonde, burgundy, honey brown — or upload a color reference' },
+  'Body / Weight Adjustment': { q: 'How should we adjust it?', ph: 'e.g. slimmer face, slightly taller — describe gently; we keep it natural' },
+  'Wrinkle & Age Removal': { q: 'What should we smooth away?', ph: 'e.g. forehead lines, under-eye bags — or point it out on the photo' },
+  'Photo Restoration & Colorization': { q: 'Tell us about this photo', ph: 'e.g. restore my grandfather\u2019s portrait, colorize the B&W, fix the tears' },
+  'Watermark / Text Removal': { q: 'What text or watermark should we remove?', ph: 'e.g. remove the date stamp, remove the logo at the bottom' },
+  'Photo Upscale / Sharpen': { q: 'What will you use it for?', ph: 'e.g. print poster, LinkedIn profile, billboard — so we know how sharp to make it' }
+};
+
 let pkgTab = 'individual';
 function renderPkgGrid() {
   const grid = document.getElementById('pkgGrid');
@@ -757,7 +777,7 @@ function freshBookingData() {
     peopleCount: '', outfitDesc: '',
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
-    vision: '', mood: '', intendedUse: '', notes: '',
+    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {},
     disclaimerOk: false,
     hurry: false,
     pose: '',
@@ -905,6 +925,16 @@ function validateStep(step) {
         if (!d.vision.trim()) { toast('Describe the background/scene', false); flagField('#vision'); return false; }
       }
       if (names.includes('Hairstyle Change') && !d.hairstyle1.trim()) { toast('Describe the hairstyle change', false); flagField('#hairstyle1'); return false; }
+      for (const i of d.selectedServices) {
+        const nm = SERVICES_EDIT[i].name;
+        if (!SVC_QUESTIONS[nm]) continue;
+        const ans = ((d.svcFb && d.svcFb[i]) || '').trim();
+        if (!ans && !sourceFiles['svcFbImg' + i]) {
+          toast(SVC_QUESTIONS[nm].q + ' — describe it or upload a reference photo', false);
+          flagField('#svcFbRow' + i);
+          return false;
+        }
+      }
     }
     if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); flagField('.disclaimer-check'); return false; }
   }
@@ -937,7 +967,7 @@ function renderPhotoStep() {
             <div class="svc-chip ${d.selectedServices.includes(i) ? 'selected' : ''}" onclick="toggleEditService(${i})">
               <div class="svc-price">GH₵ ${s.price}</div>
               <h5>${s.icon} ${esc(s.name)}</h5>
-              <div class="svc-check">${d.selectedServices.includes(i) ? '✓ Selected' : 'Tap to add'}</div>
+              <div class="svc-check">${d.selectedServices.includes(i) ? (SVC_QUESTIONS[s.name] ? '✓ Next: we ask what you want' : '✓ Selected') : 'Tap to add'}</div>
             </div>`).join('')}
         </div>
         <div class="total-bar"><span>Total</span><strong>GH₵ ${getCustomTotal()}</strong></div>
@@ -980,6 +1010,23 @@ function renderPhotoStep() {
         <div class="ub-check">✓ Ready</div>
         <img class="ub-preview" alt="preview" />
       </label>`;
+
+    const fbList = isSession ? [] : d.selectedServices.filter(i => SVC_QUESTIONS[SERVICES_EDIT[i].name]);
+    const fbHtml = fbList.map(i => {
+      const qq = SVC_QUESTIONS[SERVICES_EDIT[i].name];
+      const key = 'svcFbImg' + i;
+      return `
+      <div class="svc-followup" id="svcFbRow${i}">
+        <div class="sf-head">💡 ${qq.q}</div>
+        <p class="sf-sub">${esc(SERVICES_EDIT[i].icon + ' ' + SERVICES_EDIT[i].name)} — tell us before you continue</p>
+        <div class="form-group">
+          <textarea id="svcFb${i}" data-svcfb="${i}" rows="2" placeholder="${qq.ph}">${esc((d.svcFb && d.svcFb[i]) || '')}</textarea>
+        </div>
+        <div class="upload-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
+          ${upBox(key, 'Upload a photo of the style (optional)', 'Reference image')}
+        </div>
+      </div>`;
+    }).join('');
 
     html = `
       <div class="step-pane active">
@@ -1067,6 +1114,7 @@ function renderPhotoStep() {
             <label>Describe the hairstyle change *</label>
             <textarea id="hairstyle1" rows="2" placeholder="e.g. change to short afro, add braids...">${esc(d.hairstyle1)}</textarea>
           </div>` : ''}
+          ${fbHtml}
           <div class="form-group" style="margin-top:12px;">
             <label>Additional notes</label>
             <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
@@ -1257,6 +1305,15 @@ function attachStepListeners() {
       r.readAsDataURL(f);
     });
   });
+  document.querySelectorAll('textarea[data-svcfb]').forEach(el => {
+    el.addEventListener('input', e => {
+      if (!booking.data.svcFb) booking.data.svcFb = {};
+      booking.data.svcFb[el.dataset.svcfb] = e.target.value;
+      el.classList.remove('field-error');
+      const row = el.closest('.svc-followup');
+      if (row) row.classList.remove('field-error');
+    });
+  });
   const disc = document.getElementById('disclaimerOk');
   if (disc) disc.addEventListener('change', e => {
     booking.data.disclaimerOk = e.target.checked;
@@ -1324,6 +1381,13 @@ async function submitPhotoOrder() {
     } else {
       if (d.hairstyle1) msg += `Hairstyle change: ${d.hairstyle1}\n`;
       if (d.vision) msg += `Background/scene: ${d.vision}\n`;
+      for (const i of d.selectedServices) {
+        const nm = SERVICES_EDIT[i].name;
+        if (!SVC_QUESTIONS[nm]) continue;
+        const ans = ((d.svcFb && d.svcFb[i]) || '').trim();
+        const up = urls['svcFbImg' + i];
+        if (ans || up) msg += `${nm}: ${ans || 'see reference photo'}${up ? ` — ${up}` : ''}\n`;
+      }
     }
     msg += `Notes: ${d.notes || 'N/A'}\n\n`;
     msg += `*PHOTOS*\n`;
@@ -1710,4 +1774,33 @@ document.addEventListener('click', function (e) {
     chip.parentNode.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
     chip.classList.add('active');
   }
+});
+
+/* ---- Works folio: Female/Male tabs + lightbox ---- */
+window.filterWorks = function (btn, sex) {
+  document.querySelectorAll('#wfTabs .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const gf = document.getElementById('gridFemale');
+  const gm = document.getElementById('gridMale');
+  if (!gf || !gm) return;
+  const f = sex === 'female';
+  gf.hidden = !f;
+  gm.hidden = f;
+  const n = (f ? gf : gm).querySelectorAll('.wf-tile').length;
+  const c = document.getElementById('wfCount');
+  if (c) c.textContent = n + ' results';
+};
+window.openWF = function (src, label) {
+  const lb = document.getElementById('wfLightbox');
+  if (!lb) return;
+  lb.querySelector('img').src = src;
+  lb.querySelector('.wf-lb-cap').textContent = label || '';
+  lb.classList.add('open');
+};
+window.closeWF = function () {
+  const lb = document.getElementById('wfLightbox');
+  if (lb) lb.classList.remove('open');
+};
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') window.closeWF();
 });

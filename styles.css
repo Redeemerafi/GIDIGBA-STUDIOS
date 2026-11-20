@@ -3799,3 +3799,123 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
 @media (max-width: 560px) {
   .ba-pair { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   V11.2 — WORKS FOLIO (radikal /transformations pattern)
+   + smart service follow-ups
+   ============================================================ */
+.wf-count {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: -22px 0 22px;
+}
+.workfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 640px) { .workfolio-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .workfolio-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1280px) { .workfolio-grid { grid-template-columns: repeat(5, 1fr); } }
+
+.wf-tile {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  padding: 0;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.wf-tile:hover { border-color: #C0F500; transform: translateY(-2px); }
+.wf-tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* full picture — never cropped */
+  background: #111111;
+}
+.wf-label {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 26px 8px 9px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .88));
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* lightbox — tap a tile, see the whole image */
+.wf-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 24px;
+}
+.wf-lightbox.open { display: flex; }
+.wf-lightbox img {
+  max-width: 92vw;
+  max-height: 84vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.wf-lb-cap {
+  position: absolute;
+  bottom: 18px;
+  left: 0; right: 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.wf-lb-close {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 36px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* smart per-service follow-up (booking step 2) */
+.svc-followup {
+  margin-top: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 14px 14px 12px;
+  background: var(--tint);
+}
+.svc-followup.field-error { border-color: #dc2626; }
+.sf-head {
+  font-weight: 600;
+  font-size: 15.5px;
+  line-height: 1.4;
+}
+.sf-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin: 3px 0 8px;
+}
