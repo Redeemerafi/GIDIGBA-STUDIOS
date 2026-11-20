@@ -777,7 +777,7 @@ function freshBookingData() {
     peopleCount: '', outfitDesc: '',
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
-    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null, gender: '',
+    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null, outfitSel: '', hairSel: '', gender: '',
     disclaimerOk: false,
     hurry: false,
     pose: '',
@@ -804,11 +804,47 @@ function getOutfitCount() {
 function isCouplePkg() {
   return booking.data.orderType === 'photoshoot' && getSelectedPackage()?.type === 'couple';
 }
+/* ---- one-question-per-screen wizard (individual photoshoot only) ---- */
+function wizardStages() {
+  const d = booking.data;
+  if (d.orderType !== 'photoshoot' || isCouplePkg()) return null;
+  const st = ['gender', 'selfie', 'outfit'];
+  if (!d.styleMe || d.hairSel) st.push('hair');
+  if (d.gender === 'female') st.push('makeup');
+  st.push('notes');
+  return st;
+}
+function wizardActive() {
+  const st = wizardStages();
+  return booking.step === 2 && !!st && !!booking.stage && st.includes(booking.stage);
+}
+function outfitStyled() {
+  const d = booking.data;
+  return d.outfitSel === 'styled' || (!!d.styleMe && !d.outfitSel);
+}
+function hairStyled() {
+  const d = booking.data;
+  return d.hairSel === 'styled' || (!!d.styleMe && !d.hairSel);
+}
+function scrollBookingTop() {
+  const m = document.querySelector('#photoModal .modal');
+  if (m) m.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function upBoxW(key, label, sub) {
+  return `
+    <label class="upload-box ${sourceFiles[key] ? 'filled' : ''}" data-key="${key}">
+      <input type="file" accept="image/*" capture="environment" />
+      <div class="ub-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+      <p>${label}</p><small>${sub}</small>
+      <div class="ub-check">✓ Ready</div>
+      <img class="ub-preview" alt="preview" />
+    </label>`;
+}
 
 function saveDraft() {
   try {
     const { inspiration, ...rest } = booking.data;
-    localStorage.setItem('gidigba_photo_draft', JSON.stringify({ step: booking.step, data: rest }));
+    localStorage.setItem('gidigba_photo_draft', JSON.stringify({ step: booking.step, stage: booking.stage || '', stagePkg: booking.stagePkg || '', data: rest }));
   } catch (e) { /* quota */ }
 }
 function loadDraft() {
@@ -818,7 +854,7 @@ function loadDraft() {
     const d = JSON.parse(raw);
     let step = d.step || 1;
     if (step > 3) step = 3;
-    return { step, data: { ...freshBookingData(), ...d.data, inspiration: [], disclaimerOk: false } };
+    return { step, stage: d.stage || '', stagePkg: d.stagePkg || '', data: { ...freshBookingData(), ...d.data, inspiration: [], disclaimerOk: false } };
   } catch (e) { return null; }
 }
 function clearDraft() { try { localStorage.removeItem('gidigba_photo_draft'); } catch (e) {} }
@@ -861,6 +897,13 @@ function openPhotoBooking(packageName, mode) {
       setTimeout(() => toast('One quick thing — tell us who the shoot is for'), 450);
     }
   }
+  // wizard: individual photoshoot questions open at the gender stage
+  if (booking.step === 2 && booking.data.orderType === 'photoshoot' && !isCouplePkg()) {
+    if (!booking.stage || booking.stagePkg !== booking.data.selectedPackage) {
+      booking.stage = 'gender';
+    }
+    booking.stagePkg = booking.data.selectedPackage;
+  }
   renderPhotoStep();
   updateBookingSteps();
   openModal('photoModal');
@@ -890,22 +933,97 @@ function updateBookingSteps() {
 }
 
 function photoNextStep() {
+  if (wizardActive()) {
+    const st = wizardStages();
+    const i = st.indexOf(booking.stage);
+    if (!validateStage(booking.stage)) return;
+    if (i < st.length - 1) {
+      booking.stage = st[i + 1];
+      saveDraft();
+      renderPhotoStep();
+      updateBookingSteps();
+      scrollBookingTop();
+      return;
+    }
+    booking.step = 3;
+    saveDraft();
+    renderPhotoStep();
+    updateBookingSteps();
+    scrollBookingTop();
+    return;
+  }
   if (!validateStep(booking.step)) return;
   if (booking.step === 3) {
     submitPhotoOrder();
     return;
   }
   booking.step++;
+  if (booking.step === 2 && booking.data.orderType === 'photoshoot' && !isCouplePkg() && !booking.stage) {
+    booking.stage = 'gender';
+    booking.stagePkg = booking.data.selectedPackage;
+  }
   saveDraft();
   renderPhotoStep();
   updateBookingSteps();
+  scrollBookingTop();
 }
 function photoPrevStep() {
+  if (booking.step === 3) {
+    const st = wizardStages();
+    booking.step = 2;
+    if (st) booking.stage = st[st.length - 1];
+    renderPhotoStep();
+    updateBookingSteps();
+    scrollBookingTop();
+    return;
+  }
+  if (booking.step === 2 && wizardStages()) {
+    const st = wizardStages();
+    let i = st.indexOf(booking.stage);
+    if (i < 0) i = 0;
+    if (i > 0) {
+      booking.stage = st[i - 1];
+      renderPhotoStep();
+      updateBookingSteps();
+      scrollBookingTop();
+      return;
+    }
+    booking.step = 1;
+    renderPhotoStep();
+    updateBookingSteps();
+    scrollBookingTop();
+    return;
+  }
   if (booking.step > 1) {
     booking.step--;
     renderPhotoStep();
     updateBookingSteps();
+    scrollBookingTop();
   }
+}
+
+function validateStage(stage) {
+  const d = booking.data;
+  if (stage === 'gender') {
+    if (!d.gender) { toast('Tell us who the shoot is for', false); flagField('#genderPicks'); return false; }
+  } else if (stage === 'selfie') {
+    if (!sourceFiles.selfie) { toast('Take or upload your selfie (required)', false); flagField('.upload-box[data-key="selfie"]'); return false; }
+    if (!sourceFiles.fullbody) { toast('Take or upload a full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
+  } else if (stage === 'outfit') {
+    if (d.styleMe || d.outfitSel === 'styled') return true;
+    if (d.outfitPick || sourceFiles.outfitImg || (d.outfitDesc || '').trim()) return true;
+    toast('Choose your outfit — upload, pick from wardrobe, describe, or let us style you', false);
+    flagField('.flow-choices'); return false;
+  } else if (stage === 'hair') {
+    if (d.styleMe || d.hairSel === 'styled') return true;
+    if (d.hairPick || sourceFiles.hairstyleImg || (d.hairstyle1 || '').trim()) return true;
+    toast('Choose your hairstyle — upload, pick a style, describe, or let us style you', false);
+    flagField('.flow-choices'); return false;
+  } else if (stage === 'notes') {
+    if (!d.photoAbout || !d.photoAbout.trim()) { toast('Tell us what the photoshoot is about', false); flagField('#photoAbout'); return false; }
+    if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); flagField('.disclaimer-check'); return false; }
+  }
+  return true;
 }
 
 function validateStep(step) {
@@ -914,7 +1032,6 @@ function validateStep(step) {
     if (d.orderType === 'custom') {
       if (d.selectedServices.length === 0) { toast('Select at least one editing service', false); flagField('.svc-scroll'); return false; }
     } else {
-      if (bookTab === 'individual' && !d.gender) { toast('Tell us who the shoot is for', false); flagField('#genderPicks'); return false; }
       const pkg = getSelectedPackage();
       if (!pkg) { toast('Choose a package to continue', false); flagField('.pkg-mini-grid'); return false; }
       const wantCouple = bookTab === 'couple';
@@ -956,6 +1073,152 @@ function validateStep(step) {
   return true;
 }
 
+function renderWizardStage(st) {
+  const d = booking.data;
+  const i = st.indexOf(booking.stage);
+  const n = st.length;
+  const bar = `<div class="wiz-bar">${st.map((s, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</div>`;
+  const head = (title, hint) => `
+    <span class="modal-label">Question ${i + 1} of ${n}</span>
+    ${bar}
+    <h4>${title}</h4>
+    <p class="step-hint">${hint}</p>`;
+  const stage = booking.stage;
+
+  if (stage === 'gender') {
+    return `
+      <div class="step-pane active">
+        ${head('Who is this shoot for?', 'Pick one — your galleries, style options and makeup follow this choice.')}
+        <div class="stage-grid" id="genderPicks">
+          <button type="button" class="stage-pick ${d.gender === 'female' ? 'active' : ''}" onclick="setGender('female')"><span class="sp-ico">👩</span>Female</button>
+          <button type="button" class="stage-pick ${d.gender === 'male' ? 'active' : ''}" onclick="setGender('male')"><span class="sp-ico">👨</span>Male</button>
+          <button type="button" class="stage-pick ${d.gender === 'child' ? 'active' : ''}" onclick="setGender('child')"><span class="sp-ico">🧒</span>Child</button>
+        </div>
+      </div>`;
+  }
+
+  if (stage === 'selfie') {
+    const duo = (key, title, sub, capture) => `
+      <div class="upload-box duo ${sourceFiles[key] ? 'filled' : ''}" data-key="${key}">
+        <span class="ub-title">${title}</span><small class="ub-sub">${sub}</small>
+        <div class="duo-btns">
+          <label class="duo-btn">📷 Take photo<input type="file" accept="image/*" capture="${capture}" /></label>
+          <label class="duo-btn">🖼 Choose from gallery<input type="file" accept="image/*" /></label>
+        </div>
+        <div class="ub-check">✓ Ready</div>
+        <img class="ub-preview" alt="preview" />
+      </div>`;
+    return `
+      <div class="step-pane active">
+        ${head('Your photos', 'Send a selfie and a full-body photo. Snap them now with your camera — or pick both straight from your gallery.')}
+        <div class="upload-grid" style="margin-top:14px;">
+          ${duo('selfie', '🤳 Selfie *', 'Face clearly visible', 'user')}
+          ${duo('fullbody', '🧍 Full body *', 'Head to toe', 'environment')}
+        </div>
+      </div>`;
+  }
+
+  if (stage === 'outfit' || stage === 'hair') {
+    const isOutfit = stage === 'outfit';
+    const sel = isOutfit ? d.outfitSel : d.hairSel;
+    const styledNow = isOutfit ? outfitStyled() : hairStyled();
+    const kind = isOutfit ? 'outfits' : 'styles';
+    const gtitle = isOutfit ? '👗 Choose from our wardrobe' : '💇 Choose a hairstyle';
+    const choice = (id, ico, title, sub) => `
+      <button type="button" class="flow-choice ${sel === id || (id === 'styled' && styledNow && !sel) ? 'active' : ''}" onclick="setFlowSel('${stage}','${id}')">
+        <span class="fc-ico">${ico}</span>
+        <span class="fc-txt"><strong>${title}</strong><small>${sub}</small></span>
+      </button>`;
+    let panel = '';
+    if (sel === 'upload') {
+      panel = isOutfit ? `
+        <div class="flow-panel">
+          <div class="upload-grid">${upBoxW('outfitImg', 'Outfit photo (optional)', 'Snap your outfit')}</div>
+          <div class="form-group" style="margin-top:10px;">
+            <label>Describe your outfit</label>
+            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit — leave empty if you uploaded a photo">${esc(d.outfitDesc)}</textarea>
+          </div>
+        </div>` : `
+        <div class="flow-panel">
+          <div class="upload-grid">${upBoxW('hairstyleImg', 'Hairstyle photo (optional)', 'Snap the hair')}</div>
+          <div class="form-group" style="margin-top:10px;">
+            <label>Describe your desired hairstyle *</label>
+            <textarea id="hairstyle1" rows="2" placeholder="e.g. long braids with gold cuffs, low cut fade... — leave empty if you uploaded a photo">${esc(d.hairstyle1)}</textarea>
+          </div>
+        </div>`;
+    } else if (sel === 'wardrobe') {
+      panel = `
+        <div class="flow-panel">
+          ${galleryHtml(kind, isOutfit ? 'outfit' : 'hair', gtitle)}
+          <button type="button" class="flow-alt" onclick="setFlowSel('${stage}','upload')">Don't see yours? Upload from your phone instead &rarr;</button>
+        </div>`;
+    } else if (sel === 'styled' || styledNow) {
+      panel = `
+        <div class="flow-panel flow-styled">
+          <strong>✨ GIDIGBA will style your ${isOutfit ? 'outfit' : 'hairstyle'}.</strong>
+          <p class="opt-warn" style="margin:8px 0 0;">⚠️ <strong>No free style changes after work begins.</strong> Once production starts, this can no longer be changed for free.</p>
+          <button type="button" class="flow-alt" onclick="setFlowSel('${stage}','upload')">Actually, I'll provide my own &rarr;</button>
+        </div>`;
+    }
+    const title = isOutfit ? 'Outfit' : 'Hairstyle';
+    const hint = isOutfit
+      ? 'Pick from our wardrobe, upload your own — or skip and let us style you.'
+      : 'Same three options — pick a style, upload your own, or let us handle it.';
+    return `
+      <div class="step-pane active">
+        ${head(title, hint)}
+        <div class="flow-choices">
+          ${choice('upload', '📱', 'Upload from my phone', isOutfit ? 'Camera roll or take a fresh photo' : 'Show us the hair you want')}
+          ${choice('wardrobe', isOutfit ? '👗' : '💇', isOutfit ? 'Choose from our wardrobe' : 'Choose from our styles', isOutfit ? 'Curated outfits that photograph well' : 'Braids, fades, curls, locs & more')}
+          ${choice('styled', '✨', 'Let us style you', 'GIDIGBA handles it — no free changes later')}
+        </div>
+        ${panel}
+      </div>`;
+  }
+
+  if (stage === 'makeup') {
+    return `
+      <div class="step-pane active">
+        ${head('Makeup', 'Adding makeup changes the face — as it would in normal life. Your call.')}
+        <div class="stage-grid makeup-grid">
+          <button type="button" class="stage-pick ${d.makeup ? 'active' : ''}" onclick="setMakeupChoice(true)"><span class="sp-ico">💄</span>Yes, add makeup</button>
+          <button type="button" class="stage-pick ${!d.makeup ? 'active' : ''}" onclick="setMakeupChoice(false)"><span class="sp-ico">🚫</span>No, thanks</button>
+        </div>
+        ${d.makeup ? `<p class="opt-warn" style="margin-top:14px;">⚠️ <strong>Adding makeup will cause changes to your face</strong> — as it would in normal life.</p>` : ''}
+      </div>`;
+  }
+
+  // notes / final details
+  const pkg = getSelectedPackage();
+  const biggest = pkg?.name === 'SUPERIOR';
+  return `
+    <div class="step-pane active">
+      ${head('Final details', 'Tell us about the shoot, add anything else, then review your request.')}
+      <div class="form-group" style="margin-top:6px;">
+        <label>What is the photoshoot about? *</label>
+        <textarea id="photoAbout" rows="2" placeholder="e.g. Graduation shoot in kente, birthday with gold theme, LinkedIn headshot...">${esc(d.photoAbout)}</textarea>
+      </div>
+      ${biggest ? `
+      <div class="form-group" style="margin-top:12px;">
+        <label>POSE — biggest package: describe the pose / expression you want <span style="color:var(--grey); font-weight:400;">(optional)</span></label>
+        <textarea id="poseDesc" rows="2" placeholder="e.g. seated on a stool, arms folded, looking away...">${esc(d.pose)}</textarea>
+      </div>` : ''}
+      <div class="form-group" style="margin-top:12px;">
+        <label>Additional notes</label>
+        <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
+      </div>
+      <div class="toggle-row hurry-row" onclick="toggleHurry()" style="margin-top:14px;">
+        <span>⚡ I'm in a hurry — I need my images ASAP</span>
+        <div class="toggle-switch ${d.hurry ? 'active' : ''}"></div>
+      </div>
+      <p class="hurry-note${d.hurry ? ' show' : ''}">A small fee may be demanded by the team after submission for priority delivery.</p>
+      <label class="disclaimer-check" style="margin-top:14px;">
+        <input type="checkbox" id="disclaimerOk" ${d.disclaimerOk ? 'checked' : ''} />
+        <span><strong>I understand:</strong> these are software-assisted generated images. Minor changes may occur and details may not be 100% real-life accurate. 100% online service — no in-person session. Source images are deleted 20 minutes after delivery.</span>
+      </label>
+    </div>`;
+}
+
 function renderPhotoStep() {
   const c = document.getElementById('photoBookingContainer');
   if (!c) return;
@@ -995,14 +1258,6 @@ function renderPhotoStep() {
         <h4>${bookTab === 'couple' ? 'Couple package' : 'Individual package'}</h4>
         <p class="step-hint">One price, everything included. Delivered within 24 business hours. Prices in Ghana Cedis.</p>
         ${tabsHtml}
-        ${bookTab === 'individual' ? `
-        <div class="form-group" style="margin-top:6px;">
-          <label>Who is this shoot for? *</label>
-          <div class="gender-picks" id="genderPicks">
-            <button type="button" class="g-pick ${d.gender === 'female' ? 'active' : ''}" onclick="setGender('female')">👩 Female</button>
-            <button type="button" class="g-pick ${d.gender === 'male' ? 'active' : ''}" onclick="setGender('male')">👨 Male</button>
-          </div>
-        </div>` : ''}
         <div class="pkg-mini-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
           ${list.map(p => `
             <div class="pkg-mini ${d.selectedPackage === p.name ? 'selected' : ''}" onclick="selectBookingPackage('${p.name}')">
@@ -1013,6 +1268,13 @@ function renderPhotoStep() {
         </div>
       </div>`;
     }
+  }
+
+  else if (booking.step === 2 && wizardStages()) {
+    const st = wizardStages();
+    if (!booking.stage || !st.includes(booking.stage)) booking.stage = st[0];
+    booking.stagePkg = d.selectedPackage;
+    html = renderWizardStage(st);
   }
 
   else if (booking.step === 2) {
@@ -1194,7 +1456,7 @@ function renderPhotoStep() {
           <div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">${esc(includesLine)}</span></div>
           ${isSession ? `<div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>
           <div class="review-row"><span class="rv-label">Photoshoot</span><span class="rv-value">${esc(d.photoAbout || '—')}</span></div>
-          ${pkg?.type !== 'couple' ? `<div class="review-row"><span class="rv-label">For</span><span class="rv-value">${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : '—'}</span></div>` : ''}` : ''}
+          ${pkg?.type !== 'couple' ? `<div class="review-row"><span class="rv-label">For</span><span class="rv-value">${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : d.gender === 'child' ? 'Child' : '—'}</span></div>` : ''}` : ''}
           <div class="review-row"><span class="rv-label">Delivery</span><span class="rv-value">Within 24 business hours</span></div>
           <div class="review-row"><span class="rv-label">Hurry</span><span class="rv-value">${d.hurry ? '⚡ YES — ASAP' : 'Standard'}</span></div>
           ${d.hurry ? '<div class="review-row"><span class="rv-label">Priority fee</span><span class="rv-value">A small fee may be demanded after submission</span></div>' : ''}
@@ -1203,10 +1465,10 @@ function renderPhotoStep() {
         <div class="review-block">
           <h5>Creative</h5>
           ${isSession ? `
-          <div class="review-row"><span class="rv-label">Outfit</span><span class="rv-value">${esc(d.styleMe ? 'Styled by GIDIGBA' : outfitVal)}</span></div>
-          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(d.styleMe ? 'Styled by GIDIGBA' : hairVal)}</span></div>
+          <div class="review-row"><span class="rv-label">Outfit</span><span class="rv-value">${esc(outfitStyled() ? 'Styled by GIDIGBA' : outfitVal)}</span></div>
+          <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(hairStyled() ? 'Styled by GIDIGBA' : hairVal)}</span></div>
           ${coupleHasPartner(d) ? `<div class="review-row"><span class="rv-label">Partner hair</span><span class="rv-value">${esc(d.styleMe ? 'Styled by GIDIGBA' : (d.hairstyle2 || '—'))}</span></div>` : ''}
-          <div class="review-row"><span class="rv-label">Style me</span><span class="rv-value">${d.styleMe ? 'Yes — no free style changes after work begins' : 'No'}</span></div>
+          ${pkg?.type === 'couple' ? `<div class="review-row"><span class="rv-label">Style me</span><span class="rv-value">${d.styleMe ? 'Yes — no free style changes after work begins' : 'No'}</span></div>` : ''}
           <div class="review-row"><span class="rv-label">Makeup</span><span class="rv-value">${d.makeup ? 'Yes — face changes as in normal life' : 'No'}</span></div>
           ${biggest && d.pose ? `<div class="review-row"><span class="rv-label">Pose</span><span class="rv-value">${esc(d.pose)}</span></div>` : ''}` : `
           <div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(includesLine)}</span></div>
@@ -1275,6 +1537,12 @@ window.selectBookingPackage = function (name) {
   bookTab = pkg.type;
   if (pkg.type === 'couple') booking.data.photoType = 'couple';
   booking.step = 2;
+  if (pkg.type === 'couple') {
+    booking.stage = null;
+  } else {
+    booking.stage = 'gender';
+    booking.stagePkg = name;
+  }
   saveDraft();
   renderPhotoStep();
   updateBookingSteps();
@@ -1307,10 +1575,22 @@ window.toggleStyleMe = function () {
 };
 window.setGender = function (g) {
   booking.data.gender = g;
-  if (g === 'male') booking.data.makeup = false;
+  if (g !== 'female') booking.data.makeup = false;
   saveDraft();
   renderPhotoStep();
   updateBookingSteps();
+};
+window.setFlowSel = function (target, sel) {
+  const d = booking.data;
+  if (target === 'outfit') d.outfitSel = sel; else d.hairSel = sel;
+  d.styleMe = d.outfitSel === 'styled' || d.hairSel === 'styled';
+  saveDraft();
+  renderPhotoStep();
+};
+window.setMakeupChoice = function (v) {
+  booking.data.makeup = !!v;
+  saveDraft();
+  renderPhotoStep();
 };
 window.toggleMakeup = function () {
   booking.data.makeup = !booking.data.makeup;
@@ -1332,6 +1612,7 @@ function galleryHtml(kind, target, title) {
   const gsel = booking.data.gender;
   const cats = gsel === 'female' ? ['female', 'children']
     : gsel === 'male' ? ['male', 'children']
+    : gsel === 'child' ? ['children']
     : ['female', 'male', 'children'];
   return `
   <div class="gallery-picker" data-kind="${kind}" data-target="${target}" style="margin-top:10px;">
@@ -1450,21 +1731,22 @@ function attachStepListeners() {
   }
   document.querySelectorAll('.upload-box[data-key]').forEach(box => {
     const key = box.dataset.key;
-    const input = box.querySelector('input[type="file"]');
     if (sourceFiles[key]) {
       const r = new FileReader();
       r.onload = ev => { const img = box.querySelector('.ub-preview'); if (img) img.src = ev.target.result; };
       r.readAsDataURL(sourceFiles[key]);
     }
-    input.addEventListener('change', e => {
-      const f = e.target.files[0];
-      if (!f) return;
-      sourceFiles[key] = f;
-      box.classList.add('filled');
-      box.classList.remove('field-error');
-      const r = new FileReader();
-      r.onload = ev => { box.querySelector('.ub-preview').src = ev.target.result; };
-      r.readAsDataURL(f);
+    box.querySelectorAll('input[type="file"]').forEach(input => {
+      input.addEventListener('change', e => {
+        const f = e.target.files[0];
+        if (!f) return;
+        sourceFiles[key] = f;
+        box.classList.add('filled');
+        box.classList.remove('field-error');
+        const r = new FileReader();
+        r.onload = ev => { const pv = box.querySelector('.ub-preview'); if (pv) pv.src = ev.target.result; };
+        r.readAsDataURL(f);
+      });
     });
   });
   document.querySelectorAll('textarea[data-svcfb]').forEach(el => {
@@ -1523,7 +1805,7 @@ async function submitPhotoOrder() {
       }
       msg += `Images: ${pkg.images} · Delivery: within 24 business hours\n`;
       msg += `Photoshoot: ${d.photoAbout || 'N/A'}\n`;
-      if (pkg.type !== 'couple') msg += `Gender: ${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : 'N/A'}\n`;
+      if (pkg.type !== 'couple') msg += `Gender: ${d.gender === 'female' ? 'Female' : d.gender === 'male' ? 'Male' : d.gender === 'child' ? 'Child' : 'N/A'}\n`;
     } else {
       msg += `Single-change edits — GH₵10 each:\n`;
       d.selectedServices.forEach(i => { msg += `  • ${SERVICES_EDIT[i].name} — GH₵10\n`; });
@@ -1532,13 +1814,14 @@ async function submitPhotoOrder() {
     msg += `Hurry: ${d.hurry ? 'YES — customer needs images ASAP' : 'Standard'}\n`;
     if (d.hurry) msg += `Note: A small fee may be demanded by the team after submission for priority delivery.\n`;
     if (isSession) {
-      msg += `Style: ${d.styleMe ? 'YES — GIDIGBA styles them (no free style changes after work begins)' : 'No — client provides outfit & hairstyle'}\n`;
+      const fullStyled = isCouplePkg() ? d.styleMe : (outfitStyled() && hairStyled());
+      msg += `Style: ${fullStyled ? 'YES — GIDIGBA styles them (no free style changes after work begins)' : 'No — client provides outfit & hairstyle'}\n`;
       msg += `Makeup: ${d.makeup ? 'YES — client informed makeup changes face as in normal life' : 'No'}\n`;
     }
     msg += `\n*CREATIVE*\n`;
     if (isSession) {
-      msg += `Outfit: ${d.styleMe ? 'Skipped — styled by GIDIGBA' : (d.outfitDesc || (urls.outfitImg ? 'Photo attached' : 'N/A'))}\n`;
-      msg += `Hairstyle: ${d.styleMe ? 'Skipped — styled by GIDIGBA' : (d.hairstyle1 || (urls.hairstyleImg ? 'Photo attached' : 'N/A'))}\n`;
+      msg += `Outfit: ${outfitStyled() ? 'Skipped — styled by GIDIGBA' : (d.outfitDesc || (urls.outfitImg ? 'Photo attached' : 'N/A'))}\n`;
+      msg += `Hairstyle: ${hairStyled() ? 'Skipped — styled by GIDIGBA' : (d.hairstyle1 || (urls.hairstyleImg ? 'Photo attached' : 'N/A'))}\n`;
       if (d.hairstyle2) msg += `Partner hairstyle: ${d.styleMe ? 'Skipped — styled by GIDIGBA' : d.hairstyle2}\n`;
       if (d.pose) msg += `Pose: ${d.pose}\n`;
     } else {

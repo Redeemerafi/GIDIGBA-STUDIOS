@@ -47,19 +47,31 @@ async def main():
         ok("choice-modal", cm)
         await page.evaluate("() => closeModal('bookingChoiceModal')")
 
-        # 3. LITE e2e with style-me + makeup + hurry (validation lift)
+        # 3. LITE e2e — one-question wizard: gender → photos → outfit(styled) → makeup → notes → review
         await page.evaluate("() => { clearDraft(); openPhotoBooking('LITE'); }")
-        await page.evaluate("() => setGender('female')")
-        await page.wait_for_timeout(400)
-        await page.evaluate("() => { toggleStyleMe(); toggleMakeup(); toggleHurry(); }")
         await page.wait_for_timeout(300)
-        await page.fill("#photoAbout", "Graduation in kente")
+        stg = await page.evaluate("() => booking.stage")
+        ok("wizard-opens-at-gender", stg == "gender", f"stage={stg}")
+        await page.evaluate("() => setGender('female')")
+        await page.evaluate("() => photoNextStep()")            # gender → selfie
+        await page.wait_for_timeout(250)
         await page.set_input_files('.upload-box[data-key="selfie"] input[type=file]', FILES)
         await page.set_input_files('.upload-box[data-key="fullbody"] input[type=file]', FILES)
-        await page.wait_for_timeout(200)
+        await page.wait_for_timeout(150)
+        await page.evaluate("() => photoNextStep()")            # selfie → outfit
+        await page.wait_for_timeout(250)
+        await page.evaluate("() => setFlowSel('outfit','styled')")  # styleMe — lifts hair (stage skipped)
+        await page.evaluate("() => photoNextStep()")            # outfit → makeup (hair skipped)
+        await page.wait_for_timeout(250)
+        stg = await page.evaluate("() => booking.stage")
+        ok("styleme-skips-hair-stage", stg == "makeup", f"stage={stg}")
+        await page.evaluate("() => setMakeupChoice(true)")
+        await page.evaluate("() => photoNextStep()")            # makeup → notes
+        await page.wait_for_timeout(250)
+        await page.evaluate("() => toggleHurry()")
+        await page.fill("#photoAbout", "Graduation in kente")
         await page.check("#disclaimerOk")
-        # styleMe lifts hair requirement -> must pass to step 3 with no hair provided
-        await page.evaluate("() => photoNextStep()")
+        await page.evaluate("() => photoNextStep()")            # notes → review
         await page.wait_for_timeout(350)
         st = await page.evaluate("() => booking.step")
         ok("styleme-lifts-hair-req", st == 3, f"step={st}")
