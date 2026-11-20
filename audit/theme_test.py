@@ -25,7 +25,7 @@ with sync_playwright() as pw:
     ls = page.evaluate("localStorage.getItem('gidigba_theme')")
     bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
     check("default theme is light", dt == "light" and ls in (None, "light"), f"theme={dt} ls={ls}")
-    check("light body background white", bg == "rgb(255, 255, 255)", bg)
+    check("light body background warm paper", bg == "rgb(247, 245, 238)", bg)
 
     # 2. toggle -> dark, persists, icon swaps
     page.click("#themeToggle")
@@ -35,14 +35,14 @@ with sync_playwright() as pw:
     sun_vis = page.is_visible("#themeToggle .tt-sun")
     moon_vis = page.is_visible("#themeToggle .tt-moon")
     check("toggle switches to dark", dt == "dark" and ls == "dark", f"theme={dt} ls={ls}")
-    check("dark body background near-black", bg == "rgb(10, 10, 10)", bg)
+    check("dark body background warm ink", bg == "rgb(20, 20, 18)", bg)
     check("sun icon shows in dark", sun_vis and not moon_vis, f"sun={sun_vis} moon={moon_vis}")
 
     # 3. persists across navigation
     page.goto(BASE + "photoshoots.html", wait_until="networkidle")
     dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
     bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check("dark persists across pages", dt == "dark" and bg == "rgb(10, 10, 10)", f"theme={dt} bg={bg}")
+    check("dark persists across pages", dt == "dark" and bg == "rgb(20, 20, 18)", f"theme={dt} bg={bg}")
 
     # 4. dark contrast on this page
     c = page.evaluate(CJS)
@@ -53,7 +53,7 @@ with sync_playwright() as pw:
     dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
     ls = page.evaluate("localStorage.getItem('gidigba_theme')")
     bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check("toggle back to light", dt == "light" and ls == "light" and bg == "rgb(255, 255, 255)", f"{dt} {ls} {bg}")
+    check("toggle back to light", dt == "light" and ls == "light" and bg == "rgb(247, 245, 238)", f"{dt} {ls} {bg}")
 
     # 6. fresh visitor (no storage) = light even after prior dark in another context
     ctx2 = b.new_context(viewport={"width": 1280, "height": 900})
