@@ -81,12 +81,12 @@ async def main():
         await page.evaluate("() => showHowTab('b')")
         b = await page.evaluate("() => document.getElementById('howPanelB').hidden === false && document.getElementById('howPanelI').hidden === true")
         ok("THEME11: how-tab business", b)
-        await page.evaluate("() => filterTransform(document.querySelectorAll('#transGrid') && document.querySelectorAll('.section-alt .filter-row .chip')[1], 'personal')")
+        await page.evaluate("() => filterTransform(document.querySelectorAll('.section-alt .filter-row .chip')[1], 'female')")
         f = await page.evaluate("""() => {
             const vis = [...document.querySelectorAll('#transGrid .trans-item')].filter(i => i.style.display !== 'none').length;
             return vis;
         }""")
-        ok("THEME11: transform filter", f == 3, str(f))
+        ok("THEME11: transform filter", f == 4, str(f))
         await page.evaluate("() => filterTransform(document.querySelectorAll('.section-alt .filter-row .chip')[0], 'all')")
 
         # console clean
