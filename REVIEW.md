@@ -118,3 +118,12 @@ User feedback: "background looks / font size / things look too clumsy" → direc
 - **Hurry toggle ⚡**: auto-discloses "A small fee may be demanded by the team after submission for priority delivery." (note appears on toggle, review gets a Priority-fee row, WhatsApp message appends the note when Hurry: YES). Standing rule unchanged: standard delivery stays24 business hours.
 - Swaps: index collage (f-kente + m-denim), index/about portraits, photoshoots look grid (incl. m-red headshot), journal thumbs.
 - Tests: flows **17/17**, flag **8/8**, theme **11/11**, new checks **5/5** (F/M counts,13-page zero-broken-images, ba sources, hurry note), audits **light + dark clean**.
+
+## v8 — Flat & simple pass (2026-11-05)
+
+User: "SEE HOW BULKY THE SITE IS, MAKE IT AS SIMPLE AS POSSIBLE AND FLAT" (mobile-menu screenshot).
+
+- **Mobile menu**: links17px/600 (was up to32px/700), letter-spacing tightened, row gap0, hover no slide, foot compact (24/16), transitions minimal.
+- **Flat**: every `box-shadow` → `none` (21 removed: cards, modals, buttons, glows; focus ring is outline — kept); all radii squashed to **8px** (10px for big panels) via literals + `--radius:8` / `--radius-sm:6`; **exception**: `.toggle-switch` stays pill (100px).
+- **Buttons**: `.btn`11×22/13px (was16×30/14), `.btn-sm`9×16/12.5, `.btn-lg`13×24/14.
+- Tests: flows17/17, flag8/8, theme11/11, flat DOM checks (menu17px, shadows0, switch pill, modal btn), audits light+dark clean.
