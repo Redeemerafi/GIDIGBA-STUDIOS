@@ -844,6 +844,11 @@ function openPhotoBooking(packageName, mode) {
     }
   } else {
     if (!draft) booking = { step: 1, data: freshBookingData() };
+    // reopening "Book" on a review-stage photoshoot draft restarts the flow at
+    // step1 so every entry passes through the gender stage (data is preserved)
+    if (draft && booking.step === 3 && booking.data.orderType === 'photoshoot') {
+      booking.step = 1;
+    }
     bookTab = booking.data.orderType === 'custom'
       ? 'editing'
       : (PACKAGES.find(p => p.name === booking.data.selectedPackage)?.type === 'couple' ? 'couple' : 'individual');
