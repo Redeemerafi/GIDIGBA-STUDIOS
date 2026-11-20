@@ -1687,3 +1687,27 @@ if (installBtn) {
 window.addEventListener('appinstalled', () => {
   document.getElementById('installBar')?.classList.remove('show');
 });
+
+/* ---- V11 homepage helpers ---- */
+window.filterTransform = function (btn, cat) {
+  var row = btn.closest('.filter-row');
+  if (row) row.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('#transGrid .trans-item').forEach(function (it) {
+    it.style.display = (cat === 'all' || it.dataset.tcat === cat) ? '' : 'none';
+  });
+};
+window.showHowTab = function (which) {
+  var i = which === 'i';
+  document.getElementById('howPanelI').hidden = !i;
+  document.getElementById('howPanelB').hidden = i;
+  document.getElementById('howTabI').classList.toggle('active', i);
+  document.getElementById('howTabB').classList.toggle('active', !i);
+};
+document.addEventListener('click', function (e) {
+  var chip = e.target.closest('.chip-row .chip');
+  if (chip) {
+    chip.parentNode.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+  }
+});

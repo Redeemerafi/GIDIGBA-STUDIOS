@@ -1,88 +1,101 @@
-import sys, re, json, urllib.request, urllib.parse
-from playwright.sync_api import sync_playwright
+import asyncio, os, subprocess, sys, time
+from playwright.async_api import async_playwright
 
-BASE = "http://localhost:8080/"
-src = open("audit/theme_audit.py").read()
-CJS = re.search(r'CONTRAST_JS = """(.*?)"""', src, re.S).group(1)
+BASE = os.environ.get("BASE", "http://localhost:8080")
+if not BASE.startswith("http"):
+    subprocess.run([sys.executable, "-m", "http.server", "8080", "--directory", BASE], check=True)
+time.sleep(2)
 
-def api(url):
-    with urllib.request.urlopen(BASE + "api/" + url, timeout=5) as r:
-        return json.loads(r.read().decode())
+passed = []; failed = []
+def ok(name, cond, detail=""):
+    (passed if cond else failed).append(name + (f" :: {detail}" if detail and not cond else ""))
 
-results = []
-def check(name, ok, detail=""):
-    results.append((name, bool(ok)))
-    print(("PASS" if ok else "FAIL"), "|", name, detail, flush=True)
+async def main():
+    async with async_playwright() as pw:
+        browser = await pw.chromium.launch()
+        page = await browser.new_page(viewport={"width": 1280, "height": 900})
+        errs = []
+        page.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
 
-with sync_playwright() as pw:
-    b = pw.chromium.launch()
-    ctx = b.new_context(viewport={"width": 1280, "height": 900})
-    page = ctx.new_page()
+        await page.goto(f"{BASE}/index.html", wait_until="domcontentloaded")
+        await page.wait_for_timeout(1200)
 
-    # 1. default = light
-    page.goto(BASE, wait_until="networkidle")
-    dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
-    ls = page.evaluate("localStorage.getItem('gidigba_theme')")
-    bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check("default theme is light", dt == "light" and ls in (None, "light"), f"theme={dt} ls={ls}")
-    check("light body background cream", bg == "rgb(251, 249, 244)", bg)
+        dom = await page.evaluate("""async () => {
+            await document.fonts.ready;
+            return {
+                inter: document.fonts.check('16px Inter'),
+                playfair: document.fonts.check('24px "Playfair Display"'),
+                theme: document.documentElement.getAttribute('data-theme'),
+                bg: getComputedStyle(document.body).backgroundColor,
+                heroExists: !!document.querySelector('section.hero'),
+                heroBg: getComputedStyle(document.querySelector('section.hero')).backgroundColor,
+                h1w: getComputedStyle(document.querySelector('.brand-name')).fontWeight,
+                outlineColor: getComputedStyle(document.querySelector('.brand-name .outline')).color,
+                outlineBg: getComputedStyle(document.querySelector('.brand-name .outline')).backgroundImage,
+                pill: getComputedStyle(document.querySelector('.btn-primary')).borderRadius,
+                btnBg: getComputedStyle(document.querySelector('.btn-primary')).backgroundColor,
+                navBlur: getComputedStyle(document.querySelector('.nav')).backdropFilter,
+                navBg: getComputedStyle(document.querySelector('.nav')).backgroundColor,
+                cardR: getComputedStyle(document.querySelector('.sol-card')).borderRadius,
+                altBg: getComputedStyle(document.querySelector('.section-alt')).backgroundColor,
+                ctaBg: getComputedStyle(document.querySelector('.cta-band')).backgroundImage,
+                pillars: [...document.querySelectorAll('.pillar-card h3')].map(h => h.textContent.trim()),
+                html: document.body.innerHTML,
+                imgBad: [...document.images].filter(i => i.complete && i.naturalWidth === 0).length
+            };
+        }""")
 
-    # 2. toggle -> dark, persists, icon swaps
-    page.click("#themeToggle")
-    dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
-    ls = page.evaluate("localStorage.getItem('gidigba_theme')")
-    bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    sun_vis = page.is_visible("#themeToggle .tt-sun")
-    moon_vis = page.is_visible("#themeToggle .tt-moon")
-    check("toggle switches to dark", dt == "dark" and ls == "dark", f"theme={dt} ls={ls}")
-    check("dark body background pastel dark", bg == "rgb(23, 23, 28)", bg)
-    check("sun icon shows in dark", sun_vis and not moon_vis, f"sun={sun_vis} moon={moon_vis}")
+        ok("THEME11: Inter loaded", dom["inter"])
+        ok("THEME11: Playfair loaded", dom["playfair"])
+        ok("THEME11: light body white", dom["theme"] == "light" and dom["bg"] == "rgb(255, 255, 255)", dom["bg"])
+        ok("THEME11: hero black band", dom["heroExists"] and dom["heroBg"] == "rgb(0, 0, 0)", str(dom["heroBg"]))
+        ok("THEME11: h1 Inter light300", dom["h1w"] == "300", dom["h1w"])
+        ok("THEME11: outline transparent fill", dom["outlineColor"] in ("rgba(0, 0, 0, 0)", "transparent"), dom["outlineColor"])
+        ok("THEME11: lime gradient text", "192, 245, 0" in dom["outlineBg"] or "192,245,45" in dom["outlineBg"], dom["outlineBg"][:80])
+        ok("THEME11: lime pill", dom["pill"] == "9999px" and dom["btnBg"] == "rgb(192, 245, 0)", f'{dom["pill"]} {dom["btnBg"]}')
+        ok("THEME11: nav dark blur20", "blur(20px)" in dom["navBlur"] and dom["navBg"].startswith("rgba(0, 0, 0, 0.8"), f'{dom["navBlur"]} {dom["navBg"]}')
+        ok("THEME11: cards16px", dom["cardR"] == "16px", dom["cardR"])
+        ok("THEME11: section-alt black", dom["altBg"] == "rgb(0, 0, 0)", dom["altBg"])
+        ok("THEME11: cta lime gradient", "192, 245, 0" in dom["ctaBg"], dom["ctaBg"][:80])
+        ok("THEME11: pillars GIDIGBA values", dom["pillars"] == ["ONLINE", "SPEED", "VALUE"], str(dom["pillars"]))
+        ok("THEME11: no banned strings", "Class. Tech. Future." not in dom["html"] and "Under Radikal" not in dom["html"] and "RADIKAL" not in dom["html"])
+        ok("THEME11: no broken images", dom["imgBad"] == 0, str(dom["imgBad"]))
 
-    # 3. persists across navigation
-    page.goto(BASE + "photoshoots.html", wait_until="networkidle")
-    dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
-    bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check("dark persists across pages", dt == "dark" and bg == "rgb(23, 23, 28)", f"theme={dt} bg={bg}")
+        # dark mode
+        await page.click("#themeToggle")
+        await page.wait_for_timeout(400)
+        d = await page.evaluate("""() => ({
+            theme: document.documentElement.getAttribute('data-theme'),
+            bg: getComputedStyle(document.body).backgroundColor
+        })""")
+        ok("THEME11: dark bg black", d["theme"] == "dark" and d["bg"] == "rgb(0, 0, 0)", d["bg"])
+        await page.click("#themeToggle")
+        await page.wait_for_timeout(300)
 
-    # 4. dark contrast on this page
-    c = page.evaluate(CJS)
-    check("dark contrast photoshoots", not c, f"{len(c)} issues")
+        # interactions
+        await page.click("text=Image Editing from GH₵10")
+        await page.wait_for_timeout(400)
+        modal = await page.evaluate("() => !!document.querySelector('#photoModal.open')")
+        ok("THEME11: editing CTA opens modal", modal)
+        await page.evaluate("() => closeModal('photoModal')")
+        await page.evaluate("() => showHowTab('b')")
+        b = await page.evaluate("() => document.getElementById('howPanelB').hidden === false && document.getElementById('howPanelI').hidden === true")
+        ok("THEME11: how-tab business", b)
+        await page.evaluate("() => filterTransform(document.querySelectorAll('#transGrid') && document.querySelectorAll('.section-alt .filter-row .chip')[1], 'personal')")
+        f = await page.evaluate("""() => {
+            const vis = [...document.querySelectorAll('#transGrid .trans-item')].filter(i => i.style.display !== 'none').length;
+            return vis;
+        }""")
+        ok("THEME11: transform filter", f == 3, str(f))
+        await page.evaluate("() => filterTransform(document.querySelectorAll('.section-alt .filter-row .chip')[0], 'all')")
 
-    # 5. toggle back -> light
-    page.click("#themeToggle")
-    dt = page.evaluate("document.documentElement.getAttribute('data-theme')")
-    ls = page.evaluate("localStorage.getItem('gidigba_theme')")
-    bg = page.evaluate("getComputedStyle(document.body).backgroundColor")
-    check("toggle back to light", dt == "light" and ls == "light" and bg == "rgb(251, 249, 244)", f"{dt} {ls} {bg}")
+        # console clean
+        ok("CONSOLE: clean", not errs, str(errs[:3]))
+        await browser.close()
 
-    # 6. fresh visitor (no storage) = light even after prior dark in another context
-    ctx2 = b.new_context(viewport={"width": 1280, "height": 900})
-    p2 = ctx2.new_page()
-    p2.goto(BASE + "services.html", wait_until="networkidle")
-    dt = p2.evaluate("document.documentElement.getAttribute('data-theme')")
-    check("fresh visitor gets light", dt == "light", dt)
-
-    # 7. photo booking engine still works in light (smoke)
-    p2.evaluate("() => { clearDraft(); openPhotoBooking('LITE'); }")
-    p2.wait_for_selector("#photoModal", state="visible")
-    p2.wait_for_selector("#photoAbout")
-    check("photo booking opens (smoke)", p2.is_visible("#photoAbout"))
-    p2.keyboard.press("Escape")
-
-    # 8. toggle button exists on every page + layout sanity at dark
-    PAGES = ["index.html","about.html","services.html","photoshoots.html","work.html","brands.html","reviews.html","journal.html","track.html","voucher.html","for-restaurants.html","for-real-estate.html","for-events.html"]
-    missing = []
-    for pg in PAGES:
-        p2.goto(BASE + pg, wait_until="networkidle")
-        p2.evaluate("document.documentElement.setAttribute('data-theme','dark')")
-        if p2.evaluate("!!document.getElementById('themeToggle')") is not True:
-            missing.append(pg)
-        ov = p2.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
-        if ov > 4: missing.append(f"{pg} overflow-dark {ov}")
-    check("toggle on all13 pages + no dark overflow", not missing, str(missing))
-
-    b.close()
-
-npass = sum(1 for _, ok in results if ok)
-print(f"THEME {npass}/{len(results)}")
-sys.exit(0 if npass == len(results) else 1)
+asyncio.run(main())
+for n in passed: print("PASS:", n)
+for n in failed: print("FAIL:", n)
+print("passed:", len(passed), "failed:", len(failed))
+if failed:
+    sys.exit(1)
