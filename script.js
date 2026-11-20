@@ -628,6 +628,9 @@ const SVC_QUESTIONS = {
   'Glasses On / Off': { q: 'Glasses on or off — and which ones?', ph: 'e.g. remove my glasses / add round black frames — or upload the frame you want' },
   'Teeth Whitening': { q: 'How white should the teeth be?', ph: 'e.g. natural white, bright white — note anything else about the smile' },
   'Hair Color Change': { q: 'What hair color do you want?', ph: 'e.g. blonde, burgundy, honey brown — or upload a color reference' },
+  'Hairstyle Change': { q: 'What hairstyle should you have?', ph: 'e.g. long braids with gold cuffs, short afro, low fade — or upload the style' },
+  'Background Choice': { q: 'What background do you want?', ph: 'e.g. clean studio backdrop, beach at sunset, city lights — or upload a backdrop' },
+  'Full Scene Replacement': { q: 'Describe the whole scene you want', ph: 'e.g. standing on a rooftop in Dubai at night, in a flower field, on a red carpet' },
   'Body / Weight Adjustment': { q: 'How should we adjust it?', ph: 'e.g. slimmer face, slightly taller — describe gently; we keep it natural' },
   'Wrinkle & Age Removal': { q: 'What should we smooth away?', ph: 'e.g. forehead lines, under-eye bags — or point it out on the photo' },
   'Photo Restoration & Colorization': { q: 'Tell us about this photo', ph: 'e.g. restore my grandfather\u2019s portrait, colorize the B&W, fix the tears' },
@@ -689,13 +692,17 @@ function openModal(id) {
   const m = document.getElementById(id);
   if (!m) return;
   m.classList.add('open');
+  document.body.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
 }
 function closeModal(id) {
   const m = document.getElementById(id);
   if (!m) return;
   m.classList.remove('open');
-  document.body.style.overflow = '';
+  if (!document.querySelector('.modal-overlay.open')) {
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
 }
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
@@ -807,7 +814,18 @@ function isCouplePkg() {
 /* ---- one-question-per-screen wizard (individual photoshoot only) ---- */
 function wizardStages() {
   const d = booking.data;
-  if (d.orderType !== 'photoshoot' || isCouplePkg()) return null;
+  if (d.orderType === 'custom') {
+    const st = ['editPhoto'];
+    d.selectedServices.forEach(i => st.push('svc_' + i));
+    st.push('editDone');
+    return st;
+  }
+  if (d.orderType !== 'photoshoot') return null;
+  if (isCouplePkg()) {
+    const st = ['selfie', 'outfit', 'hair'];
+    st.push('notes');
+    return st;
+  }
   const st = ['gender', 'selfie', 'outfit'];
   if (!d.styleMe || d.hairSel) st.push('hair');
   if (d.gender === 'female') st.push('makeup');
@@ -817,6 +835,12 @@ function wizardStages() {
 function wizardActive() {
   const st = wizardStages();
   return booking.step === 2 && !!st && !!booking.stage && st.includes(booking.stage);
+}
+function wizardStartStage() {
+  const d = booking.data;
+  if (d.orderType === 'custom') return 'editPhoto';
+  if (isCouplePkg()) return 'selfie';
+  return 'gender';
 }
 function outfitStyled() {
   const d = booking.data;
@@ -839,6 +863,19 @@ function upBoxW(key, label, sub) {
       <div class="ub-check">✓ Ready</div>
       <img class="ub-preview" alt="preview" />
     </label>`;
+}
+
+function upBoxDuo(key, title, sub, capture) {
+  return `
+    <div class="upload-box duo ${sourceFiles[key] ? 'filled' : ''}" data-key="${key}">
+      <span class="ub-title">${title}</span><small class="ub-sub">${sub}</small>
+      <div class="duo-btns">
+        <label class="duo-btn">📷 Take photo<input type="file" accept="image/*" capture="${capture || 'environment'}" /></label>
+        <label class="duo-btn">🖼 Choose from gallery<input type="file" accept="image/*" /></label>
+      </div>
+      <div class="ub-check">✓ Ready</div>
+      <img class="ub-preview" alt="preview" />
+    </div>`;
 }
 
 function saveDraft() {
@@ -897,13 +934,15 @@ function openPhotoBooking(packageName, mode) {
       setTimeout(() => toast('One quick thing — tell us who the shoot is for'), 450);
     }
   }
-  // wizard: individual photoshoot questions open at the gender stage
-  if (booking.step === 2 && booking.data.orderType === 'photoshoot' && !isCouplePkg()) {
-    if (!booking.stage || booking.stagePkg !== booking.data.selectedPackage) {
-      booking.stage = 'gender';
+  // wizard: every order type opens at its first question
+  if (booking.step === 2 && wizardStages()) {
+    const st = wizardStages();
+    if (!booking.stage || !st.includes(booking.stage)) {
+      booking.stage = wizardStartStage();
     }
-    booking.stagePkg = booking.data.selectedPackage;
+    booking.stagePkg = booking.data.selectedPackage || (booking.data.orderType === 'custom' ? 'custom' : booking.stagePkg);
   }
+  if (booking.step === 1 && booking.data.orderType === 'custom') booking.stage = '';
   renderPhotoStep();
   updateBookingSteps();
   openModal('photoModal');
@@ -958,9 +997,9 @@ function photoNextStep() {
     return;
   }
   booking.step++;
-  if (booking.step === 2 && booking.data.orderType === 'photoshoot' && !isCouplePkg() && !booking.stage) {
-    booking.stage = 'gender';
-    booking.stagePkg = booking.data.selectedPackage;
+  if (booking.step === 2 && wizardStages() && !booking.stage) {
+    booking.stage = wizardStartStage();
+    booking.stagePkg = booking.data.selectedPackage || (booking.data.orderType === 'custom' ? 'custom' : booking.stagePkg);
   }
   saveDraft();
   renderPhotoStep();
@@ -1007,6 +1046,13 @@ function validateStage(stage) {
   if (stage === 'gender') {
     if (!d.gender) { toast('Tell us who the shoot is for', false); flagField('#genderPicks'); return false; }
   } else if (stage === 'selfie') {
+    if (d.orderType === 'photoshoot' && isCouplePkg()) {
+      if (!sourceFiles.selfie) { toast('Take or upload your selfie (required)', false); flagField('.upload-box[data-key="selfie"]'); return false; }
+      if (!sourceFiles.partnerSelfie) { toast("Take or upload your partner's selfie (required)", false); flagField('.upload-box[data-key="partnerSelfie"]'); return false; }
+      if (!sourceFiles.fullbody) { toast('Take or upload your full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
+      if (!sourceFiles.partnerFull) { toast("Take or upload your partner's full-body photo (required)", false); flagField('.upload-box[data-key="partnerFull"]'); return false; }
+      return true;
+    }
     if (!sourceFiles.selfie) { toast('Take or upload your selfie (required)', false); flagField('.upload-box[data-key="selfie"]'); return false; }
     if (!sourceFiles.fullbody) { toast('Take or upload a full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
   } else if (stage === 'outfit') {
@@ -1019,6 +1065,19 @@ function validateStage(stage) {
     if (d.hairPick || sourceFiles.hairstyleImg || (d.hairstyle1 || '').trim()) return true;
     toast('Choose your hairstyle — upload, pick a style, describe, or let us style you', false);
     flagField('.flow-choices'); return false;
+  } else if (stage === 'editPhoto') {
+    if (!sourceFiles.editImage) { toast('Take or upload the photo you want edited (required)', false); flagField('.upload-box[data-key="editImage"]'); return false; }
+  } else if (stage.indexOf('svc_') === 0) {
+    const si = parseInt(stage.slice(4), 10);
+    const nm = SERVICES_EDIT[si] && SERVICES_EDIT[si].name;
+    const ans = ((d.svcFb && d.svcFb[si]) || '').trim();
+    if (!ans && !sourceFiles['svcFbImg' + si]) {
+      toast((SVC_QUESTIONS[nm] ? SVC_QUESTIONS[nm].q : 'Tell us what to change') + ' — describe it or upload a reference', false);
+      flagField('#svcFbRow' + si);
+      return false;
+    }
+  } else if (stage === 'editDone') {
+    /* optional notes only — nothing required */
   } else if (stage === 'notes') {
     if (!d.photoAbout || !d.photoAbout.trim()) { toast('Tell us what the photoshoot is about', false); flagField('#photoAbout'); return false; }
     if (!d.disclaimerOk) { toast('Please acknowledge the software-assistance notice', false); flagField('.disclaimer-check'); return false; }
@@ -1108,6 +1167,18 @@ function renderWizardStage(st) {
         <div class="ub-check">✓ Ready</div>
         <img class="ub-preview" alt="preview" />
       </div>`;
+    if (isCouplePkg()) {
+      return `
+      <div class="step-pane active">
+        ${head('Photos of you both', 'One selfie and one full-body photo each. Snap them now — or pick from your gallery.')}
+        <div class="upload-grid" style="margin-top:14px;">
+          ${duo('selfie', '🤳 Your selfie *', 'Face clearly visible', 'user')}
+          ${duo('partnerSelfie', '💞 Partner selfie *', "Partner's face", 'user')}
+          ${duo('fullbody', '🧍 Your full body *', 'Head to toe', 'environment')}
+          ${duo('partnerFull', '🧍‍♂️ Partner full body *', 'Head to toe', 'environment')}
+        </div>
+      </div>`;
+    }
     return `
       <div class="step-pane active">
         ${head('Your photos', 'Send a selfie and a full-body photo. Snap them now with your camera — or pick both straight from your gallery.')}
@@ -1161,9 +1232,10 @@ function renderWizardStage(st) {
         </div>`;
     }
     const title = isOutfit ? 'Outfit' : 'Hairstyle';
+    const both = isCouplePkg() ? ' For both of you.' : '';
     const hint = isOutfit
-      ? 'Pick from our wardrobe, upload your own — or skip and let us style you.'
-      : 'Same three options — pick a style, upload your own, or let us handle it.';
+      ? `Pick from our wardrobe, upload your own — or skip and let us style you.${both}`
+      : `Same three options — pick a style, upload your own, or let us handle it.${both}`;
     return `
       <div class="step-pane active">
         ${head(title, hint)}
@@ -1188,9 +1260,60 @@ function renderWizardStage(st) {
       </div>`;
   }
 
+  if (stage === 'editPhoto') {
+    return `
+      <div class="step-pane active">
+        ${head('The photo to change', 'Send the picture you want edited. Snap it now — or choose it from your gallery.')}
+        <div class="upload-grid duo-grid" style="margin-top:14px;">
+          ${upBoxDuo('editImage', '📷 Your photo *', 'The picture you want changed', 'environment')}
+        </div>
+        <div class="total-bar" style="margin-top:14px;"><span>${d.selectedServices.length} change${d.selectedServices.length > 1 ? 's' : ''}</span><strong>GH₵ ${getCustomTotal()}</strong></div>
+      </div>`;
+  }
+
+  if (stage.indexOf('svc_') === 0) {
+    const si = parseInt(stage.slice(4), 10);
+    const svc = SERVICES_EDIT[si];
+    const qq = SVC_QUESTIONS[svc.name] || { q: 'Tell us exactly how you want it', ph: 'Describe the change in your own words — or send a reference photo below' };
+    const key = 'svcFbImg' + si;
+    return `
+      <div class="step-pane active">
+        ${head(svc.icon + ' ' + esc(svc.name), `${qq.q} Describe it in your own words — or send a reference photo.`)}
+        <div class="svc-followup" id="svcFbRow${si}" style="margin-top:12px;">
+          <div class="form-group">
+            <label>Your answer *</label>
+            <textarea id="svcFb${si}" data-svcfb="${si}" rows="3" placeholder="${qq.ph}">${esc((d.svcFb && d.svcFb[si]) || '')}</textarea>
+          </div>
+          <div class="upload-grid duo-grid" style="margin-top:10px;">
+            ${upBoxDuo(key, '🖼 Reference photo', 'Optional — a picture of the style you want', 'environment')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  if (stage === 'editDone') {
+    return `
+      <div class="step-pane active">
+        ${head('Anything else?', 'Optional notes, the hurry option, and the software-assistance notice. Then review.')}
+        <div class="form-group" style="margin-top:6px;">
+          <label>Additional notes</label>
+          <textarea id="notes" rows="3" placeholder="Anything else we should know?">${esc(d.notes)}</textarea>
+        </div>
+        <div class="toggle-row hurry-row" onclick="toggleHurry()" style="margin-top:14px;">
+          <span>⚡ I'm in a hurry — I need my images ASAP</span>
+          <div class="toggle-switch ${d.hurry ? 'active' : ''}"></div>
+        </div>
+        <p class="hurry-note${d.hurry ? ' show' : ''}">A small fee may be demanded by the team after submission for priority delivery.</p>
+        <label class="disclaimer-check" style="margin-top:14px;">
+          <input type="checkbox" id="disclaimerOk" ${d.disclaimerOk ? 'checked' : ''} />
+          <span><strong>I understand:</strong> these are software-assisted generated images. Minor changes may occur and details may not be 100% real-life accurate. 100% online service — no in-person session. Source images are deleted 20 minutes after delivery.</span>
+        </label>
+      </div>`;
+  }
+
   // notes / final details
   const pkg = getSelectedPackage();
-  const biggest = pkg?.name === 'SUPERIOR';
+  const biggest = pkg?.name === 'SUPERIOR' || pkg?.name === 'COUPLE PLATINUM';
   return `
     <div class="step-pane active">
       ${head('Final details', 'Tell us about the shoot, add anything else, then review your request.')}
@@ -1198,6 +1321,11 @@ function renderWizardStage(st) {
         <label>What is the photoshoot about? *</label>
         <textarea id="photoAbout" rows="2" placeholder="e.g. Graduation shoot in kente, birthday with gold theme, LinkedIn headshot...">${esc(d.photoAbout)}</textarea>
       </div>
+      ${isCouplePkg() ? `
+      <div class="form-group" style="margin-top:12px;">
+        <label>Partner's hairstyle <span style="color:var(--grey); font-weight:400;">(optional if our team is styling you)</span></label>
+        <textarea id="hairstyle2" rows="2" placeholder="Describe your partner's hairstyle...">${esc(d.hairstyle2)}</textarea>
+      </div>` : ''}
       ${biggest ? `
       <div class="form-group" style="margin-top:12px;">
         <label>POSE — biggest package: describe the pose / expression you want <span style="color:var(--grey); font-weight:400;">(optional)</span></label>
@@ -1238,7 +1366,7 @@ function renderPhotoStep() {
       <div class="step-pane active">
         <span class="modal-label">Step 1 of 3 · Simple image editing</span>
         <h4>Change just one thing — GH₵10 each</h4>
-        <p class="step-hint">No photoshoot needed. Upload the photo you already have and pick any changes — flat 10 cedis per change.</p>
+        <p class="step-hint">No photoshoot needed. Tap the change${''} you want — flat 10 cedis each — then we ask about it one question at a time.</p>
         ${tabsHtml}
         <div class="svc-scroll">
           ${SERVICES_EDIT.map((s, i) => `
@@ -1272,7 +1400,7 @@ function renderPhotoStep() {
 
   else if (booking.step === 2 && wizardStages()) {
     const st = wizardStages();
-    if (!booking.stage || !st.includes(booking.stage)) booking.stage = st[0];
+    if (!booking.stage || !st.includes(booking.stage)) booking.stage = wizardStartStage();
     booking.stagePkg = d.selectedPackage;
     html = renderWizardStage(st);
   }
@@ -1472,8 +1600,13 @@ function renderPhotoStep() {
           <div class="review-row"><span class="rv-label">Makeup</span><span class="rv-value">${d.makeup ? 'Yes — face changes as in normal life' : 'No'}</span></div>
           ${biggest && d.pose ? `<div class="review-row"><span class="rv-label">Pose</span><span class="rv-value">${esc(d.pose)}</span></div>` : ''}` : `
           <div class="review-row"><span class="rv-label">Services</span><span class="rv-value">${esc(includesLine)}</span></div>
-          ${d.hairstyle1 ? `<div class="review-row"><span class="rv-label">Hairstyle change</span><span class="rv-value">${esc(d.hairstyle1)}</span></div>` : ''}
-          ${d.vision ? `<div class="review-row"><span class="rv-label">Background</span><span class="rv-value">${esc(d.vision)}</span></div>` : ''}`}
+          ${d.selectedServices.map(i => {
+            const nm = SERVICES_EDIT[i].name;
+            const ans = ((d.svcFb && d.svcFb[i]) || '').trim();
+            const up = sourceFiles['svcFbImg' + i];
+            if (!ans && !up) return '';
+            return `<div class="review-row"><span class="rv-label">${esc(nm)}</span><span class="rv-value">${esc(ans || (up ? 'Reference photo attached' : '—'))}</span></div>`;
+          }).join('')}`}
           <div class="review-row"><span class="rv-label">Notes</span><span class="rv-value">${esc(d.notes || '—')}</span></div>
           <div class="review-row"><span class="rv-label">Photos attached</span><span class="rv-value">${srcCount}</span></div>
         </div>
@@ -1537,12 +1670,8 @@ window.selectBookingPackage = function (name) {
   bookTab = pkg.type;
   if (pkg.type === 'couple') booking.data.photoType = 'couple';
   booking.step = 2;
-  if (pkg.type === 'couple') {
-    booking.stage = null;
-  } else {
-    booking.stage = 'gender';
-    booking.stagePkg = name;
-  }
+  booking.stage = pkg.type === 'couple' ? 'selfie' : 'gender';
+  booking.stagePkg = name;
   saveDraft();
   renderPhotoStep();
   updateBookingSteps();
@@ -1552,6 +1681,7 @@ window.toggleEditService = function (i) {
   const arr = booking.data.selectedServices;
   const idx = arr.indexOf(i);
   if (idx >= 0) arr.splice(idx, 1); else arr.push(i);
+  arr.sort((a, b) => a - b);
   renderPhotoStep();
 };
 window.toggleHurry = function () {
@@ -1829,7 +1959,6 @@ async function submitPhotoOrder() {
       if (d.vision) msg += `Background/scene: ${d.vision}\n`;
       for (const i of d.selectedServices) {
         const nm = SERVICES_EDIT[i].name;
-        if (!SVC_QUESTIONS[nm]) continue;
         const ans = ((d.svcFb && d.svcFb[i]) || '').trim();
         const up = urls['svcFbImg' + i];
         if (ans || up) msg += `${nm}: ${ans || 'see reference photo'}${up ? ` — ${up}` : ''}\n`;

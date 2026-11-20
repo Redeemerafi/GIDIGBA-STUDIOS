@@ -98,20 +98,32 @@ async def main():
         ok("lite-e2e-message", all(asserts), f"checks={asserts} msg_head={msg[:160]}")
         await page.evaluate("() => window.__opened=[]")
 
-        # 4. COUPLE GOLD standard path (required uploads + descriptions)
-        await page.evaluate("() => openPhotoBooking('COUPLE GOLD')")
-        await page.wait_for_timeout(400)
-        await page.fill("#photoAbout", "Anniversary shoot, gold theme")
+        # 4. COUPLE GOLD — walks the one-question-per-screen wizard
+        await page.evaluate("() => { clearDraft(); openPhotoBooking('COUPLE GOLD'); }")
+        await page.wait_for_timeout(500)
+        stage0 = await page.evaluate("() => booking.stage")
+        ok("couple-wizard-opens-at-selfie", stage0 == "selfie", f"stage={stage0}")
         for key in ("selfie", "fullbody", "partnerSelfie", "partnerFull"):
-            await page.set_input_files(f'.upload-box[data-key="{key}"] input[type=file]', FILES)
+            await page.set_input_files(f'.upload-box[data-key="{key}"] input[type=file]:last-of-type', FILES)
+        await page.evaluate("() => photoNextStep()")   # selfie -> outfit
+        await page.wait_for_timeout(350)
+        await page.evaluate("() => setFlowSel('outfit','upload')")
+        await page.wait_for_timeout(250)
         await page.fill("#outfitDesc", "Matching navy outfits")
+        await page.evaluate("() => photoNextStep()")   # outfit -> hair
+        await page.wait_for_timeout(350)
+        await page.evaluate("() => setFlowSel('hair','upload')")
+        await page.wait_for_timeout(250)
         await page.fill("#hairstyle1", "Silver waves")
+        await page.evaluate("() => photoNextStep()")   # hair -> notes
+        await page.wait_for_timeout(350)
+        await page.fill("#photoAbout", "Anniversary shoot, gold theme")
         await page.fill("#hairstyle2", "Low cut")
         await page.check("#disclaimerOk")
         await page.evaluate("() => photoNextStep()")
         await page.wait_for_timeout(350)
         st = await page.evaluate("() => booking.step")
-        ok("couple-step2-validates", st == 3, f"step={st}")
+        ok("couple-wizard-walks-to-review", st == 3, f"step={st}")
         await page.click("#nextStepBtn")
         await page.wait_for_timeout(700)
         opened = await page.evaluate("() => window.__opened")
@@ -134,12 +146,19 @@ async def main():
         await page.wait_for_timeout(400)
         await page.evaluate("() => photoNextStep()")  # step1 ->2 (service preselected)
         await page.wait_for_timeout(400)
-        await page.set_input_files('.upload-box[data-key="editImage"] input[type=file]', FILES)
-        await page.check("#disclaimerOk")
-        # smart follow-up: Outfit Change must be answered before proceeding
+        stg = await page.evaluate("() => booking.stage")
+        ok("edit-wizard-opens-at-photo", stg == "editPhoto", f"stage={stg}")
+        await page.set_input_files('.upload-box[data-key="editImage"] input[type=file]:last-of-type', FILES)
+        await page.evaluate("() => photoNextStep()")   # editPhoto -> svc_2
+        await page.wait_for_timeout(350)
+        # the service's own question screen must be the gate
         fb = await page.evaluate("() => !!document.getElementById('svcFb2')")
+        ok("edit-service-question-screen", fb, )
         await page.fill("#svcFb2", "Black evening gown with gold heels")
-        await page.evaluate("() => photoNextStep()")  # step2 ->3 (gated on follow-up)
+        await page.evaluate("() => photoNextStep()")   # svc_2 -> editDone
+        await page.wait_for_timeout(350)
+        await page.check("#disclaimerOk")
+        await page.evaluate("() => photoNextStep()")  # editDone -> review
         await page.wait_for_timeout(300)
         st = await page.evaluate("() => booking.step")
         await page.click("#nextStepBtn")

@@ -4366,3 +4366,24 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
 
 /* global: class-based display must never beat the hidden attribute */
 [hidden] { display: none !important; }
+
+/* while any modal is open the sticky action bar must never sit on top of it */
+body.modal-open .sticky-bar,
+body.modal-open .float-wa,
+body.modal-open .install-bar { display: none !important; }
+body.modal-open { padding-bottom: 0 !important; }
+
+/* editing services: a single horizontal row hid 17 of 20 options on a phone */
+@media (max-width: 640px) {
+  .svc-scroll {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    overflow: visible;
+    padding-bottom: 4px;
+  }
+  .svc-chip { flex: none; width: auto; min-height: 104px; padding: 13px 10px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+  .svc-chip h5 { font-size: 13px; line-height: 1.25; }
+  .svc-chip .svc-price { font-size: 11.5px; }
+  .svc-chip .svc-check { font-size: 11.5px; }
+}
