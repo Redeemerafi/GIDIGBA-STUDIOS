@@ -17,7 +17,7 @@ CATS = [
     ("outfits/children", ["kids outfit fashion", "children clothes style", "toddler fashion outfit", "kids streetwear", "children african fashion", "kids casual wear"], 100),
     ("styles/female",    ["wig mannequin head", "wigs mannequin display", "lace front wig display", "black wig mannequin", "curly wig mannequin head", "long wig display head"], 50),
     ("styles/male",      ["men wig mannequin head", "male wig display head", "men hair wig display", "male toupee mannequin", "black men wig mannequin", "short wig display head"], 50),
-    ("styles/children",  ["kids wig mannequin head", "children wig display", "kids wig display head", "child lace wig mannequin", "baby wig mannequin", "toddler wig head"], 50),
+    ("styles/children",  ["kids hairstyles on mannequins", "kids hairstyles mannequin", "children hairstyle mannequin head", "kids wig styles display", "girl wig mannequin child", "boys wig mannequin head", "toddler hairstyle display"], 50),
 ]
 
 def norm(u):

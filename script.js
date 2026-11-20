@@ -1903,7 +1903,7 @@ window.filterWorks = function (btn, sex) {
   const gf = document.getElementById('gridFemale'), gm = document.getElementById('gridMale');
   if (gf && gm) { gf.hidden = !f; gm.hidden = f; }
   const src = f ? (sf || gf) : (sm || gm);
-  const n = src ? src.querySelectorAll('img').length : 0;
+  const n = src ? (parseInt(src.querySelector('[data-count]')?.dataset.count || '0', 10) || src.querySelectorAll('img').length) : 0;
   const c = document.getElementById('wfCount');
   if (c) c.textContent = n + ' results';
 };
