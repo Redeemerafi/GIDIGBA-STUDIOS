@@ -3990,6 +3990,168 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
   margin: 3px 0 8px;
 }
 
+/* ============================================================
+   V11.3 — WORK SLIDESHOWS (figure beside rotating work)
+   + outfit / hairstyle pick galleries in booking
+   ============================================================ */
+.ws-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  gap: 22px;
+  align-items: stretch;
+  margin-bottom: 30px;
+}
+.ws-row-reverse { grid-template-columns: minmax(200px, 300px) 1fr; }
+.ws-figure {
+  margin: 0;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #111;
+  min-height: 320px;
+}
+.ws-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* figure = portrait frame (decorative model shot) */
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+.ws-figure figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 30px 12px 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .85));
+  color: #fff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.ws-slide {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #111;
+  min-height: 320px;
+}
+.ws-stage {
+  position: absolute;
+  inset: 0;
+}
+.ws-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* full pictures in the slideshow — never cropped */
+  background: #111;
+  opacity: 0;
+  transition: opacity .6s ease;
+  cursor: pointer;
+}
+.ws-stage img.on { opacity: 1; }
+.ws-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(0, 0, 0, .55);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .2s ease, border-color .2s ease;
+}
+.ws-arrow:hover { background: #C0F500; color: #000; border-color: #C0F500; }
+.ws-prev { left: 12px; }
+.ws-next { right: 12px; }
+.ws-more { text-align: center; margin-top: 34px; }
+.ws-slide-main { min-height: min(72vh, 640px); margin-bottom: 6px; }
+@media (max-width: 720px) {
+  .ws-row { grid-template-columns: 1fr; }
+  .ws-figure { min-height: 260px; }
+  .ws-slide { min-height: 300px; }
+  .ws-slide-main { min-height: 480px; }
+}
+
+/* outfit / hairstyle galleries inside booking step 2 */
+.gallery-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+.gallery-tabs .g-tab {
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.gallery-tabs .g-tab.active {
+  background: #C0F500;
+  border-color: #C0F500;
+  color: #000;
+}
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 2px;
+  margin-bottom: 12px;
+}
+.pick-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: block;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.pick-grid img:hover { transform: translateY(-2px); }
+.pick-grid img.picked { border-color: #C0F500; }
+.pick-note {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-ink);
+  margin: -4px 0 10px;
+}
+.pick-note button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12.5px;
+  margin-left: 8px;
+}
+[data-theme="dark"] .pick-note { color: #C0F500; }
+.pick-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
 </style>
 </head>
 <body data-page="index">
@@ -4315,6 +4477,477 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
 </main>
 
 <div id="chrome-bottom"></div>
+<script>
+window.GALLERIES = {
+ "outfits": {
+  "female": [
+   "images/outfits/female/outfits-female-001.webp",
+   "images/outfits/female/outfits-female-002.webp",
+   "images/outfits/female/outfits-female-003.webp",
+   "images/outfits/female/outfits-female-004.webp",
+   "images/outfits/female/outfits-female-005.webp",
+   "images/outfits/female/outfits-female-006.webp",
+   "images/outfits/female/outfits-female-007.webp",
+   "images/outfits/female/outfits-female-008.webp",
+   "images/outfits/female/outfits-female-009.webp",
+   "images/outfits/female/outfits-female-010.webp",
+   "images/outfits/female/outfits-female-011.webp",
+   "images/outfits/female/outfits-female-012.webp",
+   "images/outfits/female/outfits-female-013.webp",
+   "images/outfits/female/outfits-female-014.webp",
+   "images/outfits/female/outfits-female-015.webp",
+   "images/outfits/female/outfits-female-016.webp",
+   "images/outfits/female/outfits-female-017.webp",
+   "images/outfits/female/outfits-female-018.webp",
+   "images/outfits/female/outfits-female-019.webp",
+   "images/outfits/female/outfits-female-020.webp",
+   "images/outfits/female/outfits-female-021.webp",
+   "images/outfits/female/outfits-female-022.webp",
+   "images/outfits/female/outfits-female-023.webp",
+   "images/outfits/female/outfits-female-024.webp",
+   "images/outfits/female/outfits-female-025.webp",
+   "images/outfits/female/outfits-female-026.webp",
+   "images/outfits/female/outfits-female-027.webp",
+   "images/outfits/female/outfits-female-028.webp",
+   "images/outfits/female/outfits-female-029.webp",
+   "images/outfits/female/outfits-female-030.webp",
+   "images/outfits/female/outfits-female-031.webp",
+   "images/outfits/female/outfits-female-032.webp",
+   "images/outfits/female/outfits-female-033.webp",
+   "images/outfits/female/outfits-female-034.webp",
+   "images/outfits/female/outfits-female-035.webp",
+   "images/outfits/female/outfits-female-036.webp",
+   "images/outfits/female/outfits-female-037.webp",
+   "images/outfits/female/outfits-female-038.webp",
+   "images/outfits/female/outfits-female-039.webp",
+   "images/outfits/female/outfits-female-040.webp",
+   "images/outfits/female/outfits-female-041.webp",
+   "images/outfits/female/outfits-female-042.webp",
+   "images/outfits/female/outfits-female-043.webp",
+   "images/outfits/female/outfits-female-044.webp",
+   "images/outfits/female/outfits-female-045.webp",
+   "images/outfits/female/outfits-female-046.webp",
+   "images/outfits/female/outfits-female-047.webp",
+   "images/outfits/female/outfits-female-048.webp",
+   "images/outfits/female/outfits-female-049.webp",
+   "images/outfits/female/outfits-female-050.webp",
+   "images/outfits/female/outfits-female-051.webp",
+   "images/outfits/female/outfits-female-052.webp",
+   "images/outfits/female/outfits-female-053.webp",
+   "images/outfits/female/outfits-female-054.webp",
+   "images/outfits/female/outfits-female-055.webp",
+   "images/outfits/female/outfits-female-056.webp",
+   "images/outfits/female/outfits-female-057.webp",
+   "images/outfits/female/outfits-female-058.webp",
+   "images/outfits/female/outfits-female-059.webp",
+   "images/outfits/female/outfits-female-060.webp",
+   "images/outfits/female/outfits-female-061.webp",
+   "images/outfits/female/outfits-female-062.webp",
+   "images/outfits/female/outfits-female-063.webp",
+   "images/outfits/female/outfits-female-064.webp",
+   "images/outfits/female/outfits-female-065.webp",
+   "images/outfits/female/outfits-female-066.webp",
+   "images/outfits/female/outfits-female-067.webp",
+   "images/outfits/female/outfits-female-068.webp",
+   "images/outfits/female/outfits-female-069.webp",
+   "images/outfits/female/outfits-female-070.webp",
+   "images/outfits/female/outfits-female-071.webp",
+   "images/outfits/female/outfits-female-072.webp",
+   "images/outfits/female/outfits-female-073.webp",
+   "images/outfits/female/outfits-female-074.webp",
+   "images/outfits/female/outfits-female-075.webp",
+   "images/outfits/female/outfits-female-076.webp",
+   "images/outfits/female/outfits-female-077.webp",
+   "images/outfits/female/outfits-female-078.webp",
+   "images/outfits/female/outfits-female-079.webp",
+   "images/outfits/female/outfits-female-080.webp",
+   "images/outfits/female/outfits-female-081.webp",
+   "images/outfits/female/outfits-female-082.webp",
+   "images/outfits/female/outfits-female-083.webp",
+   "images/outfits/female/outfits-female-084.webp",
+   "images/outfits/female/outfits-female-085.webp",
+   "images/outfits/female/outfits-female-086.webp",
+   "images/outfits/female/outfits-female-087.webp",
+   "images/outfits/female/outfits-female-088.webp",
+   "images/outfits/female/outfits-female-089.webp",
+   "images/outfits/female/outfits-female-090.webp",
+   "images/outfits/female/outfits-female-091.webp",
+   "images/outfits/female/outfits-female-092.webp",
+   "images/outfits/female/outfits-female-093.webp",
+   "images/outfits/female/outfits-female-094.webp",
+   "images/outfits/female/outfits-female-095.webp",
+   "images/outfits/female/outfits-female-096.webp",
+   "images/outfits/female/outfits-female-097.webp",
+   "images/outfits/female/outfits-female-098.webp",
+   "images/outfits/female/outfits-female-099.webp",
+   "images/outfits/female/outfits-female-100.webp"
+  ],
+  "male": [
+   "images/outfits/male/outfits-male-001.webp",
+   "images/outfits/male/outfits-male-002.webp",
+   "images/outfits/male/outfits-male-003.webp",
+   "images/outfits/male/outfits-male-004.webp",
+   "images/outfits/male/outfits-male-005.webp",
+   "images/outfits/male/outfits-male-006.webp",
+   "images/outfits/male/outfits-male-007.webp",
+   "images/outfits/male/outfits-male-008.webp",
+   "images/outfits/male/outfits-male-009.webp",
+   "images/outfits/male/outfits-male-010.webp",
+   "images/outfits/male/outfits-male-011.webp",
+   "images/outfits/male/outfits-male-012.webp",
+   "images/outfits/male/outfits-male-013.webp",
+   "images/outfits/male/outfits-male-014.webp",
+   "images/outfits/male/outfits-male-015.webp",
+   "images/outfits/male/outfits-male-016.webp",
+   "images/outfits/male/outfits-male-017.webp",
+   "images/outfits/male/outfits-male-018.webp",
+   "images/outfits/male/outfits-male-019.webp",
+   "images/outfits/male/outfits-male-020.webp",
+   "images/outfits/male/outfits-male-021.webp",
+   "images/outfits/male/outfits-male-022.webp",
+   "images/outfits/male/outfits-male-023.webp",
+   "images/outfits/male/outfits-male-024.webp",
+   "images/outfits/male/outfits-male-025.webp",
+   "images/outfits/male/outfits-male-026.webp",
+   "images/outfits/male/outfits-male-027.webp",
+   "images/outfits/male/outfits-male-028.webp",
+   "images/outfits/male/outfits-male-029.webp",
+   "images/outfits/male/outfits-male-030.webp",
+   "images/outfits/male/outfits-male-031.webp",
+   "images/outfits/male/outfits-male-032.webp",
+   "images/outfits/male/outfits-male-033.webp",
+   "images/outfits/male/outfits-male-034.webp",
+   "images/outfits/male/outfits-male-035.webp",
+   "images/outfits/male/outfits-male-036.webp",
+   "images/outfits/male/outfits-male-037.webp",
+   "images/outfits/male/outfits-male-038.webp",
+   "images/outfits/male/outfits-male-039.webp",
+   "images/outfits/male/outfits-male-040.webp",
+   "images/outfits/male/outfits-male-041.webp",
+   "images/outfits/male/outfits-male-042.webp",
+   "images/outfits/male/outfits-male-043.webp",
+   "images/outfits/male/outfits-male-044.webp",
+   "images/outfits/male/outfits-male-045.webp",
+   "images/outfits/male/outfits-male-046.webp",
+   "images/outfits/male/outfits-male-047.webp",
+   "images/outfits/male/outfits-male-048.webp",
+   "images/outfits/male/outfits-male-049.webp",
+   "images/outfits/male/outfits-male-050.webp",
+   "images/outfits/male/outfits-male-051.webp",
+   "images/outfits/male/outfits-male-052.webp",
+   "images/outfits/male/outfits-male-053.webp",
+   "images/outfits/male/outfits-male-054.webp",
+   "images/outfits/male/outfits-male-055.webp",
+   "images/outfits/male/outfits-male-056.webp",
+   "images/outfits/male/outfits-male-057.webp",
+   "images/outfits/male/outfits-male-058.webp",
+   "images/outfits/male/outfits-male-059.webp",
+   "images/outfits/male/outfits-male-060.webp",
+   "images/outfits/male/outfits-male-061.webp",
+   "images/outfits/male/outfits-male-062.webp",
+   "images/outfits/male/outfits-male-063.webp",
+   "images/outfits/male/outfits-male-064.webp",
+   "images/outfits/male/outfits-male-065.webp",
+   "images/outfits/male/outfits-male-066.webp",
+   "images/outfits/male/outfits-male-067.webp",
+   "images/outfits/male/outfits-male-068.webp",
+   "images/outfits/male/outfits-male-069.webp",
+   "images/outfits/male/outfits-male-070.webp",
+   "images/outfits/male/outfits-male-071.webp",
+   "images/outfits/male/outfits-male-072.webp",
+   "images/outfits/male/outfits-male-073.webp",
+   "images/outfits/male/outfits-male-074.webp",
+   "images/outfits/male/outfits-male-075.webp",
+   "images/outfits/male/outfits-male-076.webp",
+   "images/outfits/male/outfits-male-077.webp",
+   "images/outfits/male/outfits-male-078.webp",
+   "images/outfits/male/outfits-male-079.webp",
+   "images/outfits/male/outfits-male-080.webp",
+   "images/outfits/male/outfits-male-081.webp",
+   "images/outfits/male/outfits-male-082.webp",
+   "images/outfits/male/outfits-male-083.webp",
+   "images/outfits/male/outfits-male-084.webp",
+   "images/outfits/male/outfits-male-085.webp",
+   "images/outfits/male/outfits-male-086.webp",
+   "images/outfits/male/outfits-male-087.webp",
+   "images/outfits/male/outfits-male-088.webp",
+   "images/outfits/male/outfits-male-089.webp",
+   "images/outfits/male/outfits-male-090.webp",
+   "images/outfits/male/outfits-male-091.webp",
+   "images/outfits/male/outfits-male-092.webp",
+   "images/outfits/male/outfits-male-093.webp",
+   "images/outfits/male/outfits-male-094.webp",
+   "images/outfits/male/outfits-male-095.webp",
+   "images/outfits/male/outfits-male-096.webp",
+   "images/outfits/male/outfits-male-097.webp",
+   "images/outfits/male/outfits-male-098.webp",
+   "images/outfits/male/outfits-male-099.webp",
+   "images/outfits/male/outfits-male-100.webp"
+  ],
+  "children": [
+   "images/outfits/children/outfits-children-001.webp",
+   "images/outfits/children/outfits-children-002.webp",
+   "images/outfits/children/outfits-children-003.webp",
+   "images/outfits/children/outfits-children-004.webp",
+   "images/outfits/children/outfits-children-005.webp",
+   "images/outfits/children/outfits-children-006.webp",
+   "images/outfits/children/outfits-children-007.webp",
+   "images/outfits/children/outfits-children-008.webp",
+   "images/outfits/children/outfits-children-009.webp",
+   "images/outfits/children/outfits-children-010.webp",
+   "images/outfits/children/outfits-children-011.webp",
+   "images/outfits/children/outfits-children-012.webp",
+   "images/outfits/children/outfits-children-013.webp",
+   "images/outfits/children/outfits-children-014.webp",
+   "images/outfits/children/outfits-children-015.webp",
+   "images/outfits/children/outfits-children-016.webp",
+   "images/outfits/children/outfits-children-017.webp",
+   "images/outfits/children/outfits-children-018.webp",
+   "images/outfits/children/outfits-children-019.webp",
+   "images/outfits/children/outfits-children-020.webp",
+   "images/outfits/children/outfits-children-021.webp",
+   "images/outfits/children/outfits-children-022.webp",
+   "images/outfits/children/outfits-children-023.webp",
+   "images/outfits/children/outfits-children-024.webp",
+   "images/outfits/children/outfits-children-025.webp",
+   "images/outfits/children/outfits-children-026.webp",
+   "images/outfits/children/outfits-children-027.webp",
+   "images/outfits/children/outfits-children-028.webp",
+   "images/outfits/children/outfits-children-029.webp",
+   "images/outfits/children/outfits-children-030.webp",
+   "images/outfits/children/outfits-children-031.webp",
+   "images/outfits/children/outfits-children-032.webp",
+   "images/outfits/children/outfits-children-033.webp",
+   "images/outfits/children/outfits-children-034.webp",
+   "images/outfits/children/outfits-children-035.webp",
+   "images/outfits/children/outfits-children-036.webp",
+   "images/outfits/children/outfits-children-037.webp",
+   "images/outfits/children/outfits-children-038.webp",
+   "images/outfits/children/outfits-children-039.webp",
+   "images/outfits/children/outfits-children-040.webp",
+   "images/outfits/children/outfits-children-041.webp",
+   "images/outfits/children/outfits-children-042.webp",
+   "images/outfits/children/outfits-children-043.webp",
+   "images/outfits/children/outfits-children-044.webp",
+   "images/outfits/children/outfits-children-045.webp",
+   "images/outfits/children/outfits-children-046.webp",
+   "images/outfits/children/outfits-children-047.webp",
+   "images/outfits/children/outfits-children-048.webp",
+   "images/outfits/children/outfits-children-049.webp",
+   "images/outfits/children/outfits-children-050.webp",
+   "images/outfits/children/outfits-children-051.webp",
+   "images/outfits/children/outfits-children-052.webp",
+   "images/outfits/children/outfits-children-053.webp",
+   "images/outfits/children/outfits-children-054.webp",
+   "images/outfits/children/outfits-children-055.webp",
+   "images/outfits/children/outfits-children-056.webp",
+   "images/outfits/children/outfits-children-057.webp",
+   "images/outfits/children/outfits-children-058.webp",
+   "images/outfits/children/outfits-children-059.webp",
+   "images/outfits/children/outfits-children-060.webp",
+   "images/outfits/children/outfits-children-061.webp",
+   "images/outfits/children/outfits-children-062.webp",
+   "images/outfits/children/outfits-children-063.webp",
+   "images/outfits/children/outfits-children-064.webp",
+   "images/outfits/children/outfits-children-065.webp",
+   "images/outfits/children/outfits-children-066.webp",
+   "images/outfits/children/outfits-children-067.webp",
+   "images/outfits/children/outfits-children-068.webp",
+   "images/outfits/children/outfits-children-069.webp",
+   "images/outfits/children/outfits-children-070.webp",
+   "images/outfits/children/outfits-children-071.webp",
+   "images/outfits/children/outfits-children-072.webp",
+   "images/outfits/children/outfits-children-073.webp",
+   "images/outfits/children/outfits-children-074.webp",
+   "images/outfits/children/outfits-children-075.webp",
+   "images/outfits/children/outfits-children-076.webp",
+   "images/outfits/children/outfits-children-077.webp",
+   "images/outfits/children/outfits-children-078.webp",
+   "images/outfits/children/outfits-children-079.webp",
+   "images/outfits/children/outfits-children-080.webp",
+   "images/outfits/children/outfits-children-081.webp",
+   "images/outfits/children/outfits-children-082.webp",
+   "images/outfits/children/outfits-children-083.webp",
+   "images/outfits/children/outfits-children-084.webp",
+   "images/outfits/children/outfits-children-085.webp",
+   "images/outfits/children/outfits-children-086.webp",
+   "images/outfits/children/outfits-children-087.webp",
+   "images/outfits/children/outfits-children-088.webp",
+   "images/outfits/children/outfits-children-089.webp",
+   "images/outfits/children/outfits-children-090.webp",
+   "images/outfits/children/outfits-children-091.webp",
+   "images/outfits/children/outfits-children-092.webp",
+   "images/outfits/children/outfits-children-093.webp",
+   "images/outfits/children/outfits-children-094.webp",
+   "images/outfits/children/outfits-children-095.webp",
+   "images/outfits/children/outfits-children-096.webp",
+   "images/outfits/children/outfits-children-097.webp",
+   "images/outfits/children/outfits-children-098.webp",
+   "images/outfits/children/outfits-children-099.webp",
+   "images/outfits/children/outfits-children-100.webp"
+  ]
+ },
+ "styles": {
+  "female": [
+   "images/styles/female/styles-female-001.webp",
+   "images/styles/female/styles-female-002.webp",
+   "images/styles/female/styles-female-003.webp",
+   "images/styles/female/styles-female-004.webp",
+   "images/styles/female/styles-female-005.webp",
+   "images/styles/female/styles-female-006.webp",
+   "images/styles/female/styles-female-007.webp",
+   "images/styles/female/styles-female-008.webp",
+   "images/styles/female/styles-female-009.webp",
+   "images/styles/female/styles-female-010.webp",
+   "images/styles/female/styles-female-011.webp",
+   "images/styles/female/styles-female-012.webp",
+   "images/styles/female/styles-female-013.webp",
+   "images/styles/female/styles-female-014.webp",
+   "images/styles/female/styles-female-015.webp",
+   "images/styles/female/styles-female-016.webp",
+   "images/styles/female/styles-female-017.webp",
+   "images/styles/female/styles-female-018.webp",
+   "images/styles/female/styles-female-019.webp",
+   "images/styles/female/styles-female-020.webp",
+   "images/styles/female/styles-female-021.webp",
+   "images/styles/female/styles-female-022.webp",
+   "images/styles/female/styles-female-023.webp",
+   "images/styles/female/styles-female-024.webp",
+   "images/styles/female/styles-female-025.webp",
+   "images/styles/female/styles-female-026.webp",
+   "images/styles/female/styles-female-027.webp",
+   "images/styles/female/styles-female-028.webp",
+   "images/styles/female/styles-female-029.webp",
+   "images/styles/female/styles-female-030.webp",
+   "images/styles/female/styles-female-031.webp",
+   "images/styles/female/styles-female-032.webp",
+   "images/styles/female/styles-female-033.webp",
+   "images/styles/female/styles-female-034.webp",
+   "images/styles/female/styles-female-035.webp",
+   "images/styles/female/styles-female-036.webp",
+   "images/styles/female/styles-female-037.webp",
+   "images/styles/female/styles-female-038.webp",
+   "images/styles/female/styles-female-039.webp",
+   "images/styles/female/styles-female-040.webp",
+   "images/styles/female/styles-female-041.webp",
+   "images/styles/female/styles-female-042.webp",
+   "images/styles/female/styles-female-043.webp",
+   "images/styles/female/styles-female-044.webp",
+   "images/styles/female/styles-female-045.webp",
+   "images/styles/female/styles-female-046.webp",
+   "images/styles/female/styles-female-047.webp",
+   "images/styles/female/styles-female-048.webp",
+   "images/styles/female/styles-female-049.webp",
+   "images/styles/female/styles-female-050.webp"
+  ],
+  "male": [
+   "images/styles/male/styles-male-001.webp",
+   "images/styles/male/styles-male-002.webp",
+   "images/styles/male/styles-male-003.webp",
+   "images/styles/male/styles-male-004.webp",
+   "images/styles/male/styles-male-005.webp",
+   "images/styles/male/styles-male-006.webp",
+   "images/styles/male/styles-male-007.webp",
+   "images/styles/male/styles-male-008.webp",
+   "images/styles/male/styles-male-009.webp",
+   "images/styles/male/styles-male-010.webp",
+   "images/styles/male/styles-male-011.webp",
+   "images/styles/male/styles-male-012.webp",
+   "images/styles/male/styles-male-013.webp",
+   "images/styles/male/styles-male-014.webp",
+   "images/styles/male/styles-male-015.webp",
+   "images/styles/male/styles-male-016.webp",
+   "images/styles/male/styles-male-017.webp",
+   "images/styles/male/styles-male-018.webp",
+   "images/styles/male/styles-male-019.webp",
+   "images/styles/male/styles-male-020.webp",
+   "images/styles/male/styles-male-021.webp",
+   "images/styles/male/styles-male-022.webp",
+   "images/styles/male/styles-male-023.webp",
+   "images/styles/male/styles-male-024.webp",
+   "images/styles/male/styles-male-025.webp",
+   "images/styles/male/styles-male-026.webp",
+   "images/styles/male/styles-male-027.webp",
+   "images/styles/male/styles-male-028.webp",
+   "images/styles/male/styles-male-029.webp",
+   "images/styles/male/styles-male-030.webp",
+   "images/styles/male/styles-male-031.webp",
+   "images/styles/male/styles-male-032.webp",
+   "images/styles/male/styles-male-033.webp",
+   "images/styles/male/styles-male-034.webp",
+   "images/styles/male/styles-male-035.webp",
+   "images/styles/male/styles-male-036.webp",
+   "images/styles/male/styles-male-037.webp",
+   "images/styles/male/styles-male-038.webp",
+   "images/styles/male/styles-male-039.webp",
+   "images/styles/male/styles-male-040.webp",
+   "images/styles/male/styles-male-041.webp",
+   "images/styles/male/styles-male-042.webp",
+   "images/styles/male/styles-male-043.webp",
+   "images/styles/male/styles-male-044.webp",
+   "images/styles/male/styles-male-045.webp",
+   "images/styles/male/styles-male-046.webp",
+   "images/styles/male/styles-male-047.webp",
+   "images/styles/male/styles-male-048.webp",
+   "images/styles/male/styles-male-049.webp",
+   "images/styles/male/styles-male-050.webp"
+  ],
+  "children": [
+   "images/styles/children/styles-children-001.webp",
+   "images/styles/children/styles-children-002.webp",
+   "images/styles/children/styles-children-003.webp",
+   "images/styles/children/styles-children-004.webp",
+   "images/styles/children/styles-children-005.webp",
+   "images/styles/children/styles-children-006.webp",
+   "images/styles/children/styles-children-007.webp",
+   "images/styles/children/styles-children-008.webp",
+   "images/styles/children/styles-children-009.webp",
+   "images/styles/children/styles-children-010.webp",
+   "images/styles/children/styles-children-011.webp",
+   "images/styles/children/styles-children-012.webp",
+   "images/styles/children/styles-children-013.webp",
+   "images/styles/children/styles-children-014.webp",
+   "images/styles/children/styles-children-015.webp",
+   "images/styles/children/styles-children-016.webp",
+   "images/styles/children/styles-children-017.webp",
+   "images/styles/children/styles-children-018.webp",
+   "images/styles/children/styles-children-019.webp",
+   "images/styles/children/styles-children-020.webp",
+   "images/styles/children/styles-children-021.webp",
+   "images/styles/children/styles-children-022.webp",
+   "images/styles/children/styles-children-023.webp",
+   "images/styles/children/styles-children-024.webp",
+   "images/styles/children/styles-children-025.webp",
+   "images/styles/children/styles-children-026.webp",
+   "images/styles/children/styles-children-027.webp",
+   "images/styles/children/styles-children-028.webp",
+   "images/styles/children/styles-children-029.webp",
+   "images/styles/children/styles-children-030.webp",
+   "images/styles/children/styles-children-031.webp",
+   "images/styles/children/styles-children-032.webp",
+   "images/styles/children/styles-children-033.webp",
+   "images/styles/children/styles-children-034.webp",
+   "images/styles/children/styles-children-035.webp",
+   "images/styles/children/styles-children-036.webp",
+   "images/styles/children/styles-children-037.webp",
+   "images/styles/children/styles-children-038.webp",
+   "images/styles/children/styles-children-039.webp",
+   "images/styles/children/styles-children-040.webp",
+   "images/styles/children/styles-children-041.webp",
+   "images/styles/children/styles-children-042.webp",
+   "images/styles/children/styles-children-043.webp",
+   "images/styles/children/styles-children-044.webp",
+   "images/styles/children/styles-children-045.webp",
+   "images/styles/children/styles-children-046.webp",
+   "images/styles/children/styles-children-047.webp",
+   "images/styles/children/styles-children-048.webp",
+   "images/styles/children/styles-children-049.webp",
+   "images/styles/children/styles-children-050.webp"
+  ]
+ }
+};
+
+</script>
 <script>
 /* ============================================================
    GIDIGBA STUDIOS — SCRIPT
@@ -5095,7 +5728,7 @@ function freshBookingData() {
     peopleCount: '', outfitDesc: '',
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
-    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {},
+    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null,
     disclaimerOk: false,
     hurry: false,
     pose: '',
@@ -5369,6 +6002,7 @@ function renderPhotoStep() {
 
         <div class="attr-block style-block"${sb}>
           <div class="attr-head">👗 Outfit</div>
+          ${galleryHtml('outfits', 'outfit', '👗 Choose an outfit')}
           <div class="upload-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
             ${upBox('outfitImg', 'Outfit photo (optional)', 'Snap your outfit — or describe below')}
           </div>
@@ -5380,6 +6014,7 @@ function renderPhotoStep() {
 
         <div class="attr-block style-block"${sb}>
           <div class="attr-head">💇 Hairstyle</div>
+          ${galleryHtml('styles', 'hair', '💇 Choose a hairstyle')}
           <div class="upload-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
             ${upBox('hairstyleImg', 'Hairstyle photo (optional)', 'Snap the hair — or describe below')}
           </div>
@@ -5510,6 +6145,26 @@ function renderPhotoStep() {
 
   c.innerHTML = html;
   attachStepListeners();
+  // draw outfit/hairstyle galleries (if loaded) and restore picks
+  ['outfit', 'hair'].forEach(target => {
+    const kind = target === 'outfit' ? 'outfits' : 'styles';
+    if (!galleryHas(kind)) return;
+    const grid = document.getElementById('pickGrid_' + target);
+    if (!grid) return;
+    const pick = target === 'outfit' ? booking.data.outfitPick : booking.data.hairPick;
+    const cat = pick ? pick.cat : 'female';
+    const tabs = grid.previousElementSibling;
+    if (tabs && tabs.classList.contains('gallery-tabs')) {
+      tabs.querySelectorAll('.g-tab').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === cat));
+    }
+    renderPickGrid(kind, target, cat);
+    const note = document.getElementById('pickNote_' + target);
+    if (pick && note) {
+      const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+      note.hidden = false;
+      note.innerHTML = `&#10003; ${target === 'outfit' ? 'Outfit' : 'Hairstyle'} selected — ${label} #${pick.idx + 1} <button type="button" onclick="clearGalleryPick('${target}')">Change</button>`;
+    }
+  });
 }
 
 function coupleHasPartner(d) {
@@ -5573,6 +6228,101 @@ window.toggleMakeup = function () {
   if (row) { const s = row.querySelector('.toggle-switch'); if (s) s.classList.toggle('active', on); }
   const w = document.getElementById('makeupWarn');
   if (w) w.hidden = !on;
+};
+
+/* ---- outfit / hairstyle galleries (from galleries.js) ---- */
+function getGalleries() { return window.GALLERIES || {}; }
+function galleryHas(kind) {
+  const g = getGalleries()[kind];
+  return !!(g && ['female', 'male', 'children'].some(c => (g[c] || []).length));
+}
+function galleryHtml(kind, target, title) {
+  if (!galleryHas(kind)) return '';
+  const cats = ['female', 'male', 'children'];
+  return `
+  <div class="gallery-picker" data-kind="${kind}" data-target="${target}" style="margin-top:10px;">
+    <div class="attr-head" style="font-size:13.5px; margin-bottom:2px;">${title}</div>
+    <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 4px;">Pick one, upload your own below, describe it — or skip and let us style you.</p>
+    <div class="gallery-tabs">${cats.map((c, k) => `<button type="button" class="g-tab ${k === 0 ? 'active' : ''}" onclick="setGalleryCat(this, '${kind}', '${target}', '${c}')">${c.charAt(0).toUpperCase() + c.slice(1)}</button>`).join('')}</div>
+    <div class="pick-grid" id="pickGrid_${target}"></div>
+    <p class="pick-note" id="pickNote_${target}" hidden></p>
+  </div>`;
+}
+window.setGalleryCat = function (btn, kind, target, cat) {
+  btn.parentNode.querySelectorAll('.g-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPickGrid(kind, target, cat);
+};
+function renderPickGrid(kind, target, cat) {
+  const grid = document.getElementById('pickGrid_' + target);
+  if (!grid) return;
+  const list = (getGalleries()[kind] || {})[cat] || [];
+  const d = booking.data;
+  const pick = target === 'outfit' ? d.outfitPick : d.hairPick;
+  if (!list.length) {
+    grid.innerHTML = `<div class="pick-empty" style="grid-column:1/-1;">No ${cat} options loaded yet.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map((src, idx) =>
+    `<img src="${src}" alt="${cat} option ${idx + 1}" loading="lazy" class="${pick && pick.cat === cat && pick.idx === idx ? 'picked' : ''}" onclick="pickGalleryItem('${target}', '${cat}', ${idx}, '${src}')" />`
+  ).join('');
+}
+window.pickGalleryItem = function (target, cat, idx, src) {
+  const d = booking.data;
+  const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+  const grid = document.getElementById('pickGrid_' + target);
+  if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
+  const note = document.getElementById('pickNote_' + target);
+  if (target === 'outfit') {
+    d.outfitPick = { cat, idx, src };
+    d.outfitDesc = `Selected from gallery: ${label} outfit #${idx + 1}`;
+    const ta = document.getElementById('outfitDesc');
+    if (ta) { ta.value = d.outfitDesc; ta.classList.remove('field-error'); }
+    if (note) {
+      note.hidden = false;
+      note.innerHTML = `&#10003; Outfit selected — ${label} #${idx + 1} <button type="button" onclick="clearGalleryPick('outfit')">Change</button>`;
+    }
+    if (grid) { const im = grid.querySelectorAll('img')[idx]; if (im) im.classList.add('picked'); }
+    toast('Outfit selected — you can still upload or describe your own');
+  } else {
+    d.hairPick = { cat, idx, src };
+    d.hairstyle1 = `Selected from gallery: ${label} style #${idx + 1}`;
+    const ta = document.getElementById('hairstyle1');
+    if (ta) { ta.value = d.hairstyle1; ta.classList.remove('field-error'); }
+    const row = ta && ta.closest('.form-group');
+    if (row) row.classList.remove('field-error');
+    if (note) {
+      note.hidden = false;
+      note.innerHTML = `&#10003; Hairstyle selected — ${label} #${idx + 1} <button type="button" onclick="clearGalleryPick('hair')">Change</button>`;
+    }
+    if (grid) { const im = grid.querySelectorAll('img')[idx]; if (im) im.classList.add('picked'); }
+    toast('Hairstyle selected — you can still upload or describe your own');
+  }
+  saveDraft();
+};
+window.clearGalleryPick = function (target) {
+  const d = booking.data;
+  if (target === 'outfit') {
+    const was = d.outfitDesc || '';
+    d.outfitPick = null;
+    if (was.startsWith('Selected from gallery:')) {
+      d.outfitDesc = '';
+      const ta = document.getElementById('outfitDesc');
+      if (ta) ta.value = '';
+    }
+  } else {
+    const was = d.hairstyle1 || '';
+    d.hairPick = null;
+    if (was.startsWith('Selected from gallery:')) {
+      d.hairstyle1 = '';
+      const ta = document.getElementById('hairstyle1');
+      if (ta) ta.value = '';
+    }
+  }
+  const note = document.getElementById('pickNote_' + target);
+  if (note) note.hidden = true;
+  const grid = document.getElementById('pickGrid_' + target);
+  if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
 };
 
 function attachStepListeners() {
@@ -6098,15 +6848,53 @@ document.addEventListener('click', function (e) {
 window.filterWorks = function (btn, sex) {
   document.querySelectorAll('#wfTabs .chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
-  const gf = document.getElementById('gridFemale');
-  const gm = document.getElementById('gridMale');
-  if (!gf || !gm) return;
   const f = sex === 'female';
-  gf.hidden = !f;
-  gm.hidden = f;
-  const n = (f ? gf : gm).querySelectorAll('.wf-tile').length;
+  const sf = document.getElementById('mainSlideFemale'), sm = document.getElementById('mainSlideMale');
+  if (sf && sm) { sf.hidden = !f; sm.hidden = f; }
+  const gf = document.getElementById('gridFemale'), gm = document.getElementById('gridMale');
+  if (gf && gm) { gf.hidden = !f; gm.hidden = f; }
+  const src = f ? (sf || gf) : (sm || gm);
+  const n = src ? src.querySelectorAll('img').length : 0;
   const c = document.getElementById('wfCount');
   if (c) c.textContent = n + ' results';
+};
+window.showWorkMain = function () {
+  const p = document.getElementById('workPreview'), m = document.getElementById('workMain');
+  if (!m) return;
+  if (p) p.hidden = true;
+  m.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  initWorkSlides();
+};
+window.hideWorkMain = function () {
+  const p = document.getElementById('workPreview'), m = document.getElementById('workMain');
+  if (!m) return;
+  m.hidden = true;
+  if (p) p.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+function initWorkSlides() {
+  document.querySelectorAll('.ws-slide').forEach(sl => {
+    if (sl.dataset.init) return;
+    sl.dataset.init = '1';
+    const imgs = Array.from(sl.querySelectorAll('.ws-stage img'));
+    if (!imgs.length) return;
+    let i = Math.max(0, imgs.findIndex(im => im.classList.contains('on')));
+    const show = n => {
+      i = (n + imgs.length) % imgs.length;
+      imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+    };
+    show(i);
+    const prev = sl.querySelector('.ws-prev'), next = sl.querySelector('.ws-next');
+    if (prev) prev.addEventListener('click', e => { e.stopPropagation(); show(i - 1); });
+    if (next) next.addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
+    setInterval(() => show(i + 1), 4200);
+  });
+}
+if (document.querySelector('.ws-slide')) initWorkSlides();
+window.closeWF = function () {
+  const lb = document.getElementById('wfLightbox');
+  if (lb) lb.classList.remove('open');
 };
 window.openWF = function (src, label) {
   const lb = document.getElementById('wfLightbox');
@@ -6114,10 +6902,6 @@ window.openWF = function (src, label) {
   lb.querySelector('img').src = src;
   lb.querySelector('.wf-lb-cap').textContent = label || '';
   lb.classList.add('open');
-};
-window.closeWF = function () {
-  const lb = document.getElementById('wfLightbox');
-  if (lb) lb.classList.remove('open');
 };
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') window.closeWF();

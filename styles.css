@@ -3919,3 +3919,165 @@ h1 { font-family: 'Inter', sans-serif; font-weight: 300; letter-spacing: -.02em;
   color: var(--text-muted);
   margin: 3px 0 8px;
 }
+
+/* ============================================================
+   V11.3 — WORK SLIDESHOWS (figure beside rotating work)
+   + outfit / hairstyle pick galleries in booking
+   ============================================================ */
+.ws-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  gap: 22px;
+  align-items: stretch;
+  margin-bottom: 30px;
+}
+.ws-row-reverse { grid-template-columns: minmax(200px, 300px) 1fr; }
+.ws-figure {
+  margin: 0;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #111;
+  min-height: 320px;
+}
+.ws-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* figure = portrait frame (decorative model shot) */
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+.ws-figure figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 30px 12px 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .85));
+  color: #fff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.ws-slide {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #111;
+  min-height: 320px;
+}
+.ws-stage {
+  position: absolute;
+  inset: 0;
+}
+.ws-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* full pictures in the slideshow — never cropped */
+  background: #111;
+  opacity: 0;
+  transition: opacity .6s ease;
+  cursor: pointer;
+}
+.ws-stage img.on { opacity: 1; }
+.ws-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(0, 0, 0, .55);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .2s ease, border-color .2s ease;
+}
+.ws-arrow:hover { background: #C0F500; color: #000; border-color: #C0F500; }
+.ws-prev { left: 12px; }
+.ws-next { right: 12px; }
+.ws-more { text-align: center; margin-top: 34px; }
+.ws-slide-main { min-height: min(72vh, 640px); margin-bottom: 6px; }
+@media (max-width: 720px) {
+  .ws-row { grid-template-columns: 1fr; }
+  .ws-figure { min-height: 260px; }
+  .ws-slide { min-height: 300px; }
+  .ws-slide-main { min-height: 480px; }
+}
+
+/* outfit / hairstyle galleries inside booking step 2 */
+.gallery-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+.gallery-tabs .g-tab {
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.gallery-tabs .g-tab.active {
+  background: #C0F500;
+  border-color: #C0F500;
+  color: #000;
+}
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 2px;
+  margin-bottom: 12px;
+}
+.pick-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: block;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.pick-grid img:hover { transform: translateY(-2px); }
+.pick-grid img.picked { border-color: #C0F500; }
+.pick-note {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-ink);
+  margin: -4px 0 10px;
+}
+.pick-note button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12.5px;
+  margin-left: 8px;
+}
+[data-theme="dark"] .pick-note { color: #C0F500; }
+.pick-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}

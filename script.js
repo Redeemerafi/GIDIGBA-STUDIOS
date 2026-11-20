@@ -777,7 +777,7 @@ function freshBookingData() {
     peopleCount: '', outfitDesc: '',
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
-    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {},
+    vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null,
     disclaimerOk: false,
     hurry: false,
     pose: '',
@@ -1051,6 +1051,7 @@ function renderPhotoStep() {
 
         <div class="attr-block style-block"${sb}>
           <div class="attr-head">👗 Outfit</div>
+          ${galleryHtml('outfits', 'outfit', '👗 Choose an outfit')}
           <div class="upload-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
             ${upBox('outfitImg', 'Outfit photo (optional)', 'Snap your outfit — or describe below')}
           </div>
@@ -1062,6 +1063,7 @@ function renderPhotoStep() {
 
         <div class="attr-block style-block"${sb}>
           <div class="attr-head">💇 Hairstyle</div>
+          ${galleryHtml('styles', 'hair', '💇 Choose a hairstyle')}
           <div class="upload-grid" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">
             ${upBox('hairstyleImg', 'Hairstyle photo (optional)', 'Snap the hair — or describe below')}
           </div>
@@ -1192,6 +1194,26 @@ function renderPhotoStep() {
 
   c.innerHTML = html;
   attachStepListeners();
+  // draw outfit/hairstyle galleries (if loaded) and restore picks
+  ['outfit', 'hair'].forEach(target => {
+    const kind = target === 'outfit' ? 'outfits' : 'styles';
+    if (!galleryHas(kind)) return;
+    const grid = document.getElementById('pickGrid_' + target);
+    if (!grid) return;
+    const pick = target === 'outfit' ? booking.data.outfitPick : booking.data.hairPick;
+    const cat = pick ? pick.cat : 'female';
+    const tabs = grid.previousElementSibling;
+    if (tabs && tabs.classList.contains('gallery-tabs')) {
+      tabs.querySelectorAll('.g-tab').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === cat));
+    }
+    renderPickGrid(kind, target, cat);
+    const note = document.getElementById('pickNote_' + target);
+    if (pick && note) {
+      const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+      note.hidden = false;
+      note.innerHTML = `&#10003; ${target === 'outfit' ? 'Outfit' : 'Hairstyle'} selected — ${label} #${pick.idx + 1} <button type="button" onclick="clearGalleryPick('${target}')">Change</button>`;
+    }
+  });
 }
 
 function coupleHasPartner(d) {
@@ -1255,6 +1277,101 @@ window.toggleMakeup = function () {
   if (row) { const s = row.querySelector('.toggle-switch'); if (s) s.classList.toggle('active', on); }
   const w = document.getElementById('makeupWarn');
   if (w) w.hidden = !on;
+};
+
+/* ---- outfit / hairstyle galleries (from galleries.js) ---- */
+function getGalleries() { return window.GALLERIES || {}; }
+function galleryHas(kind) {
+  const g = getGalleries()[kind];
+  return !!(g && ['female', 'male', 'children'].some(c => (g[c] || []).length));
+}
+function galleryHtml(kind, target, title) {
+  if (!galleryHas(kind)) return '';
+  const cats = ['female', 'male', 'children'];
+  return `
+  <div class="gallery-picker" data-kind="${kind}" data-target="${target}" style="margin-top:10px;">
+    <div class="attr-head" style="font-size:13.5px; margin-bottom:2px;">${title}</div>
+    <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 4px;">Pick one, upload your own below, describe it — or skip and let us style you.</p>
+    <div class="gallery-tabs">${cats.map((c, k) => `<button type="button" class="g-tab ${k === 0 ? 'active' : ''}" onclick="setGalleryCat(this, '${kind}', '${target}', '${c}')">${c.charAt(0).toUpperCase() + c.slice(1)}</button>`).join('')}</div>
+    <div class="pick-grid" id="pickGrid_${target}"></div>
+    <p class="pick-note" id="pickNote_${target}" hidden></p>
+  </div>`;
+}
+window.setGalleryCat = function (btn, kind, target, cat) {
+  btn.parentNode.querySelectorAll('.g-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPickGrid(kind, target, cat);
+};
+function renderPickGrid(kind, target, cat) {
+  const grid = document.getElementById('pickGrid_' + target);
+  if (!grid) return;
+  const list = (getGalleries()[kind] || {})[cat] || [];
+  const d = booking.data;
+  const pick = target === 'outfit' ? d.outfitPick : d.hairPick;
+  if (!list.length) {
+    grid.innerHTML = `<div class="pick-empty" style="grid-column:1/-1;">No ${cat} options loaded yet.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map((src, idx) =>
+    `<img src="${src}" alt="${cat} option ${idx + 1}" loading="lazy" class="${pick && pick.cat === cat && pick.idx === idx ? 'picked' : ''}" onclick="pickGalleryItem('${target}', '${cat}', ${idx}, '${src}')" />`
+  ).join('');
+}
+window.pickGalleryItem = function (target, cat, idx, src) {
+  const d = booking.data;
+  const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+  const grid = document.getElementById('pickGrid_' + target);
+  if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
+  const note = document.getElementById('pickNote_' + target);
+  if (target === 'outfit') {
+    d.outfitPick = { cat, idx, src };
+    d.outfitDesc = `Selected from gallery: ${label} outfit #${idx + 1}`;
+    const ta = document.getElementById('outfitDesc');
+    if (ta) { ta.value = d.outfitDesc; ta.classList.remove('field-error'); }
+    if (note) {
+      note.hidden = false;
+      note.innerHTML = `&#10003; Outfit selected — ${label} #${idx + 1} <button type="button" onclick="clearGalleryPick('outfit')">Change</button>`;
+    }
+    if (grid) { const im = grid.querySelectorAll('img')[idx]; if (im) im.classList.add('picked'); }
+    toast('Outfit selected — you can still upload or describe your own');
+  } else {
+    d.hairPick = { cat, idx, src };
+    d.hairstyle1 = `Selected from gallery: ${label} style #${idx + 1}`;
+    const ta = document.getElementById('hairstyle1');
+    if (ta) { ta.value = d.hairstyle1; ta.classList.remove('field-error'); }
+    const row = ta && ta.closest('.form-group');
+    if (row) row.classList.remove('field-error');
+    if (note) {
+      note.hidden = false;
+      note.innerHTML = `&#10003; Hairstyle selected — ${label} #${idx + 1} <button type="button" onclick="clearGalleryPick('hair')">Change</button>`;
+    }
+    if (grid) { const im = grid.querySelectorAll('img')[idx]; if (im) im.classList.add('picked'); }
+    toast('Hairstyle selected — you can still upload or describe your own');
+  }
+  saveDraft();
+};
+window.clearGalleryPick = function (target) {
+  const d = booking.data;
+  if (target === 'outfit') {
+    const was = d.outfitDesc || '';
+    d.outfitPick = null;
+    if (was.startsWith('Selected from gallery:')) {
+      d.outfitDesc = '';
+      const ta = document.getElementById('outfitDesc');
+      if (ta) ta.value = '';
+    }
+  } else {
+    const was = d.hairstyle1 || '';
+    d.hairPick = null;
+    if (was.startsWith('Selected from gallery:')) {
+      d.hairstyle1 = '';
+      const ta = document.getElementById('hairstyle1');
+      if (ta) ta.value = '';
+    }
+  }
+  const note = document.getElementById('pickNote_' + target);
+  if (note) note.hidden = true;
+  const grid = document.getElementById('pickGrid_' + target);
+  if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
 };
 
 function attachStepListeners() {
@@ -1780,15 +1897,53 @@ document.addEventListener('click', function (e) {
 window.filterWorks = function (btn, sex) {
   document.querySelectorAll('#wfTabs .chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
-  const gf = document.getElementById('gridFemale');
-  const gm = document.getElementById('gridMale');
-  if (!gf || !gm) return;
   const f = sex === 'female';
-  gf.hidden = !f;
-  gm.hidden = f;
-  const n = (f ? gf : gm).querySelectorAll('.wf-tile').length;
+  const sf = document.getElementById('mainSlideFemale'), sm = document.getElementById('mainSlideMale');
+  if (sf && sm) { sf.hidden = !f; sm.hidden = f; }
+  const gf = document.getElementById('gridFemale'), gm = document.getElementById('gridMale');
+  if (gf && gm) { gf.hidden = !f; gm.hidden = f; }
+  const src = f ? (sf || gf) : (sm || gm);
+  const n = src ? src.querySelectorAll('img').length : 0;
   const c = document.getElementById('wfCount');
   if (c) c.textContent = n + ' results';
+};
+window.showWorkMain = function () {
+  const p = document.getElementById('workPreview'), m = document.getElementById('workMain');
+  if (!m) return;
+  if (p) p.hidden = true;
+  m.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  initWorkSlides();
+};
+window.hideWorkMain = function () {
+  const p = document.getElementById('workPreview'), m = document.getElementById('workMain');
+  if (!m) return;
+  m.hidden = true;
+  if (p) p.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+function initWorkSlides() {
+  document.querySelectorAll('.ws-slide').forEach(sl => {
+    if (sl.dataset.init) return;
+    sl.dataset.init = '1';
+    const imgs = Array.from(sl.querySelectorAll('.ws-stage img'));
+    if (!imgs.length) return;
+    let i = Math.max(0, imgs.findIndex(im => im.classList.contains('on')));
+    const show = n => {
+      i = (n + imgs.length) % imgs.length;
+      imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+    };
+    show(i);
+    const prev = sl.querySelector('.ws-prev'), next = sl.querySelector('.ws-next');
+    if (prev) prev.addEventListener('click', e => { e.stopPropagation(); show(i - 1); });
+    if (next) next.addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
+    setInterval(() => show(i + 1), 4200);
+  });
+}
+if (document.querySelector('.ws-slide')) initWorkSlides();
+window.closeWF = function () {
+  const lb = document.getElementById('wfLightbox');
+  if (lb) lb.classList.remove('open');
 };
 window.openWF = function (src, label) {
   const lb = document.getElementById('wfLightbox');
@@ -1796,10 +1951,6 @@ window.openWF = function (src, label) {
   lb.querySelector('img').src = src;
   lb.querySelector('.wf-lb-cap').textContent = label || '';
   lb.classList.add('open');
-};
-window.closeWF = function () {
-  const lb = document.getElementById('wfLightbox');
-  if (lb) lb.classList.remove('open');
 };
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') window.closeWF();
