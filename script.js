@@ -86,17 +86,17 @@ const CHROME_TOP = `
 </div>`;
 
 const CHROME_BOTTOM = `
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" onclick="this.classList.remove('show')"></div>
 
-<a href="https://wa.me/${WA_NUMBER}" class="float-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<aside class="float-wa-wrap" aria-label="Quick contact"><a href="https://wa.me/${WA_NUMBER}" class="float-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+</a></aside>
 
 <!-- Booking choice -->
-<div class="modal-overlay" id="bookingChoiceModal">
+<div class="modal-overlay" id="bookingChoiceModal" role="dialog" aria-modal="true" aria-labelledby="bcTitle">
   <div class="modal modal-choice">
-    <button class="modal-close" onclick="closeModal('bookingChoiceModal')">&times;</button>
-    <h3>What are you booking?</h3>
+    <button class="modal-close" aria-label="Close" onclick="closeModal('bookingChoiceModal')">&times;</button>
+    <h3 id="bcTitle">What are you booking?</h3>
     <p class="modal-sub">Choose the option that fits — we'll take it from there.</p>
     <div class="choice-cards">
       <div class="choice-card" onclick="closeModal('bookingChoiceModal'); openModal('projectModal');">
@@ -120,11 +120,11 @@ const CHROME_BOTTOM = `
 </div>
 
 <!-- Business project -->
-<div class="modal-overlay" id="projectModal">
+<div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projTitle">
   <div class="modal modal-form">
-    <button class="modal-close" onclick="closeModal('projectModal')">&times;</button>
+    <button class="modal-close" aria-label="Close" onclick="closeModal('projectModal')">&times;</button>
     <span class="modal-label">Business Project Brief</span>
-    <h3>Start a Business Project</h3>
+    <h3 id="projTitle">Start a Business Project</h3>
     <p class="modal-sub">Tell us about your project. We'll review and reply on WhatsApp within 24 business hours.</p>
     <form id="projectForm" class="form">
       <div class="form-row">
@@ -157,11 +157,11 @@ const CHROME_BOTTOM = `
 </div>
 
 <!-- Online photoshoot booking -->
-<div class="modal-overlay" id="photoModal">
+<div class="modal-overlay" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="photoModalTitle">
   <div class="modal modal-photo">
-    <button class="modal-close" onclick="closeModal('photoModal')">&times;</button>
+    <button class="modal-close" aria-label="Close" onclick="closeModal('photoModal')">&times;</button>
     <div class="booking-head">
-      <span class="modal-label">Online Photoshoot Booking · 100% remote</span>
+      <h3 id="photoModalTitle" class="modal-label" style="margin:0;">Online Photoshoot Booking · 100% remote</h3>
       <p class="booking-head-note">No in-person session. Photos uploaded here are delivered to our team securely and deleted 20 minutes after your order is delivered.</p>
     </div>
     <div class="booking-steps" id="bookingSteps">
@@ -199,7 +199,7 @@ const CHROME_BOTTOM = `
       </div>
       <div class="footer-cols">
         <div class="footer-col">
-          <h5>Studio</h5>
+          <h3 class="footer-h">Studio</h3>
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
@@ -211,7 +211,7 @@ const CHROME_BOTTOM = `
           </ul>
         </div>
         <div class="footer-col">
-          <h5>Book</h5>
+          <h3 class="footer-h">Book</h3>
           <ul>
             <li><a href="#" onclick="openBookingChoice('business'); return false;">Start a Project</a></li>
             <li><a href="#" onclick="openBookingChoice('photo'); return false;">Book Photography</a></li>
@@ -221,7 +221,7 @@ const CHROME_BOTTOM = `
           </ul>
         </div>
         <div class="footer-col">
-          <h5>Contact</h5>
+          <h3 class="footer-h">Contact</h3>
           <ul>
             <li><a href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener">WhatsApp: +233 53 431 7611</a></li>
             <li><span style="font-size:.9rem;color:var(--grey);font-weight:300;">Accra, Ghana · Online worldwide</span></li>
@@ -237,12 +237,13 @@ const CHROME_BOTTOM = `
   </div>
 </footer>
 
-<div class="sticky-bar" id="stickyBar">
+<aside class="sticky-bar" id="stickyBar" aria-label="Quick booking">
   <div class="sticky-info"><strong>From GH₵15</strong><span>1 image · all-in</span></div>
   <button class="btn btn-primary btn-sm" onclick="openBookingChoice('photo')">Book Session</button>
   <a href="https://wa.me/${WA_NUMBER}" class="sticky-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
+</aside>
 </div>
 
 <div class="install-bar" id="installBar">
@@ -496,7 +497,7 @@ if (servicesGrid) {
     card.className = 'svc-card reveal' + (s.featured ? ' featured' : '');
     card.innerHTML = `
       <span class="svc-num">${s.num}</span>
-      <h3>${esc(s.title)}</h3>
+      <h2 class="svc-title">${esc(s.title)}</h2>
       <p>${esc(s.desc)}</p>
       <div class="svc-tags">${s.tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
       <button class="service-cta">${esc(s.cta)}
@@ -688,12 +689,18 @@ window.bookEdit = function (i) {
 /* ============================================================
    MODALS
    ============================================================ */
+let lastFocused = null;
 function openModal(id) {
   const m = document.getElementById(id);
   if (!m) return;
+  lastFocused = document.activeElement;
   m.classList.add('open');
   document.body.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    const first = m.querySelector('input:not([type=hidden]), textarea, select, button.modal-close, a[href], button');
+    if (first) { try { first.focus({ preventScroll: true }); } catch (e) {} }
+  }, 60);
 }
 function closeModal(id) {
   const m = document.getElementById(id);
@@ -703,7 +710,23 @@ function closeModal(id) {
     document.body.classList.remove('modal-open');
     document.body.style.overflow = '';
   }
+  if (lastFocused && typeof lastFocused.focus === 'function') {
+    try { lastFocused.focus({ preventScroll: true }); } catch (e) {}
+  }
 }
+
+// keep keyboard focus inside an open dialog
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Tab') return;
+  const open = document.querySelector('.modal-overlay.open');
+  if (!open) return;
+  const items = [...open.querySelectorAll('a[href], button:not([disabled]), input:not([type=hidden]), textarea, select, [tabindex]:not([tabindex="-1"])')]
+    .filter(el => el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
 });
@@ -1372,7 +1395,7 @@ function renderPhotoStep() {
           ${SERVICES_EDIT.map((s, i) => `
             <div class="svc-chip ${d.selectedServices.includes(i) ? 'selected' : ''}" onclick="toggleEditService(${i})">
               <div class="svc-price">GH₵ ${s.price}</div>
-              <h5>${s.icon} ${esc(s.name)}</h5>
+              <p class="svc-name">${s.icon} ${esc(s.name)}</p>
               <div class="svc-check">${d.selectedServices.includes(i) ? (SVC_QUESTIONS[s.name] ? '✓ Next: we ask what you want' : '✓ Selected') : 'Tap to add'}</div>
             </div>`).join('')}
         </div>
@@ -1579,7 +1602,7 @@ function renderPhotoStep() {
         <p class="step-hint">Check everything below. Use Back to edit — then send your request to us on WhatsApp.</p>
 
         <div class="review-block">
-          <h5>Order</h5>
+          <h4>Order</h4>
           <div class="review-row"><span class="rv-label">Offer</span><span class="rv-value">${esc(offerLine)}</span></div>
           <div class="review-row"><span class="rv-label">Includes</span><span class="rv-value">${esc(includesLine)}</span></div>
           ${isSession ? `<div class="review-row"><span class="rv-label">Images</span><span class="rv-value">${pkg?.images || 1}</span></div>
@@ -1591,7 +1614,7 @@ function renderPhotoStep() {
         </div>
 
         <div class="review-block">
-          <h5>Creative</h5>
+          <h4>Creative</h4>
           ${isSession ? `
           <div class="review-row"><span class="rv-label">Outfit</span><span class="rv-value">${esc(outfitStyled() ? 'Styled by GIDIGBA' : outfitVal)}</span></div>
           <div class="review-row"><span class="rv-label">Hairstyle</span><span class="rv-value">${esc(hairStyled() ? 'Styled by GIDIGBA' : hairVal)}</span></div>
@@ -2223,7 +2246,7 @@ function initTrack() {
     el.innerHTML = `
       <div class="track-card">
         <span class="track-kicker">Nothing here yet</span>
-        <h4>No booking found on this device</h4>
+        <h2>No booking found on this device</h2>
         <p class="track-sub">Start a booking and your progress will appear here automatically — this tracker reads your device, so use the same phone/browser you booked with.</p>
         <div class="quiz-actions">
           <button class="btn btn-primary btn-sm" onclick="openBookingChoice('photo')">Start a Booking</button>

@@ -1442,6 +1442,23 @@ section,
   font-weight: 700;
   margin-bottom: 17px;
 }
+[data-theme="dark"] .footer-col h5,
+[data-theme="dark"] .footer-bottom .brandline b { color: var(--green); }
+
+/* iOS: honour the home-indicator inset inside dialogs too */
+.modal { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+@media (max-width: 640px) {
+  .modal-overlay .modal-photo { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+}
+
+/* mobile menu was 97% opaque — text bled through */
+.mobile-menu { background: var(--ink); }
+
+/* 44px minimum touch targets */
+.theme-toggle, .mobile-menu a, .footer-col a { min-height: 44px; }
+.theme-toggle { min-width: 44px; }
+.mobile-menu a { display: flex; align-items: center; }
+.footer-col a { display: inline-flex; align-items: center; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
 .footer-col a {
   font-size: .9rem;
@@ -4386,4 +4403,87 @@ body.modal-open { padding-bottom: 0 !important; }
   .svc-chip h5 { font-size: 13px; line-height: 1.25; }
   .svc-chip .svc-price { font-size: 11.5px; }
   .svc-chip .svc-check { font-size: 11.5px; }
+}
+
+/* ---------- review 2026-11 fixes ---------- */
+
+/* toast: lift out of the CTA row, keep it announced, let it be tapped away */
+.toast {
+  bottom: auto;
+  top: 18px;
+  max-width: min(92vw, 460px);
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .28);
+}
+@media (max-width: 640px) {
+  .toast { top: calc(12px + env(safe-area-inset-top)); }
+}
+
+/* screen-reader only utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* footer labels: #4f7000 on black measured 3.65:1 — use the light-mode ink on light, brand lime on dark */
+
+/* final: mobile menu must be fully opaque (earlier rule kept it 97%) */
+.mobile-menu { background: var(--lav-soft); }
+[data-theme="dark"] .mobile-menu { background: #1B1B24; }
+@media (max-width: 640px) { .mobile-menu { background: var(--lav-soft); } }
+[data-theme="dark"] .mobile-menu,
+[data-theme="dark"] .mobile-menu * { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* fail-open: if JS never runs, content must still be visible */
+.no-js .reveal { opacity: 1 !important; transform: none !important; }
+.no-js .mobile-menu { display: none; }
+
+/* heading/contrast follow-ups (axe 4.10) */
+.footer-h {
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+  font-weight: 700;
+  margin-bottom: 17px;
+}
+[data-theme="dark"] .footer-h { color: var(--green); }
+.svc-chip .svc-name { font-weight: 700; font-size: 13px; margin: 2px 0; line-height: 1.25; }
+.float-wa { isolation: isolate; }
+
+/* WCAG AA: the footer is black in BOTH themes, so #4f7000 (3.65:1) fails — use brand lime (14:1) */
+.footer-h,
+.footer-col h5,
+.footer-bottom .brandline b { color: var(--green) !important; }
+
+/* float-wa now sits in a landmark wrapper — wrapper must not add layout */
+.float-wa-wrap { position: fixed; inset: auto 0 0 auto; z-index: 470; display: block; }
+.float-wa-wrap .float-wa { position: static; display: grid; margin: 24px; }
+@media (max-width: 640px) { .float-wa-wrap { display: none; } }
+
+/* links inside body copy need more than colour to pass 1.4.1 */
+p a:not(.btn):not(.link-plain),
+.track-card a:not(.btn) { text-decoration: underline; text-underline-offset: 3px; }
+
+/* heading-level fixes: preserve the visual weight of demoted headings */
+.quiz-q-title { font-size: 15px; font-weight: 700; margin: 0 0 10px; color: var(--text); letter-spacing: -.01em; }
+.offer-card-title { font-size: 17px; font-weight: 700; margin: 0 0 6px; color: var(--text); }
+.about-tagline { font-family: var(--font-display); font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+
+/* mobile sticky bar label was #6b7280 on #050505 (4.21:1) — lift to AA */
+.sticky-info span { color: #9a9a9a; }
+/* card titles keep their visual weight at the corrected heading level */
+.svc-card h2.svc-title { font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin: 0 0 8px; }
+.info-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.01em; }
+.info-card h2 { font-size: 16px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.01em; }
+
+/* footer column labels must respect the same 11.5px floor on phones */
+@media (max-width: 640px) {
+  .footer-h { font-size: 12px !important; }
 }

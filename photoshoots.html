@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Book Personal Photography | GIDIGBA STUDIOS</title>
 <meta name="description" content="Book birthday, graduation, portrait, headshot, fashion and personal-brand photography with GIDIGBA STUDIOS — 100% online, one all-in image from GH₵15, delivered via WhatsApp within 24 business hours." />
 <meta name="theme-color" content="#C0F500" />
-<link rel="icon" type="image/png" href="images/logo-mark.png" />
-<meta property="og:image" content="images/og-image.jpg" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
+<link rel="apple-touch-icon" href="images/logo-192.png" />
+<meta property="og:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="images/og-image.jpg" />
+<meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return 'light'}})());</script>
 <link rel="stylesheet" href="styles.css">
+<script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://gidigba-studios.vercel.app/#business","name":"GIDIGBA STUDIOS","url":"https://gidigba-studios.vercel.app/","image":"https://gidigba-studios.vercel.app/images/og-image.jpg","logo":"https://gidigba-studios.vercel.app/images/logo-512.png","description":"GIDIGBA STUDIOS is an Accra-based creative studio offering branding, design, digital marketing, content production and 100% online photoshoots from GH₵15, delivered within 24 business hours.","telephone":"+233534317611","priceRange":"GH₵15 - GH₵350","currenciesAccepted":"GHS","paymentAccepted":"Mobile Money, Bank Transfer","address":{"@type":"PostalAddress","addressLocality":"Accra","addressRegion":"Greater Accra","addressCountry":"GH"},"areaServed":{"@type":"Country","name":"Ghana"},"sameAs":["https://wa.me/233534317611"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}],"makesOffer":[{"@type":"Offer","name":"Single Image","price":"15","priceCurrency":"GHS"},{"@type":"Offer","name":"LITE","price":"35","priceCurrency":"GHS"},{"@type":"Offer","name":"MEDIUM","price":"55","priceCurrency":"GHS"},{"@type":"Offer","name":"SUPERIOR","price":"105","priceCurrency":"GHS"},{"@type":"Offer","name":"Couple packages","price":"120","priceCurrency":"GHS"},{"@type":"Offer","name":"Single-change edit","price":"10","priceCurrency":"GHS"}]},{"@context":"https://schema.org","@type":"Service","name":"Online photoshoot","serviceType":"Online photoshoot","provider":{"@id":"https://gidigba-studios.vercel.app/#business"},"areaServed":{"@type":"Country","name":"Ghana"},"description":"Send photos on WhatsApp and receive professionally produced images within 24 business hours. 100% online, no in-person session.","offers":{"@type":"Offer","price":"15","priceCurrency":"GHS","availability":"https://schema.org/InStock"}}]</script>
 </head>
 <body data-page="photoshoots">
 <div id="chrome-top"></div>
@@ -48,12 +52,12 @@
     <div class="how-grid">
       <div class="how-card reveal">
         <span class="how-num">1</span>
-        <h4>Choose &amp; describe</h4>
+        <h3>Choose &amp; describe</h3>
         <p>Pick a package and photoshoot type. Tell us the outfits, hairstyle, mood and scene you want.</p>
       </div>
       <div class="how-card reveal">
         <span class="how-num">2</span>
-        <h4>Upload your photos</h4>
+        <h3>Upload your photos</h3>
         <p>Send a selfie and full-body picture online. Add references if you like — that's all we need.</p>
       </div>
       <div class="how-card reveal">
@@ -128,7 +132,7 @@
       <h3 class="cmp-title">How booking works</h3>
       <div class="cmp-scroll">
         <table class="cmp-table">
-          <thead><tr><th>Offer</th><th>What you get</th><th class="cmp-hi">Price</th><th></th></tr></thead>
+          <thead><tr><th>Offer</th><th>What you get</th><th class="cmp-hi">Price</th><th><span class="sr-only">Book this package</span></th></tr></thead>
           <tbody>
             <tr><td><strong>Single Image</strong></td><td>1 all-in image — makeup, retouch, hair, outfit &amp; background choice</td><td class="cmp-hi">GH₵ 15</td>
               <td><button class="pkg-book" onclick="openPhotoBooking('SINGLE IMAGE')">Book</button></td></tr>
@@ -169,7 +173,7 @@
     </div>
     <div class="quiz-grid reveal">
       <div class="quiz-q">
-        <h5>1 · Who's in the photos?</h5>
+        <p class="quiz-q-title">1 · Who's in the photos?</p>
         <div class="quiz-opts">
           <button class="quiz-opt" onclick="quizPick('who','solo',this)">Just me</button>
           <button class="quiz-opt" onclick="quizPick('who','couple',this)">A couple</button>
@@ -177,7 +181,7 @@
         </div>
       </div>
       <div class="quiz-q">
-        <h5>2 · What's the occasion?</h5>
+        <p class="quiz-q-title">2 · What's the occasion?</p>
         <div class="quiz-opts">
           <button class="quiz-opt" onclick="quizPick('occasion','birthday',this)">🎂 Birthday</button>
           <button class="quiz-opt" onclick="quizPick('occasion','grad',this)">🎓 Graduation</button>
@@ -186,7 +190,7 @@
         </div>
       </div>
       <div class="quiz-q">
-        <h5>3 · What's your budget?</h5>
+        <p class="quiz-q-title">3 · What's your budget?</p>
         <div class="quiz-opts">
           <button class="quiz-opt" onclick="quizPick('budget','low',this)">Cheapest — GH₵ 15</button>
           <button class="quiz-opt" onclick="quizPick('budget','mid',this)">More images — from GH₵ 35</button>
@@ -194,7 +198,7 @@
         </div>
       </div>
       <div class="quiz-q">
-        <h5>4 · When do you need them?</h5>
+        <p class="quiz-q-title">4 · When do you need them?</p>
         <div class="quiz-opts">
           <button class="quiz-opt" onclick="quizPick('speed','rush',this)">⚡ ASAP</button>
           <button class="quiz-opt" onclick="quizPick('speed','day',this)">📅 This week</button>
