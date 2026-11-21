@@ -29,9 +29,9 @@ async def main():
                 bg: getComputedStyle(document.body).backgroundColor,
                 heroExists: !!document.querySelector('section.hero'),
                 heroBg: getComputedStyle(document.querySelector('section.hero')).backgroundColor,
-                h1w: getComputedStyle(document.querySelector('.brand-name')).fontWeight,
-                outlineColor: getComputedStyle(document.querySelector('.brand-name .outline')).color,
-                outlineBg: getComputedStyle(document.querySelector('.brand-name .outline')).backgroundImage,
+                h1w: getComputedStyle(document.querySelector('.hero h1')).fontWeight,
+                quoteColor: getComputedStyle(document.querySelector('.hero h1 em')).color,
+                quoteBg: getComputedStyle(document.querySelector('.hero h1 em')).backgroundImage,
                 pill: getComputedStyle(document.querySelector('.btn-primary')).borderRadius,
                 btnBg: getComputedStyle(document.querySelector('.btn-primary')).backgroundColor,
                 navBlur: getComputedStyle(document.querySelector('.nav')).backdropFilter,
@@ -49,10 +49,10 @@ async def main():
         ok("THEME11: Playfair loaded", dom["playfair"])
         ok("THEME11: light body white", dom["theme"] == "light" and dom["bg"] == "rgb(255, 255, 255)", dom["bg"])
         ok("THEME11: hero black band", dom["heroExists"] and dom["heroBg"] == "rgb(0, 0, 0)", str(dom["heroBg"]))
-        ok("THEME11: h1 Inter light300", dom["h1w"] == "300", dom["h1w"])
-        ok("THEME11: outline transparent fill", dom["outlineColor"] in ("rgba(0, 0, 0, 0)", "transparent"), dom["outlineColor"])
-        ok("THEME11: lime gradient text", "192, 245, 0" in dom["outlineBg"] or "192,245,45" in dom["outlineBg"], dom["outlineBg"][:80])
-        ok("THEME11: lime pill", dom["pill"] == "9999px" and dom["btnBg"] == "rgb(192, 245, 0)", f'{dom["pill"]} {dom["btnBg"]}')
+        ok("THEME11: h1 serif 600", dom["h1w"] == "600", dom["h1w"])
+        ok("THEME11: hero accent is lime text", dom["quoteColor"] == "rgb(192, 245, 0)", dom["quoteColor"])
+        ok("THEME11: no background block on accent", dom["quoteBg"] in ("none", "initial"), dom["quoteBg"][:60])
+        ok("THEME11: lime pill", dom["pill"] in ("999px", "9999px") and dom["btnBg"] == "rgb(192, 245, 0)", f'{dom["pill"]} {dom["btnBg"]}')
         ok("THEME11: nav dark blur20", "blur(20px)" in dom["navBlur"] and dom["navBg"].startswith("rgba(0, 0, 0, 0.8"), f'{dom["navBlur"]} {dom["navBg"]}')
         ok("THEME11: cards16px", dom["cardR"] == "16px", dom["cardR"])
         ok("THEME11: section-alt black", dom["altBg"] == "rgb(0, 0, 0)", dom["altBg"])
