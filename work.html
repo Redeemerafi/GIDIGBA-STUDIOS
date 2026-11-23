@@ -1,37 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" class="no-js">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Samples — GIDIGBA STUDIOS</title>
-<meta name="description" content="Before and after samples from GIDIGBA STUDIOS. Choose women or men to see every finished look beside the original photo." />
-<meta name="theme-color" content="#C0F500" />
-<link rel="icon" href="images/favicon-96.png" sizes="96x96" type="image/png" />
-<link rel="apple-touch-icon" href="images/logo-192.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="stylesheet" href="styles.css" />
-<script src="galleries.js" defer></script>
-<script src="script.js" defer></script>
+  <title>Samples | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Before and after samples from GIDIGBA STUDIOS. Choose women or men." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-title="Samples | GIDIGBA STUDIOS" data-desc="Before and after samples from GIDIGBA STUDIOS. Choose women or men." data-page="samples">
 <div id="chrome-top"></div>
+<main id="main">
 
-<main>
-  <section class="page-hero section-tight">
+  <section class="page-hero">
     <div class="container">
       <span class="eyebrow">Samples</span>
-      <h1 class="page-hero-title">Every finished look,<br>beside the photo it came from.</h1>
-      <p class="page-hero-sub">Pick who you want to see. Each page opens with the original photo, then every finished image made from it.</p>
+      <h1>Every finished look, beside the photo it came from.</h1>
+      <p>Pick who you want to see. Each page opens with the original photo, then every finished image made from it.</p>
     </div>
   </section>
 
-  <section class="section sample-choice">
+  <section class="section">
     <div class="container">
       <div class="smp-choices">
         <a class="smp-card" href="samples-female.html">
           <span class="smp-preview">
-            <img src="images/f-gold-before.webp" alt="" loading="eager" />
-            <img src="images/f-gold.webp" alt="Female sample — finished look" loading="eager" />
+            <img src="images/f-gold-before.webp" alt="" />
+            <img src="images/f-gold.webp" alt="Female sample — finished look" />
           </span>
           <span class="smp-body">
             <span class="smp-title">Women</span>
@@ -40,8 +35,8 @@
         </a>
         <a class="smp-card" href="samples-male.html">
           <span class="smp-preview">
-            <img src="images/m-red-before.webp" alt="" loading="eager" />
-            <img src="images/m-red.webp" alt="Male sample — finished look" loading="eager" />
+            <img src="images/m-red-before.webp" alt="" />
+            <img src="images/m-red.webp" alt="Male sample — finished look" />
           </span>
           <span class="smp-body">
             <span class="smp-title">Men</span>
@@ -51,8 +46,22 @@
       </div>
     </div>
   </section>
+
 </main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
 
 <div id="chrome-bottom"></div>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
 </body>
 </html>

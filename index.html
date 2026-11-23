@@ -1,327 +1,232 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>GIDIGBA STUDIOS | Developed Specially for Businesses</title>
-<meta name="description" content="GIDIGBA STUDIOS provides branding, design, digital marketing, content production, commercial visuals and online personal photography booking in Ghana — one all-in image from GH₵15, delivered within 24 business hours. Photoshoots are 100% online — no in-person sessions." />
-<meta name="theme-color" content="#C0F500" />
-<link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
-<link rel="apple-touch-icon" href="images/logo-192.png" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="GIDIGBA STUDIOS | Developed Specially for Businesses" />
-<meta property="og:description" content="Online photoshoots from GH₵15 and creative solutions for businesses — delivered within 24 business hours. 100% online." />
-<meta property="og:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return 'light'}})());</script>
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script>
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://gidigba-studios.vercel.app/#business","name":"GIDIGBA STUDIOS","url":"https://gidigba-studios.vercel.app/","image":"https://gidigba-studios.vercel.app/images/og-image.jpg","logo":"https://gidigba-studios.vercel.app/images/logo-512.png","description":"GIDIGBA STUDIOS is an Accra-based creative studio offering branding, design, digital marketing, content production and 100% online photoshoots from GH₵15, delivered within 24 business hours.","telephone":"+233534317611","priceRange":"GH₵15 - GH₵350","currenciesAccepted":"GHS","paymentAccepted":"Mobile Money, Bank Transfer","address":{"@type":"PostalAddress","addressLocality":"Accra","addressRegion":"Greater Accra","addressCountry":"GH"},"areaServed":{"@type":"Country","name":"Ghana"},"sameAs":["https://wa.me/233534317611"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}],"makesOffer":[{"@type":"Offer","name":"Single Image","price":"15","priceCurrency":"GHS"},{"@type":"Offer","name":"LITE","price":"35","priceCurrency":"GHS"},{"@type":"Offer","name":"MEDIUM","price":"55","priceCurrency":"GHS"},{"@type":"Offer","name":"SUPERIOR","price":"105","priceCurrency":"GHS"},{"@type":"Offer","name":"Couple packages","price":"120","priceCurrency":"GHS"},{"@type":"Offer","name":"Single-change edit","price":"10","priceCurrency":"GHS"}]},{"@context":"https://schema.org","@type":"Service","name":"Online photoshoot","serviceType":"Online photoshoot","provider":{"@id":"https://gidigba-studios.vercel.app/#business"},"areaServed":{"@type":"Country","name":"Ghana"},"description":"Send photos on WhatsApp and receive professionally produced images within 24 business hours. 100% online, no in-person session.","offers":{"@type":"Offer","price":"15","priceCurrency":"GHS","availability":"https://schema.org/InStock"}}]</script>
+  <title>GIDIGBA STUDIOS | Developed Specially for Businesses</title>
+  <meta name="description" content="GIDIGBA STUDIOS — Accra creative studio. Branding, design, video, digital marketing and 100% online photoshoots from GH₵15, delivered within 24 business hours." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-page="index">
+<body data-title="GIDIGBA STUDIOS | Developed Specially for Businesses" data-desc="GIDIGBA STUDIOS — Accra creative studio. Branding, design, video, digital marketing and 100% online photoshoots from GH₵15, delivered within 24 business hours." data-page="home">
 <div id="chrome-top"></div>
+<main id="main">
 
-<main id="top">
+  
 
-<!-- HERO — black, giant light type, lime glows -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-kicker reveal">Developed specially for businesses.</div>
-    <h1 class="reveal">
-      Studio photos <em>without the studio.</em>
-    </h1>
-    <p class="hero-sub reveal">Send a selfie and a full-body photo, describe the look you want, and get professional images on WhatsApp within 24 business hours — one all-in image from <strong style="color:#C0F500;">GH₵15</strong>. Fully remote: you never have to leave home.</p>
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary btn-lg" href="photoshoots.html">Start Photoshoot</a>
-      <a class="btn btn-ghost btn-lg" href="services.html">Explore Business Solutions</a>
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-head">
+      <span class="logo">GIDIGBA</span>
+      <button class="modal-close" onclick="closeMenu()" aria-label="Close">✕</button>
     </div>
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="photoshoots.html" onclick="closeMenu()">Photoshoots</a>
+    <a href="services.html" onclick="closeMenu()">Services</a>
+    <a href="work.html" onclick="closeMenu()">Work</a>
+    <a href="about.html" onclick="closeMenu()">About</a>
+    <button class="btn btn-primary btn-block" onclick="closeMenu(); openBooking('individual')">Start Photoshoot</button>
   </div>
-</section>
 
-<!-- SOLUTIONS — white -->
-
-
-<!-- TRUSTED STRIP -->
-<div class="trusted-strip">Trusted by businesses and individuals worldwide <span class="stars">★★★★★</span></div>
-
-<!-- TRANSFORMATION — black band -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Portfolio</span>
-      <h2>The GIDIGBA Transformation</h2>
-      <p>From ordinary to extraordinary — real client results</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-kicker">Developed specially for businesses.</p>
+      <h1>Studio photos<br><em>without</em> the studio.</h1>
+      <p class="hero-lead">
+        Online photoshoots for people &amp; businesses — one all-in image from GH₵15,
+        delivered to your WhatsApp within 24 business hours. No in-person session required.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="openBooking('individual')">Start Photoshoot</button>
+        <a href="services.html" class="btn btn-ghost">Explore Business Solutions</a>
+      </div>
     </div>
-    <div class="smp-collage reveal">
-      <figure class="smp-pair">
-        <div class="smp-duo">
-          <div class="smp-cell smp-before">
-            <img src="images/f-gold-before.webp" alt="Female client — original phone photo" loading="eager" />
-            <figcaption>Before</figcaption>
-          </div>
-          <div class="smp-cell smp-after">
-            <img src="images/f-gold.webp" alt="Female client — finished GIDIGBA image" loading="eager" />
-            <figcaption>After</figcaption>
-          </div>
+  </section>
+
+  <!-- Trust -->
+  <div class="trust-strip">
+    <span><strong>GH₵15</strong> entry · all-in</span>
+    <span><strong>24 business hours</strong> delivery</span>
+    <span><strong>100% online</strong> · no studio visit</span>
+    <span><strong>Accra</strong> · serving Ghana</span>
+  </div>
+
+  <!-- Solutions -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-40 reveal">
+        <span class="eyebrow">Solutions</span>
+        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">Built for how you actually work</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card reveal">
+          <p class="card-kicker">For individuals</p>
+          <h3>Online Photoshoot Studio</h3>
+          <ul>
+            <li>Single image — GH₵15</li>
+            <li>LITE · MEDIUM · SUPERIOR packages</li>
+            <li>Couple sessions from GH₵120</li>
+            <li>Occasions, branding, portraits</li>
+          </ul>
+          <button class="btn btn-primary btn-sm" onclick="openBooking('individual')">Start Photoshoot</button>
         </div>
-        <figcaption class="smp-pairlabel">Women</figcaption>
-      </figure>
-
-      <figure class="smp-pair">
-        <div class="smp-duo">
-          <div class="smp-cell smp-before">
-            <img src="images/m-red-before.webp" alt="Male client — original phone photo" loading="eager" />
-            <figcaption>Before</figcaption>
-          </div>
-          <div class="smp-cell smp-after">
-            <img src="images/m-red.webp" alt="Male client — finished GIDIGBA image" loading="eager" />
-            <figcaption>After</figcaption>
-          </div>
+        <div class="card reveal">
+          <p class="card-kicker">For business</p>
+          <h3>Creative Business Solutions</h3>
+          <ul>
+            <li>Brand Identity</li>
+            <li>Graphic Design &amp; Content</li>
+            <li>Social Media &amp; Digital Marketing</li>
+            <li>Websites &amp; Campaign Production</li>
+          </ul>
+          <a href="services.html" class="btn btn-ghost btn-sm">View Services</a>
         </div>
-        <figcaption class="smp-pairlabel">Men</figcaption>
-      </figure>
+        <div class="card reveal">
+          <p class="card-kicker">Photo editing</p>
+          <h3>Change just one thing</h3>
+          <ul>
+            <li>Any single change — GH₵10</li>
+            <li>Outfit, hair, makeup, retouch…</li>
+            <li>20 services available</li>
+            <li>Upload &amp; describe — done</li>
+          </ul>
+          <button class="btn btn-primary btn-sm" onclick="openBooking('edit','EDIT')">Edit from GH₵10</button>
+        </div>
+      </div>
     </div>
-    <div style="text-align:center; margin-top:34px;" class="reveal">
-      <a class="btn btn-primary" href="work.html">View more samples</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- VALUES — one compact band -->
-<section class="section values-band">
-  <div class="container">
-    <div class="values-row">
-      <div class="pillar-card">
-        <h3>ONLINE</h3>
-        <div class="p-sub">No studio, no travel</div>
+  <!-- Transformation -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="text-center mb-40 reveal">
+        <span class="eyebrow" style="background:var(--lime);color:#000">The difference</span>
+        <h2 class="serif" style="font-size:clamp(28px,4vw,40px);color:#fff">From phone photo to studio grade</h2>
+        <p style="color:rgba(255,255,255,.65);max-width:40ch;margin:12px auto 0">Drag the handle. Left is an ordinary phone photo. Right is the same person, GIDIGBA style.</p>
       </div>
-      <div class="pillar-card">
-        <h3>SPEED</h3>
-        <div class="p-sub">24 business hours</div>
+      <div class="ba-wrap reveal" id="baWrap">
+        <img class="ba-after" src="images/f-kente.webp" alt="After — studio style" />
+        <img class="ba-before" src="images/f-before.webp" alt="Before — phone photo" />
+        <div class="ba-handle"></div>
+        <span class="ba-label before">Before</span>
+        <span class="ba-label after">After</span>
       </div>
-      <div class="pillar-card">
-        <h3>VALUE</h3>
-        <div class="p-sub">All-in from GH₵15</div>
-      </div>
+      <p class="text-center mt-16" style="font-size:13px;color:rgba(255,255,255,.5)">Genuine before/after pair · labelled “Before”</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- EDITING — single line, no card grid -->
-<section class="section edit-band">
-  <div class="container edit-band-in">
-    <div class="eb-copy">
-      <span class="eyebrow">Image Editing</span>
-      <h2>Change just one thing.</h2>
-      <p>Swap an outfit, fix a background, clean up a photo you already love. Any single change — <strong>GH₵10</strong>. Delivered within 24 business hours.</p>
-    </div>
-    <div class="eb-actions">
-      <button class="btn btn-primary btn-lg" onclick="openPhotoBooking(null, 'custom')">Book an edit</button>
-      <a class="btn btn-ghost btn-lg" href="services.html">All 20 edits</a>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES — soft gradient -->
-<section class="section sec-grad">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Services</span>
-      <h2>Our Creative Services</h2>
-      <p>Premium creative solutions powered by technology</p>
-    </div>
-    <div class="steps-row">
-      <div class="svc-card reveal">
-        <h3>Brand Identity</h3>
-        <ul>
-          <li>Logo development</li>
-          <li>Brand kits</li>
-          <li>Visual guidelines</li>
-        </ul>
-        <a class="btn btn-ghost btn-sm" href="services.html">Learn More</a>
+  <!-- How it works -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-40 reveal">
+        <span class="eyebrow">Process</span>
+        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">Three steps. All from your phone.</h2>
       </div>
-      <div class="svc-card reveal">
-        <h3>Graphic Design</h3>
-        <ul>
-          <li>Social templates</li>
-          <li>Flyers &amp; campaigns</li>
-          <li>Ads that convert</li>
-        </ul>
-        <a class="btn btn-ghost btn-sm" href="services.html">Learn More</a>
-      </div>
-      <div class="svc-card reveal">
-        <h3>Social Media Management</h3>
-        <ul>
-          <li>Content planning</li>
-          <li>Post design</li>
-          <li>Growth reporting</li>
-        </ul>
-        <a class="btn btn-ghost btn-sm" href="services.html">Learn More</a>
-      </div>
-      <div class="svc-card reveal">
-        <h3>Commercial Photography</h3>
-        <ul>
-          <li>Product imaging</li>
-          <li>Personal branding</li>
-          <li>Team &amp; office shots</li>
-        </ul>
-        <a class="btn btn-ghost btn-sm" href="photoshoots.html">Learn More</a>
-      </div>
-    </div>
-    <div class="sol-card reveal" style="margin-top:22px; text-align:center;">
-      <h3>Need a custom solution?</h3>
-      <p style="color:var(--text-muted); margin:10px 0 20px;">Tell us what you need — we'll quote it.</p>
-      <button class="btn btn-primary" onclick="openBookingChoice('business')">Request a Quote</button>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section sec-grad-r">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Reviews</span>
-      <h2>Real Results</h2>
-      <p>See what our clients are saying about their experience</p>
-    </div>
-    <div class="filter-row chip-row reveal">
-      <button class="chip active">All</button>
-      <button class="chip">Individuals</button>
-      <button class="chip">Business</button>
-      <button class="chip">WhatsApp</button>
-    </div>
-    <div class="trow">
-      <div class="tcard reveal">
-        <p class="tq">"GIDIGBA STUDIOS rebuilt our brand from the ground up and our launch campaign outperformed every quarter before. Sharp team, sharper work."</p>
-        <div class="tmeta">Business client</div>
-      </div>
-      <div class="tcard reveal">
-        <p class="tq">"Ordered an online photoshoot from Kumasi — sent my photos in the morning, had stunning headshots on WhatsApp before lunch. No studio, no stress."</p>
-        <div class="tmeta">Individual · WhatsApp</div>
-      </div>
-      <div class="tcard reveal">
-        <p class="tq">"Their social media and content work took our food brand from invisible to fully booked. They understand business, not just aesthetics."</p>
-        <div class="tmeta">Business · Restaurant</div>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top:34px;" class="reveal">
-      <a class="btn btn-ghost" href="reviews.html">View All Testimonials</a>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS — white, tabs, steps, stats -->
-<section class="section">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Process</span>
-      <h2>How GIDIGBA Works</h2>
-      <p>Simple, fast, and professional — all from your phone</p>
-    </div>
-    <div class="how-tabs reveal">
-      <button class="tab active" id="howTabI" onclick="showHowTab('i')">For Individuals</button>
-      <button class="tab" id="howTabB" onclick="showHowTab('b')">For Business</button>
-    </div>
-    <div id="howPanelI">
-      <div class="steps-row">
+      <div class="steps">
         <div class="step-card reveal">
-          <div class="step-num">1</div>
-          <h3>Upload Your Selfie</h3>
-          <p>Take a selfie or choose from your gallery. Good lighting and a clear background work best.</p>
-          <span class="step-note">💡 Usually delivered within 24 business hours</span>
+          <h3>Pick &amp; brief</h3>
+          <p>Choose a package, tell us who it’s for, and describe the look you want.</p>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">2</div>
-          <h3>Magic Happens</h3>
-          <p>Describe your dream look — outfit, hair, background. Our team transforms your photo professionally.</p>
-          <span class="step-note">💡 Usually delivered within 24 business hours</span>
+          <h3>Send your photos</h3>
+          <p>Selfie + full-body (and references if you have them). Gallery or camera — your choice.</p>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">3</div>
-          <h3>Delivery via WhatsApp</h3>
-          <p>Receive studio-quality photos directly on WhatsApp, ready to post.</p>
-          <span class="step-note">💡 Usually delivered within 24 business hours</span>
+          <h3>Receive on WhatsApp</h3>
+          <p>Finished images within 24 business hours. Pay by Mobile Money once confirmed.</p>
         </div>
       </div>
     </div>
-    <div id="howPanelB" hidden>
-      <div class="steps-row">
-        <div class="step-card reveal">
-          <div class="step-num">1</div>
-          <h3>Send Your Brief</h3>
-          <p>Tell us about your business, brand or campaign — what you need and when you need it.</p>
-          <span class="step-note">💡 Quote within 24 business hours</span>
+  </section>
+
+  <!-- Pricing teaser -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="text-center mb-40 reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">Simple. Transparent. All-in.</h2>
+        <p style="color:var(--muted);margin-top:8px">Every individual package includes Makeup · Retouch · Hair · Outfit · Background</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <p class="name">Single Image</p>
+          <p class="amount">GH₵ 15 <span>/ one</span></p>
+          <p class="images">1 all-in image</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SINGLE')">Book</button>
         </div>
-        <div class="step-card reveal">
-          <div class="step-num">2</div>
-          <h3>We Create</h3>
-          <p>Design, photography, content — our team produces everything remotely and keeps you in the loop.</p>
-          <span class="step-note">💡 Clear timelines up front</span>
+        <div class="price-card featured reveal">
+          <span class="badge">Popular</span>
+          <p class="name">LITE</p>
+          <p class="amount">GH₵ 35 <span>/ 3</span></p>
+          <p class="images">3 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','LITE')">Book</button>
         </div>
-        <div class="step-card reveal">
-          <div class="step-num">3</div>
-          <h3>Delivery via WhatsApp</h3>
-          <p>Final files delivered straight to your WhatsApp — ready for print, post or ads.</p>
-          <span class="step-note">💡 Usually delivered within 24 business hours</span>
+        <div class="price-card reveal">
+          <p class="name">MEDIUM</p>
+          <p class="amount">GH₵ 55 <span>/ 5</span></p>
+          <p class="images">5 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','MEDIUM')">Book</button>
+        </div>
+        <div class="price-card reveal">
+          <p class="name">SUPERIOR</p>
+          <p class="amount">GH₵ 105 <span>/ 10</span></p>
+          <p class="images">10 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SUPERIOR')">Book</button>
         </div>
       </div>
+      <p class="text-center mt-32 reveal">
+        <a href="photoshoots.html" class="btn btn-ghost">See couple packages &amp; editing →</a>
+      </p>
     </div>
+  </section>
 
-    <h3 class="band-line reveal">No Studio • No Travel • No Awkward Poses</h3>
-    <p class="band-sub reveal">Professional results without the traditional studio hassle — from the comfort of your home.</p>
-    <div style="text-align:center;" class="reveal">
-      <a class="btn btn-primary btn-lg" href="photoshoots.html">Start Your Photoshoot</a>
+  <!-- Final CTA -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Ready when you are.</h2>
+      <p>No studio visit. No waiting weeks. Send your photos and get studio-grade results on WhatsApp within 24 business hours.</p>
+      <button class="btn btn-primary" onclick="openBooking('individual')">Start your photoshoot</button>
     </div>
-    <div class="stat-grid reveal">
-      <div class="stat"><strong>24h</strong><span>Avg. Delivery</span></div>
-      <div class="stat"><strong>GH₵15</strong><span>All-in From</span></div>
-      <div class="stat"><strong>100%</strong><span>Online</span></div>
-      <div class="stat"><strong>24/7</strong><span>WhatsApp Support</span></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- THREE PILLARS — black band (GIDIGBA values) -->
+  <!-- Footer -->
+  
 
+  <!-- Sticky bar -->
+  <script src="js/app.js"></script>
 
-<!-- FINAL CTA — lime gradient band -->
-<section class="section cta-band">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow" style="color:rgba(0,0,0,.6);">Get Started</span>
-      <h2>Ready to Look the Part?</h2>
-      <p>Join hundreds of satisfied clients transforming their visuals</p>
-    </div>
-    <div class="cta-actions reveal">
-      <a class="btn btn-primary btn-lg" href="photoshoots.html">Start Your Photoshoot</a>
-      <button class="btn btn-ghost btn-lg" onclick="openBookingChoice('business')">Business Solutions</button>
-    </div>
-    <div 
-      <div class="stat"><strong>100%</strong><span>Online</span></div>
-      <div class="stat"><strong>GH₵15</strong><span>All-in From</span></div>
-      <div class="stat"><strong>24/7</strong><span>WhatsApp Support</span></div>
-    </div>
-    <div class="trust-chips reveal">
-      <span>Premium Quality</span>
-      <span>Fast Delivery</span>
-      <span>24/7 Support</span>
-    </div>
-    <div class="cta-actions reveal">
-      <a class="btn btn-ghost" href="https://wa.me/233534317611?text=Hello%20GIDIGBA%20STUDIOS!%20I%27m%20interested%20in%20your%20services" target="_blank" rel="noopener">Chat with us on WhatsApp</a>
-    </div>
-  </div>
-</section>
-
+</html>
 </main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
 
 <div id="chrome-bottom"></div>
-<script src="galleries.js"></script>
-<script src="script.js"></script>
 </body>
 </html>

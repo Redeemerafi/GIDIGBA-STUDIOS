@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Real Estate Visuals | GIDIGBA STUDIOS</title>
-<meta name="description" content="Property visuals, agent headshots and listing content for Ghanaian real estate businesses — produced online by GIDIGBA STUDIOS, delivered on WhatsApp." />
-<meta name="theme-color" content="#C0F500" />
-<link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
-<link rel="apple-touch-icon" href="images/logo-192.png" />
-<meta property="og:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return 'light'}})());</script>
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script>
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://gidigba-studios.vercel.app/#business","name":"GIDIGBA STUDIOS","url":"https://gidigba-studios.vercel.app/","image":"https://gidigba-studios.vercel.app/images/og-image.jpg","logo":"https://gidigba-studios.vercel.app/images/logo-512.png","description":"GIDIGBA STUDIOS is an Accra-based creative studio offering branding, design, digital marketing, content production and 100% online photoshoots from GH₵15, delivered within 24 business hours.","telephone":"+233534317611","priceRange":"GH₵15 - GH₵350","currenciesAccepted":"GHS","paymentAccepted":"Mobile Money, Bank Transfer","address":{"@type":"PostalAddress","addressLocality":"Accra","addressRegion":"Greater Accra","addressCountry":"GH"},"areaServed":{"@type":"Country","name":"Ghana"},"sameAs":["https://wa.me/233534317611"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}],"makesOffer":[{"@type":"Offer","name":"Single Image","price":"15","priceCurrency":"GHS"},{"@type":"Offer","name":"LITE","price":"35","priceCurrency":"GHS"},{"@type":"Offer","name":"MEDIUM","price":"55","priceCurrency":"GHS"},{"@type":"Offer","name":"SUPERIOR","price":"105","priceCurrency":"GHS"},{"@type":"Offer","name":"Couple packages","price":"120","priceCurrency":"GHS"},{"@type":"Offer","name":"Single-change edit","price":"10","priceCurrency":"GHS"}]},{"@context":"https://schema.org","@type":"Service","name":"Online photoshoot","serviceType":"Online photoshoot","provider":{"@id":"https://gidigba-studios.vercel.app/#business"},"areaServed":{"@type":"Country","name":"Ghana"},"description":"Send photos on WhatsApp and receive professionally produced images within 24 business hours. 100% online, no in-person session.","offers":{"@type":"Offer","price":"15","priceCurrency":"GHS","availability":"https://schema.org/InStock"}}]</script>
+  <title>Real Estate | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Listings that earn the click." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-page="services">
+<body data-title="Real Estate | GIDIGBA STUDIOS" data-desc="Listings that earn the click." data-page="real-estate">
 <div id="chrome-top"></div>
+<main id="main">
 
-<main id="top">
+
+<div class="page-body">
 
 <section class="page-hero">
   <div class="container">
@@ -68,10 +57,24 @@
   </div>
 </section>
 
+</div>
+
+
 </main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
 
 <div id="chrome-bottom"></div>
-<script src="galleries.js"></script>
-<script src="script.js"></script>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
 </body>
 </html>

@@ -1,31 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Page not found | GIDIGBA STUDIOS</title>
-<meta name="description" content="That page doesn't exist. Head back to GIDIGBA STUDIOS — online photoshoots from GH₵15, delivered within 24 business hours." />
-<meta name="theme-color" content="#C0F500" />
-<meta name="robots" content="noindex" />
-<meta property="og:title" content="Page not found | GIDIGBA STUDIOS" />
-<meta property="og:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-<meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-<link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
-<link rel="apple-touch-icon" href="images/logo-192.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return 'light'}})());</script>
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script>
+  <title>Page not found | GIDIGBA STUDIOS</title>
+  <meta name="description" content="That page is not in the studio." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-page="404">
+<body data-title="Page not found | GIDIGBA STUDIOS" data-desc="That page is not in the studio." data-page="404">
 <div id="chrome-top"></div>
-
-<main>
-  <section class="hero" style="min-height:62vh; display:flex; align-items:center;">
+<main id="main">
+<section class="hero" style="min-height:62vh; display:flex; align-items:center;">
     <div class="container">
       <span class="eyebrow reveal">Error 404</span>
       <h1 class="reveal" style="margin-bottom:18px;">This page isn't<br /><span class="accent-serif">in the studio.</span></h1>
@@ -39,15 +25,34 @@
       </div>
       <h2 class="reveal" style="margin:44px 0 0; font-size:1.05rem; font-weight:700;">Or jump straight to</h2>
       <div class="reveal" style="margin-top:16px; display:flex; gap:26px; flex-wrap:wrap;">
-        <a href="photoshoots.html" style="color:var(--green-ink); font-weight:600;">Photoshoots from GH₵15 →</a>
-        <a href="services.html" style="color:var(--green-ink); font-weight:600;">Studio services →</a>
-        <a href="reviews.html" style="color:var(--green-ink); font-weight:600;">Reviews →</a>
+        <a href="photoshoots.html" style="color:var(--green-ink); font-weight:600;">Photoshoots from GH₵15</a>
+        <a href="services.html" style="color:var(--green-ink); font-weight:600;">Studio services</a>
+        <a href="reviews.html" style="color:var(--green-ink); font-weight:600;">Reviews</a>
       </div>
     </div>
   </section>
-</main>
+</div>
+
+
+</div>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
 
 <div id="chrome-bottom"></div>
-<script src="script.js"></script>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
+</body>
+</html>
+</main>
+<div id="chrome-bottom"></div>
 </body>
 </html>

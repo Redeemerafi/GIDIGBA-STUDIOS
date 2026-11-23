@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" class="no-js">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Women Samples — GIDIGBA STUDIOS</title>
-<meta name="description" content="Every female sample from GIDIGBA STUDIOS: the original photo first, then all finished images made from it. Online photoshoots from GH₵15, delivered in 24 business hours." />
-<meta name="theme-color" content="#C0F500" />
-<link rel="icon" href="images/favicon-96.png" sizes="96x96" type="image/png" />
-<link rel="apple-touch-icon" href="images/logo-192.png" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="stylesheet" href="styles.css" />
-<script src="galleries.js" defer></script>
-<script src="script.js" defer></script>
+  <title>Women's Samples | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Every female sample: the original photo first, then all finished images made from it." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-title="Women's Samples | GIDIGBA STUDIOS" data-desc="Every female sample: the original photo first, then all finished images made from it." data-page="samples">
 <div id="chrome-top"></div>
+<main id="main">
 
-<main>
   <section class="page-hero">
     <div class="container">
       <a class="smp-back" href="work.html">Back to samples</a>
       <span class="eyebrow">Women</span>
-      <h1 class="page-hero-title">The original photo,<br>and every look made from it.</h1>
+      <h1>The original photo, and every look made from it.</h1>
     </div>
   </section>
 
-  <section class="section sample-source">
+  <section class="section section-tight">
     <div class="container">
       <div class="smp-src">
         <figure class="smp-figure">
-          <img src="images/f-gold-before.webp" alt="Original female photo, before editing" loading="eager" />
+          <img src="images/f-gold-before.webp" alt="Original female photo, before editing" />
           <figcaption>Original photo</figcaption>
         </figure>
         <div class="smp-copy">
@@ -41,7 +36,7 @@
     </div>
   </section>
 
-  <section class="section sample-grid-sec">
+  <section class="section">
     <div class="container">
       <h2 class="smp-h">Finished looks</h2>
       <div class="smp-grid">
@@ -98,19 +93,25 @@
           <figcaption>Brand · matching set</figcaption>
         </figure>
       </div>
-      <p class="gallery-caption">Software-assisted images. Minor variations from real life may occur.</p>
+      <p class="sample-badge" style="margin-top:26px">Software-assisted images. Minor variations from real life may occur.</p>
     </div>
   </section>
 
-  <section class="section section-alt cta-section">
-    <div class="container">
-      <h2>Want yours made like this?</h2>
-      <p>Send a selfie and a full-body photo. One all-in image from GH₵15, back on WhatsApp within 24 business hours.</p>
-      <a class="btn btn-primary btn-lg" href="photoshoots.html">Start Photoshoot</a>
-    </div>
-  </section>
 </main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
 
 <div id="chrome-bottom"></div>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
 </body>
 </html>
