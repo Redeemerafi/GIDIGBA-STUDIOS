@@ -83,11 +83,11 @@ async def main():
         b = await page.evaluate("() => document.getElementById('howPanelB').hidden === false && document.getElementById('howPanelI').hidden === true")
         ok("THEME11: how-tab business", b)
         f = await page.evaluate("""() => {
-            const pairs = [...document.querySelectorAll('.ba-collage .ba-pair')];
+            const pairs = [...document.querySelectorAll('.smp-collage .smp-pair')];
             return { pairs: pairs.length,
-                     before: document.querySelectorAll('.ba-collage .ba-cell.before').length,
-                     after: document.querySelectorAll('.ba-collage .ba-cell.after').length,
-                     labels: [...document.querySelectorAll('.ba-pair-label')].map(x => x.textContent.trim()) };
+                     before: document.querySelectorAll('.smp-collage .smp-cell.smp-before').length,
+                     after: document.querySelectorAll('.smp-collage .smp-cell.smp-after').length,
+                     labels: [...document.querySelectorAll('.smp-pairlabel')].map(x => x.textContent.trim()) };
         }""")
         ok("THEME11: two before/after pairs", f["pairs"] == 2, str(f["pairs"]))
         ok("THEME11: one before per pair", f["before"] == 2, str(f["before"]))
