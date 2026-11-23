@@ -109,7 +109,7 @@ async def main():
         await page.wait_for_timeout(350)
         await page.evaluate("() => setFlowSel('outfit','upload')")
         await page.wait_for_timeout(250)
-        await page.fill("#outfitDesc", "Matching navy outfits")
+        await page.fill("[data-outfit-desc='0']", "Matching navy outfits")
         await page.evaluate("() => photoNextStep()")   # outfit -> hair
         await page.wait_for_timeout(350)
         await page.evaluate("() => setFlowSel('hair','upload')")

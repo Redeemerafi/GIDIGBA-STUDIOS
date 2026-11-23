@@ -57,7 +57,8 @@ async def main():
         ok("THEME11: cards16px", dom["cardR"] == "16px", dom["cardR"])
         ok("THEME11: section-alt black", dom["altBg"] == "rgb(0, 0, 0)", dom["altBg"])
         ok("THEME11: cta lime gradient", "192, 245, 0" in dom["ctaBg"], dom["ctaBg"][:80])
-        ok("THEME11: pillars GIDIGBA values", dom["pillars"] == ["ONLINE", "SPEED", "VALUE"], str(dom["pillars"]))
+        _pill = await page.evaluate("() => [...document.querySelectorAll('.pillar-card h3')].map(h => h.textContent.trim())")
+        ok("THEME11: pillars GIDIGBA values", _pill == ["ONLINE", "SPEED", "VALUE"], str(_pill))
         ok("THEME11: no banned strings", "Class. Tech. Future." not in dom["html"] and "Under Radikal" not in dom["html"] and "RADIKAL" not in dom["html"])
         ok("THEME11: no broken images", dom["imgBad"] == 0, str(dom["imgBad"]))
 
@@ -73,7 +74,7 @@ async def main():
         await page.wait_for_timeout(300)
 
         # interactions
-        await page.click("text=Image Editing from GH₵10")
+        await page.click("text=Book an edit")
         await page.wait_for_timeout(400)
         modal = await page.evaluate("() => !!document.querySelector('#photoModal.open')")
         ok("THEME11: editing CTA opens modal", modal)
@@ -81,13 +82,17 @@ async def main():
         await page.evaluate("() => showHowTab('b')")
         b = await page.evaluate("() => document.getElementById('howPanelB').hidden === false && document.getElementById('howPanelI').hidden === true")
         ok("THEME11: how-tab business", b)
-        await page.evaluate("() => filterTransform(document.querySelectorAll('.section-alt .filter-row .chip')[1], 'female')")
         f = await page.evaluate("""() => {
-            const vis = [...document.querySelectorAll('#transGrid .trans-item')].filter(i => i.style.display !== 'none').length;
-            return vis;
+            const pairs = [...document.querySelectorAll('.ba-collage .ba-pair')];
+            return { pairs: pairs.length,
+                     before: document.querySelectorAll('.ba-collage .ba-cell.before').length,
+                     after: document.querySelectorAll('.ba-collage .ba-cell.after').length,
+                     labels: [...document.querySelectorAll('.ba-pair-label')].map(x => x.textContent.trim()) };
         }""")
-        ok("THEME11: transform filter", f == 4, str(f))
-        await page.evaluate("() => filterTransform(document.querySelectorAll('.section-alt .filter-row .chip')[0], 'all')")
+        ok("THEME11: two before/after pairs", f["pairs"] == 2, str(f["pairs"]))
+        ok("THEME11: one before per pair", f["before"] == 2, str(f["before"]))
+        ok("THEME11: one after per pair", f["after"] == 2, str(f["after"]))
+        ok("THEME11: pairs labelled Women / Men", f["labels"] == ["Women", "Men"], str(f["labels"]))
 
         # console clean
         ok("CONSOLE: clean", not errs, str(errs[:3]))

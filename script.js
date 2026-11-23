@@ -105,7 +105,7 @@ const CHROME_BOTTOM = `
         </div>
         <h4>A Business Project</h4>
         <p>Branding, design, marketing, websites, video, campaigns and commercial visuals.</p>
-        <span class="choice-cta">Start With This Service →</span>
+        <span class="choice-cta">Start With This Service</span>
       </div>
       <div class="choice-card" onclick="closeModal('bookingChoiceModal'); openPhotoBooking();">
         <div class="choice-icon">
@@ -113,7 +113,7 @@ const CHROME_BOTTOM = `
         </div>
         <h4>A Personal Photography Session</h4>
         <p>Birthdays, graduations, portraits, headshots and personal-brand photoshoots — 100% online, delivered via WhatsApp.</p>
-        <span class="choice-cta">Book Your Session →</span>
+        <span class="choice-cta">Book Your Session</span>
       </div>
     </div>
   </div>
@@ -199,7 +199,7 @@ const CHROME_BOTTOM = `
       </div>
       <div class="footer-cols">
         <div class="footer-col">
-          <h3 class="footer-h">Studio</h3>
+          <p class="footer-h">Studio</p>
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
@@ -211,7 +211,7 @@ const CHROME_BOTTOM = `
           </ul>
         </div>
         <div class="footer-col">
-          <h3 class="footer-h">Book</h3>
+          <p class="footer-h">Book</p>
           <ul>
             <li><a href="#" onclick="openBookingChoice('business'); return false;">Start a Project</a></li>
             <li><a href="#" onclick="openBookingChoice('photo'); return false;">Book Photography</a></li>
@@ -221,7 +221,7 @@ const CHROME_BOTTOM = `
           </ul>
         </div>
         <div class="footer-col">
-          <h3 class="footer-h">Contact</h3>
+          <p class="footer-h">Contact</p>
           <ul>
             <li><a href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener">WhatsApp: +233 53 431 7611</a></li>
             <li><span style="font-size:.9rem;color:var(--grey);font-weight:300;">Accra, Ghana · Online worldwide</span></li>
@@ -296,7 +296,7 @@ function initGrowth() {
     }
   } catch (e) {}
 
-  // iOS: no install prompt — teach Share → Add to Home Screen
+  // iOS: no install prompt — teach Share Add to Home Screen
   try {
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) && !(window.MSStream instanceof ActiveXObject);
     const standalone = window.navigator.standalone === true ||
@@ -306,7 +306,7 @@ function initGrowth() {
       const txt = document.getElementById('installText');
       const btn = document.getElementById('installBtn');
       if (bar && txt && !bar.classList.contains('show')) {
-        txt.textContent = '📲 Tap Share → “Add to Home Screen” to install';
+        txt.textContent = '📲 Tap Share “Add to Home Screen” to install';
         if (btn) btn.style.display = 'none';
         setTimeout(() => bar.classList.add('show'), 5000);
       }
@@ -556,7 +556,7 @@ function renderWorks() {
         <span class="work-category">${w.cat === 'business' ? 'Business' : 'Personal'}</span>
       </div>
       <div class="work-info"><h4>${esc(w.title)}</h4><p>${esc(w.caption)}</p>
-        ${LOOK_MAP[w.title] ? `<button class="look-btn" onclick="bookLook('${LOOK_MAP[w.title]}', '${esc(w.title)}')">Get this look →</button>` : ''}
+        ${LOOK_MAP[w.title] ? `<button class="look-btn" onclick="bookLook('${LOOK_MAP[w.title]}', '${esc(w.title)}')">Get this look</button>` : ''}
       </div>`;
     (w.sex === 'male' ? workGridM : workGridF).appendChild(item);
   });
@@ -565,7 +565,7 @@ function renderWorks() {
 }
 renderWorks();
 
-// ---- Needs → booking shortcuts ----
+// ---- Needs booking shortcuts ----
 document.querySelectorAll('.need[data-book]').forEach(card => {
   card.addEventListener('click', () => openBookingChoice(card.dataset.book));
 });
@@ -585,13 +585,13 @@ document.querySelectorAll('.faq-item').forEach(item => {
    ============================================================ */
 const INCLUSIONS = 'Makeup · Retouch · Hair · Outfit · Background';
 const PACKAGES = [
-  { name: 'SINGLE IMAGE', price: 15, type: 'individual', images: 1, features: ['1 all-in image', INCLUSIONS, 'Delivery in 24 business hours'] },
-  { name: 'LITE', price: 35, type: 'individual', images: 3, features: ['3 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
-  { name: 'MEDIUM', price: 55, type: 'individual', images: 5, features: ['5 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
-  { name: 'SUPERIOR', price: 105, type: 'individual', images: 10, features: ['10 all-in images', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
-  { name: 'COUPLE SILVER', price: 120, type: 'couple', images: 3, features: ['3 images', '1 outfit each', 'Studio layout', 'Delivery in 24 business hours'] },
-  { name: 'COUPLE GOLD', price: 230, type: 'couple', images: 4, features: ['4 images', '2 outfits each', 'Creative scene', 'Delivery in 24 business hours'] },
-  { name: 'COUPLE PLATINUM', price: 350, type: 'couple', images: 6, features: ['6 images', '3 outfits each', 'Premium concepts', 'Delivery in 24 business hours'] },
+  { name: 'SINGLE IMAGE', price: 15, type: 'individual', images: 1, outfits: 1, features: ['1 all-in image', '1 outfit', INCLUSIONS, 'Delivery in 24 business hours'] },
+  { name: 'LITE', price: 35, type: 'individual', images: 3, outfits: 1, features: ['3 all-in images', '1 outfit', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'MEDIUM', price: 55, type: 'individual', images: 5, outfits: 2, features: ['5 all-in images', '2 outfits', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'SUPERIOR', price: 105, type: 'individual', images: 10, outfits: 3, features: ['10 all-in images', '3 outfits', INCLUSIONS + ' per image', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE SILVER', price: 120, type: 'couple', images: 3, outfits: 1, features: ['3 images', '1 outfit each', 'Studio layout', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE GOLD', price: 230, type: 'couple', images: 4, outfits: 2, features: ['4 images', '2 outfits each', 'Creative scene', 'Delivery in 24 business hours'] },
+  { name: 'COUPLE PLATINUM', price: 350, type: 'couple', images: 6, outfits: 3, features: ['6 images', '3 outfits each', 'Premium concepts', 'Delivery in 24 business hours'] },
 ];
 const SERVICES_EDIT = [
   { name: 'Earring / Accessories Change', price: 10, icon: '💍' },
@@ -650,7 +650,7 @@ function renderPkgGrid() {
         <div class="pkg-name">${s.icon} ${esc(s.name)}</div>
         <div class="pkg-price">GH₵ ${s.price} <small>each</small></div>
         <ul><li>Upload the photo you already have</li><li>Delivered within 24 business hours</li></ul>
-        <span class="pkg-book">Book this edit →</span>
+        <span class="pkg-book">Book this edit</span>
       </div>`).join('');
   } else {
     grid.innerHTML = PACKAGES.filter(p => p.type === pkgTab).map(p => `
@@ -661,7 +661,7 @@ function renderPkgGrid() {
         <div class="pkg-name">${p.name}</div>
         <div class="pkg-price">GH₵ ${p.price} <small>one-time</small></div>
         <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
-        <span class="pkg-book">Book ${p.name} →</span>
+        <span class="pkg-book">Book ${p.name}</span>
         <button class="pkg-share" onclick="event.stopPropagation(); sharePkg('${p.name}')">↗ Share this package</button>
       </div>`).join('');
   }
@@ -746,7 +746,7 @@ function openBookingChoice(which) {
   }
 }
 
-// ---- Business project form → WhatsApp ----
+// ---- Business project form WhatsApp ----
 const projectForm = document.getElementById('projectForm');
 if (projectForm) {
   projectForm.addEventListener('submit', e => {
@@ -804,7 +804,7 @@ function freshBookingData() {
     prefDate: '', altDate: '', prefTime: '',
     turnaround: '',
     fullName: '', phone: '', email: '',
-    peopleCount: '', outfitDesc: '',
+    peopleCount: '', outfitDesc: '', outfitDescs: [], outfitPicks: [],
     hairstyle1: '', hairstyle2: '',
     makeup1: false, makeup2: false,
     vision: '', mood: '', intendedUse: '', notes: '', svcFb: {}, outfitPick: null, hairPick: null, outfitSel: '', hairSel: '', gender: '',
@@ -828,8 +828,21 @@ function getCustomTotal() {
   return booking.data.selectedServices.reduce((s, i) => s + SERVICES_EDIT[i].price, 0);
 }
 function getOutfitCount() {
-  if (booking.data.orderType === 'photoshoot') return 1;
-  return 0;
+  const d = booking.data;
+  if (d.orderType !== 'photoshoot') return 0;
+  if (d.outfitSel === 'styled' || (d.styleMe && !d.outfitSel)) return 0;
+  const pkg = getSelectedPackage();
+  return Math.max(1, (pkg && pkg.outfits) || 1);
+}
+/* how many outfits this booking actually captures: wardrobe picks, or N uploaded */
+function outfitEntryCount() {
+  const d = booking.data;
+  const pkg = getSelectedPackage();
+  const need = Math.max(1, (pkg && pkg.outfits) || 1);
+  if (d.outfitPicks && d.outfitPicks.length) return Math.min(d.outfitPicks.length, need);
+  const set = (sourceFiles.outfitImgSet || []).filter(Boolean).length;
+  if (set) return set;
+  return sourceFiles.outfitImg ? 1 : 0;
 }
 function isCouplePkg() {
   return booking.data.orderType === 'photoshoot' && getSelectedPackage()?.type === 'couple';
@@ -989,7 +1002,7 @@ function updateBookingSteps() {
     next.className = 'btn btn-wa';
   } else {
     next.innerHTML = `Continue
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+`;
     next.className = 'btn btn-primary';
   }
 }
@@ -1080,7 +1093,25 @@ function validateStage(stage) {
     if (!sourceFiles.fullbody) { toast('Take or upload a full-body photo (required)', false); flagField('.upload-box[data-key="fullbody"]'); return false; }
   } else if (stage === 'outfit') {
     if (d.styleMe || d.outfitSel === 'styled') return true;
-    if (d.outfitPick || sourceFiles.outfitImg || (d.outfitDesc || '').trim()) return true;
+    if (d.outfitSel === 'wardrobe') {
+      if (d.outfitPick || (d.outfitPicks || []).length) return true;
+      toast('Pick an outfit from the wardrobe', false);
+      flagField('.gal-grid'); return false;
+    }
+    if (d.outfitSel === 'upload') {
+      const need = getOutfitCount();
+      const descs = (d.outfitDescs || []).filter(x => (x || '').trim()).length;
+      // a photo proves the outfit; a description is a valid answer too —
+      // only block when a multi-outfit package has been given nothing at all
+      if (need > 1 && outfitEntryCount() === 0 && descs === 0) {
+        toast(`This package includes ${need} outfits — show us at least one, or describe all ${need}`, false);
+        flagField('.upload-box[data-key="outfitImg_0"]'); return false;
+      }
+      if (outfitEntryCount() > 0 || descs > 0) return true;
+      toast('Upload or describe at least one outfit', false);
+      flagField('.upload-box[data-key="outfitImg_0"]'); return false;
+    }
+    if (d.outfitPick || sourceFiles.outfitImg || outfitEntryCount() || (d.outfitDesc || '').trim()) return true;
     toast('Choose your outfit — upload, pick from wardrobe, describe, or let us style you', false);
     flagField('.flow-choices'); return false;
   } else if (stage === 'hair') {
@@ -1227,11 +1258,20 @@ function renderWizardStage(st) {
     if (sel === 'upload') {
       panel = isOutfit ? `
         <div class="flow-panel">
-          <div class="upload-grid">${upBoxW('outfitImg', 'Outfit photo (optional)', 'Snap your outfit')}</div>
-          <div class="form-group" style="margin-top:10px;">
-            <label>Describe your outfit</label>
-            <textarea id="outfitDesc" rows="2" placeholder="e.g. Gold kente cloth, white sundress, navy suit — leave empty if you uploaded a photo">${esc(d.outfitDesc)}</textarea>
+          <div class="outfit-need">
+            <strong>${getOutfitCount()} outfit${getOutfitCount() > 1 ? 's' : ''}</strong>
+            <span>included in ${esc(getSelectedPackage()?.name || 'your package')}${isCouplePkg() ? ' — each of you' : ''}. Photograph each one, or describe it below.</span>
           </div>
+          <div class="upload-grid">
+            ${Array.from({ length: getOutfitCount() }, (_, i) =>
+              upBoxW('outfitImg_' + i, 'Outfit ' + (i + 1), i === 0 ? 'Main look' : 'Change ' + (i + 1)).replace('data-key="outfitImg_' + i + '"', 'data-key="outfitImg_' + i + '" data-slot="' + i + '"')
+            ).join('')}
+          </div>
+          ${Array.from({ length: getOutfitCount() }, (_, i) => `
+            <div class="form-group outfit-desc-row">
+              <label for="outfitDesc_${i}">Describe outfit ${i + 1}</label>
+              <textarea id="outfitDesc_${i}" data-outfit-desc="${i}" rows="2" placeholder="${i === 0 ? 'e.g. Gold kente cloth with matching headwrap' : 'e.g. White linen suit for the second look'}">${esc((d.outfitDescs || [])[i] || (i === 0 ? d.outfitDesc : '') || '')}</textarea>
+            </div>`).join('')}
         </div>` : `
         <div class="flow-panel">
           <div class="upload-grid">${upBoxW('hairstyleImg', 'Hairstyle photo (optional)', 'Snap the hair')}</div>
@@ -1590,7 +1630,16 @@ function renderPhotoStep() {
     const includesLine = !isSession
       ? d.selectedServices.map(i => `${SERVICES_EDIT[i].name} (GH₵10)`).join(', ')
       : (pkg?.type === 'couple' ? pkg.features.filter(f => !f.startsWith('Delivery')).join(' · ') : 'Makeup · Retouch · Hair · Outfit · Background choice');
-    const outfitVal = d.outfitDesc || (sourceFiles.outfitImg ? 'Photo attached' : '—');
+    const _oCount = outfitEntryCount();
+    const _oDescs = (d.outfitDescs || []).filter(x => (x || '').trim());
+    const outfitVal = d.outfitSel === 'wardrobe' && d.outfitPick
+      ? (d.outfitPick.label || 'Wardrobe pick')
+      : (_oCount || _oDescs.length)
+        ? [
+            _oCount ? `${_oCount} photo${_oCount > 1 ? 's' : ''}` : '',
+            _oDescs.length ? (_oDescs.length > 1 ? _oDescs.map((x, i) => `${i + 1}. ${x}`).join(' · ') : _oDescs[0]) : ''
+          ].filter(Boolean).join(' — ')
+        : '—';
     const hairVal = d.hairstyle1 || (sourceFiles.hairstyleImg ? 'Photo attached' : '—');
     const srcCount = Object.keys(sourceFiles).length;
     const biggest = isSession && (pkg?.name === 'SUPERIOR' || pkg?.name === 'COUPLE PLATINUM');
@@ -1884,6 +1933,7 @@ function attachStepListeners() {
   }
   document.querySelectorAll('.upload-box[data-key]').forEach(box => {
     const key = box.dataset.key;
+    const slot = box.dataset.slot;
     if (sourceFiles[key]) {
       const r = new FileReader();
       r.onload = ev => { const img = box.querySelector('.ub-preview'); if (img) img.src = ev.target.result; };
@@ -1893,13 +1943,29 @@ function attachStepListeners() {
       input.addEventListener('change', e => {
         const f = e.target.files[0];
         if (!f) return;
-        sourceFiles[key] = f;
+        if (slot !== undefined) {
+          const base = key.replace(/_\d+$/, '');
+          if (!sourceFiles[base + 'Set']) sourceFiles[base + 'Set'] = [];
+          sourceFiles[base + 'Set'][+slot] = f;
+          sourceFiles[key] = f;
+        } else {
+          sourceFiles[key] = f;
+        }
         box.classList.add('filled');
         box.classList.remove('field-error');
         const r = new FileReader();
         r.onload = ev => { const pv = box.querySelector('.ub-preview'); if (pv) pv.src = ev.target.result; };
         r.readAsDataURL(f);
       });
+    });
+  });
+  document.querySelectorAll('textarea[data-outfit-desc]').forEach(el => {
+    el.addEventListener('input', e => {
+      const i = +el.dataset.outfitDesc;
+      if (!booking.data.outfitDescs) booking.data.outfitDescs = [];
+      booking.data.outfitDescs[i] = e.target.value;
+      if (i === 0) booking.data.outfitDesc = e.target.value;
+      el.classList.remove('field-error');
     });
   });
   document.querySelectorAll('textarea[data-svcfb]').forEach(el => {
@@ -1933,7 +1999,11 @@ async function submitPhotoOrder() {
   try {
     const urls = {};
     const uploads = [];
-    for (const [k, f] of Object.entries(sourceFiles)) uploads.push([k, f]);
+    for (const [k, f] of Object.entries(sourceFiles)) {
+      if (Array.isArray(f)) continue;           // outfitImgSet is bookkeeping, not a file
+      if (!(f instanceof File)) continue;
+      uploads.push([k, f]);
+    }
 
     for (const [k, f] of uploads) {
       const fd = new FormData();
@@ -1973,7 +2043,19 @@ async function submitPhotoOrder() {
     }
     msg += `\n*CREATIVE*\n`;
     if (isSession) {
-      msg += `Outfit: ${outfitStyled() ? 'Skipped — styled by GIDIGBA' : (d.outfitDesc || (urls.outfitImg ? 'Photo attached' : 'N/A'))}\n`;
+      const _oc = outfitEntryCount();
+      const _od = (d.outfitDescs || []).filter(x => (x || '').trim());
+      const _oPkgNeed = getOutfitCount();
+      const outfitLine = outfitStyled()
+        ? 'Skipped — styled by GIDIGBA'
+        : d.outfitSel === 'wardrobe' && d.outfitPick
+          ? `Wardrobe — ${d.outfitPick.label || 'chosen look'}`
+          : (_oc || _od.length)
+            ? `${Math.max(_oc, _od.length)} of ${_oPkgNeed} included` +
+              (_od.length ? ' — ' + _od.map((x, i) => `(${i + 1}) ${x}`).join(' · ') : '') +
+              (_oc ? ` — ${_oc} outfit photo${_oc > 1 ? 's' : ''} attached` : '')
+            : 'N/A';
+      msg += `Outfit: ${outfitLine}\n`;
       msg += `Hairstyle: ${hairStyled() ? 'Skipped — styled by GIDIGBA' : (d.hairstyle1 || (urls.hairstyleImg ? 'Photo attached' : 'N/A'))}\n`;
       if (d.hairstyle2) msg += `Partner hairstyle: ${d.styleMe ? 'Skipped — styled by GIDIGBA' : d.hairstyle2}\n`;
       if (d.pose) msg += `Pose: ${d.pose}\n`;
@@ -2031,7 +2113,7 @@ function bookLook(typeId, title) {
   toast(`Photoshoot question filled as “${t ? t.label : 'Portrait'}” from “${title}” — choose Single Image or a Package`);
 }
 
-// ---- Shareable package card (canvas → PNG) ----
+// ---- Shareable package card (canvas PNG) ----
 function sharePkg(name) {
   const p = PACKAGES.find(x => x.name === name);
   if (!p) return;
@@ -2125,7 +2207,7 @@ function quizResult() {
       <h4>${p.name} · GH₵ ${p.price}</h4>
       <p>${p.features.join(' · ')} — matched for a ${tLabel.toLowerCase()} shoot. Delivered to your WhatsApp within 24 business hours. We've pre-filled the photoshoot question for you too.</p>
       <div class="quiz-actions">
-        <button class="btn btn-primary btn-sm" onclick="bookQuizPkg('${p.name}', '${QUIZ_OCCASION_TYPE[occasion]}')">Book ${p.name} →</button>
+        <button class="btn btn-primary btn-sm" onclick="bookQuizPkg('${p.name}', '${QUIZ_OCCASION_TYPE[occasion]}')">Book ${p.name}</button>
         <button class="btn btn-ghost btn-sm" onclick="sharePkg('${p.name}')">↗ Share</button>
         <button class="btn btn-ghost btn-sm" onclick="quizReset()">Retake</button>
       </div>

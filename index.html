@@ -45,50 +45,7 @@
 </section>
 
 <!-- SOLUTIONS — white -->
-<section class="section">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Solutions</span>
-      <h2>Solutions for Everyone</h2>
-      <p>Tailored solutions for individuals, businesses and editors</p>
-    </div>
-    <div class="steps-row">
-      <div class="sol-card reveal">
-        <span class="sol-kicker">For Individuals</span>
-        <h3>Online Photoshoot Studio</h3>
-        <ul>
-          <li>Single Images — GH₵15</li>
-          <li>Couple Sessions</li>
-          <li>Occasions &amp; Celebrations</li>
-          <li>Personal Branding</li>
-        </ul>
-        <a class="btn btn-primary" href="photoshoots.html">Start Photoshoot</a>
-      </div>
-      <div class="sol-card reveal">
-        <span class="sol-kicker">For Business</span>
-        <h3>Creative Business Solutions</h3>
-        <ul>
-          <li>Brand Identity</li>
-          <li>Graphic Design</li>
-          <li>Social Media Management</li>
-          <li>Commercial Photography</li>
-        </ul>
-        <a class="btn btn-ghost" href="services.html">View Solutions</a>
-      </div>
-      <div class="sol-card reveal">
-        <span class="sol-kicker">Photo Editing</span>
-        <h3>Change Just One Thing</h3>
-        <ul>
-          <li>Any single change — GH₵10</li>
-          <li>Outfit, hair, makeup &amp; more</li>
-          <li>Upload &amp; describe it</li>
-          <li>Delivered in 24 business hours</li>
-        </ul>
-        <button class="btn btn-primary" onclick="openPhotoBooking(null, 'custom')">Image Editing from GH₵10 →</button>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- TRUSTED STRIP -->
 <div class="trusted-strip">Trusted by businesses and individuals worldwide <span class="stars">★★★★★</span></div>
@@ -101,28 +58,72 @@
       <h2>The GIDIGBA Transformation</h2>
       <p>From ordinary to extraordinary — real client results</p>
     </div>
-    <div class="filter-row reveal">
-      <button class="chip active" onclick="filterTransform(this,'all')">All Work</button>
-      <button class="chip" onclick="filterTransform(this,'female')">Female</button>
-      <button class="chip" onclick="filterTransform(this,'male')">Male</button>
-    </div>
-    <div class="ba-slider reveal" id="baSlider">
-      <img class="ba-img ba-after" src="images/f-kente.webp" alt="After — GIDIGBA studio-style result" loading="lazy" />
-      <img class="ba-img ba-before" id="baBefore" src="images/f-before.webp" alt="Before — ordinary phone photo" loading="lazy" style="clip-path: inset(0 50% 0 0);" />
-      <div class="ba-handle" id="baHandle" style="left:50%;"></div>
-      <span class="ba-tag ba-tag-l">Before</span>
-      <span class="ba-tag ba-tag-r">After</span>
-    </div>
-    <div class="trans-grid" id="transGrid">
-      <div class="trans-item" data-tcat="female"><img src="images/f-gold.webp" alt="Birthday look" loading="lazy" /><span class="ti-label">Female</span></div>
-      <div class="trans-item" data-tcat="male"><img src="images/m-red.webp" alt="Executive headshot" loading="lazy" /><span class="ti-label">Male</span></div>
-      <div class="trans-item" data-tcat="female"><img src="images/f-kente.webp" alt="Kente look" loading="lazy" /><span class="ti-label">Female</span></div>
-      <div class="trans-item" data-tcat="female"><img src="images/f-night2.webp" alt="Night look" loading="lazy" /><span class="ti-label">Female</span></div>
-      <div class="trans-item" data-tcat="male"><img src="images/m-match.webp" alt="Brand portrait" loading="lazy" /><span class="ti-label">Male</span></div>
-      <div class="trans-item" data-tcat="female"><img src="images/f-pepper.webp" alt="Graduation look" loading="lazy" /><span class="ti-label">Female</span></div>
+    <div class="ba-collage reveal">
+      <figure class="ba-pair">
+        <div class="ba-duo">
+          <div class="ba-cell before">
+            <img src="images/f-gold-before.webp" alt="Female client — original phone photo" loading="eager" />
+            <figcaption>Before</figcaption>
+          </div>
+          <div class="ba-cell after">
+            <img src="images/f-gold.webp" alt="Female client — finished GIDIGBA image" loading="eager" />
+            <figcaption>After</figcaption>
+          </div>
+        </div>
+        <figcaption class="ba-pair-label">Women</figcaption>
+      </figure>
+
+      <figure class="ba-pair">
+        <div class="ba-duo">
+          <div class="ba-cell before">
+            <img src="images/m-red-before.webp" alt="Male client — original phone photo" loading="eager" />
+            <figcaption>Before</figcaption>
+          </div>
+          <div class="ba-cell after">
+            <img src="images/m-red.webp" alt="Male client — finished GIDIGBA image" loading="eager" />
+            <figcaption>After</figcaption>
+          </div>
+        </div>
+        <figcaption class="ba-pair-label">Men</figcaption>
+      </figure>
     </div>
     <div style="text-align:center; margin-top:34px;" class="reveal">
-      <a class="btn btn-ghost" href="work.html">View More Work</a>
+      <a class="btn btn-primary" href="work.html">View more samples</a>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES — one compact band -->
+<section class="section values-band">
+  <div class="container">
+    <div class="values-row">
+      <div class="pillar-card">
+        <h3>ONLINE</h3>
+        <div class="p-sub">No studio, no travel</div>
+      </div>
+      <div class="pillar-card">
+        <h3>SPEED</h3>
+        <div class="p-sub">24 business hours</div>
+      </div>
+      <div class="pillar-card">
+        <h3>VALUE</h3>
+        <div class="p-sub">All-in from GH₵15</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITING — single line, no card grid -->
+<section class="section edit-band">
+  <div class="container edit-band-in">
+    <div class="eb-copy">
+      <span class="eyebrow">Image Editing</span>
+      <h2>Change just one thing.</h2>
+      <p>Swap an outfit, fix a background, clean up a photo you already love. Any single change — <strong>GH₵10</strong>. Delivered within 24 business hours.</p>
+    </div>
+    <div class="eb-actions">
+      <button class="btn btn-primary btn-lg" onclick="openPhotoBooking(null, 'custom')">Book an edit</button>
+      <a class="btn btn-ghost btn-lg" href="services.html">All 20 edits</a>
     </div>
   </div>
 </section>
@@ -287,32 +288,7 @@
 </section>
 
 <!-- THREE PILLARS — black band (GIDIGBA values) -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Principles</span>
-      <h2>Our Three Pillars</h2>
-      <p>The foundation of everything we do at GIDIGBA</p>
-    </div>
-    <div class="pillars-row">
-      <div class="pillar-card reveal">
-        <h3>ONLINE</h3>
-        <div class="p-sub">No studio, no travel</div>
-        <blockquote>"100% remote — from your phone to your WhatsApp."</blockquote>
-      </div>
-      <div class="pillar-card reveal">
-        <h3>SPEED</h3>
-        <div class="p-sub">24 business hours</div>
-        <blockquote>"Everyone gets delivery within one business day."</blockquote>
-      </div>
-      <div class="pillar-card reveal">
-        <h3>VALUE</h3>
-        <div class="p-sub">All-in from GH₵15</div>
-        <blockquote>"Clear prices, no surprises, quality that speaks."</blockquote>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- FINAL CTA — lime gradient band -->
 <section class="section cta-band">
@@ -326,8 +302,7 @@
       <a class="btn btn-primary btn-lg" href="photoshoots.html">Start Your Photoshoot</a>
       <button class="btn btn-ghost btn-lg" onclick="openBookingChoice('business')">Business Solutions</button>
     </div>
-    <div class="stat-grid reveal">
-      <div class="stat"><strong>24h</strong><span>Avg. Delivery</span></div>
+    <div 
       <div class="stat"><strong>100%</strong><span>Online</span></div>
       <div class="stat"><strong>GH₵15</strong><span>All-in From</span></div>
       <div class="stat"><strong>24/7</strong><span>WhatsApp Support</span></div>

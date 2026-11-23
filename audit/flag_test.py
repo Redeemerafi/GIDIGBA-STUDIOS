@@ -24,7 +24,7 @@ async def main():
         await pg.evaluate("() => photoNextStep()")                       # → outfit
         await pg.wait_for_timeout(200)
         await pg.evaluate("() => setFlowSel('outfit','upload')")
-        await pg.fill("#outfitDesc", "navy suit")
+        await pg.fill("[data-outfit-desc='0']", "navy suit")
         await pg.evaluate("() => photoNextStep()")                       # → hair
         await pg.wait_for_timeout(200)
         await pg.evaluate("() => setFlowSel('hair','upload')")

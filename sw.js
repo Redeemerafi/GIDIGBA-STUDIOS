@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gidigba-v16';
+const CACHE_NAME = 'gidigba-v17';
 const PRECACHE_URLS = [
   'favicon.ico',
   '404.html',

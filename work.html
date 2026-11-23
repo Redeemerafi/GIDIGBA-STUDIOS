@@ -1,206 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Work | GIDIGBA STUDIOS — Proof of Work</title>
-<meta name="description" content="Proof of work from GIDIGBA STUDIOS — real online photoshoot transformations for female and male clients, delivered within 24 business hours. Tap any picture to view it full size." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Samples — GIDIGBA STUDIOS</title>
+<meta name="description" content="Before and after samples from GIDIGBA STUDIOS. Choose women or men to see every finished look beside the original photo." />
 <meta name="theme-color" content="#C0F500" />
-<link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
+<link rel="icon" href="images/favicon-96.png" sizes="96x96" type="image/png" />
 <link rel="apple-touch-icon" href="images/logo-192.png" />
-<meta property="og:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og-image.jpg" />
 <link rel="manifest" href="manifest.webmanifest" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return 'light'}})());</script>
-<link rel="stylesheet" href="styles.css">
-<script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script>
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://gidigba-studios.vercel.app/#business","name":"GIDIGBA STUDIOS","url":"https://gidigba-studios.vercel.app/","image":"https://gidigba-studios.vercel.app/images/og-image.jpg","logo":"https://gidigba-studios.vercel.app/images/logo-512.png","description":"GIDIGBA STUDIOS is an Accra-based creative studio offering branding, design, digital marketing, content production and 100% online photoshoots from GH₵15, delivered within 24 business hours.","telephone":"+233534317611","priceRange":"GH₵15 - GH₵350","currenciesAccepted":"GHS","paymentAccepted":"Mobile Money, Bank Transfer","address":{"@type":"PostalAddress","addressLocality":"Accra","addressRegion":"Greater Accra","addressCountry":"GH"},"areaServed":{"@type":"Country","name":"Ghana"},"sameAs":["https://wa.me/233534317611"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}],"makesOffer":[{"@type":"Offer","name":"Single Image","price":"15","priceCurrency":"GHS"},{"@type":"Offer","name":"LITE","price":"35","priceCurrency":"GHS"},{"@type":"Offer","name":"MEDIUM","price":"55","priceCurrency":"GHS"},{"@type":"Offer","name":"SUPERIOR","price":"105","priceCurrency":"GHS"},{"@type":"Offer","name":"Couple packages","price":"120","priceCurrency":"GHS"},{"@type":"Offer","name":"Single-change edit","price":"10","priceCurrency":"GHS"}]},{"@context":"https://schema.org","@type":"Service","name":"Online photoshoot","serviceType":"Online photoshoot","provider":{"@id":"https://gidigba-studios.vercel.app/#business"},"areaServed":{"@type":"Country","name":"Ghana"},"description":"Send photos on WhatsApp and receive professionally produced images within 24 business hours. 100% online, no in-person session.","offers":{"@type":"Offer","price":"15","priceCurrency":"GHS","availability":"https://schema.org/InStock"}}]</script>
+<link rel="stylesheet" href="styles.css" />
+<script src="galleries.js" defer></script>
+<script src="script.js" defer></script>
 </head>
-<body data-page="work">
+<body>
 <div id="chrome-top"></div>
 
-<main id="top">
-
-<!-- HERO -->
-<section class="page-hero pf-hero">
-  <div class="container">
-    <span class="eyebrow reveal">Proof of work</span>
-    <h1 class="reveal">Real transformations.<br /><span class="hl">Delivered in 24 hours.</span></h1>
-    <p class="reveal">Every image below was produced online by GIDIGBA STUDIOS — no studio, no waiting weeks. Tap any picture to see it full size.</p>
-    <div class="cta-actions reveal" style="justify-content:flex-start;">
-      <button class="btn btn-primary" onclick="openBookingChoice('photo')">Book a Photography Session</button>
-      <button class="btn btn-ghost" onclick="document.getElementById('workGrid').scrollIntoView({behavior:'smooth'})">See the work &darr;</button>
+<main>
+  <section class="page-hero section-tight">
+    <div class="container">
+      <span class="eyebrow">Samples</span>
+      <h1 class="page-hero-title">Every finished look,<br>beside the photo it came from.</h1>
+      <p class="page-hero-sub">Pick who you want to see. Each page opens with the original photo, then every finished image made from it.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TRUST STRIP -->
-<section class="section pf-stats-sec">
-  <div class="container">
-    <div class="pf-stats reveal">
-      <div class="pf-stat"><strong>GH&#8373;15</strong><span>Entry price, all-in</span></div>
-      <div class="pf-stat"><strong>24 hrs</strong><span>Business-hour delivery</span></div>
-      <div class="pf-stat"><strong>100%</strong><span>Online — no studio visit</span></div>
-      <div class="pf-stat"><strong>Accra</strong><span>Based in Ghana, worldwide</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="section" id="workGrid">
-  <div class="container">
-    <div class="pf-head reveal">
-      <div>
-        <span class="eyebrow">Selected work</span>
-        <h2 class="pf-title">The work</h2>
-      </div>
-      <div class="filter-row" id="pfTabs">
-        <button class="tab active" data-sex="female" onclick="pfTab('female')">Female</button>
-        <button class="tab" data-sex="male" onclick="pfTab('male')">Male</button>
+  <section class="section sample-choice">
+    <div class="container">
+      <div class="choice-grid">
+        <a class="choice-card" href="samples-female.html">
+          <span class="cc-preview">
+            <img src="images/f-gold-before.webp" alt="" loading="eager" />
+            <img src="images/f-gold.webp" alt="Female sample — finished look" loading="eager" />
+          </span>
+          <span class="cc-body">
+            <span class="cc-title">Women</span>
+            <span class="cc-sub">Every female finished look</span>
+          </span>
+        </a>
+        <a class="choice-card" href="samples-male.html">
+          <span class="cc-preview">
+            <img src="images/m-red-before.webp" alt="" loading="eager" />
+            <img src="images/m-red.webp" alt="Male sample — finished look" loading="eager" />
+          </span>
+          <span class="cc-body">
+            <span class="cc-title">Men</span>
+            <span class="cc-sub">Every male finished look</span>
+          </span>
+        </a>
       </div>
     </div>
-    <p class="pf-count reveal" id="pfCount">11 results</p>
-
-    <div class="pf-grid" data-sex="female">
-
-    <figure class="pf-tile reveal" onclick="openWF('images/f-bikini.webp', 'Female')">
-      <img src="images/f-bikini.webp" alt="Female — f-bikini" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Beach series</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-cake.webp', 'Female')">
-      <img src="images/f-cake.webp" alt="Female — f-cake" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Birthday</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-floral.webp', 'Female')">
-      <img src="images/f-floral.webp" alt="Female — f-floral" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Floral</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-gold.webp', 'Female')">
-      <img src="images/f-gold.webp" alt="Female — f-gold" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Gold theme</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-kente.webp', 'Female')">
-      <img src="images/f-kente.webp" alt="Female — f-kente" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Kente</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-lace.webp', 'Female')">
-      <img src="images/f-lace.webp" alt="Female — f-lace" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Lace</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-night1.webp', 'Female')">
-      <img src="images/f-night1.webp" alt="Female — f-night1" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Night series</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-night2.webp', 'Female')">
-      <img src="images/f-night2.webp" alt="Female — f-night2" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Night after dark</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-pepper.webp', 'Female')">
-      <img src="images/f-pepper.webp" alt="Female — f-pepper" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Red series</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/f-white.webp', 'Female')">
-      <img src="images/f-white.webp" alt="Female — f-white" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Studio white</figcaption>
-    </figure>
-    <figure class="pf-tile reveal pf-badge-before" onclick="openWF('images/f-before.webp', 'Female')">
-      <img src="images/f-before.webp" alt="Female — f-before" loading="lazy" />
-      <span class="pf-badge">Before</span>
-      <figcaption>Before</figcaption>
-    </figure>
-    </div>
-    <div class="pf-grid" data-sex="male" hidden>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-denim.webp', 'Male')">
-      <img src="images/m-denim.webp" alt="Male — m-denim" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Denim</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-flowers.webp', 'Male')">
-      <img src="images/m-flowers.webp" alt="Male — m-flowers" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Floral</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-match.webp', 'Male')">
-      <img src="images/m-match.webp" alt="Male — m-match" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Colour match</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-red.webp', 'Male')">
-      <img src="images/m-red.webp" alt="Male — m-red" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Red series</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-rose.webp', 'Male')">
-      <img src="images/m-rose.webp" alt="Male — m-rose" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Rose</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-shirt.webp', 'Male')">
-      <img src="images/m-shirt.webp" alt="Male — m-shirt" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Clean shirt</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-shirt2.webp', 'Male')">
-      <img src="images/m-shirt2.webp" alt="Male — m-shirt2" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Studio casual</figcaption>
-    </figure>
-    <figure class="pf-tile reveal" onclick="openWF('images/m-teal.webp', 'Male')">
-      <img src="images/m-teal.webp" alt="Male — m-teal" loading="lazy" />
-      <span class="pf-badge">Sample</span>
-      <figcaption>Teal</figcaption>
-    </figure>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="section cta-section">
-  <div class="container">
-    <span class="eyebrow reveal" style="justify-content:center;">Your Turn</span>
-    <h2 class="cta-title reveal">Want work that looks like this?</h2>
-    <p class="cta-sub reveal">Order an online photoshoot for yourself, or start a business project.</p>
-    <div class="cta-actions reveal">
-      <button class="btn btn-primary" onclick="openBookingChoice('photo')">Book a Photography Session</button>
-      <button class="btn btn-ghost" onclick="openBookingChoice('business')">Start a Business Project</button>
-    </div>
-  </div>
-</section>
-
+  </section>
 </main>
 
-<!-- LIGHTBOX — full image, never cropped -->
-<div class="wf-lightbox" id="wfLightbox" onclick="closeWF()">
-  <button class="wf-lb-close" aria-label="Close">&times;</button>
-  <img alt="Full view" />
-  <div class="wf-lb-cap"></div>
-</div>
-
 <div id="chrome-bottom"></div>
-<script>
-function pfTab(sex) {
-  document.querySelectorAll('.pf-grid').forEach(g => { g.hidden = g.dataset.sex !== sex; });
-  document.querySelectorAll('#pfTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.sex === sex));
-  const g = document.querySelector('.pf-grid[data-sex="' + sex + '"]');
-  if (g) document.getElementById('pfCount').textContent = g.querySelectorAll('.pf-tile').length + ' results';
-}
-</script>
-<script src="galleries.js"></script>
-<script src="script.js"></script>
 </body>
 </html>
