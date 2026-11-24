@@ -1661,3 +1661,49 @@ body[data-page="home"] .site-header:not(.scrolled) {
 }
 body[data-page="home"] .site-header.scrolled { background: rgba(0,0,0,.86); }
 body[data-page="home"] .site-header.scrolled .nav-links a { color: #ffffff; }
+
+/* ============================================================
+   Homepage pricing row: centred, and the category name is the loudest
+   thing in the card rather than the figure.
+   ============================================================ */
+body[data-page="home"] .price-card { text-align: center; align-items: center; }
+body[data-page="home"] .price-card .name {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: none;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+body[data-page="home"] .price-card .amount {
+  font-size: 26px;
+  margin-bottom: 2px;
+  color: var(--muted);
+}
+body[data-page="home"] .price-card .amount span {
+  display: block;
+  margin-top: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+body[data-page="home"] .price-card .images {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+body[data-page="home"] .price-card ul { width: 100%; }
+/* keep the tick attached to the first word: centre the line box, not the
+   flex row, so a wrapped second line stays flush with the first */
+body[data-page="home"] .price-card li {
+  display: block;
+  text-align: center;
+}
+body[data-page="home"] .price-card li::before {
+  content: '✓ ';
+  display: inline;
+}
+body[data-page="home"] .price-card .btn { width: 100%; }
