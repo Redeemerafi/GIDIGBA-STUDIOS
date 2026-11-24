@@ -118,7 +118,7 @@ let booking = { mode: null, step: 0, stages: [], data: {} };
 function freshData() {
   return {
     package: null, gender: null, styleMe: false, makeup: false, hurry: false,
-    about: '', notes: '', pose: '', disclaimer: false,
+    about: '', notes: '', pose: '', disclaimer: false, outfitDesc: '', hairDesc: '',
     editServices: [], files: {}
   };
 }
@@ -189,9 +189,9 @@ function validate() {
     if (need > 1 && got === 0) return `This package includes ${need} outfits — add at least one`;
     if (need <= 1 && !d.files.outfit) return 'Please add an outfit photo';
   }
-  if (s === 'outfit' && d.outfitSel === 'wardrobe' && !d.outfitPick) return 'Please pick an outfit from the wardrobe';
-  if (s === 'hair' && d.hairSel === 'upload' && !d.files.hair) return 'Please add a hairstyle photo';
-  if (s === 'hair' && d.hairSel === 'wardrobe' && !d.hairPick) return 'Please pick a hairstyle from our options';
+  if (s === 'outfit' && d.outfitSel === 'wardrobe' && !d.outfitPick && !d.outfitDesc?.trim()) return 'Please pick an outfit from the wardrobe, or describe it';
+  if (s === 'hair' && d.hairSel === 'upload' && !d.files.hair && !d.hairDesc?.trim()) return 'Please add a hairstyle photo or describe it';
+  if (s === 'hair' && d.hairSel === 'wardrobe' && !d.hairPick && !d.hairDesc?.trim()) return 'Please pick a hairstyle, or describe it';
   if (s === 'details') {
     if (!d.about?.trim()) return 'Please tell us what the photoshoot is about';
     if (!d.disclaimer) return 'Please accept the software-assisted images disclaimer';
@@ -434,7 +434,12 @@ function renderStep() {
       ${d.outfitSel === 'wardrobe' ? `
         ${outfitNeed() > 1 ? `<div class="outfit-need"><strong>${outfitNeed()} outfits</strong><span>included in ${esc(PACKAGES[d.package]?.name || 'your package')}. Pick the look you want most — we will advise on the rest.</span></div>` : ''}
         ${gidigbaGalleryHtml('outfits', 'outfit')}
-        <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('outfitSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}`;
+        <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('outfitSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}
+      ${!styledNow && d.outfitSel ? `
+        <div class="field">
+          <label for="outfitDesc">Describe your outfit <span class="field-hint">(optional if you added a photo or picked one)</span></label>
+          <textarea id="outfitDesc" placeholder="e.g. Gold kente cloth, white sundress, navy suit…">${esc(d.outfitDesc)}</textarea>
+        </div>` : ''}`;
   }
 
   else if (s === 'hair') {
@@ -449,7 +454,12 @@ function renderStep() {
       ${d.hairSel === 'upload' ? uploadBox('hair', 'Hairstyle reference', 'Photo of the desired look') : ''}
       ${d.hairSel === 'wardrobe' ? `
         ${gidigbaGalleryHtml('styles', 'hair')}
-        <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('hairSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}`;
+        <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('hairSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}
+      ${d.hairSel && d.hairSel !== 'styled' ? `
+        <div class="field">
+          <label for="hairDesc">Describe the hairstyle <span class="field-hint">(optional if you added a photo or picked one)</span></label>
+          <textarea id="hairDesc" placeholder="e.g. Long braids with gold cuffs, low-cut fade, curls…">${esc(d.hairDesc)}</textarea>
+        </div>` : ''}`;
   }
 
   else if (s === 'makeup') {
@@ -557,6 +567,10 @@ function renderStep() {
   if (notesEl) { notesEl.value = booking.data.notes || ''; notesEl.addEventListener('input', e => booking.data.notes = e.target.value); }
   const poseEl = body.querySelector('#pose');
   if (poseEl) { poseEl.value = booking.data.pose || ''; poseEl.addEventListener('input', e => booking.data.pose = e.target.value); }
+  const outfitDescEl = body.querySelector('#outfitDesc');
+  if (outfitDescEl) { outfitDescEl.value = booking.data.outfitDesc || ''; outfitDescEl.addEventListener('input', e => booking.data.outfitDesc = e.target.value); }
+  const hairDescEl = body.querySelector('#hairDesc');
+  if (hairDescEl) { hairDescEl.value = booking.data.hairDesc || ''; hairDescEl.addEventListener('input', e => booking.data.hairDesc = e.target.value); }
 
   if (typeof restoreGallery === 'function') restoreGallery();
 
@@ -589,11 +603,11 @@ function submitToWhatsApp() {
     const need = outfitNeed(), got = outfitGiven();
     msg += `*Outfit:* ${got} photo${got === 1 ? '' : 's'} of ${need} included\n`;
   }
-  else if (d.outfitSel === 'wardrobe' && d.outfitPick) msg += `*Outfit:* Chosen from our wardrobe — ${d.outfitPick.cat} look ${d.outfitPick.idx + 1} (${d.outfitPick.src})\n`;
-  else if (d.outfitSel) msg += `*Outfit:* ${d.outfitSel}\n`;
+  else if (d.outfitSel === 'wardrobe' && d.outfitPick) msg += `*Outfit:* Chosen from our wardrobe — ${d.outfitPick.cat} look ${d.outfitPick.idx + 1} (${d.outfitPick.src})${d.outfitDesc?.trim() ? ` — ${d.outfitDesc.trim()}` : ''}\n`;
+  else if (d.outfitSel) msg += `*Outfit:* ${d.outfitDesc?.trim() || d.outfitSel}\n`;
   if (d.hairSel === 'styled') msg += `*Hairstyle:* Let us style you\n`;
-  else if (d.hairSel === 'wardrobe' && d.hairPick) msg += `*Hairstyle:* Chosen from our styles — ${d.hairPick.cat} style ${d.hairPick.idx + 1} (${d.hairPick.src})\n`;
-  else if (d.hairSel) msg += `*Hairstyle:* ${d.hairSel}\n`;
+  else if (d.hairSel === 'wardrobe' && d.hairPick) msg += `*Hairstyle:* Chosen from our styles — ${d.hairPick.cat} style ${d.hairPick.idx + 1} (${d.hairPick.src})${d.hairDesc?.trim() ? ` — ${d.hairDesc.trim()}` : ''}\n`;
+  else if (d.hairSel) msg += `*Hairstyle:* ${d.hairDesc?.trim() || d.hairSel}\n`;
   if (d.gender === 'female') msg += `*Makeup:* ${d.makeup ? 'Yes — client informed face will change' : 'No'}\n`;
   if (d.notes) msg += `*Notes:* ${d.notes}\n`;
   msg += `*Hurry:* ${d.hurry ? 'Yes — priority requested (fee may apply)' : 'No'}\n`;
