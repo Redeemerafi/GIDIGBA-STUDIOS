@@ -29,7 +29,7 @@ const NAV = [
    homepage variant. */
 const CONTACT_WA = ['WhatsApp +233 53 431 7611', 'https://wa.me/233534317611'];
 const CONTACT_BOOK = ['Book a session', 'photoshoots.html'];
-const CONTACT_HOURS = 'Mon–Sat · 08:00–20:00';
+const CONTACT_HOURS = 'Open 8am – 8pm';
 const CONTACT_BY_PAGE = {
   home:        [CONTACT_WA, CONTACT_BOOK, CONTACT_HOURS],
   photoshoots: [CONTACT_WA, CONTACT_HOURS],
@@ -116,7 +116,6 @@ function chromeBottom() {
       </div>
       <div class="footer-bottom">
         <span>© 2026 GIDIGBA STUDIOS · Accra, Ghana</span>
-        <span>Payment: Mobile Money · Bank Transfer</span>
       </div>
     </div>
   </footer>
