@@ -213,8 +213,12 @@ function closeMenu() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
 /* ---------- offline ---------- */
+/* Service worker: network-first, so design changes show on the next reload.
+   updateViaCache:'none' stops the browser serving a stale sw.js itself. */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+      .then(reg => reg.update().catch(() => {}))
+      .catch(() => {});
   });
 }
