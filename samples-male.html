@@ -1,87 +1,83 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <title>Men's Samples | GIDIGBA STUDIOS</title>
-  <meta name="description" content="Every male sample: the original photo first, then all finished images made from it." />
+  <title>Men's Work Samples | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Before and after work samples for men, from GIDIGBA STUDIOS." />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="js/chrome.js" defer></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-title="Men's Samples | GIDIGBA STUDIOS" data-desc="Every male sample: the original photo first, then all finished images made from it." data-page="samples">
+<body data-title="Men's Work Samples | GIDIGBA STUDIOS" data-desc="Before and after work samples for men." data-page="samples">
 <div id="chrome-top"></div>
 <main id="main">
 
   <section class="page-hero">
     <div class="container">
-      <a class="smp-back" href="work.html">Back to samples</a>
+      <a class="smp-back" href="samples.html">&larr; All samples</a>
       <span class="eyebrow">Men</span>
-      <h1>The original photo, and every look made from it.</h1>
+      <h1>One photo, six finished images.</h1>
     </div>
   </section>
 
   <section class="section section-tight">
     <div class="container">
-      <div class="smp-src">
-        <figure class="smp-figure">
-          <img src="images/m-red-before.webp" alt="Original male photo, before editing" />
-          <figcaption>Original photo</figcaption>
-        </figure>
-        <div class="smp-copy">
-          <span class="smp-k">Before</span>
-          <p>This is the real photo the client sent — a normal phone picture. No studio, no lighting rig, no setup.</p>
-          <p class="smp-note">Every image below was produced from it. Same person, same pose, graded and staged by GIDIGBA within 24 business hours.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="ba-panel">
 
-  <section class="section">
-    <div class="container">
-      <h2 class="smp-h">Finished looks</h2>
-      <div class="smp-grid">
-        <figure class="smp-item">
-          <img src="images/m-red.webp" alt="Studio · red light" loading="lazy" />
-          <figcaption>Studio · red light</figcaption>
-        </figure>
-        <figure class="smp-item">
-          <img src="images/m-shirt.webp" alt="Headshot · charcoal" loading="lazy" />
-          <figcaption>Headshot · charcoal</figcaption>
-        </figure>
-        <figure class="smp-item">
-          <img src="images/m-shirt2.webp" alt="Headshot · neutral" loading="lazy" />
-          <figcaption>Headshot · neutral</figcaption>
-        </figure>
-        <figure class="smp-item">
-          <img src="images/m-denim.webp" alt="Casual · denim" loading="lazy" />
-          <figcaption>Casual · denim</figcaption>
-        </figure>
-        <figure class="smp-item">
-          <img src="images/m-flowers.webp" alt="Editorial · flowers" loading="lazy" />
-          <figcaption>Editorial · flowers</figcaption>
-        </figure>
+        <div class="ba-before">
+          <span class="ba-tag">Before</span>
+          <figure class="ba-figure">
+            <img src="images/m-before.webp" alt="The photo the client sent, taken on a phone" />
+            <figcaption>The photo he sent us</figcaption>
+          </figure>
+        </div>
+
+        <div class="ba-after">
+          <span class="ba-tag ba-tag-lime">After</span>
+          <div class="swipe-rail ba-rail" id="afterRail">
+            <figure class="ba-figure">
+              <img src="images/samples/m-01.webp" alt="Light blue shirt, studio shelf" loading="lazy" />
+              <figcaption>Light blue shirt</figcaption>
+            </figure>
+            <figure class="ba-figure">
+              <img src="images/samples/m-02.webp" alt="Dark teal sweater, moody light" loading="lazy" />
+              <figcaption>Teal sweater</figcaption>
+            </figure>
+            <figure class="ba-figure">
+              <img src="images/samples/m-03.webp" alt="Navy blazer, close portrait" loading="lazy" />
+              <figcaption>Navy blazer</figcaption>
+            </figure>
+            <figure class="ba-figure">
+              <img src="images/samples/m-04.webp" alt="Seated, black and white" loading="lazy" />
+              <figcaption>Seated, black and white</figcaption>
+            </figure>
+            <figure class="ba-figure">
+              <img src="images/samples/m-05.webp" alt="Red suit, seated" loading="lazy" />
+              <figcaption>Red suit</figcaption>
+            </figure>
+            <figure class="ba-figure">
+              <img src="images/samples/m-06.webp" alt="Holding a red rose" loading="lazy" />
+              <figcaption>Rose</figcaption>
+            </figure>
+          </div>
+        </div>
+
       </div>
       <p class="sample-note">Software-assisted images. Minor variations from real life may occur.</p>
     </div>
   </section>
 
-</main>
-<div class="modal-overlay" id="bookingModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <h2 id="modalTitle">Book</h2>
-        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
-      </div>
-      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
-      <div class="modal-body" id="modalBody"></div>
-      <div class="modal-foot" id="modalFoot"></div>
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Want your own?</h2>
+      <a href="photoshoots.html" class="btn btn-primary">Start Photoshoot</a>
     </div>
-  </div>
+  </section>
 
+</main>
 <div id="chrome-bottom"></div>
-  <script src="js/galleries.js"></script>
-  <script src="js/swipe.js"></script>
 <script src="js/app.js" defer></script>
+<script src="js/swipe.js"></script>
 <script src="js/legacy-shim.js" defer></script>
 </body>
 </html>
