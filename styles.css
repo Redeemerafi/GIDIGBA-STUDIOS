@@ -1738,3 +1738,24 @@ body[data-page="home"] .price-card .btn { width: 100%; }
 @media (max-width: 640px) {
   .btn-long { min-height: 54px; font-size: 15px; }
 }
+
+/* ============================================================
+   Category price pages (individual / couples / editing):
+   centred hero, and the back link on its own line instead of
+   sitting shoulder-to-shoulder with the eyebrow badge.
+   ============================================================ */
+.cat-price-hero { text-align: center; }
+.cat-price-hero .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.cat-price-hero .smp-back {
+  align-self: center;
+  display: inline-block;
+  margin-bottom: 22px;
+}
+.cat-price-hero .eyebrow { margin-bottom: 18px; }
+.cat-price-hero h1 { margin-bottom: 20px; }
+.cat-price-hero p { margin: 0 auto; max-width: 52ch; }
