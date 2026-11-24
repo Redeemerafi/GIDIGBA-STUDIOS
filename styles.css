@@ -1364,8 +1364,13 @@ body:not([data-src="theirs"]) .btn-wa:hover { background: #cdf75a; border-color:
    Exact same look: their black field, their lime em, their Playfair
    h1, their sizes, their two buttons. Only the alignment changes.
    ============================================================ */
+/* Content centred on the page axis. Their black field, lime wash, kicker,
+   Playfair h1 with the lime em, lead and both buttons are untouched --
+   only the alignment differs from the left-anchored original. */
 body[data-page="home"] .hero { justify-content: center; text-align: center; }
-body[data-page="home"] .hero .container { display: flex; flex-direction: column; align-items: center; }
+body[data-page="home"] .hero .container {
+  display: flex; flex-direction: column; align-items: center;
+}
 body[data-page="home"] .hero h1,
 body[data-page="home"] .hero-lead { margin-left: auto; margin-right: auto; }
 body[data-page="home"] .hero-cta { justify-content: center; }
