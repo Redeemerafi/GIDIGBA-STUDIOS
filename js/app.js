@@ -348,6 +348,28 @@ function uploadBox(key, label, sub) {
     </div>`;
 }
 
+
+/* once a style choice is made the three buttons step aside, so the
+   wardrobe or upload panel has the whole screen to itself */
+function stylePicked(key, what) {
+  const d = booking.data;
+  const sel = key === 'outfitSel' ? (d.outfitSel || (d.styleMe ? 'styled' : null)) : d.hairSel;
+  if (!sel) return '';
+  const label = sel === 'upload' ? 'Upload from my phone'
+    : sel === 'wardrobe' ? (key === 'outfitSel' ? 'Choose from our wardrobe' : 'Choose from our options')
+    : 'Let us style you';
+  return `<div class="style-picked">
+      <span class="sp-what">Your ${what}</span>
+      <strong>${label}</strong>
+      <button type="button" class="sp-change" onclick="clearStyleChoice('${key}')">Change</button>
+    </div>`;
+}
+function clearStyleChoice(key) {
+  booking.data[key] = null;
+  if (key === 'outfitSel' && booking.data.styleMe) booking.data.styleMe = false;
+  renderStep();
+}
+
 function renderStep() {
   const body = document.getElementById('modalBody');
   const foot = document.getElementById('modalFoot');
@@ -417,7 +439,8 @@ function renderStep() {
     html = `
       <p class="q-label">Style</p>
       <h3 class="q-title">How should we handle outfit?</h3>
-      <div class="choice-grid">
+      ${stylePicked('outfitSel', 'outfit')}
+      <div class="choice-grid${d.outfitSel || d.styleMe ? ' style-choices-hidden' : ''}">
         <div class="choice ${d.outfitSel === 'upload' ? 'selected' : ''}" onclick="selectChoice('outfitSel','upload')">Upload from my phone</div>
         <div class="choice ${d.outfitSel === 'wardrobe' ? 'selected' : ''}" onclick="selectChoice('outfitSel','wardrobe')">Choose from our wardrobe</div>
         <div class="choice ${d.outfitSel === 'styled' || d.styleMe ? 'selected' : ''}" onclick="pickStyleMe()">Let us style you</div>
@@ -446,7 +469,8 @@ function renderStep() {
     html = `
       <p class="q-label">Hairstyle</p>
       <h3 class="q-title">How should we handle hairstyle?</h3>
-      <div class="choice-grid">
+      ${stylePicked('hairSel', 'hairstyle')}
+      <div class="choice-grid${d.hairSel ? ' style-choices-hidden' : ''}">
         <div class="choice ${d.hairSel === 'upload' ? 'selected' : ''}" onclick="selectChoice('hairSel','upload')">Upload from my phone</div>
         <div class="choice ${d.hairSel === 'wardrobe' ? 'selected' : ''}" onclick="selectChoice('hairSel','wardrobe')">Choose from our options</div>
         <div class="choice ${d.hairSel === 'styled' ? 'selected' : ''}" onclick="selectChoice('hairSel','styled')">Let us style you</div>

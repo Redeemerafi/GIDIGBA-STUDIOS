@@ -40,7 +40,7 @@ window.GALLERIES = {
     return `
       <div class="gallery-picker" data-kind="${kind}" data-target="${target}">
         <p class="gp-title">${title}</p>
-        <p class="gp-sub">Pick the one you like. If none of them suits you, choose Upload from my phone above.</p>
+        <p class="gp-sub">Pick the one you like. If you would rather send your own, tap Change at the top.</p>
         <div class="gallery-tabs">
           ${cats.map((c, k) => `<button type="button" class="g-tab ${k === 0 ? 'active' : ''}" onclick="setGalleryCat(this, '${kind}', '${target}', '${c}')">${c.charAt(0).toUpperCase() + c.slice(1)}</button>`).join('')}
         </div>
