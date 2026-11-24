@@ -48,9 +48,23 @@ function footerContact() {
   ).join('\n          ');
 }
 
+/* Every page we publish is reachable from here. Their build had a two-column
+   footer, which left samples, journal, voucher, track, brands and the three
+   industry pages with no inbound link at all. The grid handles four. */
 const FOOTER_NAV = [
   { title: 'Studio',  links: [['About', 'about.html'], ['Services', 'services.html'],
                               ['Photoshoots', 'photoshoots.html'], ['Work', 'work.html']] },
+  { title: 'Prices',  links: [['Individuals', 'photoshoots-individual.html'],
+                              ['Couples', 'photoshoots-couples.html'],
+                              ['Single edits', 'photoshoots-editing.html'],
+                              ['Voucher', 'voucher.html'], ['Track order', 'track.html']] },
+  { title: 'More',    links: [['Samples — women', 'samples-female.html'],
+                              ['Samples — men', 'samples-male.html'],
+                              ['Journal', 'journal.html'], ['Reviews', 'reviews.html'],
+                              ['Brands', 'brands.html']] },
+  { title: 'For business', links: [['Restaurants', 'for-restaurants.html'],
+                                   ['Real estate', 'for-real-estate.html'],
+                                   ['Events', 'for-events.html']] },
   { title: 'Contact', links: [] }
 ];
 
