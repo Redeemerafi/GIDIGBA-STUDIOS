@@ -1398,3 +1398,6 @@ body[data-page="home"] .hero-cta { justify-content: center; }
   border-radius: 50%;
   background: var(--lime);
 }
+
+/* Step cards are now heading-only — no trailing gap where the copy used to be. */
+.step-card h3:last-child { margin-bottom: 0; }
