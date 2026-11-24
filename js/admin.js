@@ -20,12 +20,23 @@
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
   /* a number we can actually dial: Ghanaian local 024… becomes 233 24… */
-  function waLink(phone) {
+  function waLink(phone, text) {
     let d = String(phone || '').replace(/[^\d]/g, '');
     if (!d) return null;
     if (d.startsWith('0')) d = '233' + d.slice(1);
     if (d.length === 9) d = '233' + d;
-    return 'https://wa.me/' + d;
+    return 'https://wa.me/' + d + (text ? '?text=' + encodeURIComponent(text) : '');
+  }
+
+  /* a reply that is ready to send, so nothing is typed twice */
+  function replyText(o) {
+    const first = String(o.customer_name || '').trim().split(/\s+/)[0];
+    let t = `${first ? 'Hello ' + first + ',' : 'Hello,'} thank you for booking with GIDIGBA STUDIOS.\n\n`;
+    t += `Your order number is ${o.order_no}`;
+    if (o.package) t += ` (${o.package}${o.price ? ' — GH₵ ' + o.price : ''})`;
+    t += `.\nWe have your photo(s) — finished images within 24 business hours.\n\n`;
+    t += `Any questions, just reply here and quote ${o.order_no}.`;
+    return t;
   }
 
   function when(ts) {
@@ -155,7 +166,7 @@
     if (!rows.length) { box.innerHTML = all.length ? '<p class="admin-empty">Nothing matches that filter.</p>' : ''; return; }
 
     box.innerHTML = rows.map(o => {
-      const wa = waLink(o.phone);
+      const wa = waLink(o.phone, replyText(o));
       const items = [
         o.package ? `<span><b>Package</b> ${esc(o.package)}${o.price ? ' · ' + money(o.price) : ''}</span>` : '',
         o.gender ? `<span><b>For</b> ${esc(o.gender)}</span>` : '',
@@ -195,7 +206,7 @@
               ${STATUSES.map(([v, l]) => `<option value="${v}"${o.status === v ? ' selected' : ''}>${l}</option>`).join('')}
             </select>
           </label>
-          ${wa ? `<a class="btn btn-primary btn-sm" href="${wa}" target="_blank" rel="noopener">Open WhatsApp</a>` : ''}
+          ${wa ? `<a class="btn btn-primary btn-sm" href="${wa}" target="_blank" rel="noopener">Reply on WhatsApp</a>` : ''}
           <button class="btn btn-ghost btn-sm note-btn" data-id="${esc(o.id)}" type="button">Note</button>
           <button class="btn btn-ghost btn-sm del-btn" data-id="${esc(o.id)}" type="button">Delete</button>
         </footer>
