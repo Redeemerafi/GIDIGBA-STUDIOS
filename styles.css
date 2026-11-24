@@ -2154,3 +2154,14 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
    dwarfs the finished versions */
 .ba-before { max-width: 400px; width: 100%; }
 .ba-figure img { max-height: 620px; }
+
+/* the before photo and the after strip must be the same width, and the
+   caption must not be clipped off the edge of the screen */
+.ba-before { margin-inline: auto; }
+.ba-before, .ba-after { width: 100%; max-width: 100%; }
+.ba-rail { margin-inline: 0; }
+.ba-after { min-width: 0; }
+.ba-figure figcaption { max-width: 100%; overflow-wrap: anywhere; }
+@media (max-width: 860px) {
+  .ba-rail { padding-left: 2px; padding-right: 2px; margin-inline: 0; }
+}
