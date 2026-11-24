@@ -384,8 +384,10 @@ h1, h2, h3, .serif { font-family: var(--serif); font-weight: 600; line-height: 1
   height: 100%;
   object-fit: cover;
 }
-.ba-after { z-index: 1; }
-.ba-before { z-index: 2; clip-path: inset(0 50% 0 0); }
+/* these two belong to the draggable slider only - scoped to .ba-wrap so the
+   before/after plate is never cropped down the middle */
+.ba-wrap .ba-after { z-index: 1; }
+.ba-wrap .ba-before { z-index: 2; clip-path: inset(0 50% 0 0); }
 .ba-handle {
   position: absolute;
   top: 0; bottom: 0;
@@ -2058,9 +2060,14 @@ a.sample-choice:hover .sc-frame { border-color: var(--lime); transform: translat
 
 /* before beside the swipeable after */
 .ba-panel {
+  --ba-gap: clamp(20px, 3vw, 40px);
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(20px, 3vw, 40px);
+  /* the before plate is worked out to be exactly one after-card wide, so the
+     photo the client sent and the finished versions read as one set of cards.
+     the after rail holds 48% cards; solving for that gives 0.3243 x
+     (width - gap - rail padding). */
+  grid-template-columns: calc((100% - var(--ba-gap) - 8px) * 0.32432) minmax(0, 1fr);
+  gap: var(--ba-gap);
   align-items: start;
 }
 .ba-before, .ba-after { position: relative; }
@@ -2078,7 +2085,7 @@ a.sample-choice:hover .sc-frame { border-color: var(--lime); transform: translat
   margin-bottom: 12px;
 }
 .ba-tag-lime { background: var(--lime); border-color: var(--lime); color: #000; }
-.ba-figure { margin: 0; }
+.ba-figure { margin: 0; display: block; }
 .ba-figure img {
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -2150,10 +2157,10 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
   color: var(--muted);
 }
 
-/* the before photo sits beside the swipe row, but not so wide that it
-   dwarfs the finished versions */
-.ba-before { max-width: 400px; width: 100%; }
-.ba-figure img { max-height: 620px; }
+/* the before photo is the same size as one after card - never a bigger,
+   taller plate sitting beside them */
+.ba-before { max-width: 100%; width: 100%; }
+.ba-figure img { max-height: none; }
 
 /* the before photo and the after strip must be the same width, and the
    caption must not be clipped off the edge of the screen */
