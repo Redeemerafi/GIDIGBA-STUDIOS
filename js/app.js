@@ -313,13 +313,37 @@ function esc(s) {
 
 function uploadBox(key, label, sub) {
   const f = booking.data.files[key];
+  const uid = 'cam_' + key;
+  if (f) {
+    return `
+    <div class="upload-zone has-file">
+      <img class="preview" src="${f.url}" alt="preview">
+      <span class="uz-name">${esc(f.name)}</span>
+      <small>${label} · saved</small>
+      <div class="uz-src">
+        <label class="uz-btn" for="${uid}_gallery">Change from gallery</label>
+        <label class="uz-btn" for="${uid}_camera">Retake with camera</label>
+      </div>
+      <input id="${uid}_gallery" class="uz-input" type="file" accept="image/*"
+             onchange="handleFile('${key}', this)">
+      <input id="${uid}_camera" class="uz-input" type="file" accept="image/*" capture="user"
+             onchange="handleFile('${key}', this)">
+    </div>`;
+  }
   return `
-    <label class="upload-zone ${f ? 'has-file' : ''}">
-      <input type="file" accept="image/*" onchange="handleFile('${key}', this)">
-      ${f ? `<img class="preview" src="${f.url}" alt="preview">` : `<div class="icon">📷</div>`}
-      <span class="uz-name">${f ? esc(f.name) : label}</span>
-      <small>${f ? 'Tap to change' : sub + ' · Take photo or choose from gallery'}</small>
-    </label>`;
+    <div class="upload-zone">
+      <div class="icon">📷</div>
+      <span class="uz-name">${label}</span>
+      <small>${sub}</small>
+      <div class="uz-src">
+        <label class="uz-btn uz-btn-primary" for="${uid}_camera">Take with camera</label>
+        <label class="uz-btn" for="${uid}_gallery">Choose from gallery</label>
+      </div>
+      <input id="${uid}_camera" class="uz-input" type="file" accept="image/*" capture="user"
+             onchange="handleFile('${key}', this)">
+      <input id="${uid}_gallery" class="uz-input" type="file" accept="image/*"
+             onchange="handleFile('${key}', this)">
+    </div>`;
 }
 
 function renderStep() {

@@ -1569,3 +1569,53 @@ body[data-page="photoshoots"] .page-hero-center > .container > div {
 @media (max-width: 900px) {
   .cat-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
 }
+
+/* ============================================================
+   Photo inputs in the booking wizard: explicit camera / gallery.
+   A single tap-target can only open one picker, so the visitor is
+   given two labelled buttons instead of guessing.
+   ============================================================ */
+.upload-zone .uz-src {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+}
+.upload-zone .uz-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.upload-zone .uz-btn:hover { border-color: var(--lime); }
+.upload-zone .uz-btn.uz-btn-primary {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #06210a;
+}
+.upload-zone .uz-btn.uz-btn-primary:hover { background: #cdf75a; border-color: #cdf75a; }
+/* the real inputs stay hidden but focusable, so the labels work by id */
+.upload-zone .uz-input {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.upload-zone { display: block; position: relative; }
+@media (max-width: 480px) {
+  .upload-zone .uz-src { flex-direction: column; }
+  .upload-zone .uz-btn { width: 100%; }
+}
