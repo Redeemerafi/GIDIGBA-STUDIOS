@@ -7,6 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="js/chrome.js" defer></script>
   <link rel="stylesheet" href="styles.css" />
+  <!-- static social tags: WhatsApp, Instagram and Facebook do not run our JS,
+       so these have to be in the HTML itself or the link arrives with no picture -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="GIDIGBA STUDIOS" />
+  <meta property="og:url" content="https://gidigba-studios.vercel.app/samples-couple.html" />
+  <meta property="og:title" content="Couple Work Samples | GIDIGBA STUDIOS" />
+  <meta property="og:description" content="Couple portrait work samples from GIDIGBA STUDIOS." />
+  <meta property="og:image" content="https://gidigba-studios.vercel.app/images/og/couple.jpg" />
+  <meta property="og:image:secure_url" content="https://gidigba-studios.vercel.app/images/og/couple.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="GIDIGBA STUDIOS — Couple Work Samples | GIDIGBA STUDIOS" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Couple Work Samples | GIDIGBA STUDIOS" />
+  <meta name="twitter:description" content="Couple portrait work samples from GIDIGBA STUDIOS." />
+  <meta name="twitter:image" content="https://gidigba-studios.vercel.app/images/og/couple.jpg" />
 </head>
 <body data-title="Couple Work Samples | GIDIGBA STUDIOS" data-desc="Couple portrait work samples from GIDIGBA STUDIOS." data-page="samples">
 <div id="chrome-top"></div>
@@ -24,11 +40,11 @@
     <div class="container">
       <div class="couple-grid">
         <figure class="smp-item">
-          <img src="images/samples/cp-01.webp" alt="Bride in a gold embroidered gown with a patterned head wrap" loading="lazy" />
+          <img src="images/samples/cp-01.webp" alt="Bride in a gold embroidered gown with a patterned head wrap" loading="eager" decoding="async" />
           <figcaption>Gold embroidery, patterned wrap</figcaption>
         </figure>
         <figure class="smp-item">
-          <img src="images/samples/cp-02.webp" alt="Couple in a green velvet jacket and an orange silk dress" loading="lazy" />
+          <img src="images/samples/cp-02.webp" alt="Couple in a green velvet jacket and an orange silk dress" loading="eager" decoding="async" />
           <figcaption>Green velvet and orange silk</figcaption>
         </figure>
       </div>

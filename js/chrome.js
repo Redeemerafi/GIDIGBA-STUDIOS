@@ -151,7 +151,6 @@ function injectHead() {
   ensure('meta[name="theme-color"]', () => '<meta name="theme-color" content="#C0F500">');
   ensure('link[rel="icon"]', () => '<link rel="icon" href="images/favicon.ico" sizes="any">');
   ensure('meta[property="og:title"]', () => `<meta property="og:title" content="${title}">`);
-  ensure('meta[property="og:image"]', () => '<meta property="og:image" content="images/og-image.jpg">');
   ensure('link[href*="fonts.googleapis"]', () => '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">');
 }
 
