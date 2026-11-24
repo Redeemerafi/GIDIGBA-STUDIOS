@@ -58,7 +58,8 @@ const FOOTER_NAV = [
                               ['Couples', 'photoshoots-couples.html'],
                               ['Single edits', 'photoshoots-editing.html'],
                               ['Voucher', 'voucher.html'], ['Track order', 'track.html']] },
-  { title: 'More',    links: [['Samples — women', 'samples-female.html'],
+  { title: 'More',    links: [['Work samples', 'samples.html'],
+                              ['Samples — women', 'samples-female.html'],
                               ['Samples — men', 'samples-male.html'],
                               ['Journal', 'journal.html'], ['Reviews', 'reviews.html'],
                               ['Brands', 'brands.html']] },
@@ -157,6 +158,12 @@ function wireShell() {
 
   const top = document.getElementById('chrome-top');
   if (top) top.innerHTML = chromeTop();
+  // pages that open on a dark hero need a white header, not a black one
+  const first = document.querySelector('#main > section');
+  if (first && (first.classList.contains('page-hero') || first.classList.contains('hero'))) {
+    document.body.dataset.darkHero = '1';
+  }
+
   const bottom = document.getElementById('chrome-bottom');
   if (bottom) bottom.innerHTML = chromeBottom();
 

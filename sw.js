@@ -2,11 +2,11 @@
    Network-first for documents and styles so a design change is visible on the
    very next reload. The cache is a fallback for offline, never the source of
    truth. Bump CACHE when the shell changes. */
-const CACHE = 'gidigba-v3-2';
+const CACHE = 'gidigba-v3-3';
 const SHELL = [
   'index.html', 'photoshoots.html', 'services.html', 'work.html', 'about.html',
   'samples-female.html', 'samples-male.html', 'reviews.html', 'journal.html',
-  'brands.html', 'track.html', 'voucher.html', '404.html',
+  'brands.html', 'track.html', 'voucher.html', '404.html', 'samples.html',
   'for-restaurants.html', 'for-real-estate.html', 'for-events.html',
   'styles.css', 'js/chrome.js', 'js/app.js', 'js/galleries.js', 'js/swipe.js', 'js/legacy-shim.js',
   'manifest.webmanifest'

@@ -7,6 +7,7 @@
 (function () {
   var RAILS = [
     { sel: '.price-grid',    cols: 'four-up'  },
+    { sel: '.ba-rail',       cols: 'two-up'   },
     { sel: '.cat-grid',      cols: 'three-up' },
     { sel: '.smp-grid',      cols: 'four-up'  },
     { sel: '.needs-grid',    cols: 'four-up'  },

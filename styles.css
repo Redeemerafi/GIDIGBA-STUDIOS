@@ -1995,3 +1995,162 @@ body[data-page="home"] .price-card .btn { width: 100%; }
 .svc-item .svc-num { min-width: 0; font-size: 15px; }
 .svc-item h3 { font-size: 17px; }
 .svc-item p { margin-inline: auto; }
+
+/* ============================================================
+   WORK SAMPLES
+   work.html carries the four buttons, samples.html the picker,
+   and each set page shows the before photo with the finished
+   versions swipeable beside it.
+   ============================================================ */
+.sample-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.sample-buttons .btn { min-width: 132px; text-align: center; }
+.btn.btn-off,
+.btn.btn-off:hover {
+  opacity: .45;
+  cursor: not-allowed;
+  border-color: var(--border);
+  transform: none;
+  box-shadow: none;
+}
+
+.sample-picker {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+.sample-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text);
+}
+.sc-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color .3s var(--ease), transform .3s var(--ease);
+}
+.sc-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; }
+a.sample-choice:hover .sc-frame { border-color: var(--lime); transform: translateY(-4px); }
+.sc-name {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 700;
+  text-align: center;
+}
+.sc-soon { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .04em; }
+.sample-choice.is-empty .sc-frame { border-style: dashed; }
+
+@media (max-width: 760px) {
+  .sample-picker { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+
+/* before beside the swipeable after */
+.ba-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+.ba-before, .ba-after { position: relative; }
+.ba-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.ba-tag-lime { background: var(--lime); border-color: var(--lime); color: #000; }
+.ba-figure { margin: 0; }
+.ba-figure img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: var(--radius);
+  display: block;
+  background: var(--surface);
+}
+.ba-figure figcaption {
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+}
+/* the after images are taller than they are wide, so show two at a time */
+.ba-rail {
+  grid-auto-columns: 74% !important;
+  padding-bottom: 16px;
+}
+@media (min-width: 700px) {
+  .ba-rail { grid-auto-columns: 48% !important; }
+}
+@media (max-width: 860px) {
+  .ba-panel { grid-template-columns: 1fr; gap: 26px; }
+  .ba-before { max-width: 340px; margin: 0 auto; width: 100%; }
+  .ba-rail { grid-auto-columns: 66% !important; }
+}
+
+/* a page that opens on the dark hero gets the same white header as the home
+   page - the nav was inheriting black type and disappearing into it */
+body[data-dark-hero="1"] .site-header .nav-links a { color: #ffffff; }
+body[data-dark-hero="1"] .site-header .nav-links a:hover,
+body[data-dark-hero="1"] .site-header .nav-links a.active { color: #ffffff; opacity: 1; }
+body[data-dark-hero="1"] .site-header .logo,
+body[data-dark-hero="1"] .site-header .logo span { color: #ffffff; }
+body[data-dark-hero="1"] .site-header .logo small { color: rgba(255,255,255,.80); }
+body[data-dark-hero="1"] .site-header .theme-toggle,
+body[data-dark-hero="1"] .site-header .menu-toggle {
+  color: #ffffff;
+  border-color: rgba(255,255,255,.35);
+}
+body[data-dark-hero="1"] .site-header:not(.scrolled) {
+  background: linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.60) 60%, rgba(0,0,0,0) 100%);
+}
+body[data-dark-hero="1"] .site-header.scrolled {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  box-shadow: 0 1px 0 var(--border);
+}
+body[data-dark-hero="1"] .site-header.scrolled .nav-links a,
+body[data-dark-hero="1"] .site-header.scrolled .logo,
+body[data-dark-hero="1"] .site-header.scrolled .logo span { color: var(--text); }
+body[data-dark-hero="1"] .site-header.scrolled .logo small { color: var(--muted); }
+body[data-dark-hero="1"] .site-header.scrolled .theme-toggle,
+body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text); border-color: var(--border); }
+
+/* a centred hero heading must be allowed to breathe, and stay on the axis */
+#main .page-hero h1 { max-width: 26ch; margin-inline: auto; }
+#main .page-hero p { max-width: 52ch; margin-inline: auto; }
+
+/* the disclaimer line under the sample grids */
+.sample-note {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--muted);
+}
+
+/* the before photo sits beside the swipe row, but not so wide that it
+   dwarfs the finished versions */
+.ba-before { max-width: 400px; width: 100%; }
+.ba-figure img { max-height: 620px; }
