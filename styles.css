@@ -2194,3 +2194,68 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
 @media (max-width: 620px) {
   .couple-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- order number ---------- */
+/* the reference the client quotes back to us, shown on review and in the
+   WhatsApp message so an order can be matched without guesswork */
+.order-ref {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 16px auto 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  max-width: 320px;
+  text-align: center;
+}
+.order-ref span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.order-ref strong {
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 20px;
+  letter-spacing: .06em;
+  color: var(--text);
+}
+.order-ref.lime strong { color: var(--lime-ink); }
+
+/* order cards on the tracker */
+.order-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.order-card .order-no {
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+.order-card .order-meta {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.order-chip {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.order-chip[data-status="sent"] { background: var(--lime); border-color: var(--lime); color: #000; }

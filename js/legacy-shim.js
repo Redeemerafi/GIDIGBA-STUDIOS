@@ -39,10 +39,11 @@
     window.initTrack = function () {
       const el = document.getElementById('trackResult');
       if (!el) return;
-      let draft = null, submitted = [];
+      let draft = null, submitted = [], orders = [];
       try { draft = JSON.parse(localStorage.getItem('gidigba_photo_draft') || 'null'); } catch (e) {}
       try { submitted = JSON.parse(localStorage.getItem('gidigba_submissions') || '[]'); } catch (e) {}
-      if (!draft && !submitted.length) {
+      try { orders = JSON.parse(localStorage.getItem('gidigba_orders') || '[]'); } catch (e) {}
+      if (!draft && !submitted.length && !orders.length) {
         el.innerHTML = `<div class="card">
           <h2>Nothing tracked on this device yet</h2>
           <p style="color:var(--muted);margin-top:8px">Once you start a booking, its progress shows here.</p>
@@ -51,6 +52,18 @@
         return;
       }
       let html = '';
+      // orders made through the current booking flow each carry their own number
+      if (orders.length) {
+        const fmt = ts => { try { return new Date(ts).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return '—'; } };
+        html += orders.map(o => `
+          <div class="order-card">
+            <div class="order-no">${o.orderNo}</div>
+            <div class="order-meta">${o.pkg || 'Photoshoot'}${o.price ? ' · GH₵ ' + o.price : ''} · ${fmt(o.when)}</div>
+            <div class="order-chip" data-status="${o.status || 'started'}">${o.status === 'sent' ? 'Sent on WhatsApp' : 'Started'}</div>
+          </div>`).join('');
+        html += `<p class="order-meta" style="text-align:center;margin:0 0 20px;font-size:13px;color:var(--muted)">
+          Quote this number when you message us and we can find your order straight away.</p>`;
+      }
       if (draft) {
         const d = draft.data || {};
         html += `<div class="card" style="margin-bottom:16px">

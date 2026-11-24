@@ -119,8 +119,57 @@ function freshData() {
   return {
     package: null, gender: null, styleMe: false, makeup: false, hurry: false,
     about: '', notes: '', pose: '', disclaimer: false, outfitDesc: '', hairDesc: '',
-    editServices: [], files: {}
+    editServices: [], files: {}, orderNo: null
   };
+}
+
+/* ---------- order number ----------
+   Every order gets one reference the moment a package is chosen, so the same
+   code runs through the review screen, the WhatsApp message we receive and the
+   tracker page. Format: GS-YYMMDD-XXXX (36^4 combinations per day).        */
+function makeOrderNo(chosenAt) {
+  const d = chosenAt ? new Date(chosenAt) : new Date();
+  const p = n => String(n).padStart(2, '0');
+  const stamp = String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate());
+  const ABC = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';   // no 0/O/1/I — it gets read out loud
+  const bytes = new Uint8Array(4);
+  if (window.crypto?.getRandomValues) window.crypto.getRandomValues(bytes);
+  else for (let i = 0; i < 4; i++) bytes[i] = Math.floor(Math.random() * 256);
+  const tail = [...bytes].map(b => ABC[b % ABC.length]).join('');
+  return `GS-${stamp}-${tail}`;
+}
+
+function ensureOrderNo() {
+  const d = booking.data;
+  if (!d.orderNo) {
+    d.orderNo = makeOrderNo();
+    d.orderAt = Date.now();
+    saveOrderRecord('started');   // list it on the tracker straight away
+  }
+  return d.orderNo;
+}
+
+/* keep one small record per order on this device, for the tracker page */
+function saveOrderRecord(status) {
+  const d = booking.data;
+  if (!d.orderNo) return;
+  const pkg = PACKAGES[d.package];
+  let list = [];
+  try { list = JSON.parse(localStorage.getItem('gidigba_orders') || '[]'); } catch (e) {}
+  const rec = {
+    orderNo: d.orderNo,
+    when: d.orderAt || Date.now(),
+    status: status || 'started',
+    pkg: pkg ? (pkg.name || d.package) : (d.package || 'Photoshoot'),
+    price: pkg ? pkg.price : null,
+    gender: d.gender || null,
+    hurry: !!d.hurry,
+    updated: Date.now()
+  };
+  const i = list.findIndex(r => r.orderNo === d.orderNo);
+  if (i >= 0) list[i] = Object.assign({}, list[i], rec);
+  else list.unshift(rec);
+  try { localStorage.setItem('gidigba_orders', JSON.stringify(list.slice(0, 30))); } catch (e) {}
 }
 
 function openBooking(mode, pkgKey) {
@@ -128,6 +177,7 @@ function openBooking(mode, pkgKey) {
   booking.data = freshData();
   if (pkgKey && PACKAGES[pkgKey]) {
     booking.data.package = pkgKey;
+    ensureOrderNo();
     // derive the flow from the package itself, not just the caller's hint
     const p = PACKAGES[pkgKey];
     if (p.type === 'couple') booking.mode = 'couple';
@@ -246,6 +296,7 @@ function prevStep() {
 
 function selectChoice(key, value) {
   booking.data[key] = value;
+  if (key === 'package' && value) { ensureOrderNo(); }
   if (key === 'package') {
     const p = PACKAGES[value];
     if (p?.type === 'couple') booking.mode = 'couple';
@@ -571,6 +622,7 @@ function renderStep() {
       <p class="q-label">Review</p>
       <h3 class="q-title">Ready to send?</h3>
       <p class="q-sub">We'll open WhatsApp with your complete brief. Payment is via Mobile Money after confirmation.</p>
+      <div class="order-ref"><span>Order number</span><strong>${ensureOrderNo()}</strong></div>
       <div class="review-block"><strong>Offer</strong>${pkg ? (pkg.type === 'edit'
         ? `${pkg.name} — ${(d.editServices || []).length} × GH₵10 = GH₵ ${(d.editServices || []).length * 10}`
         : `${pkg.name} — GH₵ ${pkg.price}`) : 'Custom edit'}</div>
@@ -608,7 +660,9 @@ function renderStep() {
 function submitToWhatsApp() {
   const d = booking.data;
   const pkg = PACKAGES[d.package];
-  let msg = `Hello GIDIGBA STUDIOS!\n\n*New Online Order*\n\n`;
+  const orderNo = ensureOrderNo();
+  let msg = `Hello GIDIGBA STUDIOS!\n\n*New Online Order*\n`;
+  msg += `*Order No: ${orderNo}*\n\n`;
 
   if (pkg) {
     msg += `*Offer:* ${pkg.name} — GH₵ ${pkg.price}\n`;
@@ -644,7 +698,10 @@ function submitToWhatsApp() {
   });
   msg += `\n(I will attach the ${fileKeys.length} photo(s) in this chat.)\n\n`;
   msg += `✅ I understand these are software-assisted generated images.\n`;
-  msg += `✅ 100% online — no in-person session.`;
+  msg += `✅ 100% online — no in-person session.\n\n`;
+  msg += `*Order No: ${orderNo}*\n`;
+  msg += `Please quote this number when you reply.`;
+  saveOrderRecord('sent');
   if (d.disclaimer === false) msg += `\n⚠️ Disclaimer not accepted`;
 
   const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
