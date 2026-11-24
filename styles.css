@@ -1953,3 +1953,45 @@ body[data-page="home"] .price-card .btn { width: 100%; }
   transition: width .2s var(--ease), background .2s;
 }
 .swipe-dots button.on { background: var(--lime); width: 22px; }
+
+/* ============================================================
+   TEXT ON THE PAGE AXIS
+   Every heading and the copy under it sits centred. No section
+   is allowed to hug the left edge while another is centred.
+   ============================================================ */
+#main h1,
+#main h2,
+#main h3,
+#main h4 { text-align: center; }
+
+#main .page-hero .container,
+#main .page-hero .container p,
+#main .cta-band .container,
+#main .cta-band .container p { text-align: center; }
+#main .page-hero .container > * { margin-inline: auto; }
+
+/* a heading-only block needs no trailing gap */
+#main .reveal > h2:last-child,
+#main .reveal > h3:last-child { margin-bottom: 0; }
+
+/* the about page drops its intro paragraphs: keep the blocks even */
+#main .container[style*="max-width:720px"] > .reveal { text-align: center; }
+
+/* card copy follows its centred heading */
+#main .step-card,
+#main .svc-item,
+#main .need,
+#main .review-card,
+#main .journal-card,
+#main .brand-tile { text-align: center; }
+
+/* services rows: number above the name, everything on the axis */
+.svc-item {
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+.svc-item .svc-num { min-width: 0; font-size: 15px; }
+.svc-item h3 { font-size: 17px; }
+.svc-item p { margin-inline: auto; }
