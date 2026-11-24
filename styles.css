@@ -1374,3 +1374,27 @@ body[data-page="home"] .hero .container {
 body[data-page="home"] .hero h1,
 body[data-page="home"] .hero-lead { margin-left: auto; margin-right: auto; }
 body[data-page="home"] .hero-cta { justify-content: center; }
+
+/* ============================================================
+   Card lists: bullets, not ruled rows.
+   Their .card li drew a hairline under every line, which read as a
+   table of dividers. Same type size and muted ink; a lime dot and
+   even rhythm instead. Applies to both source and new pages, by request.
+   ============================================================ */
+.card ul { margin: 16px 0 24px; display: grid; gap: 10px; }
+.card li {
+  position: relative;
+  padding: 0 0 0 20px;
+  border-bottom: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.card li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .56em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+}
