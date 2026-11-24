@@ -67,6 +67,27 @@
     },
     user() { return session()?.user || null; },
 
+    /* ---- photos ----
+       Uploaded to a random path: the bucket is readable by exact address but
+       cannot be listed, so only someone holding the link can open a photo. */
+    async uploadPhoto(file, orderNo) {
+      const ext = (file.name.match(/\.[a-z0-9]+$/i) || ['.jpg'])[0].toLowerCase();
+      const rand = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+      const path = `${orderNo}/${rand}${ext}`;
+      const res = await fetch(CFG.url.replace(/\/$/, '') + '/storage/v1/object/client-photos/' + path, {
+        method: 'POST',
+        headers: {
+          'apikey': CFG.key,
+          'Authorization': 'Bearer ' + (session()?.access_token || CFG.key),
+          'Content-Type': file.type || 'image/jpeg',
+          'x-upsert': 'false'
+        },
+        body: file
+      });
+      if (!res.ok) throw new Error('upload failed (' + res.status + ')');
+      return CFG.url.replace(/\/$/, '') + '/storage/v1/object/public/client-photos/' + path;
+    },
+
     /* ---- orders ---- */
     async createOrder(o) {
       return call('/rest/v1/orders', {

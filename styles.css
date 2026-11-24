@@ -2397,3 +2397,21 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
 [data-theme="dark"] .admin-ok { color: #66d68e; }
 .inline-link { color: var(--lime-ink); text-decoration: underline; }
 [data-theme="dark"] .inline-link { color: var(--lime); }
+
+/* photos the client uploaded, on the order card */
+.order-photos {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px; padding: 0 18px 16px;
+}
+.order-photo {
+  display: block; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border); text-decoration: none; background: var(--bg);
+}
+.order-photo img {
+  width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block;
+}
+.order-photo span {
+  display: block; padding: 6px 8px; font-size: 11px; color: var(--muted);
+  text-align: center; border-top: 1px solid var(--border);
+}
+.order-photo:hover img { opacity: .92; }

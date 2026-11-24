@@ -25,6 +25,30 @@ Reload `/admin.html`. Orders from the website appear as clients send them.
 
 ---
 
+## Photos in the message
+
+The message used to list file names — nothing to tap. Now each photo is uploaded
+before the message opens, and the message carries a real link per photo:
+
+```
+*PHOTOS*
+1. Selfie
+https://…/client-photos/GS-261124-TJWG/9f2c….webp
+2. Full body
+https://…/client-photos/GS-261124-TJWG/7b41….webp
+```
+
+These open straight in WhatsApp, so you can see the photo and save it without asking
+the client to re-send. The same photos appear as thumbnails on the order card in the
+admin page — tap one to open it full size, then hold to save.
+
+If a slow connection stops an upload, that line says "not uploaded — ask the client to
+send it" rather than showing a dead link, and the order still goes through.
+
+**On the photo privacy:** the bucket cannot be listed, so nobody can browse other
+clients' photos. Each file sits at a random address only that client's message contains.
+Deleting photos is blocked except for a signed-in admin.
+
 ## What each client sends
 
 From now on the booking form asks for **name** and **WhatsApp number**, both required.

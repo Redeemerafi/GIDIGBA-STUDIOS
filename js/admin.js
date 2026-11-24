@@ -181,6 +181,14 @@
           </div>
         </header>
         <div class="order-body">${items || '<span class="muted">No details</span>'}</div>
+        ${(o.photo_paths && o.photo_paths.length) ? `
+        <div class="order-photos">
+          ${o.photo_paths.map((u, i) => `
+            <a href="${esc(u)}" target="_blank" rel="noopener" class="order-photo" title="Open full size">
+              <img src="${esc(u)}" alt="Photo ${i + 1}" loading="eager" decoding="async" />
+              <span>Photo ${i + 1}</span>
+            </a>`).join('')}
+        </div>` : ''}
         <footer class="order-foot">
           <label>Progress
             <select class="status-select" data-id="${esc(o.id)}">

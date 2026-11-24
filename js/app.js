@@ -113,6 +113,13 @@ const EDIT_SERVICES = [
   'Photo Upscale / Sharpen'
 ];
 
+/* what each upload slot is called in the message we send ourselves */
+const PHOTO_LABEL = {
+  selfie: 'Selfie', full: 'Full body', outfit: 'Outfit reference',
+  outfit2: 'Outfit reference 2', outfit3: 'Outfit reference 3',
+  hair: 'Hairstyle reference', edit: 'Photo to edit'
+};
+
 let booking = { mode: null, step: 0, stages: [], data: {} };
 
 function freshData() {
@@ -674,10 +681,41 @@ function renderStep() {
 }
 
 /* ---------- submit ---------- */
-function submitToWhatsApp() {
+let submitting = false;
+async function submitToWhatsApp() {
+  if (submitting) return;
+  submitting = true;
+  const sendBtn = document.querySelector('.modal-foot .btn-primary');
+  if (sendBtn) { sendBtn.disabled = true; sendBtn.textContent = 'Uploading…'; }
+  try {
+    await submitOrder();
+  } finally {
+    submitting = false;
+    if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = 'Send on WhatsApp'; }
+  }
+}
+
+async function submitOrder() {
   const d = booking.data;
   const pkg = PACKAGES[d.package];
   const orderNo = ensureOrderNo();
+
+  // upload the photos first, so the message carries links that can be tapped.
+  // one retry each: mobile data drops on the first attempt often enough.
+  const photoFiles = Object.keys(d.files || {}).map(k => ({ key: k, file: d.files[k].file }));
+  let photoLinks = [];
+  if (photoFiles.length && window.GDB && GDB.ready) {
+    toast('Uploading your photos…');
+    for (const p of photoFiles) {
+      let link = null;
+      for (let attempt = 0; attempt < 2 && !link; attempt++) {
+        try { link = await GDB.uploadPhoto(p.file, orderNo); }
+        catch (e) { if (attempt === 1) console.warn('upload failed', p.key, e.message); }
+      }
+      photoLinks.push(link);
+    }
+  }
+
   let msg = `Hello GIDIGBA STUDIOS!\n\n*New Online Order*\n`;
   msg += `*Order No: ${orderNo}*\n\n`;
 
@@ -708,12 +746,16 @@ function submitToWhatsApp() {
   msg += `*Hurry:* ${d.hurry ? 'Yes — priority requested (fee may apply)' : 'No'}\n`;
   msg += `*Delivery:* Within 24 business hours\n\n`;
   msg += `*PHOTOS*\n`;
-
   const fileKeys = Object.keys(d.files || {});
-  fileKeys.forEach(k => {
-    msg += `${k}: ${d.files[k].name}\n`;
-  });
-  msg += `\n(I will attach the ${fileKeys.length} photo(s) in this chat.)\n\n`;
+  if (fileKeys.length) {
+    fileKeys.forEach((k, i) => {
+      const line = `${i + 1}. ${PHOTO_LABEL[k] || k}`;
+      msg += photoLinks[i] ? `${line}\n${photoLinks[i]}\n` : `${line} — not uploaded, ask the client to send it\n`;
+    });
+  } else {
+    msg += `none\n`;
+  }
+  msg += `\n`;
   msg += `✅ I understand these are software-assisted generated images.\n`;
   msg += `✅ 100% online — no in-person session.\n\n`;
   msg += `*Order No: ${orderNo}*\n`;
@@ -723,7 +765,7 @@ function submitToWhatsApp() {
 
   // save it so the studio can see every order, not just this device.
   // fire-and-forget: if the network is down we still open WhatsApp.
-  sendOrderToServer();
+  sendOrderToServer(photoLinks);
 
   const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
   const win = window.open(url, '_blank', 'noopener');
@@ -737,7 +779,7 @@ function submitToWhatsApp() {
 }
 
 /* ---------- push the order to Supabase ---------- */
-function sendOrderToServer() {
+function sendOrderToServer(photoLinks) {
   if (!window.GDB || !GDB.ready) return;
   const d = booking.data;
   const pkg = PACKAGES[d.package];
@@ -753,6 +795,7 @@ function sendOrderToServer() {
     edits: d.editServices || [],
     hurry: !!d.hurry,
     photo_count: Object.keys(d.files || {}).length,
+    photo_paths: (photoLinks || []).filter(Boolean),
     status: 'new'
   };
   GDB.createOrder(payload).catch(err => {
