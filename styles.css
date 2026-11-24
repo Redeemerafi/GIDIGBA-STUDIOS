@@ -1759,3 +1759,71 @@ body[data-page="home"] .price-card .btn { width: 100%; }
 .cat-price-hero .eyebrow { margin-bottom: 18px; }
 .cat-price-hero h1 { margin-bottom: 20px; }
 .cat-price-hero p { margin: 0 auto; max-width: 52ch; }
+
+/* ============================================================
+   BOOKING — wardrobe and hairstyle galleries
+   The old site let a client open our wardrobe and pick a look.
+   Rebuilt here with the same behaviour, in their palette.
+   ============================================================ */
+.gallery-picker { margin-top: 18px; }
+.gallery-picker .gp-title { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.gallery-picker .gp-sub { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+
+.gallery-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.gallery-tabs .g-tab {
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.gallery-tabs .g-tab.active { background: var(--lime); border-color: var(--lime); color: #000; }
+
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 2px;
+}
+.pick-grid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: block;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.pick-grid img:hover { transform: translateY(-2px); }
+.pick-grid img.picked { border-color: var(--lime); }
+.pick-grid .pick-empty {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 10px;
+}
+.pick-note { font-size: 13px; font-weight: 600; color: var(--green-ink); margin: 10px 0 0; }
+.pick-note button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12.5px;
+  margin-left: 8px;
+}
+@media (max-width: 640px) {
+  .pick-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); max-height: 300px; }
+  .gallery-tabs .g-tab { padding: 7px 15px; font-size: 13px; }
+  .modal-body { padding-bottom: 28px; }
+}
