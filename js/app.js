@@ -367,7 +367,7 @@ function renderStep() {
     html = `
       <p class="q-label">Step 1</p>
       <h3 class="q-title">Choose your package</h3>
-      <p class="q-sub">All individual packages include Makeup · Retouch · Hair · Outfit · Background. Delivered within 24 business hours.</p>
+      <p class="q-sub">All individual packages include retouch, hairstyle, outfit and background. Makeup is optional. Delivered within 24 business hours.</p>
       <div class="choice-grid">
         ${Object.entries(PACKAGES).filter(([, p]) => p.type === 'individual').map(([k, p]) => `
           <div class="choice ${d.package === k ? 'selected' : ''}" onclick="selectChoice('package','${k}')">
@@ -588,7 +588,7 @@ function submitToWhatsApp() {
 
   if (pkg) {
     msg += `*Offer:* ${pkg.name} — GH₵ ${pkg.price}\n`;
-    if (pkg.type === 'individual') msg += `*Includes:* Makeup · Retouch · Hair · Outfit · Background\n`;
+    if (pkg.type === 'individual') msg += `*Includes:* Retouch · Hairstyle · Outfit · Background · Makeup optional\n`;
     if (pkg.type === 'couple') msg += `*Images:* ${pkg.images} · Outfits each: ${pkg.outfits}\n`;
   }
   if (d.editServices?.length) {
