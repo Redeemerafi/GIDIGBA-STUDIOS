@@ -1,12 +1,12 @@
 /* ============================================================
    GIDIGBA STUDIOS — Supabase project settings
-   Fill these in from Supabase → Project Settings → API.
-   Until you do, the admin page shows a "not connected" notice instead
-   of failing silently, and the website still opens WhatsApp as normal.
+   Project: REDEEMERAFI (us-east-1)
+
+   The key below is the PUBLISHABLE key. It is designed to be visible in a
+   web page — it can only do what the row-level security rules allow, which
+   is: create an order, and nothing else. Never put the secret key here.
    ============================================================ */
 window.GIDIGBA_DB = {
-  // e.g. 'https://ghqdpgcvvkmebvtnchit.supabase.co'
-  url: '',
-  // the PUBLISHABLE (anon) key. Never put the secret key in a web page.
-  key: ''
+  url: 'https://ghqdpgcvvkmebvtnchit.supabase.co',
+  key: 'sb_publishable_KlfG8hccZS3tY9CjFO1ZCA_h6VGRwat'
 };

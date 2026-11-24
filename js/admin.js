@@ -46,7 +46,7 @@
   function money(v) { return v == null ? '' : 'GH₵ ' + Number(v).toLocaleString('en-GH'); }
 
   /* ---------- boot ---------- */
-  function show(id) { ['cfgNotice', 'signInBox', 'dashBox'].forEach(x => { $('#' + x).hidden = (x !== id); }); }
+  function show(id) { ['cfgNotice', 'signInBox', 'signUpBox', 'dashBox'].forEach(x => { $('#' + x).hidden = (x !== id); }); }
 
   if (!window.GDB || !GDB.ready) { show('cfgNotice'); return; }
   if (GDB.user()) { show('dashBox'); start(); } else { show('signInBox'); }
@@ -64,6 +64,25 @@
       err.hidden = false;
     } finally {
       btn.disabled = false; btn.textContent = 'Sign in';
+    }
+  });
+
+  $('#showSignUp')?.addEventListener('click', e => { e.preventDefault(); show('signUpBox'); });
+  $('#showSignIn')?.addEventListener('click', e => { e.preventDefault(); show('signInBox'); });
+
+  $('#signUpForm')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#signUpBtn'), err = $('#signUpErr'), ok = $('#signUpOk');
+    btn.disabled = true; btn.textContent = 'Creating…'; err.hidden = true; ok.hidden = true;
+    try {
+      await GDB.signUp($('#suEmail').value.trim(), $('#suPass').value);
+      ok.textContent = 'Account created. Check your email for the confirmation link, click it, then sign in here.';
+      ok.hidden = false;
+      btn.textContent = 'Account created';
+    } catch (ex) {
+      err.textContent = ex.message;
+      err.hidden = false;
+      btn.disabled = false; btn.textContent = 'Create account';
     }
   });
 

@@ -43,6 +43,27 @@
           <button class="btn btn-primary" type="submit" id="signInBtn">Sign in</button>
           <p class="admin-err" id="signInErr" hidden></p>
         </form>
+        <p class="admin-sub" style="margin-top:16px">
+          First time? <a href="#" id="showSignUp" class="inline-link">Create your staff account</a>
+        </p>
+      </div>
+
+      <!-- create the staff account -->
+      <div id="signUpBox" class="admin-card" hidden>
+        <h2>Create your staff account</h2>
+        <p class="admin-sub">Use the email you gave us. You'll get a confirmation link — click it, then sign in.</p>
+        <form id="signUpForm">
+          <label for="suEmail">Email</label>
+          <input type="email" id="suEmail" required autocomplete="username" />
+          <label for="suPass">Choose a password</label>
+          <input type="password" id="suPass" required minlength="8" autocomplete="new-password" />
+          <button class="btn btn-primary" type="submit" id="signUpBtn">Create account</button>
+          <p class="admin-err" id="signUpErr" hidden></p>
+          <p class="admin-ok" id="signUpOk" hidden></p>
+        </form>
+        <p class="admin-sub" style="margin-top:16px">
+          Already have one? <a href="#" id="showSignIn" class="inline-link">Sign in</a>
+        </p>
       </div>
 
       <!-- dashboard -->

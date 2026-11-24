@@ -50,6 +50,12 @@
       setSession(s);
       return s;
     },
+    async signUp(email, password) {
+      return call('/auth/v1/signup', {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+      });
+    },
     async signOut() {
       const s = session();
       if (s?.access_token) {
