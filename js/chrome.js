@@ -158,6 +158,14 @@ function wireShell() {
   const bottom = document.getElementById('chrome-bottom');
   if (bottom) bottom.innerHTML = chromeBottom();
 
+  // header gains a hairline + shadow once the page moves
+  const hdr = document.querySelector('.site-header');
+  if (hdr) {
+    const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   const burger = document.querySelector('.menu-toggle');
   if (burger) burger.setAttribute('aria-expanded', 'false');
 

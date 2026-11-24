@@ -2,7 +2,7 @@
 import asyncio, sys
 from playwright.async_api import async_playwright
 
-BASE = "http://localhost:8090"
+BASE = "http://localhost:8100"
 PAGES = ["index.html","photoshoots.html","work.html","samples-female.html","samples-male.html",
          "services.html","about.html","reviews.html","journal.html","brands.html","track.html",
          "voucher.html","for-restaurants.html","for-real-estate.html","for-events.html","404.html"]

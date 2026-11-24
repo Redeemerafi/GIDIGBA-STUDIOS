@@ -1734,3 +1734,35 @@ h2, .section-head h2, .cta-title {
   .logo small { font-size: 12px !important; }
   .price-card .badge { font-size: 12px !important; }
 }
+
+/* ---------- skip link: invisible until focused ---------- */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: #06210a;
+  font-weight: 700;
+  font-size: 14px;
+  transform: translateY(-160%);
+  transition: transform .2s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* ---------- header must never let content read through it ---------- */
+.site-header {
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+[data-theme="dark"] .site-header { background: rgba(10,10,10,.92); }
+[data-theme="light"] .site-header { background: rgba(255,255,255,.94); }
+.site-header.scrolled { box-shadow: 0 1px 0 var(--border); }
