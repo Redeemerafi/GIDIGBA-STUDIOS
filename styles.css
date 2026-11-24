@@ -1401,3 +1401,19 @@ body[data-page="home"] .hero-cta { justify-content: center; }
 
 /* Step cards are now heading-only — no trailing gap where the copy used to be. */
 .step-card h3:last-child { margin-bottom: 0; }
+
+/* Price suffix sits on its own line under the figure. Inline it wrapped on
+   the couples card (GH₵ 120 is wider than GH₵ 15), which pushed that card's
+   rows out of alignment with the other two. A block keeps all three identical. */
+.price-card .amount { display: block; }
+.price-card .amount span {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
