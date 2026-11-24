@@ -15,14 +15,14 @@
 
   
 
-  <section class="page-hero">
+  <section class="page-hero page-hero-center">
     <div class="container">
       <span class="eyebrow" style="background:var(--lime);color:#000">Online · 100% remote</span>
       <h1>No studio.<br>No stress.<br>Just the photos.</h1>
       <p>Send a selfie &amp; full-body, describe the look, receive software-assisted images on WhatsApp within 24 business hours. From GH₵15.</p>
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
         <a href="#packages" class="btn btn-primary">See packages &amp; prices</a>
-        <a href="#packages" class="btn btn-ghost">See packages</a>
+        <a href="https://wa.me/233534317611" class="btn btn-ghost" target="_blank" rel="noopener">Ask on WhatsApp</a>
       </div>
     </div>
   </section>
@@ -30,104 +30,48 @@
   <section class="section" id="packages">
     <div class="container">
       <div class="text-center mb-40 reveal">
-        <span class="eyebrow">Individual packages</span>
-        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">All-in pricing</h2>
-        <p style="color:var(--muted);margin-top:8px">Makeup · Retouch · Hair · Outfit · Background included on every tier</p>
+        <span class="eyebrow">Prices</span>
+        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">Pick a category</h2>
+        <p style="color:var(--muted);margin-top:8px">Individual, couple or a single edit. Each opens its own price list.</p>
       </div>
-      <div class="price-grid">
-        <div class="price-card reveal">
-          <p class="name">Single Image</p>
-          <p class="amount">GH₵ 15</p>
-          <p class="images">1 all-in image</p>
-          <ul>
-            <li>Makeup · Retouch · Hair · Outfit · Background</li>
-            <li>Within 24 business hours</li>
-          </ul>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SINGLE')">Book</button>
-        </div>
-        <div class="price-card featured reveal">
-          <span class="badge">Popular</span>
-          <p class="name">LITE</p>
-          <p class="amount">GH₵ 35</p>
-          <p class="images">3 all-in images</p>
-          <ul>
-            <li>Makeup · Retouch · Hair · Outfit · Background</li>
-            <li>Within 24 business hours</li>
-          </ul>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','LITE')">Book</button>
-        </div>
-        <div class="price-card reveal">
-          <p class="name">MEDIUM</p>
-          <p class="amount">GH₵ 55</p>
-          <p class="images">5 all-in images</p>
-          <ul>
-            <li>Makeup · Retouch · Hair · Outfit · Background</li>
-            <li>Within 24 business hours</li>
-          </ul>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','MEDIUM')">Book</button>
-        </div>
-        <div class="price-card reveal">
-          <p class="name">SUPERIOR</p>
-          <p class="amount">GH₵ 105</p>
-          <p class="images">10 all-in images</p>
-          <ul>
-            <li>Makeup · Retouch · Hair · Outfit · Background</li>
-            <li>Within 24 business hours</li>
-          </ul>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SUPERIOR')">Book</button>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section section-alt">
-    <div class="container">
-      <div class="text-center mb-40 reveal">
-        <span class="eyebrow">Couple packages</span>
-        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">For two</h2>
-      </div>
-      <div class="price-grid" style="max-width:900px;margin:0 auto">
-        <div class="price-card reveal">
-          <p class="name">Couple Silver</p>
-          <p class="amount">GH₵ 120</p>
-          <p class="images">3 images · 1 outfit each</p>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CSILVER')">Book</button>
-        </div>
-        <div class="price-card featured reveal">
+      <div class="cat-grid">
+        <a class="cat-card reveal" href="photoshoots-individual.html">
+          <span class="cat-kicker">For one person</span>
+          <h3 class="cat-title">Individual</h3>
+          <p class="cat-price"><strong>GH₵ 15</strong> starting from</p>
+          <ul class="cat-list">
+            <li>Single, LITE, MEDIUM, SUPERIOR</li>
+            <li>1 to 10 all-in images</li>
+            <li>Makeup · Retouch · Hair · Outfit</li>
+          </ul>
+          <span class="cat-go">See individual prices</span>
+        </a>
+
+        <a class="cat-card cat-card-featured reveal" href="photoshoots-couples.html">
           <span class="badge">Best value</span>
-          <p class="name">Couple Gold</p>
-          <p class="amount">GH₵ 230</p>
-          <p class="images">4 images · 2 outfits each</p>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CGOLD')">Book</button>
-        </div>
-        <div class="price-card reveal">
-          <p class="name">Couple Platinum</p>
-          <p class="amount">GH₵ 350</p>
-          <p class="images">6 images · 3 outfits each</p>
-          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CPLAT')">Book</button>
-        </div>
-      </div>
-    </div>
-  </section>
+          <span class="cat-kicker">For two people</span>
+          <h3 class="cat-title">Couples</h3>
+          <p class="cat-price"><strong>GH₵ 120</strong> starting from</p>
+          <ul class="cat-list">
+            <li>Silver, Gold, Platinum</li>
+            <li>3 to 6 images · up to 3 outfits each</li>
+            <li>Makeup · Retouch · Hair</li>
+          </ul>
+          <span class="cat-go">See couple prices</span>
+        </a>
 
-  <section class="section">
-    <div class="container">
-      <div class="text-center mb-40 reveal">
-        <span class="eyebrow">Editing</span>
-        <h2 class="serif" style="font-size:clamp(28px,4vw,40px)">Change just one thing — GH₵10</h2>
-        <p style="color:var(--muted);margin-top:8px">Upload an existing photo. No full photoshoot needed.</p>
-      </div>
-      <div class="card reveal" style="max-width:640px;margin:0 auto">
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px">20 services available at a flat GH₵10 each:</p>
-        <p style="font-size:14px;line-height:1.7">
-          Earring / Accessories Change · Hairstyle Change · Outfit Change · Makeup Application ·
-          Basic Retouch · Advanced Retouch · Pose Adjustment · Background Choice ·
-          Object Removal · Two People Combined · Full Scene Replacement · Cartoon / Anime Style ·
-          Glasses On / Off · Teeth Whitening · Hair Color Change · Body / Weight Adjustment ·
-          Wrinkle &amp; Age Removal · Photo Restoration &amp; Colorization · Watermark / Text Removal ·
-          Photo Upscale / Sharpen
-        </p>
-        <button class="btn btn-primary mt-24" onclick="openBooking('edit','EDIT')">Start an edit</button>
+        <a class="cat-card reveal" href="photoshoots-editing.html">
+          <span class="cat-kicker">For a photo you have</span>
+          <h3 class="cat-title">Single edits</h3>
+          <p class="cat-price"><strong>GH₵ 10</strong> flat</p>
+          <ul class="cat-list">
+            <li>One change per image</li>
+            <li>20 edits available</li>
+            <li>No photoshoot needed</li>
+          </ul>
+          <span class="cat-go">See edit prices</span>
+        </a>
       </div>
     </div>
   </section>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <title>Single Edits &amp; Prices | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Single photo edits at a flat GH₵10 each. Outfit, hair, makeup, retouch, background and 20 services in total. Delivered within 24 business hours." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-title="Single Edits &amp; Prices | GIDIGBA STUDIOS" data-desc="Single photo edits at a flat GH₵10 each. Delivered within 24 business hours." data-page="photoshoots">
+<div id="chrome-top"></div>
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <a href="photoshoots.html" class="smp-back">&larr; All categories</a>
+      <span class="eyebrow" style="background:var(--lime);color:#000">Single edits</span>
+      <h1>One change.<br>GH₵10.</h1>
+      <p>Already have a photo you love? Upload it and change just one thing. No full photoshoot needed. Delivered within 24 business hours.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="price-grid" style="max-width:960px;margin:0 auto">
+        <div class="price-card featured reveal">
+          <span class="badge">Flat rate</span>
+          <p class="name">Single edit</p>
+          <p class="amount">GH₵ 10</p>
+          <p class="images">Per image, per change</p>
+          <ul>
+            <li>Choose any one of the 20 edits</li>
+            <li>Upload your photo in the booking flow</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('edit','EDIT')">Start an edit</button>
+        </div>
+      </div>
+
+      <div class="card reveal" style="max-width:760px;margin:32px auto 0">
+        <p class="card-kicker">Every edit available</p>
+        <h3>The 20 single edits</h3>
+        <ul>
+          <li>Earring / Accessories Change</li>
+          <li>Hairstyle Change</li>
+          <li>Outfit Change</li>
+          <li>Makeup Application</li>
+          <li>Basic Retouch</li>
+          <li>Advanced Retouch</li>
+          <li>Pose Adjustment</li>
+          <li>Background Choice</li>
+          <li>Object Removal</li>
+          <li>Two People Combined</li>
+          <li>Full Scene Replacement</li>
+          <li>Cartoon / Anime Style</li>
+          <li>Glasses On / Off</li>
+          <li>Teeth Whitening</li>
+          <li>Hair Color Change</li>
+          <li>Body / Weight Adjustment</li>
+          <li>Wrinkle &amp; Age Removal</li>
+          <li>Photo Restoration &amp; Colorization</li>
+          <li>Watermark / Text Removal</li>
+          <li>Photo Upscale / Sharpen</li>
+        </ul>
+        <button class="btn btn-primary mt-24" onclick="openBooking('edit','EDIT')">Start an edit</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Not sure which edit?</h2>
+      <p>Describe what you want changed in plain words. We will tell you if it is a single edit or more.</p>
+      <a href="https://wa.me/233534317611" class="btn btn-primary" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
+
+<div id="chrome-bottom"></div>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
+</body>
+</html>

@@ -1502,3 +1502,70 @@ body[data-page="home"] .hero-media img + img { box-shadow: -1px 0 0 rgba(255,255
       linear-gradient(to bottom, rgba(0,0,0,.44) 0%, rgba(0,0,0,.36) 35%, rgba(0,0,0,.44) 70%, rgba(0,0,0,.64) 100%);
   }
 }
+
+/* ============================================================
+   Pricing hub on the photoshoots page: three category columns.
+   Centred page hero, then one card per category linking to its
+   own price list.
+   ============================================================ */
+body[data-page="photoshoots"] .page-hero-center { text-align: center; }
+body[data-page="photoshoots"] .page-hero-center .container {
+  display: flex; flex-direction: column; align-items: center;
+}
+body[data-page="photoshoots"] .page-hero-center h1,
+body[data-page="photoshoots"] .page-hero-center p { margin-left: auto; margin-right: auto; }
+body[data-page="photoshoots"] .page-hero-center .smp-back { align-self: flex-start; }
+body[data-page="photoshoots"] .page-hero-center > .container > div {
+  justify-content: center;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 24px);
+  align-items: stretch;
+}
+.cat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  transition: border-color .3s var(--ease), transform .3s var(--ease);
+}
+.cat-card:hover { border-color: var(--lime); transform: translateY(-4px); }
+.cat-card-featured { border-color: var(--lime); box-shadow: 0 0 0 1px var(--lime); }
+.cat-card .badge {
+  position: absolute; top: 18px; right: 18px;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--lime); color: var(--black);
+  padding: 4px 10px; border-radius: 999px;
+}
+.cat-kicker {
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.cat-title {
+  font-family: var(--serif); font-size: clamp(26px, 3vw, 34px);
+  font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px;
+}
+.cat-price { font-size: 15px; color: var(--muted); margin-bottom: 18px; }
+.cat-price strong {
+  font-family: var(--serif); font-size: 26px; font-weight: 700;
+  color: var(--text); margin-right: 6px;
+}
+.cat-list { flex: 1; display: grid; gap: 9px; margin-bottom: 22px; }
+.cat-list li { font-size: 14px; color: var(--muted); line-height: 1.45; }
+.cat-go {
+  font-size: 13px; font-weight: 700; letter-spacing: .04em;
+  color: var(--lime-ink); border-top: 1px solid var(--border); padding-top: 16px;
+}
+[data-theme="dark"] .cat-go { color: var(--lime); }
+.cat-card:hover .cat-go { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .cat-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <title>Individual Packages &amp; Prices | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Individual online photoshoot packages from GH₵15. Makeup, retouch, hair, outfit and background included on every tier. Delivered within 24 business hours." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-title="Individual Packages &amp; Prices | GIDIGBA STUDIOS" data-desc="Individual online photoshoot packages from GH₵15. Delivered within 24 business hours." data-page="photoshoots">
+<div id="chrome-top"></div>
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <a href="photoshoots.html" class="smp-back">&larr; All categories</a>
+      <span class="eyebrow" style="background:var(--lime);color:#000">Individuals</span>
+      <h1>Individual<br>packages.</h1>
+      <p>One person, one look, all-in. Every tier includes makeup, retouch, hair, outfit and background. Delivered to WhatsApp within 24 business hours.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <p class="name">Single Image</p>
+          <p class="amount">GH₵ 15</p>
+          <p class="images">1 all-in image</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SINGLE')">Book</button>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="badge">Popular</span>
+          <p class="name">LITE</p>
+          <p class="amount">GH₵ 35</p>
+          <p class="images">3 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','LITE')">Book</button>
+        </div>
+        <div class="price-card reveal">
+          <p class="name">MEDIUM</p>
+          <p class="amount">GH₵ 55</p>
+          <p class="images">5 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','MEDIUM')">Book</button>
+        </div>
+        <div class="price-card reveal">
+          <p class="name">SUPERIOR</p>
+          <p class="amount">GH₵ 105</p>
+          <p class="images">10 all-in images</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Outfit · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('individual','SUPERIOR')">Book</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Not sure which tier?</h2>
+      <p>Start with a single image from GH₵15 and add more later. Delivered within 24 business hours.</p>
+      <a href="https://wa.me/233534317611" class="btn btn-primary" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
+
+<div id="chrome-bottom"></div>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
+</body>
+</html>

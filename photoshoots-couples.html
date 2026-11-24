@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <title>Couple Packages &amp; Prices | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Couple online photoshoot packages from GH₵120. Silver, Gold and Platinum, all-in. Delivered within 24 business hours." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="js/chrome.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-title="Couple Packages &amp; Prices | GIDIGBA STUDIOS" data-desc="Couple online photoshoot packages from GH₵120. Delivered within 24 business hours." data-page="photoshoots">
+<div id="chrome-top"></div>
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <a href="photoshoots.html" class="smp-back">&larr; All categories</a>
+      <span class="eyebrow" style="background:var(--lime);color:#000">Couples</span>
+      <h1>Couple<br>packages.</h1>
+      <p>Two people, one frame. Each tier includes makeup, retouch and a shared background. Outfit changes scale with the package. Delivered within 24 business hours.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="price-grid" style="max-width:960px;margin:0 auto">
+        <div class="price-card reveal">
+          <p class="name">Couple Silver</p>
+          <p class="amount">GH₵ 120</p>
+          <p class="images">3 images · 1 outfit each</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CSILVER')">Book</button>
+        </div>
+        <div class="price-card featured reveal">
+          <span class="badge">Best value</span>
+          <p class="name">Couple Gold</p>
+          <p class="amount">GH₵ 230</p>
+          <p class="images">4 images · 2 outfits each</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CGOLD')">Book</button>
+        </div>
+        <div class="price-card reveal">
+          <p class="name">Couple Platinum</p>
+          <p class="amount">GH₵ 350</p>
+          <p class="images">6 images · 3 outfits each</p>
+          <ul>
+            <li>Makeup · Retouch · Hair · Background</li>
+            <li>Within 24 business hours</li>
+          </ul>
+          <button class="btn btn-primary btn-sm btn-block" onclick="openBooking('couple','CPLAT')">Book</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Choosing a look together?</h2>
+      <p>Send both your photos and the styles you like. We will match them within 24 business hours.</p>
+      <a href="https://wa.me/233534317611" class="btn btn-primary" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Book</h2>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      </div>
+      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot" id="modalFoot"></div>
+    </div>
+  </div>
+
+<div id="chrome-bottom"></div>
+<script src="js/app.js" defer></script>
+<script src="js/legacy-shim.js" defer></script>
+</body>
+</html>
