@@ -62,6 +62,7 @@ const FOOTER_NAV = [
                               ['Samples — women', 'samples-female.html'],
                               ['Samples — men', 'samples-male.html'],
                               ['Samples — children', 'samples-child.html'],
+                              ['Samples — couples', 'samples-couple.html'],
                               ['Journal', 'journal.html'], ['Reviews', 'reviews.html'],
                               ['Brands', 'brands.html']] },
   { title: 'For business', links: [['Restaurants', 'for-restaurants.html'],

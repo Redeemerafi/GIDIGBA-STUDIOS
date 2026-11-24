@@ -5,7 +5,7 @@
 const CACHE = 'gidigba-v3-3';
 const SHELL = [
   'index.html', 'photoshoots.html', 'services.html', 'work.html', 'about.html',
-  'samples-female.html', 'samples-male.html', 'samples-child.html', 'reviews.html', 'journal.html',
+  'samples-female.html', 'samples-male.html', 'samples-child.html', 'samples-couple.html', 'reviews.html', 'journal.html',
   'brands.html', 'track.html', 'voucher.html', '404.html', 'samples.html',
   'for-restaurants.html', 'for-real-estate.html', 'for-events.html',
   'styles.css', 'js/chrome.js', 'js/app.js', 'js/galleries.js', 'js/swipe.js', 'js/legacy-shim.js',

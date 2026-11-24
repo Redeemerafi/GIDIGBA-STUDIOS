@@ -2175,3 +2175,15 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
 @media (max-width: 900px) {
   .duo-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
 }
+
+/* couple portfolio: two large frames, centred */
+.couple-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 26px);
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (max-width: 620px) {
+  .couple-grid { grid-template-columns: 1fr; }
+}
