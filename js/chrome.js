@@ -155,7 +155,8 @@ function injectHead() {
 }
 
 function wireShell() {
-  injectHead();
+  // a failure in the shell must never take the page's own scripts down with it
+  try { injectHead(); } catch (e) { console.warn('head inject failed', e); }
 
   const top = document.getElementById('chrome-top');
   if (top) top.innerHTML = chromeTop();

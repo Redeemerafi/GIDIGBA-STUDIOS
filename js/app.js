@@ -119,7 +119,7 @@ function freshData() {
   return {
     package: null, gender: null, styleMe: false, makeup: false, hurry: false,
     about: '', notes: '', pose: '', disclaimer: false, outfitDesc: '', hairDesc: '',
-    editServices: [], files: {}, orderNo: null
+    editServices: [], files: {}, orderNo: null, customerName: '', phone: ''
   };
 }
 
@@ -226,6 +226,11 @@ function validate() {
   const d = booking.data;
   if (s === 'package' && !d.package) return 'Please select a package';
   if (s === 'gender' && !d.gender) return 'Please choose who this shoot is for';
+  if (s === 'details') {
+    if (!String(d.customerName || '').trim()) return 'Please add your name';
+    if (String(d.phone || '').replace(/[^0-9]/g, '').length < 9) return 'Please add a working WhatsApp number';
+    if (!String(d.about || '').trim()) return 'Please tell us what the shoot is about';
+  }
   if (s === 'photos') {
     if (!d.files.selfie) return 'Selfie photo is required';
     if (!d.files.fullbody) return 'Full-body photo is required';
@@ -555,6 +560,14 @@ function renderStep() {
       <p class="q-label">Final details</p>
       <h3 class="q-title">Tell us about the shoot</h3>
       <div class="field">
+        <label for="cname">Your name *</label>
+        <input type="text" id="cname" placeholder="So we know who we're replying to" value="${esc(d.customerName || '')}" />
+      </div>
+      <div class="field">
+        <label for="cphone">Your WhatsApp number *</label>
+        <input type="tel" id="cphone" placeholder="024 000 0000" inputmode="tel" value="${esc(d.phone || '')}" />
+      </div>
+      <div class="field">
         <label for="about">What is the photoshoot about? *</label>
         <textarea id="about" placeholder="e.g. Graduation in kente, birthday with gold theme, LinkedIn headshot…">${esc(d.about)}</textarea>
       </div>
@@ -637,6 +650,10 @@ function renderStep() {
   body.innerHTML = html;
 
   // innerHTML rebuilds drop the typed value — put it back, then keep it in sync
+  const cnameEl = body.querySelector('#cname');
+  if (cnameEl) { cnameEl.value = booking.data.customerName || ''; cnameEl.addEventListener('input', e => booking.data.customerName = e.target.value); }
+  const cphoneEl = body.querySelector('#cphone');
+  if (cphoneEl) { cphoneEl.value = booking.data.phone || ''; cphoneEl.addEventListener('input', e => booking.data.phone = e.target.value); }
   const aboutEl = body.querySelector('#about');
   if (aboutEl) { aboutEl.value = booking.data.about || ''; aboutEl.addEventListener('input', e => booking.data.about = e.target.value); }
   const notesEl = body.querySelector('#notes');
@@ -704,6 +721,10 @@ function submitToWhatsApp() {
   saveOrderRecord('sent');
   if (d.disclaimer === false) msg += `\n⚠️ Disclaimer not accepted`;
 
+  // save it so the studio can see every order, not just this device.
+  // fire-and-forget: if the network is down we still open WhatsApp.
+  sendOrderToServer();
+
   const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
   const win = window.open(url, '_blank', 'noopener');
   if (!win) {
@@ -714,6 +735,48 @@ function submitToWhatsApp() {
   }
   closeBooking();
 }
+
+/* ---------- push the order to Supabase ---------- */
+function sendOrderToServer() {
+  if (!window.GDB || !GDB.ready) return;
+  const d = booking.data;
+  const pkg = PACKAGES[d.package];
+  const payload = {
+    order_no: ensureOrderNo(),
+    customer_name: (d.customerName || '').trim() || null,
+    phone: (d.phone || '').trim() || null,
+    package: pkg ? pkg.name : (d.package || null),
+    price: pkg ? pkg.price : null,
+    gender: d.gender || null,
+    about: d.about || null,
+    notes: [d.notes, d.pose && ('Pose: ' + d.pose)].filter(Boolean).join(' · ') || null,
+    edits: d.editServices || [],
+    hurry: !!d.hurry,
+    photo_count: Object.keys(d.files || {}).length,
+    status: 'new'
+  };
+  GDB.createOrder(payload).catch(err => {
+    // keep it on the phone so nothing is lost, and try again on the next visit
+    try {
+      const q = JSON.parse(localStorage.getItem('gidigba_unsent') || '[]');
+      q.push(payload);
+      localStorage.setItem('gidigba_unsent', JSON.stringify(q));
+    } catch (e) {}
+    console.warn('Order not saved to the server yet:', err.message);
+  });
+}
+
+/* retry anything that failed to send on a previous visit */
+function flushUnsentOrders() {
+  if (!window.GDB || !GDB.ready) return;
+  let q = [];
+  try { q = JSON.parse(localStorage.getItem('gidigba_unsent') || '[]'); } catch (e) { return; }
+  if (!q.length) return;
+  const left = [];
+  Promise.all(q.map(o => GDB.createOrder(o).catch(() => left.push(o))))
+    .then(() => { try { localStorage.setItem('gidigba_unsent', JSON.stringify(left)); } catch (e) {} });
+}
+document.addEventListener('DOMContentLoaded', flushUnsentOrders);
 
 /* keyboard + backdrop */
 document.addEventListener('keydown', e => {

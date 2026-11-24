@@ -3,3 +3,4 @@ Allow: /
 Disallow: /legacy/
 
 Sitemap: https://gidigba-studios.vercel.app/sitemap.xml
+Disallow: /admin.html
