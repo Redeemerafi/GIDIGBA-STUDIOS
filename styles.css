@@ -2165,3 +2165,13 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
 @media (max-width: 860px) {
   .ba-rail { padding-left: 2px; padding-right: 2px; margin-inline: 0; }
 }
+
+/* a grid of finished work that has no before photo of its own */
+.duo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+}
+@media (max-width: 900px) {
+  .duo-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
