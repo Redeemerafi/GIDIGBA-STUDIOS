@@ -1,10 +1,9 @@
 /* ============================================================
    GIDIGBA STUDIOS — shared page shell
-   One source of truth for head tags, header, mobile menu and footer.
-   Every page declares:
-     <body data-page="track">
-     <div id="chrome-top"></div> ... <div id="chrome-bottom"></div>
-   Adding a page means adding one entry to NAV, never editing 16 files.
+   Header, mobile menu, footer and sticky bar generated once, so the
+   pages behave like the comparison build's but stay consistent.
+   Their styles.css is used untouched; everything here renders the
+   same markup their pages had hard-coded.
    ============================================================ */
 
 const SITE = {
@@ -15,41 +14,45 @@ const SITE = {
   city: 'Accra, Ghana'
 };
 
+/* exactly their five nav items, in their order */
 const NAV = [
-  { key: 'home',        href: 'index.html',         label: 'Home' },
-  { key: 'photoshoots', href: 'photoshoots.html',   label: 'Photoshoots' },
-  { key: 'samples',     href: 'work.html',          label: 'Samples' },
-  { key: 'services',    href: 'services.html',      label: 'Services' },
-  { key: 'about',       href: 'about.html',         label: 'About' }
+  { key: 'home',        href: 'index.html',       label: 'Home' },
+  { key: 'photoshoots', href: 'photoshoots.html', label: 'Photoshoots' },
+  { key: 'services',    href: 'services.html',    label: 'Services' },
+  { key: 'samples',     href: 'work.html',        label: 'Work' },
+  { key: 'about',       href: 'about.html',       label: 'About' }
 ];
+
+/* exactly their two footer columns */
+/* Their five pages each carry a different Contact column. Reproduced per page
+   so the port matches the source exactly; pages they never had get the
+   homepage variant. */
+const CONTACT_WA = ['WhatsApp +233 53 431 7611', 'https://wa.me/233534317611'];
+const CONTACT_BOOK = ['Book a session', 'photoshoots.html'];
+const CONTACT_HOURS = 'Mon–Sat · 08:00–20:00';
+const CONTACT_BY_PAGE = {
+  home:        [CONTACT_WA, CONTACT_BOOK, CONTACT_HOURS],
+  photoshoots: [CONTACT_WA, CONTACT_HOURS],
+  services:    [CONTACT_WA],
+  samples:     [CONTACT_WA],   /* their Work page — and our samples pages */
+  about:       [CONTACT_WA]
+};
+
+function footerContact() {
+  const key = document.body.dataset.page || 'index';
+  const variants = CONTACT_BY_PAGE[key] || [CONTACT_WA, CONTACT_BOOK, CONTACT_HOURS];
+  return variants.map(v =>
+    typeof v === 'string'
+      ? `<p style="margin-top:12px;opacity:.6">${v}</p>`
+      : `<a href="${v[1]}"${v[1].startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${v[0]}</a>`
+  ).join('\n          ');
+}
 
 const FOOTER_NAV = [
-  { title: 'Studio',  links: [['About', 'about.html'], ['Services', 'services.html'], ['Photoshoots', 'photoshoots.html'], ['Samples', 'work.html']] },
-  { title: 'Book',    links: [['Start a Photoshoot', 'photoshoots.html'], ['Gift a Voucher', 'voucher.html'], ['Track Your Order', 'track.html'], ['Reviews', 'reviews.html']] },
-  { title: 'More',    links: [['Journal', 'journal.html'], ['Brands', 'brands.html'], ['Restaurants', 'for-restaurants.html'], ['Real Estate', 'for-real-estate.html'], ['Events', 'for-events.html']] }
+  { title: 'Studio',  links: [['About', 'about.html'], ['Services', 'services.html'],
+                              ['Photoshoots', 'photoshoots.html'], ['Work', 'work.html']] },
+  { title: 'Contact', links: [] }
 ];
-
-function chromeHead(pageTitle, description, pageKey) {
-  return `
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${pageTitle}</title>
-  <meta name="description" content="${description}" />
-  <meta name="theme-color" content="#C0F500" />
-  <link rel="icon" href="images/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" href="images/favicon-96.png" sizes="96x96" />
-  <link rel="apple-touch-icon" href="images/logo-192.png" />
-  <meta property="og:title" content="${pageTitle}" />
-  <meta property="og:description" content="${description}" />
-  <meta property="og:image" content="images/og-image.jpg" />
-  <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
-  <script>document.documentElement.setAttribute('data-theme',(function(){try{return localStorage.getItem('gidigba_theme')==='dark'?'dark':'light'}catch(e){return'light'}})());</script>
-  <link rel="stylesheet" href="css/styles.css" />
-  <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>`;
-}
 
 function chromeTop() {
   const current = document.body.dataset.page || '';
@@ -62,7 +65,7 @@ function chromeTop() {
 
   return `
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" role="banner">
+  <header class="site-header">
     <div class="nav-inner">
       <a href="index.html" class="logo">
         <img src="images/logo-mark.png" alt="" width="36" height="36" />
@@ -72,8 +75,8 @@ function chromeTop() {
         ${links}
       </nav>
       <div class="nav-actions">
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">◐</button>
-        <a href="photoshoots.html" class="btn btn-primary btn-sm nav-book">Book</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+        <a href="photoshoots.html" class="btn btn-primary btn-sm" style="display:none" id="navBook">Book</a>
         <button class="menu-toggle" onclick="openMenu()" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </div>
@@ -92,8 +95,10 @@ function chromeTop() {
 function chromeBottom() {
   const cols = FOOTER_NAV.map(c => `
         <div class="footer-col">
-          <h2 class="footer-h">${c.title}</h2>
-          ${c.links.map(([label, href]) => `<a href="${href}">${label}</a>`).join('\n          ')}
+          <h4>${c.title}</h4>
+          ${c.title === 'Contact' ? footerContact() : c.links.map(([label, href]) =>
+            `<a href="${href}">${label}</a>`
+          ).join('\n          ')}
         </div>`).join('');
 
   return `
@@ -107,22 +112,16 @@ function chromeBottom() {
           </a>
           <p>Creative production, digital growth and 100% online photoshoots. Based in ${SITE.city}.</p>
         </div>
-        <div class="footer-col">
-          <h2 class="footer-h">Contact</h2>
-          <a href="https://wa.me/${SITE.wa}" target="_blank" rel="noopener">WhatsApp ${SITE.waDisplay}</a>
-          <a href="track.html">Track your order</a>
-          <a href="reviews.html">Reviews &amp; FAQ</a>
-        </div>
         ${cols}
       </div>
       <div class="footer-bottom">
-        <span>© ${new Date().getFullYear()} ${SITE.name}. All rights reserved.</span>
-        <span>100% online · Delivered within 24 business hours</span>
+        <span>© 2026 GIDIGBA STUDIOS · Accra, Ghana</span>
+        <span>Payment: Mobile Money · Bank Transfer</span>
       </div>
     </div>
   </footer>
 
-  <aside class="sticky-bar" id="stickyBar" aria-label="Book a session">
+  <div class="sticky-bar" id="stickyBar">
     <div class="sb-left">
       <strong>From GH₵15</strong>
       <span>1 image · all-in</span>
@@ -134,13 +133,11 @@ function chromeBottom() {
   </div>`;
 }
 
-/* ---------- page shell wiring ---------- */
 function injectHead() {
-  // pages may declare their own title/description via data attributes; otherwise use the nav label
-  const key  = document.body.dataset.page || 'home';
-  const nav  = NAV.find(n => n.key === key);
+  const key = document.body.dataset.page || 'home';
+  const nav = NAV.find(n => n.key === key);
   const title = document.body.dataset.title || (nav ? `${nav.label} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`);
-  const desc  = document.body.dataset.desc || 'GIDIGBA STUDIOS — Accra creative studio. 100% online photoshoots from GH₵15, delivered within 24 business hours.';
+  const desc = document.body.dataset.desc || 'GIDIGBA STUDIOS — Accra creative studio. 100% online photoshoots from GH₵15, delivered within 24 business hours.';
   if (!document.title) document.title = title;
   const ensure = (sel, make) => { if (!document.head.querySelector(sel)) document.head.insertAdjacentHTML('beforeend', make()); };
   ensure('meta[name="description"]', () => `<meta name="description" content="${desc}">`);
@@ -153,21 +150,19 @@ function injectHead() {
 
 function wireShell() {
   injectHead();
+
   const top = document.getElementById('chrome-top');
   if (top) top.innerHTML = chromeTop();
   const bottom = document.getElementById('chrome-bottom');
   if (bottom) bottom.innerHTML = chromeBottom();
 
-  // header gains a hairline + shadow once the page moves
-  const hdr = document.querySelector('.site-header');
-  if (hdr) {
-    const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 8);
+  // the nav Book button appears once the page moves
+  const navBook = document.getElementById('navBook');
+  if (navBook) {
+    const onScroll = () => navBook.classList.toggle('is-visible', window.scrollY > 200);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
   }
-
-  const burger = document.querySelector('.menu-toggle');
-  if (burger) burger.setAttribute('aria-expanded', 'false');
 
   // hide the sticky bar once the footer is in view
   const bar = document.getElementById('stickyBar');
@@ -178,7 +173,7 @@ function wireShell() {
     }, { threshold: 0.15 }).observe(foot);
   }
 
-  // reveal-on-scroll, with a no-observer fallback so nothing stays invisible
+  // reveal-on-scroll, with a fallback so nothing stays invisible
   const items = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window)) {
     items.forEach(i => i.classList.add('in'));
@@ -189,12 +184,14 @@ function wireShell() {
     items.forEach(i => io.observe(i));
   }
 }
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', wireShell);
 } else {
   wireShell();
 }
 
+/* ---------- theme + menu ---------- */
 function toggleTheme() {
   const root = document.documentElement;
   const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -222,9 +219,7 @@ function closeMenu() {
   if (b) b.setAttribute('aria-expanded', 'false');
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeMenu();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
 /* ---------- offline ---------- */
 if ('serviceWorker' in navigator) {

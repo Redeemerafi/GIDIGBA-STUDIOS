@@ -1,65 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <title>Samples | GIDIGBA STUDIOS</title>
-  <meta name="description" content="Before and after samples from GIDIGBA STUDIOS. Choose women or men." />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="js/chrome.js" defer></script>
+  <title>Work | GIDIGBA STUDIOS</title>
+  <meta name="description" content="Real transformations delivered within 24 business hours. Online photoshoot examples from GIDIGBA STUDIOS, Accra." />
   <link rel="stylesheet" href="styles.css" />
+  <script src="js/chrome.js" defer></script>
 </head>
-<body data-title="Samples | GIDIGBA STUDIOS" data-desc="Before and after samples from GIDIGBA STUDIOS. Choose women or men." data-page="samples">
+<body data-src="theirs" data-page="samples" data-title="Work | GIDIGBA STUDIOS" data-desc="Real transformations delivered within 24 business hours.">
 <div id="chrome-top"></div>
 <main id="main">
+  
 
   <section class="page-hero">
     <div class="container">
-      <span class="eyebrow">Samples</span>
-      <h1>Every finished look, beside the photo it came from.</h1>
-      <p>Pick who you want to see. Each page opens with the original photo, then every finished image made from it.</p>
+      <span class="eyebrow" style="background:var(--lime);color:#000">Proof of work</span>
+      <h1>Real transformations.<br>Delivered in 24 hours.</h1>
+      <p>Every image below was produced online by GIDIGBA STUDIOS — no studio, no waiting weeks. Illustrative samples carry a visible “Sample” badge. The genuine before/after pair is labelled “Before”.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="smp-choices">
-        <a class="smp-card" href="samples-female.html">
-          <span class="smp-preview">
-            <img src="images/f-gold-before.webp" alt="" />
-            <img src="images/f-gold.webp" alt="Female sample — finished look" />
-          </span>
-          <span class="smp-body">
-            <span class="smp-title">Women</span>
-            <span class="smp-sub">Every female finished look</span>
-          </span>
-        </a>
-        <a class="smp-card" href="samples-male.html">
-          <span class="smp-preview">
-            <img src="images/m-red-before.webp" alt="" />
-            <img src="images/m-red.webp" alt="Male sample — finished look" />
-          </span>
-          <span class="smp-body">
-            <span class="smp-title">Men</span>
-            <span class="smp-sub">Every male finished look</span>
-          </span>
-        </a>
+      <div class="work-grid">
+        <figure class="work-item reveal">
+          <span class="sample-badge">Sample</span>
+          <img src="images/f-kente.webp" alt="Sample — kente look" loading="lazy" />
+        </figure>
+        <figure class="work-item reveal">
+          <span class="sample-badge">Sample</span>
+          <img src="images/f-white.webp" alt="Sample — white outfit" loading="lazy" />
+        </figure>
+        <figure class="work-item reveal">
+          <span class="sample-badge">Sample</span>
+          <img src="images/f-night1.webp" alt="Sample — evening look" loading="lazy" />
+        </figure>
+        <figure class="work-item reveal">
+          <span class="sample-badge">Sample</span>
+          <img src="images/m-teal.webp" alt="Sample — teal portrait" loading="lazy" />
+        </figure>
+        <figure class="work-item reveal">
+          <span class="sample-badge">Sample</span>
+          <img src="images/m-red.webp" alt="Sample — red look" loading="lazy" />
+        </figure>
+        <figure class="work-item reveal">
+          <span class="sample-badge">Before</span>
+          <img src="images/f-before.webp" alt="Genuine before photo" loading="lazy" />
+        </figure>
       </div>
+      <p class="text-center mt-32" style="font-size:13px;color:var(--muted)">All sample images are for demonstration. Replace with confirmed client work when available.</p>
     </div>
   </section>
 
-</main>
-<div class="modal-overlay" id="bookingModal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-head">
-        <h2 id="modalTitle">Book</h2>
-        <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
-      </div>
-      <div class="progress-bar"><span id="progressBar" style="width:0%"></span></div>
-      <div class="modal-body" id="modalBody"></div>
-      <div class="modal-foot" id="modalFoot"></div>
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2 class="serif">Want results like these?</h2>
+      <p>Start with a single image from GH₵15 or a full package. Delivered to WhatsApp within 24 business hours.</p>
+      <button class="btn btn-primary" onclick="openBooking('individual')">Start Photoshoot</button>
     </div>
-  </div>
+  </section>
 
+  
+
+  
+
+
+
+</main>
 <div id="chrome-bottom"></div>
 <script src="js/app.js" defer></script>
 <script src="js/legacy-shim.js" defer></script>
