@@ -1860,3 +1860,96 @@ body[data-page="home"] .price-card .btn { width: 100%; }
   .style-picked { padding: 10px 12px; gap: 4px; }
   .style-picked .sp-change { margin-left: 0; }
 }
+
+/* ============================================================
+   SIDE SWIPE RAILS
+   Rows of cards (prices, categories, samples, reviews, work,
+   journal, brand tiles) become a swipeable strip instead of
+   stacking into a long column. On a phone you drag sideways and
+   the next card snaps into place; on desktop the same strip is
+   used, with the horizontal bar hidden and arrow keys working.
+   ============================================================ */
+.swipe-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 84%;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  padding: 4px 4px 14px;
+  margin-inline: -4px;
+  scrollbar-width: thin;
+}
+.swipe-rail > * {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  min-width: 0;
+}
+.swipe-rail::-webkit-scrollbar { height: 6px; }
+.swipe-rail::-webkit-scrollbar-track { background: var(--border); border-radius: 999px; }
+.swipe-rail::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 999px; }
+.swipe-rail:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+
+/* dim the card that sits off-centre, so the eye knows there is more */
+.swipe-rail > * { transition: opacity .25s var(--ease); }
+.swipe-rail > .is-off { opacity: .55; }
+
+@media (min-width: 700px) {
+  .swipe-rail { grid-auto-columns: 46%; }
+}
+@media (min-width: 1000px) {
+  .swipe-rail { grid-auto-columns: calc((100% - 3 * 16px) / 4); gap: 16px; }
+  .swipe-rail.four-up { grid-auto-columns: calc((100% - 3 * 16px) / 4); }
+  .swipe-rail.three-up { grid-auto-columns: calc((100% - 2 * 16px) / 3); }
+  .swipe-rail.two-up { grid-auto-columns: calc((100% - 16px) / 2); }
+  .swipe-rail.many-up { grid-auto-columns: calc((100% - 4 * 16px) / 5); }
+}
+
+/* keep the cards' own sizing sensible inside a rail */
+.swipe-rail.price-grid,
+.swipe-rail.cat-grid,
+.swipe-rail.smp-grid,
+.swipe-rail.reviews-grid,
+.swipe-rail.work-grid,
+.swipe-rail.journal-grid,
+.swipe-rail.brands-grid,
+.swipe-rail.needs-grid { grid-template-columns: none; max-width: none; }
+
+.swipe-shell { position: relative; }
+
+/* a small hint that the row moves sideways - only on touch screens */
+.swipe-hint {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.swipe-hint .sh-line {
+  flex: 1;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lime) 0%, var(--lime) 28%, var(--border) 28%);
+}
+@media (hover: none) and (pointer: coarse) {
+  .swipe-hint { display: flex; }
+}
+
+/* dots for a rail the visitor can also jump with */
+.swipe-dots { display: none; gap: 7px; justify-content: center; margin-top: 12px; }
+@media (max-width: 699px) { .swipe-dots { display: flex; } }
+.swipe-dots button {
+  width: 8px; height: 8px; padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: var(--border);
+  cursor: pointer;
+  transition: width .2s var(--ease), background .2s;
+}
+.swipe-dots button.on { background: var(--lime); width: 22px; }
