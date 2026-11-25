@@ -2448,3 +2448,20 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
 }
 .couple-set .smp-item img { width: 100%; }
 @media (max-width: 900px) { .couple-set { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* couple "before" plate: two portraits side by side, never stacked - stacked
+   originals made the left column twice as tall as the after rail and the
+   whole panel read as broken */
+.ba-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ba-pair .ba-figure img { aspect-ratio: 3 / 4; object-position: center 22%; }
+.ba-pair-cap {
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+}
