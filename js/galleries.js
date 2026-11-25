@@ -129,7 +129,7 @@ window.GALLERIES = {
     return `
       <div class="gallery-picker" data-kind="${kind}" data-target="${target}">
         <p class="gp-title">${title}</p>
-        <p class="gp-sub">Pick the one you like. If you would rather send your own, tap Change at the top.</p>
+        <p class="gp-sub" data-sub>Pick the one you like. If you would rather send your own, tap Change at the top.</p>
         <div class="gallery-tabs">
           ${cats.map((c, k) => `<button type="button" class="g-tab ${k === 0 ? 'active' : ''}" onclick="setGalleryCat(this, '${kind}', '${target}', '${c}')">${c.charAt(0).toUpperCase() + c.slice(1)}</button>`).join('')}
         </div>
@@ -148,41 +148,88 @@ window.GALLERIES = {
     const grid = document.getElementById('pickGrid_' + target);
     if (!grid) return;
     const list = (galleries()[kind] || {})[cat] || [];
-    const pick = target === 'outfit' ? booking.data.outfitPick : booking.data.hairPick;
     if (!list.length) {
       grid.innerHTML = `<div class="pick-empty">No ${cat} options yet.</div>`;
       return;
     }
-    grid.innerHTML = list.map((src, idx) =>
-      `<img src="${src}" alt="${cat} ${kind === 'outfits' ? 'outfit' : 'hairstyle'} ${idx + 1}" loading="lazy"
-            class="${pick && pick.cat === cat && pick.idx === idx ? 'picked' : ''}"
-            onclick="pickGalleryItem('${target}', '${cat}', ${idx}, '${src}')">`
-    ).join('');
+    const sub = document.querySelector('.gallery-picker[data-target="' + target + '"] [data-sub]');
+    if (sub) {
+      const lim = limitFor(target);
+      const noun = target === 'outfit' ? 'outfit' : 'hairstyle';
+      sub.textContent = lim > 1
+        ? `Pick ${lim} ${noun}s. Tap a look to add it, tap again to remove it. Rather send your own? Tap Change at the top.`
+        : `Pick the one you like. If you would rather send your own, tap Change at the top.`;
+    }
+    const picks = picksFor(target);
+    grid.innerHTML = list.map((src, idx) => {
+      const n = picks.findIndex(p => p.cat === cat && p.idx === idx);
+      return `<span class="pick-cell${n >= 0 ? ' picked' : ''}" onclick="pickGalleryItem('${target}', '${cat}', ${idx}, '${src}')">
+        <img src="${src}" alt="${cat} ${kind === 'outfits' ? 'outfit' : 'hairstyle'} ${idx + 1}" loading="lazy" />
+        ${n >= 0 ? `<b class="pick-n">${n + 1}</b>` : ''}
+      </span>`;
+    }).join('');
+    paintNote(target);
+  }
+
+  function limitFor(target) {
+    if (typeof window.pickLimit === 'function') return window.pickLimit(target);
+    const p = PACKAGES[booking.data.package] || {};
+    return Math.max(1, (target === 'outfit' ? p.outfits : (p.hairs || p.outfits)) || 1);
+  }
+  function picksFor(target) {
+    const d = booking.data;
+    const key = target === 'outfit' ? 'outfitPicks' : 'hairPicks';
+    if (!Array.isArray(d[key])) d[key] = [];
+    return d[key];
+  }
+  const isPicked = (target, cat, idx) => picksFor(target).some(p => p.cat === cat && p.idx === idx);
+
+  function paintNote(target) {
+    const note = document.getElementById('pickNote_' + target);
+    if (!note) return;
+    const picks = picksFor(target);
+    const limit = limitFor(target);
+    const noun = target === 'outfit' ? 'Outfit' : 'Hairstyle';
+    if (!picks.length) { note.hidden = true; note.innerHTML = ''; return; }
+    note.hidden = false;
+    const names = picks.map((p, i) => `${noun} ${i + 1}: ${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)} look ${p.idx + 1}`).join(' · ');
+    note.innerHTML = `${names}
+      ${limit > 1 ? `<span style="opacity:.65"> — ${picks.length} of ${limit}</span>` : ''}
+      <button type="button" onclick="clearGalleryPick('${target}')">Clear</button>`;
   }
 
   window.pickGalleryItem = function (target, cat, idx, src) {
-    const d = booking.data;
-    const label = cat.charAt(0).toUpperCase() + cat.slice(1);
-    if (target === 'outfit') d.outfitPick = { cat, idx, src };
-    else d.hairPick = { cat, idx, src };
+    const picks = picksFor(target);
+    const limit = limitFor(target);
+    const noun = target === 'outfit' ? 'Outfit' : 'Hairstyle';
+    const at = picks.findIndex(p => p.cat === cat && p.idx === idx);
+
+    if (at >= 0) {
+      picks.splice(at, 1);                    // tapping a chosen one removes it
+    } else {
+      if (picks.length >= limit) {
+        if (typeof toast === 'function') toast(`That package includes ${limit} ${noun.toLowerCase()}${limit > 1 ? 's' : ''} — tap one to remove it first`, false);
+        return;
+      }
+      picks.push({ cat, idx, src });
+    }
 
     const grid = document.getElementById('pickGrid_' + target);
-    if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
-    if (grid) { const im = grid.querySelectorAll('img')[idx]; if (im) im.classList.add('picked'); }
-
-    const note = document.getElementById('pickNote_' + target);
-    if (note) {
-      note.hidden = false;
-      note.innerHTML = `${target === 'outfit' ? 'Outfit' : 'Hairstyle'} ${idx + 1} picked (${label}) <button type="button" onclick="clearGalleryPick('${target}')">Change</button>`;
-    }
-    toast(`${target === 'outfit' ? 'Outfit' : 'Hairstyle'} picked`);
+    const active = grid && grid.closest('.gallery-picker') && grid.closest('.gallery-picker').querySelector('.g-tab.active');
+    if (active) renderGrid(target === 'outfit' ? 'outfits' : 'styles', target, active.textContent.toLowerCase());
+    paintNote(target);
+    if (typeof toast === 'function') toast(`${noun} ${picks.length} of ${limit} chosen`);
   };
 
   window.clearGalleryPick = function (target) {
-    if (target === 'outfit') booking.data.outfitPick = null;
-    else booking.data.hairPick = null;
+    const d = booking.data;
+    if (target === 'outfit') d.outfitPicks = [];
+    else d.hairPicks = [];
     const grid = document.getElementById('pickGrid_' + target);
-    if (grid) grid.querySelectorAll('img').forEach(im => im.classList.remove('picked'));
+    if (grid) grid.querySelectorAll('.pick-cell').forEach(c => {
+      c.classList.remove('picked');
+      const b = c.querySelector('.pick-n'); if (b) b.remove();
+    });
     const note = document.getElementById('pickNote_' + target);
     if (note) { note.hidden = true; note.innerHTML = ''; }
   };
@@ -195,14 +242,7 @@ window.GALLERIES = {
       if (!grid) return;
       const active = grid.closest('.gallery-picker').querySelector('.g-tab.active');
       renderGrid(kind, target, active ? active.textContent.toLowerCase() : catsFor(booking.data.gender)[0]);
-      const pick = target === 'outfit' ? booking.data.outfitPick : booking.data.hairPick;
-      if (pick) {
-        const note = document.getElementById('pickNote_' + target);
-        if (note) {
-          note.hidden = false;
-          note.innerHTML = `${target === 'outfit' ? 'Outfit' : 'Hairstyle'} ${pick.idx + 1} picked (${pick.cat.charAt(0).toUpperCase() + pick.cat.slice(1)}) <button type="button" onclick="clearGalleryPick('${target}')">Change</button>`;
-        }
-      }
+      paintNote(target);
     });
   };
 })();

@@ -94,13 +94,13 @@ function setSticky(hidden) {
    BOOKING WIZARD — one question per screen
    ============================================================ */
 const PACKAGES = {
-  SINGLE:   { name: 'SINGLE IMAGE', price: 15,  images: 1,  type: 'individual', outfits: 1 },
-  LITE:     { name: 'LITE',         price: 35,  images: 3,  type: 'individual', outfits: 1 },
-  MEDIUM:   { name: 'MEDIUM',       price: 55,  images: 5,  type: 'individual', outfits: 2 },
-  SUPERIOR: { name: 'SUPERIOR',     price: 105, images: 10, type: 'individual', outfits: 3 },
-  CSILVER:  { name: 'COUPLE SILVER',   price: 120, images: 3, type: 'couple', outfits: 1 },
-  CGOLD:    { name: 'COUPLE GOLD',     price: 230, images: 4, type: 'couple', outfits: 2 },
-  CPLAT:    { name: 'COUPLE PLATINUM', price: 350, images: 6, type: 'couple', outfits: 3 },
+  SINGLE:   { name: 'SINGLE IMAGE', price: 15,  images: 1,  type: 'individual', outfits: 1, hairs: 1 },
+  LITE:     { name: 'LITE',         price: 35,  images: 3,  type: 'individual', outfits: 1, hairs: 1 },
+  MEDIUM:   { name: 'MEDIUM',       price: 55,  images: 5,  type: 'individual', outfits: 2, hairs: 2 },
+  SUPERIOR: { name: 'SUPERIOR',     price: 105, images: 10, type: 'individual', outfits: 3, hairs: 3 },
+  CSILVER:  { name: 'COUPLE SILVER',   price: 120, images: 3, type: 'couple', outfits: 1, hairs: 1 },
+  CGOLD:    { name: 'COUPLE GOLD',     price: 230, images: 4, type: 'couple', outfits: 2, hairs: 2 },
+  CPLAT:    { name: 'COUPLE PLATINUM', price: 350, images: 6, type: 'couple', outfits: 3, hairs: 3 },
   EDIT:     { name: 'Single-change edit', price: 10, type: 'edit' }
 };
 
@@ -116,8 +116,10 @@ const EDIT_SERVICES = [
 /* what each upload slot is called in the message we send ourselves */
 const PHOTO_LABEL = {
   selfie: 'Selfie', full: 'Full body', outfit: 'Outfit reference',
-  outfit2: 'Outfit reference 2', outfit3: 'Outfit reference 3',
-  hair: 'Hairstyle reference', edit: 'Photo to edit'
+  outfit_0: 'Outfit 1', outfit_1: 'Outfit 2', outfit_2: 'Outfit 3',
+  hair: 'Hairstyle reference',
+  hair_0: 'Hairstyle 1', hair_1: 'Hairstyle 2', hair_2: 'Hairstyle 3',
+  edit: 'Photo to edit'
 };
 
 let booking = { mode: null, step: 0, stages: [], data: {} };
@@ -126,7 +128,8 @@ function freshData() {
   return {
     package: null, gender: null, styleMe: false, makeup: false, hurry: false,
     about: '', notes: '', pose: '', disclaimer: false, outfitDesc: '', hairDesc: '',
-    editServices: [], files: {}, orderNo: null, customerName: '', phone: ''
+    editServices: [], files: {}, orderNo: null, customerName: '', phone: '',
+    outfitPicks: [], hairPicks: []
   };
 }
 
@@ -251,9 +254,9 @@ function validate() {
     if (need > 1 && got === 0) return `This package includes ${need} outfits — add at least one`;
     if (need <= 1 && !d.files.outfit) return 'Please add an outfit photo';
   }
-  if (s === 'outfit' && d.outfitSel === 'wardrobe' && !d.outfitPick && !d.outfitDesc?.trim()) return 'Please pick an outfit from the wardrobe, or describe it';
-  if (s === 'hair' && d.hairSel === 'upload' && !d.files.hair && !d.hairDesc?.trim()) return 'Please add a hairstyle photo or describe it';
-  if (s === 'hair' && d.hairSel === 'wardrobe' && !d.hairPick && !d.hairDesc?.trim()) return 'Please pick a hairstyle, or describe it';
+  if (s === 'outfit' && d.outfitSel === 'wardrobe' && !picksOf('outfit').length && !d.outfitDesc?.trim()) return 'Please pick an outfit from the wardrobe, or describe it';
+  if (s === 'hair' && d.hairSel === 'upload' && hairGiven() === 0 && !d.hairDesc?.trim()) return 'Please add a hairstyle photo or describe it';
+  if (s === 'hair' && d.hairSel === 'wardrobe' && !picksOf('hair').length && !d.hairDesc?.trim()) return 'Please pick a hairstyle, or describe it';
   if (s === 'details') {
     if (!d.about?.trim()) return 'Please tell us what the photoshoot is about';
     if (!d.disclaimer) return 'Please accept the software-assisted images disclaimer';
@@ -365,6 +368,32 @@ function outfitNeed() {
   const p = PACKAGES[d.package];
   return Math.max(1, (p && p.outfits) || 1);
 }
+window.pickLimit = function (target) {
+  return target === 'outfit' ? outfitNeed() : hairNeed();
+};
+
+/* how many hairstyles the chosen package includes */
+function hairNeed() {
+  const d = booking.data;
+  if (d.hairSel === 'styled') return 0;
+  const p = PACKAGES[d.package];
+  return Math.max(1, (p && (p.hairs || p.outfits)) || 1);
+}
+
+function hairGiven() {
+  const f = booking.data.files || {};
+  const slots = Object.keys(f).filter(k => k.startsWith('hair_') && f[k]).length;
+  if (slots) return slots;
+  return f.hair ? 1 : 0;
+}
+
+/* what has been chosen from our own library */
+function picksOf(which) {
+  const d = booking.data;
+  const arr = which === 'outfit' ? d.outfitPicks : d.hairPicks;
+  return Array.isArray(arr) ? arr : [];
+}
+
 function outfitGiven() {
   const f = booking.data.files || {};
   const slots = Object.keys(f).filter(k => k.startsWith('outfit_') && f[k]).length;
@@ -518,7 +547,7 @@ function renderStep() {
           uploadBox('outfit_' + i, 'Outfit ' + (i + 1), i === 0 ? 'Main look' : 'Change ' + (i + 1))
         ).join('')}` : ''}
       ${d.outfitSel === 'wardrobe' ? `
-        ${outfitNeed() > 1 ? `<div class="outfit-need"><strong>${outfitNeed()} outfits</strong><span>included in ${esc(PACKAGES[d.package]?.name || 'your package')}. Pick the look you want most — we will advise on the rest.</span></div>` : ''}
+        ${outfitNeed() > 1 ? `<div class="outfit-need"><strong>Choose ${outfitNeed()} outfits</strong><span>included in ${esc(PACKAGES[d.package]?.name || 'your package')}. Tap a look to add it, tap again to remove it.</span></div>` : ''}
         ${gidigbaGalleryHtml('outfits', 'outfit')}
         <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('outfitSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}
       ${!styledNow && d.outfitSel ? `
@@ -538,8 +567,13 @@ function renderStep() {
         <div class="choice ${d.hairSel === 'wardrobe' ? 'selected' : ''}" onclick="selectChoice('hairSel','wardrobe')">Choose from our options</div>
         <div class="choice ${d.hairSel === 'styled' ? 'selected' : ''}" onclick="selectChoice('hairSel','styled')">Let us style you</div>
       </div>
-      ${d.hairSel === 'upload' ? uploadBox('hair', 'Hairstyle reference', 'Photo of the desired look') : ''}
+      ${d.hairSel === 'upload' ? `
+        ${hairNeed() > 1 ? `<div class="outfit-need"><strong>${hairNeed()} hairstyles</strong><span>included in ${esc(PACKAGES[d.package]?.name || 'your package')}. Add a photo of each one.</span></div>` : ''}
+        ${Array.from({ length: hairNeed() }, (_, i) =>
+          uploadBox('hair_' + i, 'Hairstyle ' + (i + 1), i === 0 ? 'Main look' : 'Change ' + (i + 1))
+        ).join('')}` : ''}
       ${d.hairSel === 'wardrobe' ? `
+        ${hairNeed() > 1 ? `<div class="outfit-need"><strong>Choose ${hairNeed()} hairstyles</strong><span>included in ${esc(PACKAGES[d.package]?.name || 'your package')}. Tap a style to add it, tap again to remove it.</span></div>` : ''}
         ${gidigbaGalleryHtml('styles', 'hair')}
         <p class="q-sub" style="margin-top:14px">Don't see yours? <a href="#" class="link-plain" onclick="selectChoice('hairSel','upload'); return false;">Upload from your phone instead</a></p>` : ''}
       ${d.hairSel && d.hairSel !== 'styled' ? `
@@ -736,10 +770,18 @@ async function submitOrder() {
     const need = outfitNeed(), got = outfitGiven();
     msg += `*Outfit:* ${got} photo${got === 1 ? '' : 's'} of ${need} included\n`;
   }
-  else if (d.outfitSel === 'wardrobe' && d.outfitPick) msg += `*Outfit:* Chosen from our wardrobe — ${d.outfitPick.cat} look ${d.outfitPick.idx + 1} (${d.outfitPick.src})${d.outfitDesc?.trim() ? ` — ${d.outfitDesc.trim()}` : ''}\n`;
+  else if (d.outfitSel === 'wardrobe' && picksOf('outfit').length) {
+    const picks = picksOf('outfit');
+    msg += `*Outfit:* ${picks.length} chosen from our wardrobe${d.outfitDesc?.trim() ? ` — ${d.outfitDesc.trim()}` : ''}\n`;
+    picks.forEach((p, i) => { msg += `   ${i + 1}. ${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)} look ${p.idx + 1}: ${p.src}\n`; });
+  }
   else if (d.outfitSel) msg += `*Outfit:* ${d.outfitDesc?.trim() || d.outfitSel}\n`;
   if (d.hairSel === 'styled') msg += `*Hairstyle:* Let us style you\n`;
-  else if (d.hairSel === 'wardrobe' && d.hairPick) msg += `*Hairstyle:* Chosen from our styles — ${d.hairPick.cat} style ${d.hairPick.idx + 1} (${d.hairPick.src})${d.hairDesc?.trim() ? ` — ${d.hairDesc.trim()}` : ''}\n`;
+  else if (d.hairSel === 'wardrobe' && picksOf('hair').length) {
+    const picks = picksOf('hair');
+    msg += `*Hairstyle:* ${picks.length} chosen from our styles${d.hairDesc?.trim() ? ` — ${d.hairDesc.trim()}` : ''}\n`;
+    picks.forEach((p, i) => { msg += `   ${i + 1}. ${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)} style ${p.idx + 1}: ${p.src}\n`; });
+  }
   else if (d.hairSel) msg += `*Hairstyle:* ${d.hairDesc?.trim() || d.hairSel}\n`;
   if (d.gender === 'female') msg += `*Makeup:* ${d.makeup ? 'Yes — client informed face will change' : 'No'}\n`;
   if (d.notes) msg += `*Notes:* ${d.notes}\n`;

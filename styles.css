@@ -2415,3 +2415,36 @@ body[data-dark-hero="1"] .site-header.scrolled .menu-toggle { color: var(--text)
   text-align: center; border-top: 1px solid var(--border);
 }
 .order-photo:hover img { opacity: .92; }
+
+/* wardrobe picker: a cell, not a bare image, so a pick number can sit on it */
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+.pick-cell {
+  position: relative; display: block; cursor: pointer; border-radius: 10px;
+  overflow: hidden; border: 2px solid transparent; line-height: 0;
+  transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
+}
+.pick-cell img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.pick-cell.picked { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime); }
+.pick-n {
+  position: absolute; top: 6px; left: 6px; width: 24px; height: 24px;
+  border-radius: 50%; background: var(--lime); color: #000;
+  font-size: 13px; font-weight: 800; line-height: 24px; text-align: center;
+  font-family: inherit;
+}
+
+/* couples page: several to a row, with a subhead per group */
+.smp-sub {
+  font-size: clamp(19px, 2.4vw, 24px);
+  margin: 8px 0 18px;
+  text-align: center;
+}
+.couple-set + .smp-sub, .smp-sub { margin-top: 26px; }
+/* browsed as a set, so a fixed 3-up grid rather than a swipe rail */
+.couple-set {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+  margin-bottom: 34px;
+}
+.couple-set .smp-item img { width: 100%; }
+@media (max-width: 900px) { .couple-set { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
