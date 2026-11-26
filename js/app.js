@@ -27,14 +27,8 @@ window.addEventListener('scroll', () => {
   if (h) h.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
 
-function openMenu() {
-  document.getElementById('mobileNav')?.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMenu() {
-  document.getElementById('mobileNav')?.classList.remove('open');
-  document.body.style.overflow = '';
-}
+/* the menu is owned by js/chrome.js - a second copy here shadowed it and
+   dropped the `hidden` reset, so tapping the button did nothing at all */
 
 /* ---------- reveal ---------- */
 if ('IntersectionObserver' in window) {
