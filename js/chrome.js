@@ -16,11 +16,11 @@ const SITE = {
 
 /* exactly their five nav items, in their order */
 const NAV = [
-  { key: 'home',        href: 'index.html',       label: 'Home' },
-  { key: 'photoshoots', href: 'photoshoots.html', label: 'Photoshoots' },
-  { key: 'services',    href: 'services.html',    label: 'Services' },
-  { key: 'samples',     href: 'work.html',        label: 'Work' },
-  { key: 'about',       href: 'about.html',       label: 'About' }
+  { key: 'home',        href: '/',       label: 'Home' },
+  { key: 'photoshoots', href: '/photoshoots', label: 'Photoshoots' },
+  { key: 'services',    href: '/services',    label: 'Services' },
+  { key: 'samples',     href: '/work',        label: 'Work' },
+  { key: 'about',       href: '/about',       label: 'About' }
 ];
 
 /* exactly their two footer columns */
@@ -28,7 +28,7 @@ const NAV = [
    so the port matches the source exactly; pages they never had get the
    homepage variant. */
 const CONTACT_WA = ['WhatsApp +233 53 431 7611', 'https://wa.me/233534317611'];
-const CONTACT_BOOK = ['Book a session', 'photoshoots.html'];
+const CONTACT_BOOK = ['Book a session', '/photoshoots'];
 const CONTACT_HOURS = 'Open 8am – 8pm';
 const CONTACT_BY_PAGE = {
   home:        [CONTACT_WA, CONTACT_BOOK, CONTACT_HOURS],
@@ -52,22 +52,22 @@ function footerContact() {
    footer, which left samples, journal, voucher, track, brands and the three
    industry pages with no inbound link at all. The grid handles four. */
 const FOOTER_NAV = [
-  { title: 'Studio',  links: [['About', 'about.html'], ['Services', 'services.html'],
-                              ['Photoshoots', 'photoshoots.html'], ['Work', 'work.html']] },
-  { title: 'Prices',  links: [['Individuals', 'photoshoots-individual.html'],
-                              ['Couples', 'photoshoots-couples.html'],
-                              ['Single edits', 'photoshoots-editing.html'],
-                              ['Voucher', 'voucher.html'], ['Track order', 'track.html']] },
-  { title: 'More',    links: [['Work samples', 'samples.html'],
-                              ['Samples — women', 'samples-female.html'],
-                              ['Samples — men', 'samples-male.html'],
-                              ['Samples — children', 'samples-child.html'],
-                              ['Samples — couples', 'samples-couple.html'],
-                              ['Journal', 'journal.html'], ['Reviews', 'reviews.html'],
-                              ['Brands', 'brands.html']] },
-  { title: 'For business', links: [['Restaurants', 'for-restaurants.html'],
-                                   ['Real estate', 'for-real-estate.html'],
-                                   ['Events', 'for-events.html']] },
+  { title: 'Studio',  links: [['About', '/about'], ['Services', '/services'],
+                              ['Photoshoots', '/photoshoots'], ['Work', '/work']] },
+  { title: 'Prices',  links: [['Individuals', '/photoshoots-individual'],
+                              ['Couples', '/photoshoots-couples'],
+                              ['Single edits', '/photoshoots-editing'],
+                              ['Voucher', '/voucher'], ['Track order', '/track']] },
+  { title: 'More',    links: [['Work samples', '/samples'],
+                              ['Samples — women', '/samples-female'],
+                              ['Samples — men', '/samples-male'],
+                              ['Samples — children', '/samples-child'],
+                              ['Samples — couples', '/samples-couple'],
+                              ['Journal', '/journal'], ['Reviews', '/reviews'],
+                              ['Brands', '/brands']] },
+  { title: 'For business', links: [['Restaurants', '/for-restaurants'],
+                                   ['Real estate', '/for-real-estate'],
+                                   ['Events', '/for-events']] },
   { title: 'Contact', links: [] }
 ];
 
@@ -84,7 +84,7 @@ function chromeTop() {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="nav-inner">
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="images/logo-mark.png" alt="" width="36" height="36" />
         <span>GIDIGBA STUDIOS<small>${SITE.tagline}</small></span>
       </a>
@@ -93,7 +93,7 @@ function chromeTop() {
       </nav>
       <div class="nav-actions">
         <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
-        <a href="photoshoots.html" class="btn btn-primary btn-sm" style="display:none" id="navBook">Book</a>
+        <a href="/photoshoots" class="btn btn-primary btn-sm" style="display:none" id="navBook">Book</a>
         <button class="menu-toggle" onclick="openMenu()" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </div>
@@ -105,7 +105,7 @@ function chromeTop() {
       <button class="modal-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
     </div>
     ${mobile}
-    <a href="photoshoots.html" class="btn btn-primary btn-block" style="margin-top:20px" onclick="closeMenu()">Book a Photoshoot</a>
+    <a href="/photoshoots" class="btn btn-primary btn-block" style="margin-top:20px" onclick="closeMenu()">Book a Photoshoot</a>
   </div>`;
 }
 
@@ -123,7 +123,7 @@ function chromeBottom() {
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo">
+          <a href="/" class="logo">
             <img src="images/logo-mark.png" alt="" width="36" height="36" />
             <span>GIDIGBA STUDIOS<small>${SITE.tagline}</small></span>
           </a>

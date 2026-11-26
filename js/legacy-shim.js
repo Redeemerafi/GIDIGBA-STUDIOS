@@ -16,7 +16,7 @@
       const key = map[kind] || 'SINGLE';
       if (typeof openBooking === 'function') { try { return openBooking(key); } catch (e) {} }
       // their engine names it openBooking too, so this only runs if signatures drift
-      location.href = 'photoshoots.html';
+      location.href = '/photoshoots';
     };
   }
 
@@ -25,7 +25,7 @@
       if (which === 'business') {
         openWA('Hello GIDIGBA STUDIOS — I would like to discuss a business project.');
       } else {
-        location.href = 'photoshoots.html';
+        location.href = '/photoshoots';
       }
     };
   }
@@ -47,7 +47,7 @@
         el.innerHTML = `<div class="card">
           <h2>Nothing tracked on this device yet</h2>
           <p style="color:var(--muted);margin-top:8px">Once you start a booking, its progress shows here.</p>
-          <a class="btn btn-primary" style="margin-top:18px" href="photoshoots.html">Start a Photoshoot</a>
+          <a class="btn btn-primary" style="margin-top:18px" href="/photoshoots">Start a Photoshoot</a>
         </div>`;
         return;
       }
@@ -70,7 +70,7 @@
           <span class="card-kicker">In progress</span>
           <h2>${d.selectedPackage || 'Photoshoot'} booking</h2>
           <p style="color:var(--muted);margin-top:6px">Started on this device. Finish it to send your details.</p>
-          <a class="btn btn-primary" style="margin-top:16px" href="photoshoots.html">Continue booking</a>
+          <a class="btn btn-primary" style="margin-top:16px" href="/photoshoots">Continue booking</a>
         </div>`;
       }
       submitted.forEach(s => {

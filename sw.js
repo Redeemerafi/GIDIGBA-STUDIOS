@@ -2,12 +2,12 @@
    Network-first for documents and styles so a design change is visible on the
    very next reload. The cache is a fallback for offline, never the source of
    truth. Bump CACHE when the shell changes. */
-const CACHE = 'gidigba-v4-5';
+const CACHE = 'gidigba-v5-cleanurls';
 const SHELL = [
-  'index.html', 'photoshoots.html', 'services.html', 'work.html', 'about.html',
-  'samples-female.html', 'samples-male.html', 'samples-child.html', 'samples-couple.html', 'reviews.html', 'journal.html',
-  'brands.html', 'track.html', 'voucher.html', '404.html', 'samples.html',
-  'for-restaurants.html', 'for-real-estate.html', 'for-events.html',
+  '/', '/photoshoots', '/services', '/work', '/about',
+  '/samples-female', '/samples-male', '/samples-child', '/samples-couple', '/reviews', '/journal',
+  '/brands', '/track', '/voucher', '/samples',
+  '/for-restaurants', '/for-real-estate', '/for-events',
   'styles.css', 'js/chrome.js', 'js/app.js', 'js/galleries.js', 'js/swipe.js', 'js/legacy-shim.js',
   'manifest.webmanifest'
 ];
@@ -48,7 +48,7 @@ self.addEventListener('fetch', e => {
           }
           return res;
         })
-        .catch(() => caches.match(e.request).then(hit => hit || caches.match('404.html')))
+        .catch(() => caches.match(e.request).then(hit => hit || caches.match('/404')))
     );
     return;
   }
